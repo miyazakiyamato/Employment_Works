@@ -6,6 +6,8 @@
 #include "ParticleEmitter.h"
 #include "CollisionManager.h"
 #include "AccelerationField.h"
+#include "Skydome.h"
+#include "Ground.h"
 
 class GameScene : public BaseScene {
 public://メンバ関数
@@ -27,9 +29,12 @@ private://メンバ変数
 	bool isAccelerationField = false;
 	std::unique_ptr<AccelerationField> accelerationField_ = nullptr;
 
-	std::vector<std::unique_ptr<Object3d>> object3ds_;
-	std::vector< std::unique_ptr<Sprite>> sprites_;
+	//天球
+	std::unique_ptr<Skydome> skydome_ = nullptr;
+	//地面
+	std::unique_ptr<Ground> ground_ = nullptr;
 
+	std::vector<std::unique_ptr<Sprite>> sprites_;
 	std::unique_ptr<ParticleEmitter> particleEmitter_ = nullptr;
 };
 

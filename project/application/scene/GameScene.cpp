@@ -33,52 +33,33 @@ void GameScene::Initialize(){
 	collisionManager_ = std::make_unique<CollisionManager>();
 	collisionManager_->Initialize();
 
-	for (uint32_t i = 0; i < 3; ++i) {
-		std::unique_ptr<Object3d> object3d(new Object3d);
-		object3d->Initialize();
-		object3ds_.push_back(std::move(object3d));
-	}
-
-	/*ModelManager::GetInstance()->LoadModel("plane/plane.obj");
+	ModelManager::GetInstance()->LoadModel("plane/plane.obj");
 	ModelManager::GetInstance()->LoadModel("fence/fence.obj");
 	ModelManager::GetInstance()->LoadModel("axis/axis.obj");
 	ModelManager::GetInstance()->LoadModel("sphere/sphere.obj");
 	ModelManager::GetInstance()->LoadModel("terrain/terrain.obj");
-	ModelManager::GetInstance()->LoadModel("plane/plane.gltf");*/
+	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
+	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
 
-	ModelManager::GetInstance()->LoadModel("AnimatedCube/AnimatedCube.gltf");
+	/*ModelManager::GetInstance()->LoadModel("AnimatedCube/AnimatedCube.gltf");
 	ModelManager::GetInstance()->LoadAnimation("AnimatedCube/AnimatedCube.gltf");
 	ModelManager::GetInstance()->LoadModel("simpleSkin/simpleSkin.gltf");
 	ModelManager::GetInstance()->LoadAnimation("simpleSkin/simpleSkin.gltf");
 	ModelManager::GetInstance()->LoadModel("human/sneakWalk.gltf");
 	ModelManager::GetInstance()->LoadAnimation("human/sneakWalk.gltf");
 	ModelManager::GetInstance()->LoadModel("human/walk.gltf");
-	ModelManager::GetInstance()->LoadAnimation("human/walk.gltf");
+	ModelManager::GetInstance()->LoadAnimation("human/walk.gltf");*/
 
 	TextureManager::GetInstance()->LoadTexture("circle2.png");
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
 
-	/*object3ds_[0]->SetModel("AnimatedCube/AnimatedCube.gltf");
-	object3ds_[0]->SetAnimation("AnimatedCube/AnimatedCube.gltf",true);*/
-	object3ds_[0]->SetModel("simpleSkin/simpleSkin.gltf");
-	object3ds_[0]->SetAnimation("simpleSkin/simpleSkin.gltf",true);
-	object3ds_[0]->SetTranslate({ -1,0,0 });
-	object3ds_[0]->SetRotate({ 0,3.14f,0 });
-	//object3ds_[1]->SetModel("plane/plane.gltf");
-	//object3ds_[1]->SetModel("axis/axis.obj");
-	/*object3ds_[1]->SetTranslate({ 1,0,0 });
-	object3ds_[1]->SetRotate({ 0,3.14f,0 });
-	object3ds_[2]->SetModel("terrain/terrain.obj");
-	object3ds_[2]->SetTranslate({ 0,0,0 });
-	object3ds_[2]->SetRotate({ 0,3.14f,0 });*/
-	object3ds_[1]->SetModel("human/sneakWalk.gltf");
-	object3ds_[1]->SetAnimation("human/sneakWalk.gltf", true);
-	object3ds_[1]->SetTranslate({ 1,0,0 });
-	object3ds_[1]->SetRotate({ 0,3.14f,0 });
-	object3ds_[2]->SetModel("human/walk.gltf");
-	object3ds_[2]->SetAnimation("human/walk.gltf", true);
-	object3ds_[2]->SetTranslate({ 0,0,0 });
-	object3ds_[2]->SetRotate({ 0,3.14f,0 });
+	//天球
+	skydome_ = std::make_unique<Skydome>();
+	skydome_->Initialize();
+	//地面
+	ground_ = std::make_unique<Ground>();
+	ground_->Initialize();
+
 	//
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
@@ -88,26 +69,25 @@ void GameScene::Initialize(){
 	particleEmitter_->Initialize("circle", "circle.png");
 
 	//スプライトの初期化
-	for (uint32_t i = 0; i < 5; ++i) {
+	for (uint32_t i = 0; i < 0; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
 		sprite->Initialize("uvChecker.png");
 		sprite->SetPosition({ 100 + 200.0f * float(i), 100 });
 		sprite->SetSize({ 100.0f,100.0f });
 		sprites_.push_back(std::move(sprite));
 	}
-	sprites_[0]->SetTextureSize({ 64.0f,64.0f });
+	/*sprites_[0]->SetTextureSize({ 64.0f,64.0f });
 	sprites_[1]->SetTexture("monsterBall.png");
 	sprites_[1]->SetIsFlipX(true);
 	sprites_[2]->SetIsFlipY(true);
 	sprites_[3]->SetIsFlipX(true);
-	sprites_[3]->SetIsFlipY(true);
+	sprites_[3]->SetIsFlipY(true);*/
 }
 
 void GameScene::Finalize(){
 	//解放
-	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
-		object3d.reset();  // メモリを解放する
-	}
+	skydome_.reset();
+	ground_.reset();
 
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite.reset();  // メモリを解放する
@@ -226,7 +206,7 @@ void GameScene::Update(){
 				"Subtract",  //!< 減算。Dest * 1 - Src * SrcA
 				"Multiply",  //!< 乗算。Src * 0 + Dest * Src
 				"Screen", };
-			groupName = "Object3d";
+			/*groupName = "Object3d";
 			if (ImGui::BeginMenu(groupName.c_str())) {
 				
 				size_t object3dCount = 0;
@@ -274,7 +254,7 @@ void GameScene::Update(){
 					object3dCount++;
 				}
 				ImGui::EndMenu();
-			}
+			}*/
 			ParticleManager::GetInstance()->UpdateGlobalVariables();
 			groupName = "Particle";
 			if (ImGui::BeginMenu(groupName.c_str())) {
@@ -395,9 +375,10 @@ void GameScene::Update(){
 	collisionManager_->UpdateWorldTransform();
 #endif //_DEBUG
 
-	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
-		object3d->Update();
-	}
+	//天球
+	skydome_->Update();
+	//地面
+	ground_->Update();
 
 	if (isAccelerationField) {
 		for (std::pair<const std::string, std::unique_ptr<ParticleManager::ParticleGroup>>& pair : ParticleManager::GetInstance()->GetParticleGroups()) {
@@ -427,9 +408,10 @@ void GameScene::Update(){
 
 void GameScene::Draw(){
 	//Object3dの描画
-	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
-		//object3d->Draw();
-	}
+	//天球
+	skydome_->Draw();
+	//地面
+	ground_->Draw();
 
 	//当たり判定の表示
 	collisionManager_->Draw();
