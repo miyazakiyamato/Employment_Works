@@ -18,6 +18,7 @@ public:
 	struct VertexData {
 		Vector4 position;
 		Vector2 texcoord;
+		//Vector3 normal;
 		Vector4 color;
 	};
 	struct MaterialData {
@@ -26,6 +27,7 @@ public:
 	};
 	struct Particle {
 		Transform transform;
+		Transform uvTransform;
 		Vector3 velocity;
 		Vector4 color;
 		float lifeTime;
@@ -35,7 +37,7 @@ public:
 		Matrix4x4 WVP;
 		Matrix4x4 World;
 		Vector4 color;
-		//Matrix4x4 uvTransform;
+		Matrix4x4 uvTransform;
 	};
 	struct ParticleInitData {
 		Vector3 randomScaleMax{1.0f,1.0f,1.0f};
@@ -51,7 +53,8 @@ public:
 	};
 	struct ParticleGroupCreateData {
 		std::string name = "";
-		std::string textureFilePath = "circle.png";
+		std::string textureFilePath = "circle2.png";
+		std::string particleType = "plane";
 		ParticleInitData particleInitData;
 	};
 	struct ParticleGroup {
@@ -93,6 +96,10 @@ public://メンバ関数
 	void Draw();
 	//パーティクルグループの生成
 	void CreateParticleGroup(const std::string name, const std::string textureFilePath);
+	void CreateRingParticleGroup(const std::string name, const std::string textureFilePath,
+		const uint32_t& kDivide,const float& kOuterRadius,const float& kInnerRadius);
+	void CreateCylinderParticleGroup(const std::string name, const std::string textureFilePath,
+		const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius,const float& kHeight);
 	//パーティクルの発生
 	void Emit(const std::string name, const Vector3& position, uint32_t count);
 
@@ -120,8 +127,10 @@ private://メンバ変数
 	//ランダムエンジン
 	std::mt19937 randomEngine_;
 
+	std::string groupNameText = ""; // グループ名
 	char buffer[128] = ""; // 入力用のバッファ
-	std::string reflectedText = ""; // 入力を反映する文字列
+	std::string typeNameText = ""; // タイプ名
+	char buffer2[128] = ""; // 入力用のバッファ
 
 	//パーティクルグループを作るデータ
 	std::map<std::string, std::unique_ptr<ParticleGroupCreateData>> particleGroupCreateDates_;

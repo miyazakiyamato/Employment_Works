@@ -19,7 +19,8 @@ void Framework::Initialize(){
 	//SRVの初期化
 	srvManager.reset(new SrvManager());
 	srvManager->Initialize(dxCommon.get());
-	
+	dxCommon->CreateOffScreenSRV(srvManager.get());
+
 	//ImGuiの初期化
 	imGuiManager.reset(new ImGuiManager());
 	imGuiManager->Initialize(winApp.get(), dxCommon.get(), srvManager.get());
@@ -72,7 +73,6 @@ void Framework::Initialize(){
 	//タイムマネージャの初期化
 	timeManager_ = TimeManager::GetInstance();
 	timeManager_->Initialize();
-
 }
 
 void Framework::Finalize(){
