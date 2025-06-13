@@ -3,7 +3,7 @@
 #include "BaseScene.h"
 #include "Sprite.h"
 #include "Object3d.h"
-#include "ParticleEmitter.h"
+#include "ParticleSystem.h"
 #include "CollisionManager.h"
 #include "AccelerationField.h"
 #include "Skydome.h"
@@ -43,8 +43,7 @@ private://メンバ変数
 	std::list<std::unique_ptr<PlayerBullet>> playerBullets_;
 	//エネミー
 	std::vector<std::unique_ptr<Enemy>> enemies_;
-
-	std::vector<std::unique_ptr<Sprite>> sprites_;
-	std::unique_ptr<ParticleEmitter> particleEmitter_ = nullptr;
+	std::vector< std::unique_ptr<Sprite>> sprites_;
+	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
 };
 
