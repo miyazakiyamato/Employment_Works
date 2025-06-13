@@ -285,6 +285,18 @@
     <ClCompile Include="application\3d\Skydome.cpp">
       <Filter>ソース ファイル\application\3d</Filter>
     </ClCompile>
+    <ClCompile Include="application\3d\BaseCharacter.cpp">
+      <Filter>ソース ファイル\application\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\Player.cpp">
+      <Filter>ソース ファイル\application\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\PlayerBullet.cpp">
+      <Filter>ソース ファイル\application\3d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\Enemy.cpp">
+      <Filter>ソース ファイル\application\3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -446,11 +458,26 @@
     <ClInclude Include="engine\3d\SkinningObject3dPipeline.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
+    <ClInclude Include="application\3d\CollisionTypeIdDef.h">
+      <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
     <ClInclude Include="application\3d\Ground.h">
-      <Filter>ソース ファイル\application\3d</Filter>
+      <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\BaseCharacter.h">
+      <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\Player.h">
+      <Filter>ヘッダー ファイル\application\3d</Filter>
     </ClInclude>
     <ClInclude Include="application\3d\Skydome.h">
-      <Filter>ソース ファイル\application\3d</Filter>
+      <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\PlayerBullet.h">
+      <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\Enemy.h">
+      <Filter>ヘッダー ファイル\application\3d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

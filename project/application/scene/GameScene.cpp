@@ -59,7 +59,17 @@ void GameScene::Initialize(){
 	//地面
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize();
-
+	//プレイヤー
+	player_ = std::make_unique<Player>();
+	player_->Initialize();
+	player_->SetGameScene(this);
+	
+	//エネミー
+	for (uint32_t i = 0; i < 1; ++i) {
+		std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
+		enemy->Initialize();
+		enemies_.push_back(std::move(enemy));
+	}
 	//
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
@@ -88,6 +98,13 @@ void GameScene::Finalize(){
 	//解放
 	skydome_.reset();
 	ground_.reset();
+	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+		enemy.reset();
+	}
+	for (std::unique_ptr<PlayerBullet>& bullet : playerBullets_) {
+		bullet.reset();
+	}
+	player_.reset();
 
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite.reset();  // メモリを解放する
@@ -379,7 +396,27 @@ void GameScene::Update(){
 	skydome_->Update();
 	//地面
 	ground_->Update();
+	//プレイヤー
+	player_->Update();
 
+	//エネミー
+	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+		enemy->Update();
+	}
+
+	//当たり判定
+	CheckAllCollisions();
+
+	for (std::unique_ptr<PlayerBullet>& bullet : playerBullets_) {
+		bullet->Update();
+	}
+	playerBullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {
+		if (!bullet->isAlive()) {
+			bullet.reset();
+			return true;
+		}
+		return false;
+		});
 	if (isAccelerationField) {
 		for (std::pair<const std::string, std::unique_ptr<ParticleManager::ParticleGroup>>& pair : ParticleManager::GetInstance()->GetParticleGroups()) {
 			ParticleManager::ParticleGroup& group = *pair.second;
@@ -412,6 +449,15 @@ void GameScene::Draw(){
 	skydome_->Draw();
 	//地面
 	ground_->Draw();
+	//プレイヤー
+	player_->Draw();
+	for (std::unique_ptr<PlayerBullet>& bullet : playerBullets_) {
+		bullet->Draw();
+	}
+
+	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+		enemy->Draw();
+	}
 
 	//当たり判定の表示
 	collisionManager_->Draw();
@@ -433,14 +479,23 @@ void GameScene::Draw(){
 	}
 }
 
+void GameScene::AddPlayerBullet(std::unique_ptr<PlayerBullet> playerBullet){
+	if (playerBullet) {
+		playerBullets_.push_back(std::move(playerBullet));
+	} 
+}
+
 void GameScene::CheckAllCollisions(){
 	//衝突マネージャのリストクリアする
 	collisionManager_->Reset();
 	//全てのコライダーを衝突マネージャのリストに登録する
-
-	/*for (const std::unique_ptr<Enemy>& enemy : enemies_) {
+	collisionManager_->AddCollider(player_.get());
+	for (std::unique_ptr<PlayerBullet>& bullet : playerBullets_) {
+		collisionManager_->AddCollider(bullet.get());
+	}
+	for (std::unique_ptr<Enemy>& enemy : enemies_) {
 		collisionManager_->AddCollider(enemy.get());
-	}*/
+	}
 	//リスト内の総当たり判定
 	collisionManager_->CheckAllCollisions();
 }
