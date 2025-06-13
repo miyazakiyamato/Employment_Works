@@ -1,5 +1,7 @@
 #include "Enemy.h"
 #include <CollisionTypeIdDef.h>
+#include "ParticleSystem.h"
+#include "PlayerBullet.h"
 
 void Enemy::Initialize(){
 	BaseCharacter::Initialize();
@@ -24,6 +26,10 @@ void Enemy::OnCollision(Collider* other){
 	uint32_t typeID = other->GetTypeID();
 	//衝突相手が敵なら
 	if (typeID == static_cast<uint32_t>(CollisionTypeIdDef::kPlayerBullet)) {
-
+		PlayerBullet* playerBullet = static_cast<PlayerBullet*>(other);
+		Vector3 distance = playerBullet->GetCenterPosition() - object3D_->GetCenterPosition();
+		distance = distance.Normalize() * GetRadius();
+		particleSystem_->FindEmitter("hitEffect")->SetPosition(object3D_->GetCenterPosition() + distance);
+		particleSystem_->Emit("hitEffect");
 	}
 }

@@ -37,7 +37,7 @@ void GameScene::Initialize(){
 	ModelManager::GetInstance()->LoadModel("plane/plane.obj");
 	ModelManager::GetInstance()->LoadModel("fence/fence.obj");
 	ModelManager::GetInstance()->LoadModel("axis/axis.obj");
-	ModelManager::GetInstance()->LoadModel("sphere/sphere.obj");*/
+	ModelManager::GetInstance()->LoadModel("sphere/sphere.obj");
 	ModelManager::GetInstance()->LoadModel("terrain/terrain.obj");
 	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
 	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
@@ -54,6 +54,11 @@ void GameScene::Initialize(){
 	TextureManager::GetInstance()->LoadTexture("circle2.png");
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
 
+	//ParticleManager::GetInstance()->CreateParticleGroup();
+	particleSystem_.reset(new ParticleSystem);
+	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<HitEffect>();
+	particleSystem_->CreateParticleEmitter("hitEffect", std::move(hitEffect));
+
 	//天球
 	skydome_ = std::make_unique<Skydome>();
 	skydome_->Initialize();
@@ -69,16 +74,13 @@ void GameScene::Initialize(){
 	for (uint32_t i = 0; i < 1; ++i) {
 		std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
 		enemy->Initialize();
+		enemy->SetParticleSystem(particleSystem_.get());
 		enemies_.push_back(std::move(enemy));
 	}
 	//
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
 
-	//ParticleManager::GetInstance()->CreateParticleGroup();
-	particleSystem_.reset(new ParticleSystem);
-	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<HitEffect>();
-	particleSystem_->CreateParticleEmitter("hitEffect", std::move(hitEffect));
 	
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 0; ++i) {
@@ -121,7 +123,7 @@ void GameScene::Update(){
 		AudioManager::GetInstance()->PlayWave("maou_se_system48.wav");
 		//AudioManager::GetInstance()->PlayMP3("audiostock_1420737.mp3");
 		//ParticleManager::GetInstance()->Emit("uvChecker", { 0,0,0 }, 10);
-		particleSystem_->Emit("hitEffect");
+		//particleSystem_->Emit("hitEffect");
 	}
 
 #ifdef _DEBUG
@@ -459,7 +461,6 @@ void GameScene::Draw(){
 	for (std::unique_ptr<Enemy>& enemy : enemies_) {
 		enemy->Draw();
 	}
-	object3ds_[0]->Draw();
 	//当たり判定の表示
 	collisionManager_->Draw();
 	

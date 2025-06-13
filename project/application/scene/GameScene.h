@@ -24,6 +24,7 @@ public://メンバ関数
 	void Draw() override;
 
 	void AddPlayerBullet(std::unique_ptr<PlayerBullet> playerBullet);
+
 private:
 	//衝突判定と応答 
 	void CheckAllCollisions();
