@@ -118,6 +118,9 @@
     <Filter Include="ヘッダー ファイル\engine\debug">
       <UniqueIdentifier>{d4774140-581e-46dd-86e9-5c001333ea17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="シェーダーファイル\OffScreen">
+      <UniqueIdentifier>{c4c4fa66-3f37-4e6e-a5ec-c83d1e7339ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -185,9 +188,6 @@
     </ClCompile>
     <ClCompile Include="engine\scene\SceneManager.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\particle\ParticleEmitter.cpp">
-      <Filter>ソース ファイル\engine\particle</Filter>
     </ClCompile>
     <ClCompile Include="engine\particle\ParticleManager.cpp">
       <Filter>ソース ファイル\engine\particle</Filter>
@@ -282,6 +282,18 @@
     <ClCompile Include="engine\base\OffScreenPipeline.cpp">
       <Filter>ソース ファイル\engine\base</Filter>
     </ClCompile>
+    <ClCompile Include="engine\particle\HitEffect.cpp">
+      <Filter>ソース ファイル\engine\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\particle\BaseParticleEmitter.cpp">
+      <Filter>ソース ファイル\engine\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\particle\ParticleSystem.cpp">
+      <Filter>ソース ファイル\engine\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\base\PipelineFactory.cpp">
+      <Filter>ソース ファイル\engine\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -349,9 +361,6 @@
     </ClInclude>
     <ClInclude Include="engine\scene\SceneManager.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\particle\ParticleEmitter.h">
-      <Filter>ヘッダー ファイル\engine\particle</Filter>
     </ClInclude>
     <ClInclude Include="engine\particle\ParticleManager.h">
       <Filter>ヘッダー ファイル\engine\particle</Filter>
@@ -446,6 +455,18 @@
     <ClInclude Include="engine\base\OffScreenPipeline.h">
       <Filter>ヘッダー ファイル\engine\base</Filter>
     </ClInclude>
+    <ClInclude Include="engine\particle\BaseParticleEmitter.h">
+      <Filter>ヘッダー ファイル\engine\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\particle\HitEffect.h">
+      <Filter>ヘッダー ファイル\engine\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\particle\ParticleSystem.h">
+      <Filter>ヘッダー ファイル\engine\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\base\PipelineFactory.h">
+      <Filter>ヘッダー ファイル\engine\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Object3d.hlsli">
@@ -463,8 +484,20 @@
     <None Include="resources\shaders\SkinningObject3d.hlsli">
       <Filter>シェーダーファイル</Filter>
     </None>
-    <None Include="resources\shaders\CopyImage.hlsli">
-      <Filter>シェーダーファイル</Filter>
+    <None Include="resources\shaders\OffScreen\BoxFilter.hlsli">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </None>
+    <None Include="resources\shaders\OffScreen\Fullscreen.hlsli">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </None>
+    <None Include="resources\shaders\OffScreen\GaussianFilter.hlsli">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </None>
+    <None Include="resources\shaders\OffScreen\Grayscale.hlsli">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </None>
+    <None Include="resources\shaders\OffScreen\Vignette.hlsli">
+      <Filter>シェーダーファイル\OffScreen</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -498,11 +531,35 @@
     <FxCompile Include="resources\shaders\SkinningObject3d.VS.hlsl">
       <Filter>シェーダーファイル</Filter>
     </FxCompile>
-    <FxCompile Include="resources\shaders\CopyImage.PS.hlsl">
-      <Filter>シェーダーファイル</Filter>
+    <FxCompile Include="resources\shaders\OffScreen\BoxFilter.PS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
     </FxCompile>
-    <FxCompile Include="resources\shaders\CopyImage.VS.hlsl">
-      <Filter>シェーダーファイル</Filter>
+    <FxCompile Include="resources\shaders\OffScreen\BoxFilter.VS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\Fullscreen.PS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\Fullscreen.VS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\GaussianFilter.PS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\GaussianFilter.VS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\Grayscale.PS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\Grayscale.VS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\Vignette.PS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
+    </FxCompile>
+    <FxCompile Include="resources\shaders\OffScreen\Vignette.VS.hlsl">
+      <Filter>シェーダーファイル\OffScreen</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

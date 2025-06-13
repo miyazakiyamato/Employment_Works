@@ -78,6 +78,7 @@ public:
 		uint32_t* indexData = nullptr;
 		ParticleForGPU* instancingData = nullptr;
 		BlendMode blendMode_ = BlendMode::kAdd;
+		std::string pipelineStateName_ = "";
 		//テクスチャサイズ
 		Vector2 textureLeftTop_ = { 0.0f,0.0f };
 		Vector2 textureSize_ = { 100.0f,100.0f };
@@ -95,10 +96,10 @@ public://メンバ関数
 	//描画
 	void Draw();
 	//パーティクルグループの生成
-	void CreateParticleGroup(const std::string name, const std::string textureFilePath);
-	void CreateRingParticleGroup(const std::string name, const std::string textureFilePath,
+	void CreateParticleGroup(const std::string name);
+	void CreateRingParticleGroup(const std::string name,
 		const uint32_t& kDivide,const float& kOuterRadius,const float& kInnerRadius);
-	void CreateCylinderParticleGroup(const std::string name, const std::string textureFilePath,
+	void CreateCylinderParticleGroup(const std::string name,
 		const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius,const float& kHeight);
 	//パーティクルの発生
 	void Emit(const std::string name, const Vector3& position, uint32_t count);
@@ -138,7 +139,8 @@ private://メンバ変数
 	std::map<std::string, std::unique_ptr<ParticleGroup>> particleGroups;
 public://ゲッターセッター
 	std::map<std::string, std::unique_ptr<ParticleGroup>>& GetParticleGroups() { return particleGroups; }
+	ParticleGroup* GetParticleGroup(std::string name);
 	const BlendMode& GetBlendMode(std::string name) { return particleGroups[name]->blendMode_; }
 
-	void SetBlendMode(std::string name,BlendMode blendMode) { particleGroups[name]->blendMode_ = blendMode; }
+	void SetBlendMode(std::string name, BlendMode blendMode);
 };
