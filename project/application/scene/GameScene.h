@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "PlayerBullet.h"
 #include "Enemy.h"
+#include "RailCamera.h"
 
 class GameScene : public BaseScene {
 public://メンバ関数
@@ -44,7 +45,11 @@ private://メンバ変数
 	std::list<std::unique_ptr<PlayerBullet>> playerBullets_;
 	//エネミー
 	std::vector<std::unique_ptr<Enemy>> enemies_;
+	//レールカメラ
+	std::unique_ptr<RailCamera> railCamera_ = nullptr;
+	//スプライト
 	std::vector< std::unique_ptr<Sprite>> sprites_;
+	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
 };
 

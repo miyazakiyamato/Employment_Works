@@ -81,7 +81,10 @@ void GameScene::Initialize(){
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
 
-	
+	railCamera_ = std::make_unique<RailCamera>();
+	railCamera_->Initialize({ 0.0f, 1.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
+	player_->SetParent(railCamera_->GetObject3d());
+
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 0; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
@@ -100,8 +103,8 @@ void GameScene::Initialize(){
 
 void GameScene::Finalize(){
 	//解放
-	skydome_.reset();
-	ground_.reset();
+	railCamera_.reset();
+
 	for (std::unique_ptr<Enemy>& enemy : enemies_) {
 		enemy.reset();
 	}
@@ -109,6 +112,8 @@ void GameScene::Finalize(){
 		bullet.reset();
 	}
 	player_.reset();
+	ground_.reset();
+	skydome_.reset();
 
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite.reset();  // メモリを解放する
@@ -140,7 +145,7 @@ void GameScene::Update(){
 				static int cameraItem_selected_idx = 0;
 				globalVariables->ShowCombo(
 					"Now Camera",
-					{ "default", "Camera2" },
+					{ "default", "Camera2","RailCamera"},
 					cameraItem_selected_idx,
 					[](const std::string& ItemName) { CameraManager::GetInstance()->FindCamera(ItemName); }
 				);
@@ -389,6 +394,7 @@ void GameScene::Update(){
 		ImGui::End();
 	}
 #endif //_DEBUG
+	railCamera_->Update();
 	CameraManager::GetInstance()->GetCamera()->Update();
 
 #ifdef _DEBUG
@@ -439,6 +445,7 @@ void GameScene::Update(){
 		}
 	}
 
+
 	particleSystem_->Update();
 
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
@@ -463,7 +470,8 @@ void GameScene::Draw(){
 	}
 	//当たり判定の表示
 	collisionManager_->Draw();
-	
+	//レールカメラの描画
+	railCamera_->Draw();
 	//ラインの描画
 	//Line3dManager::GetInstance()->DrawLine(object3ds_[0]->GetCenterPosition(), object3ds_[1]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
 	//Line3dManager::GetInstance()->DrawLine(object3ds_[1]->GetCenterPosition(), object3ds_[2]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});

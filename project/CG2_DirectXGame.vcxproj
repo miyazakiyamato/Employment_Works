@@ -113,6 +113,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="application\3d\RailCamera.cpp" />
     <ClCompile Include="engine\particle\BaseParticleEmitter.cpp" />
     <ClCompile Include="application\3d\BaseCharacter.cpp" />
     <ClCompile Include="application\3d\Ground.cpp" />
@@ -178,6 +179,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\base\PipelineFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application\3d\RailCamera.h" />
     <ClInclude Include="engine\particle\BaseParticleEmitter.h" />
     <ClInclude Include="application\3d\BaseCharacter.h" />
     <ClInclude Include="application\3d\CollisionTypeIdDef.h" />

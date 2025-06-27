@@ -312,6 +312,9 @@
     <ClCompile Include="engine\base\PipelineFactory.cpp">
       <Filter>ソース ファイル\engine\base</Filter>
     </ClCompile>
+    <ClCompile Include="application\3d\RailCamera.cpp">
+      <Filter>ソース ファイル\application\3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="engine\base\PipelineFactory.h">
       <Filter>ヘッダー ファイル\engine\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\RailCamera.h">
+      <Filter>ヘッダー ファイル\application\3d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

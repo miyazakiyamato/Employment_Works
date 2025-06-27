@@ -21,7 +21,7 @@ public:
 
 protected:
 	//ワールドデータ
-	std::unique_ptr<Object3d> object3D_ = nullptr;
+	std::unique_ptr<Object3d> object3d_ = nullptr;
 
 public:
 	virtual Vector3 GetCenterPosition() const override;

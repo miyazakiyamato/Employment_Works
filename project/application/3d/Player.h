@@ -5,7 +5,6 @@
 #include "Sprite.h"
 
 class Input;
-class Camera;
 class GameScene;
 class Player : public BaseCharacter{
 public://メンバ関数
@@ -35,13 +34,10 @@ private://ローカル関数
 	void Attack();
 private://メンバ変数
 	Input* input_ = nullptr;
-	Camera* camera_ = nullptr;
 	GameScene* gameScene_ = nullptr;
-	//モデルオブジェクト
-	std::unique_ptr<Object3d> model_ = nullptr;
 	//3Dレティクル
-	std::unique_ptr<Object3d> reticle3D_ = nullptr;
-	std::unique_ptr<Sprite> reticle2D_ = nullptr;
+	std::unique_ptr<Object3d> reticle3d_ = nullptr;
+	std::unique_ptr<Sprite> reticle2d_ = nullptr;
 
 	Vector3 velocity_{};
 	float moveSpeed_ = 0.5f;
@@ -60,5 +56,7 @@ public://ゲッターセッター
 	Vector3 GetWorldPosition();
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 	int GetHp() { return hp_; }
+
+	void SetParent(Object3d* object3d);
 };
 

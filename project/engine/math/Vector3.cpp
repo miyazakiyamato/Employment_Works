@@ -1,6 +1,7 @@
 #include "Vector3.h"
 #include <cmath>
 #include <algorithm>
+#include <cassert>
 
 float Vector3::Length(){
     return Length(*this);
@@ -119,7 +120,33 @@ Vector3 Vector3::Reflect(const Vector3& input, const Vector3& normal) {
 Vector3 Vector3::Lerp(const Vector3& v1, const Vector3& v2, float t){
     return (Vector3)v1 + ((Vector3)v2 - v1) * t;
 }
+Vector3 Vector3::Slerp(const Vector3& v1, const Vector3& v2, float t) {
+    Vector3 v3;
+    Vector3 nV1 = Normalize(v1);
+    Vector3 nV2 = Normalize(v2);
+    float dot = Dot(nV1, nV2);
+    //
+    if (dot > 1.0f) {
+        dot = 1.0f;
+    }
+    float theta = std::acos(dot);
+    float sinTheta = std::sin(theta);
+    float sinThetaFrom = std::sin((1 - t) * theta);
+    float sinThetaTo = std::sin(t * theta);
+    //
+    Vector3 nCompVector;
+    if (sinTheta < 1.0e-5) {
+        nCompVector = nV1;
+    } else {
+        nCompVector = Add(Multiply(sinThetaFrom / sinTheta, nV1), Multiply(sinThetaTo / sinTheta, nV2));
+    }
+    float length1 = Length(v1);
+    float length2 = Length(v2);
+    float length = Lerp({ length1 }, { length2 }, t).x;
 
+    v3 = Multiply(length, nCompVector);
+    return v3;
+}
 Vector3 Vector3::CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, const float& t){
     const float s = 0.5f; // 1/2
     float t2 = t * t;  // t の2乗
@@ -131,6 +158,49 @@ Vector3 Vector3::CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, c
     Vector3 e0 = (Vector3)p1 * 2.0f;
 
     return (e3 * t3 + e2 * t2 + e1 * t + e0) * s;
+}
+/// CatmullRomスプライン曲線上の座標を得る
+Vector3 Vector3::CatmullRomPosition(const std::vector<Vector3>& points, float t) {
+    // 制御点が2点未満の場合は補間できない
+    assert(points.size() >= 2 && "制御点は2点以上必要です");
+
+    // 制御点が2点なら線形補間
+    if (points.size() == 2) {
+        return Lerp(points[0], points[1], t);
+    }
+
+    // 制御点が3点ならp0, p1, p2, p3のうちp0とp3を端点で複製
+    // それ以外は通常通り
+    size_t n = points.size();
+    size_t division = n - 1;
+    float areaWidth = 1.0f / division;
+
+    // 区間番号
+    size_t index = static_cast<size_t>(t / areaWidth);
+    if (index >= division) index = division - 1;
+
+    // 区間内のt
+    float t0 = areaWidth * index;
+    float t_2 = (t - t0) / areaWidth;
+    t_2 = Clamp({ t_2,0,0 }, { 0.0f,0,0 }, { 1.0f,0,0 }).x;
+
+    // 4点分のインデックス
+    int index0 = static_cast<int>(index) - 1;
+    int index1 = static_cast<int>(index);
+    int index2 = static_cast<int>(index) + 1;
+    int index3 = static_cast<int>(index) + 2;
+
+    // 端点の複製
+    if (index0 < 0) index0 = 0;
+    if (index3 >= static_cast<int>(n)) index3 = static_cast<int>(n) - 1;
+
+    const Vector3& p0 = points.at(index0);
+    const Vector3& p1 = points.at(index1);
+    const Vector3& p2 = points.at(index2);
+    const Vector3& p3 = points.at(index3);
+
+    // 4点を指定してCatmul-Rom補間
+    return CatmullRomInterpolation(p0, p1, p2, p3, t_2);
 }
 
 Vector3 Vector3::Random(std::mt19937& randomEngine,const Vector3& vMin, const Vector3& vMax){
