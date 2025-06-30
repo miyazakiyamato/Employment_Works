@@ -7,6 +7,7 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	object3d_ = std::make_unique<Object3d>();
 	object3d_->Initialize();
 	object3d_->SetModel("sphere/sphere.obj");
+	object3d_->SetScale({ 0.5f, 0.5f, 0.5f });
 	object3d_->SetTranslate(position);
 	velocity_ = velocity;
 	Rotate(velocity_);

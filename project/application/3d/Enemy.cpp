@@ -31,5 +31,9 @@ void Enemy::OnCollision(Collider* other){
 		distance = distance.Normalize() * GetRadius();
 		particleSystem_->FindEmitter("hitEffect")->SetPosition(object3d_->GetCenterPosition() + distance);
 		particleSystem_->Emit("hitEffect");
+		hp_ -= 1;
+		if (hp_ <= 0) {
+			isAlive_ = false;
+		}
 	}
 }

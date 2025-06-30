@@ -72,9 +72,14 @@ void GameScene::Initialize(){
 	player_->SetGameScene(this);
 	
 	//エネミー
-	for (uint32_t i = 0; i < 1; ++i) {
+	for (uint32_t i = 0; i < 5; ++i) {
 		std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
 		enemy->Initialize();
+		if (i % 2 == 0) {
+			enemy->SetPosition({ 5.0f + float(i * 10),1.0f + float(i * 2), 90.0f + float(i * 30) });
+		} else {
+			enemy->SetPosition({ 5.0f + -float(i * 10),-1.0f + float(i * 2), 90.0f + float(i * 30) });
+		}
 		enemy->SetParticleSystem(particleSystem_.get());
 		enemies_.push_back(std::move(enemy));
 	}
@@ -415,13 +420,19 @@ void GameScene::Update(){
 	for (std::unique_ptr<Enemy>& enemy : enemies_) {
 		enemy->Update();
 	}
-
-	//当たり判定
-	CheckAllCollisions();
-
 	for (std::unique_ptr<PlayerBullet>& bullet : playerBullets_) {
 		bullet->Update();
 	}
+
+	//当たり判定
+	CheckAllCollisions();
+	enemies_.erase(std::remove_if(enemies_.begin(), enemies_.end(), [](std::unique_ptr<Enemy>& enemy) {
+		if (!enemy->GetIsAlive()) {
+			enemy.reset();
+			return true;
+		}
+		return false;
+		}), enemies_.end());
 	playerBullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet) {
 		if (!bullet->isAlive()) {
 			bullet.reset();
