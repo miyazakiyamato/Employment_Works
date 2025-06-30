@@ -17,22 +17,11 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotate){
 
 	controlPoints_ = {
 		{0,  0,  0},
-		{0,  0, 10},
-		{0,  1, 10},
-		{0,  2, 20},
-		{0,  1, 20},
-		{0,  0, 30},
 		{0,  0, 40},
-		{0,  0, 50},
-		{0,  10, 60},
-		{0,  10, 70},
-		{0,  20, 80},
-		{0,  20, 90},
-		{0,  10,100},
-		{0,  10,110},
-		{0,  0,120},
-		{0,  0,130},
-		{0,  0,140}
+		{0,  0,170},
+		{0,  0,200},
+		{0,  0,330},
+		{0,  0,500}
 	};
 
 	for (size_t i = 0; i < segmentCount + 1; i++) {
@@ -44,10 +33,10 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotate){
 
 void RailCamera::Update() {
 	segmentTime += TimeManager::GetInstance()->deltaTime_;
-	if (segmentTime > kSegmentTime) {
-		// セグメントの時間をリセット
-		segmentTime = 0.0f;
-	}
+	//if (segmentTime > kSegmentTime) {
+	//	// セグメントの時間をリセット
+	//	segmentTime = 0.0f;
+	//}
 	float t = segmentTime / kSegmentTime;
 	if (t <= 1.0f) {
 		linePosition = Vector3::CatmullRomPosition(controlPoints_, t);

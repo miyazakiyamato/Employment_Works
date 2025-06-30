@@ -5,6 +5,7 @@
 #include "Sprite.h"
 
 class Input;
+class Camera;
 class GameScene;
 class Player : public BaseCharacter{
 public://メンバ関数
@@ -25,15 +26,17 @@ public://メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw() override;
-
+	void DrawUi();
 	//衝突を検知したら呼び出されるコールバック関数
 	void OnCollision([[maybe_unused]] Collider* other) override;
 private://ローカル関数
 	void Move();
 	void CameraMove();
 	void Attack();
+	void ReticleUpdate();
 private://メンバ変数
 	Input* input_ = nullptr;
+	const Camera* camera_ = nullptr;
 	GameScene* gameScene_ = nullptr;
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
@@ -58,5 +61,6 @@ public://ゲッターセッター
 	int GetHp() { return hp_; }
 
 	void SetParent(Object3d* object3d);
+	void SetCamera(const Camera* camera) { camera_ = camera; }
 };
 

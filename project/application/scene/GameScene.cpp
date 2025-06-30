@@ -53,6 +53,7 @@ void GameScene::Initialize(){
 
 	TextureManager::GetInstance()->LoadTexture("circle2.png");
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
+	TextureManager::GetInstance()->LoadTexture("reticle.png");
 
 	//ParticleManager::GetInstance()->CreateParticleGroup();
 	particleSystem_.reset(new ParticleSystem);
@@ -84,6 +85,7 @@ void GameScene::Initialize(){
 	railCamera_ = std::make_unique<RailCamera>();
 	railCamera_->Initialize({ 0.0f, 1.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
 	player_->SetParent(railCamera_->GetObject3d());
+	player_->SetCamera(railCamera_->GetCamera());
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 0; ++i) {
@@ -484,6 +486,7 @@ void GameScene::Draw(){
 	particleSystem_->Draw();
 
 	//Spriteの描画
+	player_->DrawUi();
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		//sprite->Draw();
 	}

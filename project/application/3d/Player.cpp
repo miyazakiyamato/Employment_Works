@@ -20,12 +20,12 @@ void Player::Initialize(){
 	reticle3d_->Initialize();
 	reticle3d_->SetModel("sphere/sphere.obj");
 	reticle3d_->SetTranslate({ 0,0,10.0f });
-	reticle3d_->SetParent(object3d_.get());
 	//レティクル2D
 	reticle2d_ = std::make_unique<Sprite>();
-	reticle2d_->Initialize("circle2.png");
-	reticle2d_->SetPosition({ 0,0 });
-	reticle2d_->SetSize({ 100.0f,100.0f });
+	reticle2d_->Initialize("reticle.png");
+	reticle2d_->SetPosition({ WinApp::kClientWidth / 2.0f,WinApp::kClientHeight / 2.0f });
+	reticle2d_->SetAnchorPoint({ 0.5f, 0.5f });
+	reticle2d_->SetSize({ 64.0f, 64.0f });
 	//AudioManager::GetInstance()->LoadWave("playerBullet.wav");
 	//AudioManager::GetInstance()->LoadWave("playerDamage.wav");
 }
@@ -37,12 +37,15 @@ void Player::Update(){
 
 	object3d_->SetTranslate(Vector3::Clamp(object3d_->GetTranslate(), {-50,-50,-100}, {50,50,100}));
 	BaseCharacter::Update();
-	reticle3d_->Update();
+	ReticleUpdate();
 }
 
 void Player::Draw(){
 	object3d_->Draw();
-	reticle3d_->Draw();
+}
+
+void Player::DrawUi(){
+	reticle2d_->Draw();
 }
 
 void Player::OnCollision([[maybe_unused]] Collider* other){
@@ -94,20 +97,6 @@ void Player::Move(){// 移動量
 	//	rotation.y = std::atan2f(sub.x, sub.z);
 	//	object3d_->SetRotate(rotation);
 	//}
-	/*if (input_->TriggerKey(DIK_SPACE)) {
-		AudioManager::GetInstance()->PlayWave("playerBullet.wav", 1.25f);
-		float kBulletSpeed = 0.5f;
-		Vector3 velocity(0, 0, kBulletSpeed);
-
-		velocity = reticle3D_->GetCenterPosition() - model_->GetCenterPosition();
-		velocity = velocity.Normalize() * kBulletSpeed;
-
-		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(object3d_->GetCenterPosition() + Vector3(velocity * 10.0f));
-		newBullet->SetVelocity(velocity);
-		newBullet->SetRotate(camera_->GetRotate());
-		gameScene_->AddPlayerBullet(std::move(newBullet));
-	}*/
 }
 
 void Player::CameraMove(){
@@ -183,6 +172,48 @@ void Player::Attack() {
 		newBullet->Initialize(GetWorldPosition(), velocity);
 		gameScene_->AddPlayerBullet(std::move(newBullet));
 	}
+}
+
+void Player::ReticleUpdate(){
+	Vector2 move{};
+	float speed = 10.0f;
+	if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+		move += { -1.0f, 0.0f};
+	}
+	if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
+		move += { 1.0f, 0.0f};
+	}
+	if (Input::GetInstance()->PushKey(DIK_UP)) {
+		move += { 0.0f, -1.0f };
+	}
+	if (Input::GetInstance()->PushKey(DIK_DOWN)) {
+		move += { 0.0f, 1.0f};
+	}
+
+	if (move.Length() != 0) {
+		move.Normalize();
+		move *= speed;
+		Vector2 spritePosition = reticle2d_->GetPosition();
+		spritePosition += move;
+		spritePosition.x = std::clamp(spritePosition.x, 0.0f, (float)WinApp::kClientWidth);
+		spritePosition.y = std::clamp(spritePosition.y, 0.0f, (float)WinApp::kClientHeight);
+		reticle2d_->SetPosition(spritePosition);
+	}
+	//
+	Matrix4x4 matViewport = Matrix4x4::MakeViewportMatrix(0, 0, WinApp::kClientWidth, WinApp::kClientHeight, 0, 1);
+	Matrix4x4 matVPV = Matrix4x4(camera_->GetViewMatrix()) * camera_->GetProjectionMatrix() * matViewport;
+	Matrix4x4 matInverseVPV = Matrix4x4::Inverse(matVPV);
+	Vector3 posNear = Vector3(reticle2d_->GetPosition().x, reticle2d_->GetPosition().y, 0);
+	Vector3 posFar = Vector3(reticle2d_->GetPosition().x, reticle2d_->GetPosition().y, 1);
+	posNear = Matrix4x4::Transform(posNear, matInverseVPV);
+	posFar = Matrix4x4::Transform(posFar, matInverseVPV);
+	Vector3 mouseDirection = Vector3::Subtract(posFar, posNear);
+	mouseDirection = Vector3::Normalize(mouseDirection);
+	//
+	const float kDistanceTestObject = 100.0f;
+	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
+	reticle3d_->Update();
+	reticle2d_->Update();
 }
 
 Vector3 Player::GetWorldPosition(){

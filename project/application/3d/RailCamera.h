@@ -22,7 +22,7 @@ private:
 	Vector3 target;
 	Vector3 offset = { 0.0f, 2.0f, -10.0f }; // カメラのオフセット
 
-	const float kSegmentTime = 20.0f; // セグメントの時間間隔
+	const float kSegmentTime = 60.0f; // セグメントの時間間隔
 	float segmentTime = 0;
 	float targetTimeDistance = 0.01f; // ターゲットまでの時間間隔
 public:

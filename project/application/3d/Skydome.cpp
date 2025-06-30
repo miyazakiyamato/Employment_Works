@@ -8,6 +8,7 @@ void Skydome::Initialize(){
 	//object3d->SetIsLighting(false);
 	object3d->SetTranslate({ -1,0,0 });
 	object3d->SetRotate({ 0,3.14f,0 });
+	object3d->SetScale({ 10,10,10 });
 	std::string objectName = "skydome";
 }
 
