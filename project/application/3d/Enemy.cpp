@@ -11,6 +11,7 @@ void Enemy::Initialize(){
 	object3d_->SetTranslate({ 0.0f, 1.0f, 30.0f });
 	object3d_->SetModel("sphere/sphere.obj");
 	object3d_->SetRotate({ 0,3.14f,0 });
+	object3d_->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
 }
 
 void Enemy::Update(){

@@ -13,7 +13,7 @@ void Player::Initialize(){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
 	Collider::SetRadius(4.0f);
 	input_ = Input::GetInstance();
-	object3d_->SetModel("sphere/sphere.obj");
+	object3d_->SetModel("airship/airship.obj");
 	object3d_->SetTranslate({ 0.0f, 0.0f, 30.0f });
 	//レティクル3D
 	reticle3d_ = std::make_unique<Object3d>();
@@ -214,6 +214,12 @@ void Player::ReticleUpdate(){
 	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
 	reticle3d_->Update();
 	reticle2d_->Update();
+	Vector3 direction = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
+	Vector3 rotate = object3d_->GetRotate();
+	rotate.y = std::atan2f(direction.x, direction.z);
+	Vector3 velocityZ = Matrix4x4::Transform(direction, Matrix4x4::MakeRotateYMatrix(-rotate.y));
+	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
+	object3d_->SetRotate(rotate);
 }
 
 Vector3 Player::GetWorldPosition(){

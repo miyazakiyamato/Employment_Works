@@ -6,9 +6,10 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayerBullet));
 	object3d_ = std::make_unique<Object3d>();
 	object3d_->Initialize();
-	object3d_->SetModel("sphere/sphere.obj");
+	object3d_->SetModel("airship/airship.obj");
 	object3d_->SetScale({ 0.5f, 0.5f, 0.5f });
 	object3d_->SetTranslate(position);
+	object3d_->SetColor({ 0.2f, 0.2f, 0.2f, 1.0f });
 	velocity_ = velocity;
 	Rotate(velocity_);
 }

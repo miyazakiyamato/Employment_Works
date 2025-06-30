@@ -41,6 +41,8 @@ void GameScene::Initialize(){
 	ModelManager::GetInstance()->LoadModel("terrain/terrain.obj");
 	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
 	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
+	ModelManager::GetInstance()->LoadModel("airship/airship.obj");
+	ModelManager::GetInstance()->LoadModel("cube/cube.obj");
 
 	/*ModelManager::GetInstance()->LoadModel("AnimatedCube/AnimatedCube.gltf");
 	ModelManager::GetInstance()->LoadAnimation("AnimatedCube/AnimatedCube.gltf");
