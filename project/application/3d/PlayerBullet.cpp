@@ -9,7 +9,7 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	object3d_->SetModel("airship/airship.obj");
 	object3d_->SetScale({ 0.5f, 0.5f, 0.5f });
 	object3d_->SetTranslate(position);
-	object3d_->SetColor({ 0.2f, 0.2f, 0.2f, 1.0f });
+	object3d_->SetColor({ 0.2f, 0.2f, 0.2f, 1.0f },0);
 	velocity_ = velocity;
 	Rotate(velocity_);
 }
