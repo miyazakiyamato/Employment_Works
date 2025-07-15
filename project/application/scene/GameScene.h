@@ -6,6 +6,7 @@
 #include "ParticleSystem.h"
 #include "CollisionManager.h"
 #include "AccelerationField.h"
+#include "LevelDataManager.h"
 #include "Skydome.h"
 #include "Ground.h"
 #include "Player.h"
@@ -51,5 +52,6 @@ private://メンバ変数
 	std::vector< std::unique_ptr<Sprite>> sprites_;
 	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
+	std::unique_ptr<LevelDataManager> levelDataManager_ = nullptr;
 };
 
