@@ -54,7 +54,6 @@ void GameScene::Initialize(){
 	ModelManager::GetInstance()->LoadAnimation("human/sneakWalk.gltf");
 	ModelManager::GetInstance()->LoadModel("human/walk.gltf");
 	ModelManager::GetInstance()->LoadAnimation("human/walk.gltf");*/
-	ModelManager::GetInstance()->LoadAnimation("human/walk.gltf");
 	ModelManager::GetInstance()->LoadModel("BrainStem/BrainStem.gltf");
 	ModelManager::GetInstance()->LoadAnimation("BrainStem/BrainStem.gltf");
 
@@ -62,10 +61,6 @@ void GameScene::Initialize(){
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
 	TextureManager::GetInstance()->LoadTexture("reticle.png");
 	TextureManager::GetInstance()->LoadTexture("rostock_laage_airport_4k.dds");
-
-	//衝突マネージャの生成
-	collisionManager_ = std::make_unique<CollisionManager>();
-	collisionManager_->Initialize();
 
 	////skybox
 	//std::unique_ptr<Object3d> object3d(new Object3d);
@@ -148,7 +143,6 @@ void GameScene::Initialize(){
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
 
-	//ParticleManager::GetInstance()->CreateParticleGroup();
 	particleSystem_.reset(new ParticleSystem);
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<HitEffect>();
 	particleSystem_->CreateParticleEmitter("hitEffect", std::move(hitEffect));
