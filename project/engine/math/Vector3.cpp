@@ -2,6 +2,7 @@
 #include <cmath>
 #include <algorithm>
 #include <cassert>
+#include "Quaternion.h"
 
 float Vector3::Length(){
     return Length(*this);
@@ -21,6 +22,27 @@ Vector3 Vector3::Clamp01(){
 
 Vector3 Vector3::Clamp_11(){
     return Clamp(*this, { -1.0f, -1.0f, -1.0f }, { 1.0f, 1.0f, 1.0f });
+}
+
+Quaternion Vector3::ToQuaternion() const{
+    float pitch = x * 0.5f;
+    float yaw = y * 0.5f;
+    float roll = z * 0.5f;
+
+    float sinPitch = sinf(pitch);
+    float cosPitch = cosf(pitch);
+    float sinYaw = sinf(yaw);
+    float cosYaw = cosf(yaw);
+    float sinRoll = sinf(roll);
+    float cosRoll = cosf(roll);
+
+    // クォータニオンの各成分を計算（Z-Y-X順）
+    Quaternion q;
+    q.x = sinPitch * cosYaw * cosRoll - cosPitch * sinYaw * sinRoll;
+    q.y = cosPitch * sinYaw * cosRoll + sinPitch * cosYaw * sinRoll;
+    q.z = cosPitch * cosYaw * sinRoll - sinPitch * sinYaw * cosRoll;
+    q.w = cosPitch * cosYaw * cosRoll + sinPitch * sinYaw * sinRoll;
+    return q;
 }
 
 Vector3 Vector3::Add(const Vector3& v1, const Vector3& v2) {

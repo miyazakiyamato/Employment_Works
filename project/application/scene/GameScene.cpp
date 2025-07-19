@@ -10,6 +10,7 @@
 #include "TimeManager.h"
 #include "Line3D.h"
 #include "HitEffect.h"
+#include <numbers>
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
