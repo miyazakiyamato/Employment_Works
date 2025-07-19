@@ -10,6 +10,7 @@
 #include "TimeManager.h"
 #include "Line3D.h"
 #include "HitEffect.h"
+#include <numbers>
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -280,8 +281,7 @@ void GameScene::Update(){
 		rotate.y += 3.14f; // 180度回転
 		object3ds_[2]->SetRotate(rotate);
 	}
-	Matrix4x4 rHandworldMatrix = object3ds_[2]->GetJoint("mixamorig:RightHand").skeletonSpaceMatrix;
-	object3ds_[7]->SetWorldMatrix(&rHandworldMatrix);
+	object3ds_[7]->SetWorldMatrix(object3ds_[2]->GetJointMatrix("mixamorig:RightHand"));
 	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
 		object3d->Update();
 	}
