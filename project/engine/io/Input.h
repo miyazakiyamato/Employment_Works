@@ -37,8 +37,10 @@ public:
     // コントローラー操作
     bool PushControllerButton(WORD button);
     bool TriggerControllerButton(WORD button);
-    float GetControllerStickX();
-    float GetControllerStickY();
+    float GetControllerStickLX();
+    float GetControllerStickLY();
+    float GetControllerStickRX();
+    float GetControllerStickRY();
 
     // マウス操作
     bool PushMouseButton(int button);

@@ -65,17 +65,22 @@ void Player::OnCollision([[maybe_unused]] Collider* other){
 
 void Player::Move(){// 移動量
 	velocity_ = { 0,0,0 };
-	if (input_->PushKey(DIK_A)) {
-		velocity_.x -= moveSpeed_;
-	}
-	if (input_->PushKey(DIK_D)) {
-		velocity_.x += moveSpeed_;
-	}
-	if (input_->PushKey(DIK_W)) {
-		velocity_.y += moveSpeed_;
-	}
-	if (input_->PushKey(DIK_S)) {
-		velocity_.y -= moveSpeed_;
+
+	velocity_.x += input_->GetControllerStickLX();
+	velocity_.y += input_->GetControllerStickLY();
+	if (velocity_.Length() != 0) {
+		if (input_->PushKey(DIK_A)) {
+			velocity_.x -= moveSpeed_;
+		}
+		if (input_->PushKey(DIK_D)) {
+			velocity_.x += moveSpeed_;
+		}
+		if (input_->PushKey(DIK_W)) {
+			velocity_.y += moveSpeed_;
+		}
+		if (input_->PushKey(DIK_S)) {
+			velocity_.y -= moveSpeed_;
+		}
 	}
 	if (velocity_.Length() != 0) {
 		velocity_.Normalize();
@@ -162,7 +167,7 @@ void Player::CameraMove(){
 	////object3d_->SetRotate(camera_->GetRotate());
 }
 void Player::Attack() {
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 
@@ -180,19 +185,23 @@ void Player::Attack() {
 void Player::ReticleUpdate(){
 	Vector2 move{};
 	float speed = 10.0f;
-	if (Input::GetInstance()->PushKey(DIK_LEFT)) {
-		move += { -1.0f, 0.0f};
-	}
-	if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
-		move += { 1.0f, 0.0f};
-	}
-	if (Input::GetInstance()->PushKey(DIK_UP)) {
-		move += { 0.0f, -1.0f };
-	}
-	if (Input::GetInstance()->PushKey(DIK_DOWN)) {
-		move += { 0.0f, 1.0f};
-	}
 
+	move.x += input_->GetControllerStickRX();
+	move.y -= input_->GetControllerStickRY();
+	if (move.Length() != 0) {
+		if (Input::GetInstance()->PushKey(DIK_LEFT)) {
+			move += { -1.0f, 0.0f};
+		}
+		if (Input::GetInstance()->PushKey(DIK_RIGHT)) {
+			move += { 1.0f, 0.0f};
+		}
+		if (Input::GetInstance()->PushKey(DIK_UP)) {
+			move += { 0.0f, -1.0f };
+		}
+		if (Input::GetInstance()->PushKey(DIK_DOWN)) {
+			move += { 0.0f, 1.0f};
+		}
+	}
 	if (move.Length() != 0) {
 		move.Normalize();
 		move *= speed;
