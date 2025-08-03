@@ -51,12 +51,13 @@ private://メンバ変数
 	bool isCollision = false;
 
 	int hp_ = 5;
-
+	bool isAlive_ = true;
 	//ロックオン
 	//LockOn* lockOn_ = nullptr;
 public://ゲッターセッター
 	Vector3 GetWorldPosition();
 	int GetHp() { return hp_; }
+	bool GetIsAlive() const { return isAlive_; }
 
 	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
 	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }

@@ -28,6 +28,8 @@ public://メンバ関数
 private:
 	//衝突判定と応答 
 	void CheckAllCollisions();
+	//クリア判定
+	void ClearCheck();
 private://メンバ変数
 	//衝突マネージャ
 	std::unique_ptr<CollisionManager> collisionManager_;

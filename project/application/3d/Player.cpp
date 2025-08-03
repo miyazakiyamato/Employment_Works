@@ -11,7 +11,7 @@ void Player::Initialize(){
 	BaseCharacter::Initialize();
 	Collider::Initialize();
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
-	Collider::SetRadius(4.0f);
+	Collider::SetRadius(1.0f);
 	input_ = Input::GetInstance();
 	object3d_->SetModel("airship/airship.obj");
 	object3d_->SetTranslate({ 0.0f, 0.0f, 30.0f });
@@ -54,8 +54,11 @@ void Player::OnCollision([[maybe_unused]] Collider* other){
 	// 衝突相手の種別IDを取得
 	uint32_t typeID = other->GetTypeID();
 	//衝突相手が敵なら
-	if (typeID == static_cast<uint32_t>(CollisionTypeIdDef::kEnemy)) {
-		
+	if (typeID == static_cast<uint32_t>(CollisionTypeIdDef::kEnemyBullet)) {
+		hp_ -= 1;
+		if (hp_ <= 0) {
+			isAlive_ = false;
+		}
 	}
 	
 }

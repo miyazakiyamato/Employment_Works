@@ -5,7 +5,7 @@ void MyGame::Initialize(){
 	Framework::Initialize();
 
 	//最初のシーンセット
-	sceneManager_->ChangeScene("GAME");
+	sceneManager_->ChangeScene("TITLE");
 	//オフスクリーンの描画設定
 	sceneManager_->ChangeOffScreenState("Fullscreen");
 	//sceneManager_->ChangeOffScreenState("Grayscale");

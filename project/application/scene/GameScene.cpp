@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include <imgui.h>
+#include "SceneManager.h"
 #include "Input.h"
 #include "CameraManager.h"
 #include "ModelManager.h"
@@ -154,20 +155,26 @@ void GameScene::Initialize(){
 	//地面
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize();
+
+	//バレットマネージャーの生成
+	bulletManager_ = std::make_unique<BulletManager>();
 	//プレイヤー
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
+	player_->SetBulletManager(bulletManager_.get());
 	
 	//エネミー
 	for (uint32_t i = 0; i < 5; ++i) {
 		std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
+		enemy->SetBulletManager(bulletManager_.get());
+		enemy->SetParticleSystem(particleSystem_.get());
+		enemy->SetPlayer(player_.get());
 		enemy->Initialize();
 		if (i % 2 == 0) {
 			enemy->SetPosition({ 5.0f + float(i * 10),1.0f + float(i * 2), 90.0f + float(i * 30) });
 		} else {
 			enemy->SetPosition({ 5.0f + -float(i * 10),-1.0f + float(i * 2), 90.0f + float(i * 30) });
 		}
-		enemy->SetParticleSystem(particleSystem_.get());
 		enemies_.push_back(std::move(enemy));
 	}
 	//
@@ -175,13 +182,10 @@ void GameScene::Initialize(){
 	accelerationField_.reset(new AccelerationField);
 
 	railCamera_ = std::make_unique<RailCamera>();
-	railCamera_->Initialize({ 0.0f, 1.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
+	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
 	player_->SetParent(railCamera_->GetObject3d());
 	player_->SetCamera(railCamera_->GetCamera());
 
-	//バレットマネージャーの生成
-	bulletManager_ = std::make_unique<BulletManager>();
-	player_->SetBulletManager(bulletManager_.get());
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 0; ++i) {
@@ -310,6 +314,8 @@ void GameScene::Update(){
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Update();
 	}
+
+	ClearCheck();
 }
 
 void GameScene::Draw(){
@@ -361,4 +367,16 @@ void GameScene::CheckAllCollisions(){
 	bulletManager_->AddCollider(collisionManager_.get());
 	//リスト内の総当たり判定
 	collisionManager_->CheckAllCollisions();
+}
+
+void GameScene::ClearCheck(){
+	//クリア判定
+	/*if (enemies_.empty()) {
+		敵がいなくなったらクリア
+		
+	}*/
+	if (!player_->GetIsAlive()) {
+		//プレイヤーのHPが0になったらゲームオーバー
+		sceneManager_->ChangeScene("TITLE");
+	}
 }

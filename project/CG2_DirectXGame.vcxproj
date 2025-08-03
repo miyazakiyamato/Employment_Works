@@ -113,8 +113,10 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseBullet.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="application\3d\EnemyBullet.cpp" />
+    <ClCompile Include="application\3d\BaseBullet.cpp" />
+    <ClCompile Include="application\3d\BulletManager.cpp" />
+    <ClCompile Include="application\3d\TimedCall.cpp" />
     <ClCompile Include="engine\3d\SkyboxPipeline.cpp" />
     <ClCompile Include="application\3d\RailCamera.cpp" />
     <ClCompile Include="engine\particle\BaseParticleEmitter.cpp" />
@@ -183,8 +185,10 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\base\PipelineFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseBullet.h" />
-    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="application\3d\EnemyBullet.h" />
+    <ClInclude Include="application\3d\BaseBullet.h" />
+    <ClInclude Include="application\3d\BulletManager.h" />
+    <ClInclude Include="application\3d\TimedCall.h" />
     <ClInclude Include="engine\3d\SkyboxPipeline.h" />
     <ClInclude Include="application\3d\RailCamera.h" />
     <ClInclude Include="engine\particle\BaseParticleEmitter.h" />
