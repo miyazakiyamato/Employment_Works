@@ -315,6 +315,12 @@
     <ClCompile Include="application\3d\RailCamera.cpp">
       <Filter>ソース ファイル\application\3d</Filter>
     </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseBullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -517,6 +523,12 @@
     </ClInclude>
     <ClInclude Include="application\3d\RailCamera.h">
       <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseBullet.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

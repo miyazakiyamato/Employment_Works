@@ -10,7 +10,7 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include "Player.h"
-#include "PlayerBullet.h"
+#include "BulletManager.h"
 #include "Enemy.h"
 #include "RailCamera.h"
 
@@ -24,8 +24,6 @@ public://メンバ関数
 	void Update() override;
 	//描画
 	void Draw() override;
-
-	void AddPlayerBullet(std::unique_ptr<PlayerBullet> playerBullet);
 
 private:
 	//衝突判定と応答 
@@ -43,7 +41,6 @@ private://メンバ変数
 	std::unique_ptr<Ground> ground_ = nullptr;
 	//プレイヤー
 	std::unique_ptr<Player> player_ = nullptr;
-	std::list<std::unique_ptr<PlayerBullet>> playerBullets_;
 	//エネミー
 	std::vector<std::unique_ptr<Enemy>> enemies_;
 	//レールカメラ
@@ -52,6 +49,9 @@ private://メンバ変数
 	std::vector< std::unique_ptr<Sprite>> sprites_;
 	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
+	//レベルデータマネージャー
 	std::unique_ptr<LevelDataManager> levelDataManager_ = nullptr;
+	//バレットマネージャー
+	std::unique_ptr<BulletManager> bulletManager_ = nullptr;
 };
 

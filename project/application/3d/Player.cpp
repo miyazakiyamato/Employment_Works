@@ -2,7 +2,7 @@
 #include "Input.h"
 #include "CameraManager.h"
 #include <algorithm>
-#include "GameScene.h"
+#include "BulletManager.h"
 #include "AudioManager.h"
 #include "CollisionTypeIdDef.h"
 #include "PlayerBullet.h"
@@ -168,9 +168,9 @@ void Player::Attack() {
 
 		//velocity = Matrix4x4::TransformNormal(velocity, reticle3D_->GetWorldMatrix());
 
-		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
 		newBullet->Initialize(GetWorldPosition(), velocity);
-		gameScene_->AddPlayerBullet(std::move(newBullet));
+		bulletManager_->AddBullet(std::move(newBullet));
 	}
 }
 

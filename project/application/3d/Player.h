@@ -6,7 +6,7 @@
 
 class Input;
 class Camera;
-class GameScene;
+class BulletManager;
 class Player : public BaseCharacter{
 public://メンバ関数
 	Player() {}
@@ -37,7 +37,7 @@ private://ローカル関数
 private://メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
-	GameScene* gameScene_ = nullptr;
+	BulletManager* bulletManager_ = nullptr;
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
 	std::unique_ptr<Sprite> reticle2d_ = nullptr;
@@ -55,11 +55,11 @@ private://メンバ変数
 	//ロックオン
 	//LockOn* lockOn_ = nullptr;
 public://ゲッターセッター
-	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
 	Vector3 GetWorldPosition();
-	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 	int GetHp() { return hp_; }
 
+	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
+	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }
 	void SetParent(Object3d* object3d);
 	void SetCamera(const Camera* camera) { camera_ = camera; }
 };
