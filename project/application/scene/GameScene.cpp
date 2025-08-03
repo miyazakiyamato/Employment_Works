@@ -379,4 +379,8 @@ void GameScene::ClearCheck(){
 		//プレイヤーのHPが0になったらゲームオーバー
 		sceneManager_->ChangeScene("TITLE");
 	}
+	if (railCamera_->GetIsFinished()) {
+		//レールカメラの移動が終わったら
+		sceneManager_->ChangeScene("TITLE");
+	}
 }

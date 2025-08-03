@@ -25,7 +25,10 @@ private:
 	const float kSegmentTime = 60.0f; // セグメントの時間間隔
 	float segmentTime = 0;
 	float targetTimeDistance = 0.01f; // ターゲットまでの時間間隔
+
+	bool isFinished = false;
 public:
 	const Camera* GetCamera() const { return camera_; }
 	Object3d* GetObject3d() { return object3d_.get(); }
+	bool GetIsFinished() const { return isFinished; }
 };

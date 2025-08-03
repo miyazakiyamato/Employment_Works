@@ -40,6 +40,8 @@ void RailCamera::Update() {
 	float t = segmentTime / kSegmentTime;
 	if (t <= 1.0f) {
 		linePosition = Vector3::CatmullRomPosition(controlPoints_, t);
+	} else {
+		isFinished = true;
 	}
 	t = (segmentTime + targetTimeDistance) / kSegmentTime;
 	if (t <= 1.0f) {
