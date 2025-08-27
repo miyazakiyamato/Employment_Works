@@ -117,6 +117,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\3d\BaseBullet.cpp" />
     <ClCompile Include="application\3d\BulletManager.cpp" />
     <ClCompile Include="application\3d\TimedCall.cpp" />
+    <ClCompile Include="application\scene\ClearScene.cpp" />
+    <ClCompile Include="application\scene\GameOverScene.cpp" />
     <ClCompile Include="engine\3d\SkyboxPipeline.cpp" />
     <ClCompile Include="application\3d\RailCamera.cpp" />
     <ClCompile Include="engine\particle\BaseParticleEmitter.cpp" />
@@ -189,6 +191,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\3d\BaseBullet.h" />
     <ClInclude Include="application\3d\BulletManager.h" />
     <ClInclude Include="application\3d\TimedCall.h" />
+    <ClInclude Include="application\scene\ClearScene.h" />
+    <ClInclude Include="application\scene\GameOverScene.h" />
     <ClInclude Include="engine\3d\SkyboxPipeline.h" />
     <ClInclude Include="application\3d\RailCamera.h" />
     <ClInclude Include="engine\particle\BaseParticleEmitter.h" />

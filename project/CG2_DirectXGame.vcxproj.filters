@@ -327,6 +327,12 @@
     <ClCompile Include="application\3d\TimedCall.cpp">
       <Filter>ソース ファイル\application\3d</Filter>
     </ClCompile>
+    <ClCompile Include="application\scene\ClearScene.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\GameOverScene.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -541,6 +547,12 @@
     </ClInclude>
     <ClInclude Include="application\3d\TimedCall.h">
       <Filter>ヘッダー ファイル\application\3d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\ClearScene.h">
+      <Filter>ソース ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\GameOverScene.h">
+      <Filter>ソース ファイル\application\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

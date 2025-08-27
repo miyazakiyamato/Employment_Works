@@ -377,10 +377,10 @@ void GameScene::ClearCheck(){
 	}*/
 	if (!player_->GetIsAlive()) {
 		//プレイヤーのHPが0になったらゲームオーバー
-		sceneManager_->ChangeScene("TITLE");
+		sceneManager_->ChangeScene("GAMEOVER");
 	}
 	if (railCamera_->GetIsFinished()) {
 		//レールカメラの移動が終わったら
-		sceneManager_->ChangeScene("TITLE");
+		sceneManager_->ChangeScene("CLEAR");
 	}
 }
