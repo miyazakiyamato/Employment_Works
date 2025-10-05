@@ -21,5 +21,7 @@ private://メンバ変数
 	std::unique_ptr<Ground> ground_ = nullptr;
 	//スプライト
 	std::vector< std::unique_ptr<Sprite>> sprites_;
+	//カメラ
+	Camera* camera_ = nullptr;
 };
 

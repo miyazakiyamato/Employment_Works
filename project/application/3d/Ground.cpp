@@ -8,7 +8,7 @@ void Ground::Initialize() {
 	object3d->SetTranslate({ -1,0,0 });
 	object3d->SetRotate({ 0,3.14f,0 });
 	object3d->SetScale({ 1.0f,1.0f,1.0f });
-	object3d->SetUvScale({ 200.0f, 200.0f,1.0f },0);
+	object3d->SetUvScale({ 100.0f, 100.0f,1.0f },0);
 	std::string objectName = "ground";
 }
 

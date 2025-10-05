@@ -10,6 +10,7 @@ void TitleScene::Initialize(){
 	CameraManager::GetInstance()->FindCamera("default");
 	CameraManager::GetInstance()->GetCamera()->SetRotate({ 0.0f,0.0f,0.0f });
 	CameraManager::GetInstance()->GetCamera()->SetTranslate({ 8.0f,4.0f,-8.0f });
+	camera_ = CameraManager::GetInstance()->GetCamera();
 
 	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
 	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
@@ -23,14 +24,17 @@ void TitleScene::Initialize(){
 	ground_->Initialize();
 
 	//スプライトの初期化
-	for (uint32_t i = 0; i < 1; ++i) {
+	for (uint32_t i = 0; i < 2; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
-		sprite->Initialize("AStart.png");
-		sprite->SetPosition({640, 460 });
-		sprite->SetSize({ 250.0f,100.0f });
 		sprite->SetAnchorPoint({ 0.5f, 0.5f });
 		sprites_.push_back(std::move(sprite));
 	}
+	sprites_[0]->Initialize("title.png");
+	sprites_[0]->SetPosition({ 640, 260 });
+	sprites_[0]->SetSize({ 800.0f,300.0f });
+	sprites_[1]->Initialize("AStart.png");
+	sprites_[1]->SetPosition({ 640, 460 });
+	sprites_[1]->SetSize({ 250.0f,100.0f });
 }
 
 void TitleScene::Finalize(){
@@ -49,6 +53,7 @@ void TitleScene::Update(){
 	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) {
 		sceneManager_->ChangeScene("GAME");
 	}
+	camera_->SetRotate(Vector3::Add(camera_->GetRotate() , { 0.0f,0.001f,0.0f }));
 
 	//カメラの更新
 	CameraManager::GetInstance()->GetCamera()->Update();
