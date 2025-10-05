@@ -14,36 +14,36 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotate){
 	CameraManager::GetInstance()->FindCamera("RailCamera");
 	camera_ = CameraManager::GetInstance()->GetCamera();
 	camera_->SetFarClip(600.0f);
-
-	controlPoints_ = {
-		{0,  0,  0},
-		{0,  0, 40},
-		{0,  0,170},
-		{0,  0,200},
-		{0,  0,330},
-		{0,  0,500}
-	};
-
-	for (size_t i = 0; i < segmentCount + 1; i++) {
-		float t = 1.0f / segmentCount * i;
-		Vector3 pos = Vector3::CatmullRomPosition(controlPoints_, t);
-		pointsDrawing.push_back(pos);
-	}
 }
 
 void RailCamera::Update() {
-	segmentTime += TimeManager::GetInstance()->deltaTime_;
-	//if (segmentTime > kSegmentTime) {
-	//	// セグメントの時間をリセット
-	//	segmentTime = 0.0f;
+	if (controlPoints_.size() >= 2 && preControlPointCount != controlPoints_.size()) {
+		pointsDrawing.clear();
+		for (size_t i = 0; i < segmentCount + 1; i++) {
+			float t = 1.0f / segmentCount * i;
+			Vector3 pos = Vector3::CatmullRomPosition(controlPoints_, t);
+			pointsDrawing.push_back(pos);
+		}
+		segmentLength = 0.0f;
+		for (size_t i = 0; i < pointsDrawing.size() - 1; i++) {
+			segmentLength += (pointsDrawing.at(i) - pointsDrawing.at(i + 1)).Length();
+		}
+		preControlPointCount = controlPoints_.size();
+		isFinished = false;
+		segmentPosition = 0.0f;
+	}
+	segmentPosition += velocity * TimeManager::GetInstance()->deltaTime_;
+	//if (segmentPosition > segmentLength) {
+	//	// セグメントの場所をリセット
+	//	segmentPosition = 0.0f;
 	//}
-	float t = segmentTime / kSegmentTime;
+	float t = segmentPosition / segmentLength;
 	if (t <= 1.0f) {
 		linePosition = Vector3::CatmullRomPosition(controlPoints_, t);
 	} else {
 		isFinished = true;
 	}
-	t = (segmentTime + targetTimeDistance) / kSegmentTime;
+	t = (segmentPosition + targetTimeDistance) / segmentLength;
 	if (t <= 1.0f) {
 		target = Vector3::CatmullRomPosition(controlPoints_, t);
 	}
@@ -67,6 +67,8 @@ void RailCamera::Update() {
 
 void RailCamera::Draw() {
 	object3d_->Draw();
+
+	if (controlPoints_.size() < 2) { return; }
 	for (size_t i = 0; i < pointsDrawing.size() - 1; i++) {
 		Line3dManager::GetInstance()->DrawLine(pointsDrawing.at(i), pointsDrawing.at(i + 1), { 1.0f,0.0f,0.0f,1.0f });
 	}

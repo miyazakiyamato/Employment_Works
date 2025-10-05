@@ -183,6 +183,15 @@ void GameScene::Initialize(){
 
 	railCamera_ = std::make_unique<RailCamera>();
 	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
+	//railCamera_->SetSegmentTime(30.0f);
+	railCamera_->SetControlPoints({
+		{0,  0,  0},
+		{0,  0, 40},
+		{0,  0,170},
+		{0,  0,200},
+		{0,  0,330},
+		{0,  0,500}
+		});
 	player_->SetParent(railCamera_->GetObject3d());
 	player_->SetCamera(railCamera_->GetCamera());
 

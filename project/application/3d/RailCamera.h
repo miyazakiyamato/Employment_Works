@@ -16,19 +16,27 @@ private:
 
 	std::vector<Vector3> controlPoints_;
 	std::vector<Vector3> pointsDrawing;
-	const size_t segmentCount = 100;
+	size_t segmentCount = 100;
+	size_t preControlPointCount = 0;
 
 	Vector3 linePosition;
 	Vector3 target;
 	Vector3 offset = { 0.0f, 2.0f, -10.0f }; // カメラのオフセット
 
-	const float kSegmentTime = 60.0f; // セグメントの時間間隔
-	float segmentTime = 0;
-	float targetTimeDistance = 0.01f; // ターゲットまでの時間間隔
+	float segmentLength = 0.0f; // セグメントの長さ
+	float velocity = 30.0f;		// セグメントの速度
+	float segmentPosition = 0.0f; // セグメントの位置
+	float targetTimeDistance = 0.1f; // ターゲットまでの時間間隔
 
 	bool isFinished = false;
 public:
 	const Camera* GetCamera() const { return camera_; }
 	Object3d* GetObject3d() { return object3d_.get(); }
 	bool GetIsFinished() const { return isFinished; }
+	std::vector<Vector3> GetControlPoints() const { return controlPoints_; }
+
+	void SetControlPoints(const std::vector<Vector3>& points) { controlPoints_ = points; }
+	void AddControlPoint(const Vector3& point) { controlPoints_.push_back(point); }
+	void SetVelocity(float v) { velocity = v; }
+	void SetSegmentCount(size_t count) { segmentCount = count;}
 };

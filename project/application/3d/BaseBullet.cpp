@@ -11,7 +11,7 @@ void BaseBullet::Initialize(const Vector3& position, const Vector3& velocity){
 
 void BaseBullet::Update(){
 	Rotate(velocity_);
-	object3d_->SetTranslate(Vector3::Add(object3d_->GetTranslate(), velocity_));
+	object3d_->SetTranslate(Vector3::Add(object3d_->GetTranslate(), velocity_ * TimeManager::GetInstance()->deltaTime_));
 	object3d_->Update();
 	deathTimer_ -= TimeManager::GetInstance()->deltaTime_;
 	if (deathTimer_ <= 0.0f) {

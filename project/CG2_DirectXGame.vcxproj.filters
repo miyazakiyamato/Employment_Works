@@ -115,6 +115,30 @@
     <Filter Include="シェーダーファイル\OffScreen">
       <UniqueIdentifier>{c4c4fa66-3f37-4e6e-a5ec-c83d1e7339ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\application\3d\Background">
+      <UniqueIdentifier>{d8377321-4b92-45fa-aed5-513bc16222e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\3d\Base">
+      <UniqueIdentifier>{dc03b692-05d1-46c8-8748-3efbdad7e9b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\3d\Enemy">
+      <UniqueIdentifier>{b45033dd-5ddb-45fb-9c00-a93d1cba3fca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\3d\Player">
+      <UniqueIdentifier>{f5560b61-21cb-444d-b0ee-6d81998d2176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\3d\Background">
+      <UniqueIdentifier>{0a926948-db2d-4403-9634-1945b21f9317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\3d\Base">
+      <UniqueIdentifier>{74673f1a-cf5b-4adf-819c-73cb59a71d34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\3d\Enemy">
+      <UniqueIdentifier>{5863eadb-de15-46b1-9999-1234ce311494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\3d\Player">
+      <UniqueIdentifier>{5aa1bd4d-5a3d-4703-89ef-ddd67171f3b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -189,9 +213,6 @@
     <ClCompile Include="engine\collision\ContactRecord.cpp">
       <Filter>ソース ファイル\engine\collision</Filter>
     </ClCompile>
-    <ClCompile Include="application\3d\AccelerationField.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
     <ClCompile Include="engine\scene\Framework.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
     </ClCompile>
@@ -255,24 +276,6 @@
     <ClCompile Include="engine\3d\SkinningObject3dPipeline.cpp">
       <Filter>ソース ファイル\engine\3d</Filter>
     </ClCompile>
-    <ClCompile Include="application\3d\Ground.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\Skydome.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\BaseCharacter.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\Player.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\PlayerBullet.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\Enemy.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
     <ClCompile Include="engine\base\OffScreenPipeline.cpp">
       <Filter>ソース ファイル\engine\base</Filter>
     </ClCompile>
@@ -312,26 +315,47 @@
     <ClCompile Include="engine\3d\SkyboxPipeline.cpp">
       <Filter>ソース ファイル\engine\3d</Filter>
     </ClCompile>
-    <ClCompile Include="application\3d\RailCamera.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\BaseBullet.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\BulletManager.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\EnemyBullet.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\3d\TimedCall.cpp">
-      <Filter>ソース ファイル\application\3d</Filter>
-    </ClCompile>
     <ClCompile Include="application\scene\ClearScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\scene\GameOverScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\BaseCharacter.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\BaseBullet.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\Skydome.cpp">
+      <Filter>ソース ファイル\application\3d\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\Ground.cpp">
+      <Filter>ソース ファイル\application\3d\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\TimedCall.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\Player.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\Enemy.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\EnemyBullet.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\PlayerBullet.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\RailCamera.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\BulletManager.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\AccelerationField.cpp">
+      <Filter>ソース ファイル\application\3d\Background</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,9 +434,6 @@
     <ClInclude Include="engine\collision\ContactRecord.h">
       <Filter>ヘッダー ファイル\engine\collision</Filter>
     </ClInclude>
-    <ClInclude Include="application\3d\AccelerationField.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
     <ClInclude Include="engine\scene\Framework.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
     </ClInclude>
@@ -467,27 +488,6 @@
     <ClInclude Include="engine\3d\SkinningObject3dPipeline.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="application\3d\CollisionTypeIdDef.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\Ground.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\BaseCharacter.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\Player.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\Skydome.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\PlayerBullet.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\Enemy.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
     <ClInclude Include="engine\base\OffScreenPipeline.h">
       <Filter>ヘッダー ファイル\engine\base</Filter>
     </ClInclude>
@@ -533,26 +533,50 @@
     <ClInclude Include="engine\3d\SkyboxPipeline.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="application\3d\RailCamera.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\BaseBullet.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\BulletManager.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\EnemyBullet.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\3d\TimedCall.h">
-      <Filter>ヘッダー ファイル\application\3d</Filter>
-    </ClInclude>
     <ClInclude Include="application\scene\ClearScene.h">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\scene\GameOverScene.h">
       <Filter>ソース ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\AccelerationField.h">
+      <Filter>ヘッダー ファイル\application\3d\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\BaseBullet.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\BaseCharacter.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\BulletManager.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\CollisionTypeIdDef.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\Enemy.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\Ground.h">
+      <Filter>ヘッダー ファイル\application\3d\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\Player.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\PlayerBullet.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\RailCamera.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\Skydome.h">
+      <Filter>ヘッダー ファイル\application\3d\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\TimedCall.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

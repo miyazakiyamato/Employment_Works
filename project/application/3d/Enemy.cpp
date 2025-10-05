@@ -71,7 +71,7 @@ void Enemy::FireCancel() {
 void Enemy::Fire() {
 	assert(player_);
 	//
-	const float kBulletSpeed = 1.0f;
+	const float kBulletSpeed = 100.0f;
 
 	Vector3 velocity{ player_->GetWorldPosition() - object3d_->GetCenterPosition() };
 	velocity = Vector3::Multiply(kBulletSpeed, velocity.Normalize());

@@ -8,6 +8,12 @@ class Input;
 class Camera;
 class BulletManager;
 class Player : public BaseCharacter{
+public://構造体
+	/*struct AttackData{
+		float elapsedTime = 0.0f;
+		BaseBullet* bullet = nullptr;
+	};*/
+
 public://メンバ関数
 	Player() {}
 
@@ -31,7 +37,6 @@ public://メンバ関数
 	void OnCollision([[maybe_unused]] Collider* other) override;
 private://ローカル関数
 	void Move();
-	void CameraMove();
 	void Attack();
 	void ReticleUpdate();
 private://メンバ変数
@@ -45,10 +50,6 @@ private://メンバ変数
 	Vector3 velocity_{};
 	float moveSpeed_ = 0.5f;
 
-	float destinationAngleX_ = 0.0f;
-	float destinationAngleY_ = 0.0f;
-
-	bool isCollision = false;
 
 	int hp_ = 5;
 	bool isAlive_ = true;
