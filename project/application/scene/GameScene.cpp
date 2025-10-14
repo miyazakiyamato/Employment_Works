@@ -11,6 +11,7 @@
 #include "TimeManager.h"
 #include "Line3D.h"
 #include "HitEffect.h"
+#include "PostEffectManager.h"
 #include <numbers>
 
 void GameScene::Initialize(){
@@ -264,6 +265,7 @@ void GameScene::Update(){
 				sprite->ImGuiUpdate(spriteName);
 				++spriteIDIndex;
 			}
+			PostEffectManager::GetInstance()->ImGuiUpdate();
 			ImGui::EndMenuBar();
 		}
 		ImGui::End();
@@ -271,7 +273,7 @@ void GameScene::Update(){
 #endif //_DEBUG
 	railCamera_->Update();
 	CameraManager::GetInstance()->GetCamera()->Update();
-
+	PostEffectManager::GetInstance()->Update();
 #ifdef _DEBUG
 	// デバッグ用にワールドトランスフォームの更新
 	collisionManager_->UpdateWorldTransform();
@@ -384,12 +386,22 @@ void GameScene::ClearCheck(){
 		敵がいなくなったらクリア
 		
 	}*/
-	if (!player_->GetIsAlive()) {
 		//プレイヤーのHPが0になったらゲームオーバー
-		sceneManager_->ChangeScene("GAMEOVER");
+		//レールカメラの移動が終わったらクリア
+	if (sceneManager_->IsSceneAlive("FADE_OUT") == false) {
+		if (!player_->GetIsAlive() || railCamera_->GetIsFinished()) {
+			sceneManager_->AddScene("FADE_OUT");
+		}
 	}
-	if (railCamera_->GetIsFinished()) {
-		//レールカメラの移動が終わったら
-		sceneManager_->ChangeScene("CLEAR");
+	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
+		sceneManager_->RemoveScene("TITLE");
+		sceneManager_->RemoveScene("FADE_OUT");
+		if (!player_->GetIsAlive()) {
+			sceneManager_->AddScene("GAMEOVER");
+		}
+		if (railCamera_->GetIsFinished()) {
+			sceneManager_->AddScene("CLEAR");
+		}
+		sceneManager_->AddScene("FADE_IN");
 	}
 }

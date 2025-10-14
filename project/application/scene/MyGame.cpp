@@ -27,14 +27,12 @@ void MyGame::Update(){
 void MyGame::Draw(){
 	//描画前処理
 	dxCommon->RenderTexturePreDraw();
-	srvManager->PreDraw();
+	srvUavManager->PreDraw();
 		
 	sceneManager_->Draw();
 
 	//OffScreenの描画
-	dxCommon->SwapChainPreDraw();
-	sceneManager_->OffScreenDrawSetting();
-	dxCommon->OffScreenDraw();
+	postEffectManager_->Draw();
 #ifdef _DEBUG
 	//実際のcommandListのImGuiの描画コマンドを積む
 	imGuiManager->Draw();

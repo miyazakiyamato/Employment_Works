@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Skydome.h"
 #include "Ground.h"
+#include <vector>
 
 class TitleScene : public BaseScene {
 public://メンバ関数
