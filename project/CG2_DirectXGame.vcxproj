@@ -124,6 +124,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\3d\SkyboxPipeline.cpp" />
     <ClCompile Include="application\3d\RailCamera.cpp" />
     <ClCompile Include="engine\base\SrvUavManager.cpp" />
+    <ClCompile Include="engine\math\Vector2.cpp" />
     <ClCompile Include="engine\particle\BaseParticleEmitter.cpp" />
     <ClCompile Include="application\3d\BaseCharacter.cpp" />
     <ClCompile Include="application\3d\Ground.cpp" />
@@ -160,7 +161,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\3d\ModelManager.cpp" />
     <ClCompile Include="engine\base\TextureManager.cpp" />
     <ClCompile Include="engine\math\Matrix4x4.cpp" />
-    <ClCompile Include="engine\math\Vector2.cpp" />
     <ClCompile Include="engine\math\Vector3.cpp" />
     <ClCompile Include="engine\math\Vector4.cpp" />
     <ClCompile Include="engine\debug\ImGuiManager.cpp" />
@@ -200,6 +200,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\3d\SkyboxPipeline.h" />
     <ClInclude Include="application\3d\RailCamera.h" />
     <ClInclude Include="engine\base\SrvUavManager.h" />
+    <ClInclude Include="engine\math\Vector2.h" />
     <ClInclude Include="engine\particle\BaseParticleEmitter.h" />
     <ClInclude Include="application\3d\BaseCharacter.h" />
     <ClInclude Include="application\3d\CollisionTypeIdDef.h" />
@@ -238,7 +239,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\3d\ModelManager.h" />
     <ClInclude Include="engine\base\TextureManager.h" />
     <ClInclude Include="engine\math\Matrix4x4.h" />
-    <ClInclude Include="engine\math\Vector2.h" />
     <ClInclude Include="engine\math\Vector3.h" />
     <ClInclude Include="engine\math\Vector4.h" />
     <ClInclude Include="engine\debug\ImGuiManager.h" />
