@@ -14,7 +14,6 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 	if (sceneName == "TITLE") {
 		newScene = new TitleScene();
 	} else if (sceneName == "GAME") {
-	else if (sceveName == "GAME") {
 		newScene = new GameScene();
 	} else if (sceneName == "CLEAR") {
 		newScene = new ClearScene();

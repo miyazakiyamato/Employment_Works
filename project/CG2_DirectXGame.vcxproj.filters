@@ -536,12 +536,6 @@
     <ClInclude Include="engine\3d\SkyboxPipeline.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\ClearScene.h">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\GameOverScene.h">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClInclude>
     <ClInclude Include="application\3d\AccelerationField.h">
       <Filter>ヘッダー ファイル\application\3d\Background</Filter>
     </ClInclude>
@@ -591,6 +585,12 @@
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\scene\FadeOutScene.h">
+      <Filter>ヘッダー ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\GameOverScene.h">
+      <Filter>ヘッダー ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\ClearScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
   </ItemGroup>

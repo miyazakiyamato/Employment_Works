@@ -46,8 +46,15 @@ void ClearScene::Update(){
 	BaseScene::Update();
 
 
-	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) {
-		sceneManager_->ChangeScene("TITLE");
+	if ((input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) &&
+		sceneManager_->IsSceneAlive("FADE_OUT") == false) {
+		sceneManager_->AddScene("FADE_OUT");
+	}
+	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
+		sceneManager_->RemoveScene("CLEAR");
+		sceneManager_->RemoveScene("FADE_OUT");
+		sceneManager_->AddScene("TITLE");
+		sceneManager_->AddScene("FADE_IN");
 	}
 
 	//カメラの更新

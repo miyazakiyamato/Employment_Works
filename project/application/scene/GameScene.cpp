@@ -394,7 +394,7 @@ void GameScene::ClearCheck(){
 		}
 	}
 	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
-		sceneManager_->RemoveScene("TITLE");
+		sceneManager_->RemoveScene("GAME");
 		sceneManager_->RemoveScene("FADE_OUT");
 		if (!player_->GetIsAlive()) {
 			sceneManager_->AddScene("GAMEOVER");

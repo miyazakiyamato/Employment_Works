@@ -5,13 +5,8 @@ void MyGame::Initialize(){
 	Framework::Initialize();
 
 	//最初のシーンセット
-	sceneManager_->ChangeScene("TITLE");
-	//オフスクリーンの描画設定
-	sceneManager_->ChangeOffScreenState("Fullscreen");
-	//sceneManager_->ChangeOffScreenState("Grayscale");
-	//sceneManager_->ChangeOffScreenState("Vignette");
-	//sceneManager_->ChangeOffScreenState("BoxFilter");
-	//sceneManager_->ChangeOffScreenState("GaussianFilter");
+	sceneManager_->AddScene("TITLE");
+	sceneManager_->AddScene("FADE_IN");
 }
 
 void MyGame::Finalize(){
