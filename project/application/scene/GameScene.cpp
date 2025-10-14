@@ -255,8 +255,7 @@ void GameScene::Update(){
 
 				object3dCount++;
 			}*/
-			ParticleManager::GetInstance()->UpdateGlobalVariables();
-			//groupName = "Particle";
+			particleSystem_->UpdateGlobalVariables();
 			
 			groupName = "Sprite";
 			uint32_t spriteIDIndex = 0;
@@ -309,7 +308,7 @@ void GameScene::Update(){
 				ParticleManager::Particle& particle = *it;
 
 				if (Collision::IsCollision(accelerationField_->GetAABB(), particle.transform.translate)) {
-					particle.velocity += accelerationField_->GetAcceleration() * TimeManager::GetInstance()->deltaTime_;
+					//particle.velocity += accelerationField_->GetAcceleration() * TimeManager::GetInstance()->deltaTime_;
 
 				}
 
