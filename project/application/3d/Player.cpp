@@ -15,17 +15,20 @@ void Player::Initialize(){
 	input_ = Input::GetInstance();
 	object3d_->SetModel("airship/airship.obj");
 	object3d_->SetTranslate({ 0.0f, 0.0f, 30.0f });
+	object3d_->Update();
 	//レティクル3D
 	reticle3d_ = std::make_unique<Object3d>();
 	reticle3d_->Initialize();
 	reticle3d_->SetModel("sphere/sphere.obj");
 	reticle3d_->SetTranslate({ 0,0,10.0f });
+	reticle3d_->Update();
 	//レティクル2D
 	reticle2d_ = std::make_unique<Sprite>();
 	reticle2d_->Initialize("reticle.png");
 	reticle2d_->SetPosition({ WinApp::kClientWidth / 2.0f,WinApp::kClientHeight / 2.0f });
 	reticle2d_->SetAnchorPoint({ 0.5f, 0.5f });
 	reticle2d_->SetSize({ 64.0f, 64.0f });
+	reticle2d_->Update();
 }
 
 void Player::Update(){

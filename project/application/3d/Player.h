@@ -51,7 +51,7 @@ private://メンバ変数
 	float moveSpeed_ = 0.5f;
 
 
-	int hp_ = 5;
+	int hp_ = 15;
 	bool isAlive_ = true;
 	//ロックオン
 	//LockOn* lockOn_ = nullptr;

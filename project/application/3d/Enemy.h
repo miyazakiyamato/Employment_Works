@@ -27,7 +27,7 @@ public:
 	void OnCollision([[maybe_unused]] Collider* other) override;
 
 	//発射間隔
-	static const float inline kFireInterval = 1.0f;
+	static const float inline kFireInterval = 3.0f;
 	//
 	void Fire();
 	void FireTimed();

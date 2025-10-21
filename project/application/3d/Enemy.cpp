@@ -16,7 +16,7 @@ void Enemy::Initialize(){
 	object3d_->SetModel("sphere/sphere.obj");
 	object3d_->SetRotate({ 0,3.14f,0 });
 	object3d_->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f },0);
-
+	object3d_->Update();
 	FireTimed();
 }
 
@@ -71,7 +71,7 @@ void Enemy::FireCancel() {
 void Enemy::Fire() {
 	assert(player_);
 	//
-	const float kBulletSpeed = 100.0f;
+	const float kBulletSpeed = 30.0f;
 
 	Vector3 velocity{ player_->GetWorldPosition() - object3d_->GetCenterPosition() };
 	velocity = Vector3::Multiply(kBulletSpeed, velocity.Normalize());

@@ -87,6 +87,12 @@ void GameScene::Initialize(){
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<HitEffect>();
 	particleSystem_->CreateParticleEmitter("hitEffect", std::move(hitEffect));
 
+	//レールカメラ
+	railCamera_ = std::make_unique<RailCamera>();
+	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
+	//railCamera_->SetSegmentTime(30.0f);
+	std::vector<Vector3> railCameraPoints = {};
+
 	//天球
 	skydome_ = std::make_unique<Skydome>();
 	skydome_->Initialize();
@@ -102,8 +108,6 @@ void GameScene::Initialize(){
 	player_->Initialize();
 	player_->SetBulletManager(bulletManager_.get());
 
-	//レールカメラポイント
-	std::vector<Vector3> railCameraPoints = {};
 
 	//レベルデータマネージャの生成
 	levelDataManager_ = std::make_unique<LevelDataManager>();
@@ -157,13 +161,10 @@ void GameScene::Initialize(){
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
 
-	railCamera_ = std::make_unique<RailCamera>();
-	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
-	//railCamera_->SetSegmentTime(30.0f);
 	railCamera_->SetControlPoints(railCameraPoints);
+
 	player_->SetParent(railCamera_->GetObject3d());
 	player_->SetCamera(railCamera_->GetCamera());
-
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 0; ++i) {
@@ -199,9 +200,13 @@ void GameScene::Finalize(){
 	BaseScene::Finalize();
 }
 
-void GameScene::Update(){
+void GameScene::Update() {
 	BaseScene::Update();
-	
+	if (!sceneManager_->IsSceneFinished("GAME_START") && sceneManager_->IsSceneAlive("GAME_START")) {
+		TimeManager::GetInstance()->deltaTime_ = 0.001f;
+	} else {
+		TimeManager::GetInstance()->deltaTime_ = TimeManager::GetInstance()->kFlamTime_;
+	}
 #ifdef _DEBUG
 	//// ウインドウフラグに NoResize を指定
 	//ImGui::Begin("Settings", NULL, ImGuiWindowFlags_NoResize);

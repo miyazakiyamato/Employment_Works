@@ -10,10 +10,13 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotate){
 	offset = position;
 	object3d_->SetRotate(rotate);
 	object3d_->SetModel("sphere/sphere.obj");
+	object3d_->Update();
 	CameraManager::GetInstance()->SetCamera("RailCamera");
 	CameraManager::GetInstance()->FindCamera("RailCamera");
 	camera_ = CameraManager::GetInstance()->GetCamera();
 	camera_->SetFarClip(600.0f);
+	camera_->SetTranslate(offset);
+	camera_->Update();
 }
 
 void RailCamera::Update() {
@@ -69,6 +72,7 @@ void RailCamera::Draw() {
 	object3d_->Draw();
 
 	if (controlPoints_.size() < 2) { return; }
+	if (pointsDrawing.size() < 2) { return; }
 	for (size_t i = 0; i < pointsDrawing.size() - 1; i++) {
 		Line3dManager::GetInstance()->DrawLine(pointsDrawing.at(i), pointsDrawing.at(i + 1), { 1.0f,0.0f,0.0f,1.0f });
 	}
