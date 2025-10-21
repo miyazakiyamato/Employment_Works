@@ -24,9 +24,9 @@ private:
 	Vector3 offset = { 0.0f, 2.0f, -10.0f }; // カメラのオフセット
 
 	float segmentLength = 0.0f; // セグメントの長さ
-	float velocity = 30.0f;		// セグメントの速度
+	float velocity = 10.0f;		// セグメントの速度
 	float segmentPosition = 0.0f; // セグメントの位置
-	float targetTimeDistance = 0.1f; // ターゲットまでの時間間隔
+	float targetTimeDistance = 0.5f; // ターゲットまでの時間間隔
 
 	bool isFinished = false;
 public:

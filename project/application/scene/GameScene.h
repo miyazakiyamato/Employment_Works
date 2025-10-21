@@ -47,6 +47,8 @@ private://メンバ変数
 	std::vector<std::unique_ptr<Enemy>> enemies_;
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_ = nullptr;
+	//3Dオブジェクト
+	std::vector<std::unique_ptr<Object3d>> object3ds_;
 	//スプライト
 	std::vector< std::unique_ptr<Sprite>> sprites_;
 	//パーティクルシステム
