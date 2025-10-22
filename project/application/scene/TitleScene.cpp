@@ -101,7 +101,7 @@ void TitleScene::Update(){
 		sceneManager_->RemoveScene("FADE_OUT");
 		sceneManager_->AddScene("GAME");
 		sceneManager_->AddScene("GAME_START");
-		//sceneManager_->AddScene("FADE_IN");
+		sceneManager_->AddScene("FADE_IN");
 	}
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Update();

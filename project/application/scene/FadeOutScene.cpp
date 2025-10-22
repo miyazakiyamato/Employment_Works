@@ -27,7 +27,7 @@ void FadeOutScene::Finalize(){
 
 void FadeOutScene::Update(){
 	BaseScene::Update();
-	counter_ += TimeManager::GetInstance()->deltaTime_;
+	counter_ += TimeManager::GetInstance()->kFlamTime_;
 	if (counter_ < duration_) {
 		float alpha = (counter_ / duration_);
 		sprites_[0]->SetColor({ 0.0f,0.0f,0.0f,alpha });
