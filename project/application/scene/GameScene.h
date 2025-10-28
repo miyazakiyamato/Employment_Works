@@ -57,5 +57,8 @@ private://メンバ変数
 	std::unique_ptr<LevelDataManager> levelDataManager_ = nullptr;
 	//バレットマネージャー
 	std::unique_ptr<BulletManager> bulletManager_ = nullptr;
+	public:
+		ParticleSystem* GetParticleSystem() { return particleSystem_.get(); }
+		Player* GetPlayer() { return player_.get(); }
 };
 

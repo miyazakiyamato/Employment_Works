@@ -6,6 +6,7 @@
 #include "FadeInScene.h"
 #include "FadeOutScene.h"
 #include "GameStartScene.h"
+#include "PlayerDeathScene.h"
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 {
@@ -26,7 +27,9 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 		newScene = new FadeOutScene();
 	} else if (sceneName == "GAME_START") {
 		newScene = new GameStartScene();
-	}else {
+	} else if (sceneName == "PLAYER_DEATH") {
+		newScene = new PlayerDeathScene();
+	} else {
 		assert(0 && "不明なシーン名");
 	}
 	return newScene;

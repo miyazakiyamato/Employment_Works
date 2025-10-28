@@ -25,5 +25,6 @@ protected:
 
 public:
 	virtual Vector3 GetCenterPosition() const override;
+	Object3d* GetObject3d() { return object3d_.get(); }
 };
 

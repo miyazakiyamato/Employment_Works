@@ -50,7 +50,7 @@ void GameOverScene::Update(){
 		sceneManager_->IsSceneAlive("FADE_OUT") == false) {
 		sceneManager_->AddScene("FADE_OUT");
 	}
-	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
+	if (sceneManager_->IsSceneFinished("FADE_OUT") && sceneManager_->IsSceneAlive("FADE_IN") == false) {
 		sceneManager_->RemoveScene("GAMEOVER");
 		sceneManager_->RemoveScene("FADE_OUT");
 		sceneManager_->AddScene("TITLE");

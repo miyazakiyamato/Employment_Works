@@ -13,6 +13,8 @@
 #include "HitEffect.h"
 #include "PostEffectManager.h"
 #include <numbers>
+#include "PlayerDeathScene.h"
+#include <Easing.h>
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -86,7 +88,6 @@ void GameScene::Initialize(){
 	particleSystem_.reset(new ParticleSystem);
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<HitEffect>();
 	particleSystem_->CreateParticleEmitter("hitEffect", std::move(hitEffect));
-
 	//レールカメラ
 	railCamera_ = std::make_unique<RailCamera>();
 	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
@@ -291,6 +292,17 @@ void GameScene::Update() {
 		}
 	}
 
+	if (sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
+		PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));
+		float scale = Easing::EaseOutBounce(playerDeathScene->GetCounter() / playerDeathScene->GetDuration(), 1.0f, 0.0f);
+		player_->GetObject3d()->SetScale({ scale,scale ,scale });
+		particleSystem_->FindEmitter("hitEffect")->SetPosition(player_->GetObject3d()->GetCenterPosition());
+		if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
+			particleSystem_->Emit("hitEffect");
+		}/*if (scale == 1) {
+			particleSystem_->Emit("hitEffect");
+		}*/
+	}
 
 	particleSystem_->Update();
 
@@ -352,28 +364,33 @@ void GameScene::CheckAllCollisions(){
 	collisionManager_->CheckAllCollisions();
 }
 
-void GameScene::ClearCheck(){
+void GameScene::ClearCheck() {
 	//クリア判定
 	/*if (enemies_.empty()) {
 		敵がいなくなったらクリア
-		
+
 	}*/
-		//プレイヤーのHPが0になったらゲームオーバー
-		//レールカメラの移動が終わったらクリア
-	if (sceneManager_->IsSceneAlive("FADE_OUT") == false) {
-		if (!player_->GetIsAlive() || railCamera_->GetIsFinished()) {
+	//プレイヤーのHPが0になったらゲームオーバー
+	//レールカメラの移動が終わったらクリア
+	if (sceneManager_->IsSceneAlive("FADE_OUT") == false && sceneManager_->IsSceneAlive("PLAYER_DEATH") == false) {
+		if (!player_->GetIsAlive()) {
+			sceneManager_->AddScene("PLAYER_DEATH");
+		}
+
+		if (railCamera_->GetIsFinished()) {
 			sceneManager_->AddScene("FADE_OUT");
 		}
 	}
 	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
-		sceneManager_->RemoveScene("GAME");
-		sceneManager_->RemoveScene("FADE_OUT");
 		if (!player_->GetIsAlive()) {
+			sceneManager_->RemoveScene("PLAYER_DEATH");
 			sceneManager_->AddScene("GAMEOVER");
 		}
 		if (railCamera_->GetIsFinished()) {
 			sceneManager_->AddScene("CLEAR");
 		}
+		sceneManager_->RemoveScene("GAME");
+		sceneManager_->RemoveScene("FADE_OUT");
 		sceneManager_->AddScene("FADE_IN");
 	}
 }
