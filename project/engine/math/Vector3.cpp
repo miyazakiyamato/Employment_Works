@@ -141,7 +141,7 @@ Vector3 Vector3::ClosestPoint(const Vector3& point, const Segment& segment)
 }
 
 Vector3 Vector3::Lerp(const Vector3& v1, const Vector3& v2, float t){
-    return (Vector3)v1 + ((Vector3)v2 - v1) * t;
+    return v1 + (v2 - v1) * t;
 }
 Vector3 Vector3::Slerp(const Vector3& v1, const Vector3& v2, float t) {
     Vector3 v3;

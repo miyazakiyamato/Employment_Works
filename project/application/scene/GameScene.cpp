@@ -10,7 +10,7 @@
 #include "GlobalVariables.h"
 #include "TimeManager.h"
 #include "Line3D.h"
-#include "HitEffect.h"
+#include "EmitterSphere.h"
 #include "PostEffectManager.h"
 #include <numbers>
 #include "PlayerDeathScene.h"
@@ -184,6 +184,7 @@ void GameScene::Initialize(){
 }
 
 void GameScene::Finalize(){
+	particleSystem_->Finalize();
 	//解放
 	railCamera_.reset();
 
