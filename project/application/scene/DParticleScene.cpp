@@ -1,4 +1,4 @@
-#include "GameScene.h"
+#include "DParticleScene.h"
 #include <imgui.h>
 #include "Input.h"
 #include "CameraManager.h"
@@ -13,7 +13,7 @@
 #include "PostEffectManager.h"
 #include <numbers>
 
-void GameScene::Initialize(){
+void DParticleScene::Initialize(){
 	BaseScene::Initialize();
 
 	//開発用のUIの処理。
@@ -32,28 +32,7 @@ void GameScene::Initialize(){
 	AudioManager::GetInstance()->LoadWave("maou_se_system48.wav");
 	//AudioManager::GetInstance()->LoadMP3("audiostock_1420737.mp3");
 
-	ModelManager::GetInstance()->LoadModel("plane/plane.obj");
-	ModelManager::GetInstance()->LoadModel("fence/fence.obj");
-	ModelManager::GetInstance()->LoadModel("axis/axis.obj");
-	ModelManager::GetInstance()->LoadModel("sphere/sphere.obj");
 	ModelManager::GetInstance()->LoadModel("terrain/terrain.obj");
-	ModelManager::GetInstance()->LoadModel("skybox");
-	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
-	ModelManager::GetInstance()->LoadModel("multiMesh/multiMesh.obj");
-	ModelManager::GetInstance()->LoadModel("multiMaterial/multiMaterial.obj");
-	ModelManager::GetInstance()->LoadModel("sword/sword.obj");
-	/*ModelManager::GetInstance()->LoadModel("plane/plane.gltf");*/
-
-	ModelManager::GetInstance()->LoadModel("AnimatedCube/AnimatedCube.gltf");
-	ModelManager::GetInstance()->LoadAnimation("AnimatedCube/AnimatedCube.gltf");
-	ModelManager::GetInstance()->LoadModel("simpleSkin/simpleSkin.gltf");
-	ModelManager::GetInstance()->LoadAnimation("simpleSkin/simpleSkin.gltf");
-	ModelManager::GetInstance()->LoadModel("human/sneakWalk.gltf");
-	ModelManager::GetInstance()->LoadAnimation("human/sneakWalk.gltf");
-	ModelManager::GetInstance()->LoadModel("human/walk.gltf");
-	ModelManager::GetInstance()->LoadAnimation("human/walk.gltf");
-	ModelManager::GetInstance()->LoadModel("BrainStem/BrainStem.gltf");
-	ModelManager::GetInstance()->LoadAnimation("BrainStem/BrainStem.gltf");
 
 	TextureManager::GetInstance()->LoadTexture("circle2.png");
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
@@ -66,90 +45,28 @@ void GameScene::Initialize(){
 	//skybox
 	std::unique_ptr<Object3d> object3d(new Object3d);
 	object3d->Initialize();
-	object3d->SetScale({ 1000.0f,1000.0f,1000.0f });
-	object3d->SetModel("skybox");
-	object3d->SetTexture("rostock_laage_airport_4k.dds");
+	object3d->SetModel("terrain/terrain.obj");
 	object3ds_.push_back(std::move(object3d));
-	//std::unique_ptr<Object3d> object3d2(new Object3d);
-	//object3d2->Initialize();
-	//object3d2->SetTranslate({-1.0f,0.0f,0.0f});
-	//object3d2->SetModel("BrainStem/BrainStem.gltf");
-	//object3d2->SetAnimation("BrainStem/BrainStem.gltf", true);
-	////object3d2->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-	//object3ds_.push_back(std::move(object3d2));
-	//レベルデータマネージャの生成
-	levelDataManager_ = std::make_unique<LevelDataManager>();
-	//レベルデータの読み込み取得
-	levelDataManager_->LoadJsonFile("level1"); 
-	LevelDataManager::LevelData* levelData = levelDataManager_->GetObjectData("level1");
-	for (const std::unique_ptr<ObjectData>& objectData : *levelData) {
-		if (objectData->typeName == "MESH") {
-			std::unique_ptr<Object3d> object3d(new Object3d);
-			object3d->Initialize();
-			object3d->SetScale(objectData->scaling);
-			object3d->SetRotate(objectData->rotation);
-			object3d->SetTranslate(objectData->translation);
-			if (!objectData->fileName.empty()) {
-				object3d->SetModel(objectData->fileName);
-				//object3d->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-			}
-			object3ds_.push_back(std::move(object3d));
-		}
-		//if (objectData->typeName == "ARMATURE") {
-		//	for (const std::unique_ptr<ObjectData>&childData : objectData->children) {
-		//		if (childData->typeName == "MESH") {
-		//			std::unique_ptr<Object3d> object3d(new Object3d);
-		//			object3d->Initialize();
-		//			object3d->SetTranslate(objectData->translation);
-		//			if (!childData->fileName.empty()) {
-		//				object3d->SetModel(childData->fileName);
-		//				object3d->SetAnimation(childData->fileName, true);
-		//				//object3d->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-		//			}
-		//			object3ds_.push_back(std::move(object3d));
-		//		}
-		//	}
-		//}
-		//if (objectData->typeName == "PlayerSpawn") {
-		//	std::unique_ptr<Object3d> object3d(new Object3d);
-		//	object3d->Initialize();
-		//	object3d->SetScale(objectData->scaling);
-		//	object3d->SetRotate(objectData->rotation);
-		//	object3d->SetTranslate(objectData->translation);
-		//	object3d->SetModel("sphere/sphere.obj");
-		//	//object3d->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-		//	object3ds_.push_back(std::move(object3d));
-		//}
-		//if (objectData->typeName == "EnemySpawn") {
-		//	std::unique_ptr<Object3d> object3d(new Object3d);
-		//	object3d->Initialize();
-		//	object3d->SetScale(objectData->scaling);
-		//	object3d->SetRotate(objectData->rotation);
-		//	object3d->SetTranslate(objectData->translation);
-		//	object3d->SetModel("sphere/sphere.obj");
-		//	object3d->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-		//	object3ds_.push_back(std::move(object3d));
-		//}
-	}
-	/*std::unique_ptr<Object3d> object3d3(new Object3d);
-	object3d3->Initialize();
-	object3d3->SetParent(object3ds_[2].get());
-	std::unique_ptr<Object3d> object3d4(new Object3d);
-	object3d4->Initialize();
-	object3d4->SetTranslate({ 0.0f,7.0f,2.0f });
-	object3d4->SetRotate({ 0.0f,0.0f,1.57f });
-	object3d4->SetScale({ 10.0f,10.0f,10.0f });
-	object3d4->SetModel("sword/sword.obj");
-	object3d4->SetParent(object3d3.get());
-	object3ds_.push_back(std::move(object3d3));
-	object3ds_.push_back(std::move(object3d4));*/
-	//
+	
 	isAccelerationField = false;
 	accelerationField_.reset(new AccelerationField);
 
 	particleSystem_.reset(new ParticleSystem);
+	particleSystem_->Initialize();
+	std::unique_ptr<EmitterSphere> emitterSphere = std::make_unique<EmitterSphere>();
+	emitterSphere->Initialize("emitterSphere",10000);
+	emitterSphere->SetTexture("gradationLine.png");
+	emitterSphere->SetRing(16, 0.5f, 0.0f);
+	particleSystem_->SetParticleEmitter(std::move(emitterSphere));
+
+	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
+	emitterHit->Initialize("emitterHit",100);
+	emitterHit->SetTranslate({ 1.0f,1.0f,0.0f });
+	emitterHit->SetTexture("circle2.png");
+	particleSystem_->SetParticleEmitter(std::move(emitterHit));
+
 	//スプライトの初期化
-	for (uint32_t i = 0; i < 5; ++i) {
+	/*for (uint32_t i = 0; i < 5; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
 		sprite->Initialize("uvChecker.png");
 		sprite->SetPosition({ 100 + 200.0f * float(i), 100 });
@@ -161,10 +78,10 @@ void GameScene::Initialize(){
 	sprites_[1]->SetIsFlipX(true);
 	sprites_[2]->SetIsFlipY(true);
 	sprites_[3]->SetIsFlipX(true);
-	sprites_[3]->SetIsFlipY(true);
+	sprites_[3]->SetIsFlipY(true);*/
 }
 
-void GameScene::Finalize(){
+void DParticleScene::Finalize(){
 	particleSystem_->Finalize();
 	//解放
 	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
@@ -177,7 +94,7 @@ void GameScene::Finalize(){
 	BaseScene::Finalize();
 }
 
-void GameScene::Update(){
+void DParticleScene::Update(){
 	BaseScene::Update();
 
 #ifdef _DEBUG
@@ -201,8 +118,9 @@ void GameScene::Update(){
 
 				object3dCount++;
 			}
-			//ParticleManager::GetInstance()->UpdateGlobalVariables();
-			groupName = "Particle";
+
+			// パーティクルのImGui更新
+			particleSystem_->ImGuiUpdate();
 			
 			groupName = "Sprite";
 			uint32_t spriteIDIndex = 0;
@@ -260,7 +178,7 @@ void GameScene::Update(){
 	}
 }
 
-void GameScene::Draw(){
+void DParticleScene::Draw(){
 	//Object3dの描画
 	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
 		object3d->Draw();
@@ -282,11 +200,11 @@ void GameScene::Draw(){
 
 	//Spriteの描画
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		//sprite->Draw();
+		sprite->Draw();
 	}
 }
 
-void GameScene::CheckAllCollisions(){
+void DParticleScene::CheckAllCollisions(){
 	//衝突マネージャのリストクリアする
 	collisionManager_->Reset();
 	//全てのコライダーを衝突マネージャのリストに登録する
