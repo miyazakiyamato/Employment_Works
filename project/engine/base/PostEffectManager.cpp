@@ -3,7 +3,9 @@
 #include "CameraManager.h"
 #include "TimeManager.h"
 #include "TextureManager.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 
 PostEffectManager* PostEffectManager::instance = nullptr;
 
@@ -82,6 +84,7 @@ void PostEffectManager::Draw(){
 }
 
 void PostEffectManager::ImGuiUpdate() {
+#ifdef USE_IMGUI
 	std::string groupName = "PostEffect";
 	if (ImGui::BeginMenu(groupName.c_str())) {
 		//エフェクト選択
@@ -118,6 +121,7 @@ void PostEffectManager::ImGuiUpdate() {
 		ImGui::Text("Time: %.2f", material_->time);
 		ImGui::EndMenu();
 	}
+#endif // USE_IMGUI
 }
 
 void PostEffectManager::AddPostEffect(const std::string& name){

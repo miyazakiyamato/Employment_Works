@@ -2,7 +2,9 @@
 #include "WinApp.h"
 #include <cassert>
 #include <cmath>
-#include "imgui.h"
+#ifdef USE_IMGUI
+#include <imgui.h>
+#endif // USE_IMGUI
 #include <string>
 
 Input* Input::instance = nullptr;
@@ -149,6 +151,7 @@ void Input::LockMouseRangePosition(Vector2 leftTop, Vector2 rightBottom) {
 }
 
 void Input::ImGuiUpdate() {
+#ifdef USE_IMGUI
     std::string groupName = "Input";
     if (ImGui::BeginMenu(groupName.c_str())) {
         int WindowStartX = winApp_->GetWindowStartPosition().x;
@@ -165,4 +168,5 @@ void Input::ImGuiUpdate() {
 		ImGui::Checkbox("Mouse Locked Range", &isMouseLockedLange_);
         ImGui::EndMenu();
     }
+#endif // USE_IMGUI
 }

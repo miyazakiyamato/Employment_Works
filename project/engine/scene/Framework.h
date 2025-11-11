@@ -3,7 +3,9 @@
 #include <dxgidebug.h>
 #include <cmath>
 #include <vector>
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 
 #include "D3DResourceLeakChecker.h"
 
@@ -57,7 +59,9 @@ protected://メンバ変数
 	Input* input_ = nullptr;
 	//SRV
 	std::unique_ptr<SrvUavManager> srvUavManager = nullptr;
-	//ImGuiマネージャ
+	//
+	// 
+	// マネージャ
 	std::unique_ptr<ImGuiManager> imGuiManager = nullptr;
 	//
 	GlobalVariables* globalVariables_ = nullptr;

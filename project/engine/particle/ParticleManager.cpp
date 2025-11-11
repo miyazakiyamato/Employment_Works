@@ -7,7 +7,9 @@
 #include "PipelineManager.h"
 #include "TimeManager.h"
 #include "GlobalVariables.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 
 ParticleManager* ParticleManager::instance = nullptr;
 

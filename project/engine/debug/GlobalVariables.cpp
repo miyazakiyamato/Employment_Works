@@ -1,5 +1,7 @@
 #include "GlobalVariables.h"
-#include "imgui.h"
+#ifdef USE_IMGUI
+#include <imgui.h>
+#endif // USE_IMGUI
 #include <WinApp.h>
 #include <iostream>
 #include <fstream>
@@ -16,6 +18,7 @@ void GlobalVariables::CreateGroup(const std::string& groupName) {
 }
 
 void GlobalVariables::Update() {
+#ifdef USE_IMGUI
 	if (!ImGui::Begin("Global Variables",nullptr,ImGuiWindowFlags_MenuBar)) {
 		ImGui::End();
 	}
@@ -117,10 +120,12 @@ void GlobalVariables::Update() {
 
 	ImGui::EndMenuBar();
 	ImGui::End();
+#endif // USE_IMGUI
 }
 
 void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std::string>& items,
 	int& selectedIndex, std::function<void(const std::string&)> onSelect) {
+#ifdef USE_IMGUI
 	if (items.empty()) return;
 	const char* currentItem = items[selectedIndex].c_str();
 	if (ImGui::BeginCombo(label.c_str(), currentItem)) {
@@ -136,9 +141,11 @@ void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std:
 		}
 		ImGui::EndCombo();
 	}
+#endif // USE_IMGUI
 }
 void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std::string>& items,
 	int& selectedIndex, std::function<void(const int&)> onSelect) {
+#ifdef USE_IMGUI
 	if (items.empty()) return;
 	const char* currentItem = items[selectedIndex].c_str();
 	if (ImGui::BeginCombo(label.c_str(), currentItem)) {
@@ -154,6 +161,7 @@ void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std:
 		}
 		ImGui::EndCombo();
 	}
+#endif // USE_IMGUI
 }
 void GlobalVariables::SaveFile(const std::string& groupName) {
 	//グループを検索

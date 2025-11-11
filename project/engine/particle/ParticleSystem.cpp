@@ -1,5 +1,7 @@
 #include "ParticleSystem.h"
-#include <imGui.h>
+#ifdef USE_IMGUI
+#include <imgui.h>
+#endif // USE_IMGUI
 #include "ParticleManager.h"
 #include "EmitterSphere.h"
 #include "GlobalVariables.h"
@@ -55,6 +57,7 @@ void ParticleSystem::Emit(const std::string& emitterName){
 }
 
 void ParticleSystem::ImGuiUpdate(){
+#ifdef USE_IMGUI
 	if (ImGui::BeginMenu("ParticleSystem")) {
 		// テキスト入力ボックス
 		if (ImGui::InputText("Input EmitterNameText", textBuffer_, IM_ARRAYSIZE(textBuffer_))) {
@@ -108,6 +111,7 @@ void ParticleSystem::ImGuiUpdate(){
 		}
 		ImGui::EndMenu();
 	}
+#endif // USE_IMGUI
 }
 
 std::unique_ptr<BaseParticleEmitter> ParticleSystem::CreateEmitterByType(const std::string& typeName){

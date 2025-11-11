@@ -1,5 +1,8 @@
 #include "CameraManager.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
+
 #include <GlobalVariables.h>
 
 CameraManager* CameraManager::instance = nullptr;
@@ -21,6 +24,7 @@ void CameraManager::Finalize(){
 }
 
 void CameraManager::ImGuiUpdate(){
+#ifdef USE_IMGUI
 	std::vector<std::string> keys;
 	// std::transformを使用してキーを抽出
 	std::transform(cameras.begin(), cameras.end(), std::back_inserter(keys),
@@ -52,6 +56,7 @@ void CameraManager::ImGuiUpdate(){
 		camera_->SetTranslate(cameraPosition);
 		ImGui::EndMenu();
 	}
+#endif // USE_IMGUI
 }
 
 void CameraManager::SetCamera(const std::string& cameraName){

@@ -1,5 +1,8 @@
 #include "DParticleScene.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
+
 #include "Input.h"
 #include "CameraManager.h"
 #include "ModelManager.h"
@@ -15,12 +18,13 @@
 
 void DParticleScene::Initialize(){
 	BaseScene::Initialize();
-
+#ifdef USE_IMGUI
 	//開発用のUIの処理。
 	// ウインドウのサイズを固定する
 	ImGui::SetNextWindowSize(ImVec2(1280, 40));
 	// ウインドウの位置を設定する
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
+#endif // USE_IMGUI
 
 	CameraManager::GetInstance()->SetCamera("Camera2");
 	CameraManager::GetInstance()->FindCamera("Camera2");
@@ -99,7 +103,10 @@ void DParticleScene::Update(){
 
 #ifdef _DEBUG
 	//// ウインドウフラグに NoResize を指定
-	//ImGui::Begin("Settings", NULL, ImGuiWindowFlags_NoResize);
+	//
+	// 
+	// 
+	// ::Begin("Settings", NULL, ImGuiWindowFlags_NoResize);
 	//ImGui::ShowDemoWindow();
 	GlobalVariables* globalVariables = GlobalVariables::GetInstance();
 	globalVariables->Update();
