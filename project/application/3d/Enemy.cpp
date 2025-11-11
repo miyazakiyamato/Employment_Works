@@ -6,6 +6,7 @@
 #include "EnemyBullet.h"
 #include "Player.h"
 #include <cassert>
+#include "EmitterSphere.h"
 
 void Enemy::Initialize(){
 	BaseCharacter::Initialize();
@@ -47,7 +48,7 @@ void Enemy::OnCollision(Collider* other){
 		PlayerBullet* playerBullet = static_cast<PlayerBullet*>(other);
 		Vector3 distance = playerBullet->GetCenterPosition() - object3d_->GetCenterPosition();
 		distance = distance.Normalize() * GetRadius();
-		particleSystem_->FindEmitter("hitEffect")->SetPosition(object3d_->GetCenterPosition() + distance);
+		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(object3d_->GetCenterPosition() + distance);
 		particleSystem_->Emit("hitEffect");
 		hp_ -= 1;
 		if (hp_ <= 0) {

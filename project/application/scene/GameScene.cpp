@@ -88,7 +88,7 @@ void GameScene::Initialize(){
 
 	particleSystem_.reset(new ParticleSystem);
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<EmitterSphere>();
-	hitEffect->Initialize("emitterHit", 100);
+	hitEffect->Initialize("hitEffect", 100);
 	hitEffect->SetPosition({ 1.0f,1.0f,0.0f });
 	hitEffect->SetTexture("circle2.png");
 	particleSystem_->SetParticleEmitter(std::move(hitEffect));
@@ -281,7 +281,7 @@ void GameScene::Update() {
 		PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));
 		float scale = Easing::EaseOutBounce(playerDeathScene->GetCounter() / playerDeathScene->GetDuration(), 1.0f, 0.0f);
 		player_->GetObject3d()->SetScale({ scale,scale ,scale });
-		particleSystem_->FindEmitter("hitEffect")->SetPosition(player_->GetObject3d()->GetCenterPosition());
+		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
 		if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
 			particleSystem_->Emit("hitEffect");
 		}/*if (scale == 1) {
