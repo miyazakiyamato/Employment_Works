@@ -3,7 +3,9 @@
 #include <numbers>
 #include "DirectXCommon.h"
 #include "SrvUavManager.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 
 LightManager* LightManager::instance = nullptr;
 
@@ -81,6 +83,7 @@ void LightManager::Finalize() {
 }
 
 void LightManager::ImGuiUpdate(){
+#ifdef USE_IMGUI
 	std::string groupName = "Light";
 	if (ImGui::BeginMenu(groupName.c_str())) {
 		ImGui::ColorEdit4("DirectionalLight.Color", &directionalLightData_->color.x);
@@ -130,6 +133,7 @@ void LightManager::ImGuiUpdate(){
 		}
 		ImGui::EndMenu();
 	}
+#endif // USE_IMGUI
 }
 
 void LightManager::SetDirectionalLight(const DirectionalLight& directionalLight){

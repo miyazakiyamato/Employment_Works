@@ -1,5 +1,8 @@
 #include "GameScene.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
+
 #include "SceneManager.h"
 #include "Input.h"
 #include "CameraManager.h"
@@ -18,12 +21,13 @@
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
-
+#ifdef USE_IMGUI
 	//開発用のUIの処理。
 	// ウインドウのサイズを固定する
 	ImGui::SetNextWindowSize(ImVec2(1280, 40));
 	// ウインドウの位置を設定する
 	ImGui::SetNextWindowPos(ImVec2(0, 0));
+#endif // USE_IMGUI
 
 	CameraManager::GetInstance()->SetCamera("Camera2");
 	CameraManager::GetInstance()->FindCamera("Camera2");

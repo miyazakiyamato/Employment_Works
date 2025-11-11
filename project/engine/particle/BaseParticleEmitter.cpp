@@ -1,5 +1,7 @@
 #include "BaseParticleEmitter.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 #include "GlobalVariables.h"
 #include "TextureManager.h"
 #include "TimeManager.h"

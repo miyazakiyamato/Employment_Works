@@ -5,7 +5,9 @@
 #include "CameraManager.h"
 #include <PostEffectManager.h>
 #include <GlobalVariables.h>
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 #include <CameraManager.h>
 #include <LightManager.h>
 

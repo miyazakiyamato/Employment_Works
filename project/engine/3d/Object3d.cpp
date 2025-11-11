@@ -6,7 +6,9 @@
 #include "Line3D.h"
 #include "TextureManager.h"
 #include <numbers>
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 
 Object3d::~Object3d(){
 	wvpResource.Get()->Unmap(0, nullptr);
@@ -150,6 +152,7 @@ void Object3d::Draw(){
 }
 
 void Object3d::ImGuiUpdate(const std::string& name){
+#ifdef USE_IMGUI
 	std::string groupName = "Object3d";
 	if (ImGui::BeginMenu(groupName.c_str())) {
 		if (ImGui::CollapsingHeader(name.c_str())) {
@@ -236,6 +239,7 @@ void Object3d::ImGuiUpdate(const std::string& name){
 		}
 		ImGui::EndMenu();
 	}
+#endif // USE_IMGUI
 }
 
 Matrix4x4 Object3d::GetJointMatrix(std::string jointName) const {

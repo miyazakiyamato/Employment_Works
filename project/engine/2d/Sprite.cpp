@@ -1,7 +1,9 @@
 #include "Sprite.h"
 #include "PipelineManager.h"
 #include "TextureManager.h"
+#ifdef USE_IMGUI
 #include <imgui.h>
+#endif // USE_IMGUI
 
 void Sprite::Initialize(std::string textureFilePath){
 	textureFilePath_ = textureFilePath;
@@ -136,7 +138,7 @@ void Sprite::Draw(){
 }
 
 void Sprite::ImGuiUpdate(const std::string& name){
-
+#ifdef USE_IMGUI
 	std::string groupName = "Sprite";
 	if (ImGui::BeginMenu(groupName.c_str())) {
 		if (ImGui::CollapsingHeader(name.c_str())) {
@@ -203,6 +205,7 @@ void Sprite::ImGuiUpdate(const std::string& name){
 		}
 		ImGui::EndMenu();
 	}
+#endif // USE_IMGUI
 }
 
 void Sprite::AdjustTextureSize(){

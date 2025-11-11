@@ -1,15 +1,19 @@
 #include "WinApp.h"
-#include <imgui.h>
 
 #pragma comment(lib,"winmm.lib")
+#ifdef USE_IMGUI
+#include <imgui.h>
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+#endif // USE_IMGUI
 
 LRESULT WinApp::WindowProc(HWND hwnd_, UINT msg, WPARAM wparam, LPARAM lparam)
 {
+#ifdef USE_IMGUI
 	if (ImGui_ImplWin32_WndProcHandler(hwnd_, msg, wparam, lparam)) {
 		return true;
 	}
+#endif // USE_IMGUI
 	//メッセージに応じてゲーム固有の処理を行う
 	switch (msg){
 		//ウィンドウが破棄された
