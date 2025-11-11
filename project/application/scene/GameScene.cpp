@@ -82,12 +82,12 @@ void GameScene::Initialize(){
 	//object3d2->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
 	//object3ds_.push_back(std::move(object3d2));
 
-	isAccelerationField = false;
-	accelerationField_.reset(new AccelerationField);
-
 	particleSystem_.reset(new ParticleSystem);
-	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<HitEffect>();
-	particleSystem_->CreateParticleEmitter("hitEffect", std::move(hitEffect));
+	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<EmitterSphere>();
+	hitEffect->Initialize("emitterHit", 100);
+	hitEffect->SetPosition({ 1.0f,1.0f,0.0f });
+	hitEffect->SetTexture("circle2.png");
+	particleSystem_->SetParticleEmitter(std::move(hitEffect));
 	//レールカメラ
 	railCamera_ = std::make_unique<RailCamera>();
 	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
@@ -158,9 +158,6 @@ void GameScene::Initialize(){
 			railCameraPoints.push_back(objectData->translation);
 		}
 	}
-	//
-	isAccelerationField = false;
-	accelerationField_.reset(new AccelerationField);
 
 	railCamera_->SetControlPoints(railCameraPoints);
 
@@ -230,7 +227,7 @@ void GameScene::Update() {
 
 				object3dCount++;
 			}*/
-			particleSystem_->UpdateGlobalVariables();
+			particleSystem_->ImGuiUpdate();
 			
 			groupName = "Sprite";
 			uint32_t spriteIDIndex = 0;
@@ -275,23 +272,6 @@ void GameScene::Update() {
 		}
 		return false;
 		}), enemies_.end());
-	if (isAccelerationField) {
-		for (std::pair<const std::string, std::unique_ptr<ParticleManager::ParticleGroup>>& pair : ParticleManager::GetInstance()->GetParticleGroups()) {
-			ParticleManager::ParticleGroup& group = *pair.second;
-			int index = 0;
-			for (std::list<ParticleManager::Particle>::iterator it = group.particles.begin(); it != group.particles.end();) {
-				ParticleManager::Particle& particle = *it;
-
-				if (Collision::IsCollision(accelerationField_->GetAABB(), particle.transform.translate)) {
-					//particle.velocity += accelerationField_->GetAcceleration() * TimeManager::GetInstance()->deltaTime_;
-
-				}
-
-				++it;
-				++index;
-			}
-		}
-	}
 
 	if (sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
 		PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));

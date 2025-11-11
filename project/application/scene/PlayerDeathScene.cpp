@@ -3,7 +3,6 @@
 #include "SceneManager.h"
 #include "TimeManager.h"
 #include "CameraManager.h"
-#include "HitEffect.h"
 
 void PlayerDeathScene::Initialize(){
 	BaseScene::Initialize();

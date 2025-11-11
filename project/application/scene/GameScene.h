@@ -34,9 +34,6 @@ private://メンバ変数
 	//衝突マネージャ
 	std::unique_ptr<CollisionManager> collisionManager_;
 
-	bool isAccelerationField = false;
-	std::unique_ptr<AccelerationField> accelerationField_ = nullptr;
-
 	//天球
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	//地面

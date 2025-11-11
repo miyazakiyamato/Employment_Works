@@ -70,9 +70,6 @@
     <Filter Include="ソース ファイル\application">
       <UniqueIdentifier>{0ecee62c-e735-43bc-9452-c8e7abb5fa09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\application\math">
-      <UniqueIdentifier>{1aa2e20d-2946-41a8-ad5e-956ab8bda7a6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\application\manager">
       <UniqueIdentifier>{0724b55d-1a43-406d-831e-44e475188521}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\application\3d\Player">
       <UniqueIdentifier>{5aa1bd4d-5a3d-4703-89ef-ddd67171f3b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\math">
+      <UniqueIdentifier>{1aa2e20d-2946-41a8-ad5e-956ab8bda7a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
