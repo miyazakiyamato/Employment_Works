@@ -112,7 +112,11 @@ void GameScene::Initialize(){
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
 	player_->SetBulletManager(bulletManager_.get());
+	player_->SetParticleSystem(particleSystem_.get());
+	player_->SetRailCamera(railCamera_.get());
 
+	hpUI_ = std::make_unique<HpUI>();
+	hpUI_->Initialize(player_.get());
 
 	//レベルデータマネージャの生成
 	levelDataManager_ = std::make_unique<LevelDataManager>();
@@ -193,6 +197,8 @@ void GameScene::Finalize(){
 	for (std::unique_ptr<Enemy>& enemy : enemies_) {
 		enemy.reset();
 	}
+	hpUI_->Finalize();
+
 	player_.reset();
 	ground_.reset();
 	skydome_.reset();
@@ -206,7 +212,7 @@ void GameScene::Finalize(){
 void GameScene::Update() {
 	BaseScene::Update();
 	if (!sceneManager_->IsSceneFinished("GAME_START") && sceneManager_->IsSceneAlive("GAME_START")) {
-		TimeManager::GetInstance()->deltaTime_ = 0.001f;
+		TimeManager::GetInstance()->deltaTime_ = 0.000f;
 	} else {
 		TimeManager::GetInstance()->deltaTime_ = TimeManager::GetInstance()->kFlamTime_;
 	}
@@ -233,6 +239,8 @@ void GameScene::Update() {
 			}*/
 			particleSystem_->ImGuiUpdate();
 			
+			hpUI_->ImGuiUpdate();
+
 			groupName = "Sprite";
 			uint32_t spriteIDIndex = 0;
 			for (std::unique_ptr<Sprite>& sprite : sprites_) {
@@ -291,6 +299,7 @@ void GameScene::Update() {
 
 	particleSystem_->Update();
 
+	hpUI_->Update();
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Update();
 	}
@@ -331,8 +340,9 @@ void GameScene::Draw(){
 
 	//Spriteの描画
 	player_->DrawUi();
+	hpUI_->Draw();
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		//sprite->Draw();
+		sprite->Draw();
 	}
 }
 

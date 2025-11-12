@@ -8,7 +8,8 @@ void EnemyBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	object3d_->SetModel("sphere/sphere.obj");
 	Collider::SetRadius(0.5f);
 	object3d_->SetScale({ 0.5f, 0.5f, 0.5f });
-	object3d_->SetColor({ 0.2f, 0.2f, 0.2f, 1.0f },0);
+	object3d_->SetColor({ 2.2f, 2.2f, 0.2f, 0.7f },0);
+	object3d_->SetTexture("white.png");
 	Rotate(velocity_);
 }
 

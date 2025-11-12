@@ -6,11 +6,27 @@
 
 class RailCamera {
 public:
+	//構造体
+	struct Shake {
+		Vector2 move;
+		Vector2 preMove;
+		float kTime;
+		float time;
+		bool isShake = false;
+	};
+	//メンバ関数
+	//初期化
 	void Initialize(const Vector3& position, const Vector3& rotate);
+	//更新
 	void Update();
+	//描画
 	void Draw();
-
+	//カメラ振動開始
+	void ShakeStart(Vector2 move, float kTime);
 private:
+	//カメラ振動
+	void Shaking();
+	//メンバ変数
 	Camera* camera_ = nullptr;
 	std::unique_ptr<Object3d> object3d_;
 
@@ -24,9 +40,11 @@ private:
 	Vector3 offset = { 0.0f, 2.0f, -10.0f }; // カメラのオフセット
 
 	float segmentLength = 0.0f; // セグメントの長さ
-	float velocity = 5.0f;		// セグメントの速度
+	float velocity = 10.0f;		// セグメントの速度
 	float segmentPosition = 0.0f; // セグメントの位置
 	float targetTimeDistance = 0.5f; // ターゲットまでの時間間隔
+
+	Shake shake_{};
 
 	bool isFinished = false;
 public:

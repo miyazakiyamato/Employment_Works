@@ -7,6 +7,8 @@
 class Input;
 class Camera;
 class BulletManager;
+class ParticleSystem;
+class RailCamera;
 class Player : public BaseCharacter{
 public://構造体
 	/*struct AttackData{
@@ -43,12 +45,14 @@ private://メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
 	BulletManager* bulletManager_ = nullptr;
+	ParticleSystem* particleSystem_ = nullptr;
+	RailCamera* railCamera_ = nullptr;
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
 	std::unique_ptr<Sprite> reticle2d_ = nullptr;
 
 	Vector3 velocity_{};
-	float moveSpeed_ = 0.5f;
+	float moveSpeed_ = 3.0f;
 
 
 	int hp_ = 10;
@@ -64,5 +68,7 @@ public://ゲッターセッター
 	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }
 	void SetParent(Object3d* object3d);
 	void SetCamera(const Camera* camera) { camera_ = camera; }
+	void SetParticleSystem(ParticleSystem* particleSystem) { particleSystem_ = particleSystem; }
+	void SetRailCamera(RailCamera* railCamera) { railCamera_ = railCamera; }
 };
 

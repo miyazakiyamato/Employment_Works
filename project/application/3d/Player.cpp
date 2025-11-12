@@ -6,6 +6,11 @@
 #include "AudioManager.h"
 #include "CollisionTypeIdDef.h"
 #include "PlayerBullet.h"
+#include "ParticleSystem.h"
+#include "EmitterSphere.h"
+#include "EnemyBullet.h"
+#include "RailCamera.h"
+#include "TimeManager.h"
 
 void Player::Initialize(){
 	BaseCharacter::Initialize();
@@ -15,6 +20,7 @@ void Player::Initialize(){
 	input_ = Input::GetInstance();
 	object3d_->SetModel("airship/airship.obj");
 	object3d_->SetTranslate({ 0.0f, 0.0f, 30.0f });
+	object3d_->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f }, 0);
 	object3d_->Update();
 	//レティクル3D
 	reticle3d_ = std::make_unique<Object3d>();
@@ -53,9 +59,16 @@ void Player::OnCollision([[maybe_unused]] Collider* other){
 	uint32_t typeID = other->GetTypeID();
 	//衝突相手が敵なら
 	if (typeID == static_cast<uint32_t>(CollisionTypeIdDef::kEnemyBullet)) {
+		EnemyBullet* enemyBullet = static_cast<EnemyBullet*>(other);
+		Vector3 distance = enemyBullet->GetCenterPosition() - object3d_->GetCenterPosition();
+		distance = distance.Normalize() * GetRadius();
+		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(object3d_->GetCenterPosition() + distance);
+		particleSystem_->Emit("hitEffect");
+		railCamera_->ShakeStart({ 5.0f + velocity_.Length() / 10.0f,5.0f + velocity_.Length() / 10.0f }, 0.3f);
 		hp_ -= 1;
 		if (hp_ <= 0) {
 			isAlive_ = false;
+			hp_ = 0;
 		}
 	}
 	
@@ -82,7 +95,7 @@ void Player::Move(){// 移動量
 	}
 	if (velocity_.Length() != 0) {
 		velocity_.Normalize();
-		velocity_ *= moveSpeed_;
+		velocity_ *= moveSpeed_ * TimeManager::GetInstance()->deltaTime_;
 
 		Vector3 position = object3d_->GetTranslate();
 		object3d_->SetTranslate(position + velocity_);

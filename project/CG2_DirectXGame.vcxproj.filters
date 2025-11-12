@@ -384,6 +384,9 @@
     <ClCompile Include="application\scene\DParticleScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
+    <ClCompile Include="HpUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -634,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="application\scene\DParticleScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="HpUI.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
