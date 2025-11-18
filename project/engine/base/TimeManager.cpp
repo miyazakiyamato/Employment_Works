@@ -30,7 +30,6 @@ void TimeManager::Update(){
 	if (timeSpeed_ != deltaTime_) {
 		deltaTime_ = timeSpeed_;
 	}
-	timeSpeed_ = deltaTime_;
 
 	if (timeCount_ != 0.0f) {
 		timeCount_ += kFlamTime_;
@@ -48,6 +47,7 @@ void TimeManager::Update(){
 			}
 		}
 	}
+	timeSpeed_ = deltaTime_;
 	perFrameData_->time += deltaTime_;
 	perFrameData_->deltaTime = deltaTime_;
 }

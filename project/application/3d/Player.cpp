@@ -46,6 +46,49 @@ void Player::Update(){
 	ReticleUpdate();
 }
 
+void Player::ClearUpdate(){
+
+	// 回転スピード
+	float revolveSpeed = 1.0f * 3.141592f / 180.0f; // 1度/フレーム
+	float rotateSpeed = revolveSpeed;             // 1周ごとに1回転 → 公転と同じ増え方
+
+	
+	// 公転
+	revolveAngle_ += revolveSpeed;
+
+	// 半径
+	float radius = 5.0f;
+
+	// 位置 = 原点から見た円運動
+	Vector3 newPos = {
+		radius * std::sin(revolveAngle_) + 8.0f,
+		1.0f,
+		radius* std::cos(revolveAngle_) + 30.0f
+	};
+	Vector3 nextPos = {
+		radius * std::sin(revolveAngle_ + revolveSpeed) + 8.0f,
+		1.0f,
+		radius * std::cos(revolveAngle_ + revolveSpeed) + 30.0f
+	};
+
+	// プレイヤーの位置を更新
+	object3d_->SetTranslate(newPos);
+	// 向きの更新
+	Vector3 direction = Vector3::Subtract(nextPos, newPos);
+	Vector3 rotate = object3d_->GetRotate();
+	rotate.y = std::atan2f(direction.x, direction.z);
+	Vector3 velocityZ = Matrix4x4::Transform(direction, Matrix4x4::MakeRotateYMatrix(-rotate.y));
+	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
+	object3d_->SetRotate(rotate);
+
+	BaseCharacter::Update();
+}
+
+void Player::LeaveUpdate(){
+	object3d_->SetTranslate(object3d_->GetTranslate() + Vector3(0.0f,0.0f,1.0f));
+	BaseCharacter::Update();
+}
+
 void Player::Draw(){
 	object3d_->Draw();
 }
@@ -93,6 +136,13 @@ void Player::Move(){// 移動量
 			velocity_.y -= moveSpeed_;
 		}
 	}
+	/*if (input_->TriggerKey(DIK_LSHIFT) || input_->TriggerControllerButton(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
+		railCamera_->SetVelocity(100.0f);
+	} else {
+		railCamera_->SetVelocity(10.0f);
+	}*/
+	railCamera_->SetVelocity(100.0f);
+
 	if (velocity_.Length() != 0) {
 		velocity_.Normalize();
 		velocity_ *= moveSpeed_ * TimeManager::GetInstance()->deltaTime_;

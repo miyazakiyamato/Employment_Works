@@ -95,10 +95,10 @@ void TitleScene::Update(){
 
 
 	if ((input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) &&
-		sceneManager_->IsSceneAlive("FADE_OUT") == false) {
+		sceneManager_->IsSceneAlive("FADE_OUT") == false && sceneManager_->IsSceneAlive("FADE_IN") == false) {
 		sceneManager_->AddScene("FADE_OUT");
 	}
-	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
+	if (sceneManager_->IsSceneFinished("FADE_OUT") && sceneManager_->IsSceneAlive("FADE_IN") == false) {
 		sceneManager_->RemoveScene("TITLE");
 		sceneManager_->RemoveScene("FADE_OUT");
 		sceneManager_->AddScene("GAME");

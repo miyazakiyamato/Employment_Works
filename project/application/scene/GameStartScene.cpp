@@ -19,6 +19,7 @@ void GameStartScene::Initialize(){
 		sprite->SetColor({ 1.0f,1.0f,1.0f,1.0f });
 		sprites_.push_back(std::move(sprite));
 	}
+	TimeManager::GetInstance()->SetDeltaTimeSpeedStart(0.0f, duration_ * 3.0f);
 }
 
 void GameStartScene::Finalize(){

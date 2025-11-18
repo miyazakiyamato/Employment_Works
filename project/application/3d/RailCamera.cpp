@@ -43,12 +43,10 @@ void RailCamera::Update() {
 	float t = segmentPosition / segmentLength;
 	if (t <= 1.0f) {
 		linePosition = Vector3::CatmullRomPosition(controlPoints_, t);
+		t = (segmentPosition + targetTimeDistance) / segmentLength;
+		target = Vector3::CatmullRomPosition(controlPoints_, t);
 	} else {
 		isFinished = true;
-	}
-	t = (segmentPosition + targetTimeDistance) / segmentLength;
-	if (t <= 1.0f) {
-		target = Vector3::CatmullRomPosition(controlPoints_, t);
 	}
 
 	// 進行方向に見た目の回転を合わせる

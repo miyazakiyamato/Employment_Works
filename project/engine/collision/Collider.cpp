@@ -1,8 +1,10 @@
 #include "Collider.h"
+#include "ModelManager.h"
 
 void Collider::Initialize() { 
 	colliderModel_ = std::make_unique<Object3d>();
 	colliderModel_->Initialize();
+	ModelManager::GetInstance()->LoadModel("sphere/sphere.obj");
 	colliderModel_->SetModel("sphere/sphere.obj");
 }
 

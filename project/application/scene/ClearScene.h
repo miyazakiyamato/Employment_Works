@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Skydome.h"
 #include "Ground.h"
+#include "Player.h"
 
 class ClearScene : public BaseScene {
 public://メンバ関数
@@ -19,7 +20,11 @@ private://メンバ変数
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	//地面
 	std::unique_ptr<Ground> ground_ = nullptr;
+	//プレイヤー
+	std::unique_ptr<Player> player_ = nullptr;
 	//スプライト
 	std::vector< std::unique_ptr<Sprite>> sprites_;
+
+	float scaleCount_ = 0.0f;
 };
 

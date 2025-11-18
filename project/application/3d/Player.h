@@ -29,7 +29,8 @@ public://メンバ関数
 	/// 更新
 	/// </summary>
 	void Update()override;
-
+	void ClearUpdate();
+	void LeaveUpdate();
 	/// <summary>
 	/// 描画
 	/// </summary>
@@ -53,7 +54,8 @@ private://メンバ変数
 
 	Vector3 velocity_{};
 	float moveSpeed_ = 3.0f;
-
+	// clear毎フレーム更新する角度（公転）
+	float revolveAngle_ = 0.0f;
 
 	int hp_ = 10;
 	bool isAlive_ = true;

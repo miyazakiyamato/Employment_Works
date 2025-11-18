@@ -19,6 +19,7 @@
 #include "PlayerDeathScene.h"
 #include <Easing.h>
 #include <PlayerWinScene.h>
+#include "GameStartScene.h"
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -88,6 +89,13 @@ void GameScene::Initialize(){
 	//object3ds_.push_back(std::move(object3d2));
 
 	particleSystem_.reset(new ParticleSystem);
+
+	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
+	emitterHit->Initialize("emitterHit", 100);
+	emitterHit->SetTranslate({ 1.0f,1.0f,0.0f });
+	emitterHit->SetTexture("circle2.png");
+	particleSystem_->SetParticleEmitter(std::move(emitterHit));
+
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<EmitterSphere>();
 	hitEffect->Initialize("hitEffect", 100);
 	hitEffect->SetPosition({ 1.0f,1.0f,0.0f });
@@ -212,11 +220,6 @@ void GameScene::Finalize(){
 
 void GameScene::Update() {
 	BaseScene::Update();
-	if (!sceneManager_->IsSceneFinished("GAME_START") && sceneManager_->IsSceneAlive("GAME_START")) {
-		TimeManager::GetInstance()->deltaTime_ = 0.000f;
-	} else {
-		TimeManager::GetInstance()->deltaTime_ = TimeManager::GetInstance()->kFlamTime_;
-	}
 #ifdef _DEBUG
 	//// ウインドウフラグに NoResize を指定
 	//ImGui::Begin("Settings", NULL, ImGuiWindowFlags_NoResize);
@@ -268,7 +271,11 @@ void GameScene::Update() {
 	//地面
 	ground_->Update();
 	//プレイヤー
-	player_->Update();
+	if (sceneManager_->IsSceneAlive("PLAYER_WIN")) {
+		player_->LeaveUpdate();
+	} else {
+		player_->Update();
+	}
 
 	//エネミー
 	for (std::unique_ptr<Enemy>& enemy : enemies_) {
@@ -276,15 +283,6 @@ void GameScene::Update() {
 	}
 	bulletManager_->Update();
 
-	//当たり判定
-	CheckAllCollisions();
-	enemies_.erase(std::remove_if(enemies_.begin(), enemies_.end(), [](std::unique_ptr<Enemy>& enemy) {
-		if (!enemy->GetIsAlive()) {
-			enemy.reset();
-			return true;
-		}
-		return false;
-		}), enemies_.end());
 
 	if (sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
 		PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));
@@ -301,11 +299,21 @@ void GameScene::Update() {
 		PlayerWinScene* playerWinScene = static_cast<PlayerWinScene*>(sceneManager_->GetScene("PLAYER_WIN"));
 		float scale = Easing::EaseOutBounce(playerWinScene->GetCounter() / playerWinScene->GetDuration(), 1.0f, 0.0f);
 		//player_->GetObject3d()->SetScale({ scale,scale ,scale });
-		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
-		if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
-			particleSystem_->Emit("hitEffect");
+		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("emitterHit"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
+		if (scale == 1) {
+			particleSystem_->Emit("emitterHit");
 		}
 	}
+
+	//当たり判定
+	CheckAllCollisions();
+	enemies_.erase(std::remove_if(enemies_.begin(), enemies_.end(), [](std::unique_ptr<Enemy>& enemy) {
+		if (!enemy->GetIsAlive()) {
+			enemy.reset();
+			return true;
+		}
+		return false;
+		}), enemies_.end());
 
 	particleSystem_->Update();
 
@@ -349,7 +357,9 @@ void GameScene::Draw(){
 	particleSystem_->Draw();
 
 	//Spriteの描画
-	player_->DrawUi();
+	if (!sceneManager_->IsSceneAlive("PLAYER_WIN") && !sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
+		player_->DrawUi();
+	}
 	hpUI_->Draw();
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Draw();
@@ -394,6 +404,7 @@ void GameScene::ClearCheck() {
 			sceneManager_->AddScene("GAMEOVER");
 		}
 		if (railCamera_->GetIsFinished()) {
+			sceneManager_->RemoveScene("PLAYER_WIN");
 			sceneManager_->AddScene("CLEAR");
 		}
 		sceneManager_->RemoveScene("GAME");

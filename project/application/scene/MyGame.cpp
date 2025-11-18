@@ -11,6 +11,7 @@ void MyGame::Initialize(){
 	pipelineStateName_ = PipelineManager::GetInstance()->CreatePipelineState(pipelineState);
 
 	//最初のシーンセット
+	//sceneManager_->AddScene("D_PARTICLE");
 	sceneManager_->AddScene("TITLE");
 	sceneManager_->AddScene("FADE_IN");
 }
