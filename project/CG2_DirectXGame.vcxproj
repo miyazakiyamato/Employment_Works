@@ -179,7 +179,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\3d\Line3DPipeline.cpp" />
     <ClCompile Include="engine\particle\EmitterSphere.cpp" />
     <ClCompile Include="engine\base\LevelDataManager.cpp" />
-    <ClCompile Include="HpUI.cpp" />
+    <ClCompile Include="application\2d\HpUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="application\scene\MyGame.cpp" />
     <ClCompile Include="application\scene\SceneFactory.cpp" />
@@ -280,7 +280,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\base\PipelineFactory.h" />
     <ClInclude Include="engine\base\LevelDataManager.h" />
     <ClInclude Include="engine\base\PostEffectManager.h" />
-    <ClInclude Include="HpUI.h" />
+    <ClInclude Include="application\2d\HpUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">

@@ -139,6 +139,12 @@
     <Filter Include="ソース ファイル\application\math">
       <UniqueIdentifier>{1aa2e20d-2946-41a8-ad5e-956ab8bda7a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\application\2d">
+      <UniqueIdentifier>{c0210db4-5375-47b2-84f7-a3e6e7ada78a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\2d">
+      <UniqueIdentifier>{071fada5-6d01-4ceb-a860-7b3606787d1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -384,8 +390,8 @@
     <ClCompile Include="application\scene\DParticleScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
-    <ClCompile Include="HpUI.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="application\2d\HpUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -638,8 +644,8 @@
     <ClInclude Include="application\scene\DParticleScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
-    <ClInclude Include="HpUI.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="application\2d\HpUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
