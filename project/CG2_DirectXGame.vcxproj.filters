@@ -393,6 +393,9 @@
     <ClCompile Include="application\2d\HpUI.cpp">
       <Filter>ソース ファイル\application\2d</Filter>
     </ClCompile>
+    <ClCompile Include="application\scene\PlayerWinScene.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -646,6 +649,9 @@
     </ClInclude>
     <ClInclude Include="application\2d\HpUI.h">
       <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\PlayerWinScene.h">
+      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

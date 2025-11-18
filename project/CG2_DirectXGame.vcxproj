@@ -120,6 +120,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\scene\ClearScene.cpp" />
     <ClCompile Include="application\scene\GameOverScene.cpp" />
     <ClCompile Include="application\scene\DParticleScene.cpp" />
+    <ClCompile Include="application\scene\PlayerWinScene.cpp" />
     <ClCompile Include="engine\3d\ModelComputePipeline.cpp" />
     <ClCompile Include="application\scene\FadeInScene.cpp" />
     <ClCompile Include="application\scene\FadeOutScene.cpp" />
@@ -204,6 +205,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\scene\ClearScene.h" />
     <ClInclude Include="application\scene\GameOverScene.h" />
     <ClInclude Include="application\scene\DParticleScene.h" />
+    <ClInclude Include="application\scene\PlayerWinScene.h" />
     <ClInclude Include="engine\3d\ModelComputePipeline.h" />
     <ClInclude Include="application\scene\FadeInScene.h" />
     <ClInclude Include="application\scene\FadeOutScene.h" />

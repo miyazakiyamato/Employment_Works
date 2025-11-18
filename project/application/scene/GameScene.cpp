@@ -18,6 +18,7 @@
 #include <numbers>
 #include "PlayerDeathScene.h"
 #include <Easing.h>
+#include <PlayerWinScene.h>
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -296,6 +297,15 @@ void GameScene::Update() {
 			particleSystem_->Emit("hitEffect");
 		}*/
 	}
+	if (sceneManager_->IsSceneAlive("PLAYER_WIN")) {
+		PlayerWinScene* playerWinScene = static_cast<PlayerWinScene*>(sceneManager_->GetScene("PLAYER_WIN"));
+		float scale = Easing::EaseOutBounce(playerWinScene->GetCounter() / playerWinScene->GetDuration(), 1.0f, 0.0f);
+		//player_->GetObject3d()->SetScale({ scale,scale ,scale });
+		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
+		if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
+			particleSystem_->Emit("hitEffect");
+		}
+	}
 
 	particleSystem_->Update();
 
@@ -367,13 +377,15 @@ void GameScene::ClearCheck() {
 	}*/
 	//プレイヤーのHPが0になったらゲームオーバー
 	//レールカメラの移動が終わったらクリア
-	if (sceneManager_->IsSceneAlive("FADE_OUT") == false && sceneManager_->IsSceneAlive("PLAYER_DEATH") == false) {
+	if (sceneManager_->IsSceneAlive("FADE_OUT") == false &&
+		sceneManager_->IsSceneAlive("PLAYER_DEATH") == false &&
+		sceneManager_->IsSceneAlive("PLAYER_WIN") == false) {
 		if (!player_->GetIsAlive()) {
 			sceneManager_->AddScene("PLAYER_DEATH");
 		}
 
 		if (railCamera_->GetIsFinished()) {
-			sceneManager_->AddScene("FADE_OUT");
+			sceneManager_->AddScene("PLAYER_WIN");
 		}
 	}
 	if (sceneManager_->IsSceneFinished("FADE_OUT")) {

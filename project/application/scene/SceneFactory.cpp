@@ -7,6 +7,7 @@
 #include "FadeOutScene.h"
 #include "GameStartScene.h"
 #include "PlayerDeathScene.h"
+#include "PlayerWinScene.h"
 #include "DParticleScene.h"
 
 BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
@@ -30,10 +31,11 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 		newScene = new GameStartScene();
 	} else if (sceneName == "PLAYER_DEATH") {
 		newScene = new PlayerDeathScene();
+	} else if (sceneName == "PLAYER_WIN") {
+		newScene = new PlayerWinScene();
 	} else if (sceneName == "D_PARTICLE") {
 		newScene = new DParticleScene();
-	}
-	else {
+	}else {
 		assert(0 && "不明なシーン名");
 	}
 	return newScene;
