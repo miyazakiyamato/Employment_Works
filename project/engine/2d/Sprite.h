@@ -83,8 +83,6 @@ public://ゲッターセッター
 	const Vector2& GetAnchorPoint() const { return anchorPoint_; }
 	bool GetIsFlipX() { return isFlipX_; }
 	bool GetIsFlipY() { return isFlipY_; }
-	const Vector2& GetTextureLeftTop() { return textureLeftTop_; }
-	const Vector2& GetTextureSize() { return textureSize_; }
 	const Transform& GetUVTransform() { return uvTransform_; }
 	Vector2 GetUVTranslate() { return { uvTransform_.translate.x, uvTransform_.translate.y }; }
 	float GetUVRotate() { return uvTransform_.rotate.z; }
@@ -99,8 +97,6 @@ public://ゲッターセッター
 	void SetAnchorPoint(const Vector2& anchorPoint) { anchorPoint_ = anchorPoint; }
 	void SetIsFlipX(bool isFlipX) { isFlipX_ = isFlipX; }
 	void SetIsFlipY(bool isFlipY) { isFlipY_ = isFlipY; }
-	void SetTextureLeftTop(const Vector2& textureLeftTop) { textureLeftTop_ = textureLeftTop; }
-	void SetTextureSize(const Vector2& textureSize) { textureSize_ = textureSize; }
 	void SetUVTransform(const Transform& uvTransform) { uvTransform_ = uvTransform; }
 	void SetUVTranslate(const Vector2& translate) { uvTransform_.translate = { translate.x, translate.y, 0.0f }; }
 	void SetUVRotate(float rotate) { uvTransform_.rotate = { 0.0f, 0.0f, rotate }; }

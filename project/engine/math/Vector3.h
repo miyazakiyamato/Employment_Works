@@ -4,12 +4,11 @@
 struct Line;
 struct Ray;
 struct Segment;
-class Quaternion;
+struct Quaternion;
 /// <summary>
 /// 3次元ベクトル
 /// </summary>
-class Vector3{
-public:
+struct Vector3{
 	//メンバ変数
 	float x;
 	float y;

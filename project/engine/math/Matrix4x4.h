@@ -14,11 +14,9 @@ struct Transform {
 /// <summary>
 /// 4x4行列
 /// </summary>
-class Matrix4x4{
-public:
+struct Matrix4x4{
 	//メンバ変数
 	float m[4][4];
-
 
 	//メンバ関数
 	Matrix4x4 Inverse() const;
@@ -41,7 +39,6 @@ public:
 	static Matrix4x4 MakePerspectiveFovMatrix(float fovY, float aspectRatio, float nearClip, float farClip);
 	static Matrix4x4 MakeOrthographicMatrix(float left, float top, float right, float bottom, float nearClip, float farClip);
 	static Matrix4x4 MakeViewportMatrix(float left, float top, float width, float height, float minDepth, float maxDepth);
-
 
 	//演算子のオーバーロード
 	Matrix4x4 operator*(const Matrix4x4& m2) const;

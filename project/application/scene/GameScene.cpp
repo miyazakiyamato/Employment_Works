@@ -189,12 +189,7 @@ void GameScene::Initialize(){
 		sprite->SetSize({ 100.0f,100.0f });
 		sprites_.push_back(std::move(sprite));
 	}
-	/*sprites_[0]->SetTextureSize({ 64.0f,64.0f });
-	sprites_[1]->SetTexture("monsterBall.png");
-	sprites_[1]->SetIsFlipX(true);
-	sprites_[2]->SetIsFlipY(true);
-	sprites_[3]->SetIsFlipX(true);
-	sprites_[3]->SetIsFlipY(true);*/
+	
 }
 
 void GameScene::Finalize(){

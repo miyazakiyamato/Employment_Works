@@ -2,8 +2,7 @@
 /// <summary>
 /// 2次元ベクトル
 /// </summary>
-class Vector2{
-public:
+struct Vector2{
 	//メンバ変数
 	float x;
 	float y;
