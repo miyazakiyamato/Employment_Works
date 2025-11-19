@@ -2,8 +2,7 @@
 #include <math.h>
 #include"numbers"
 
-Matrix4x4 Quaternion::MakeRotateAxisAngle(const Vector3& axis, float angle)
-{
+Matrix4x4 Quaternion::MakeRotateAxisAngle(const Vector3& axis, float angle){
 	// 回転軸を正規化
 	Vector3 axisNormal = axis;
 	axisNormal = axisNormal.Normalize();
@@ -22,8 +21,7 @@ Matrix4x4 Quaternion::MakeRotateAxisAngle(const Vector3& axis, float angle)
 
 	return rotateMatrix;
 }
-Matrix4x4 Quaternion::DirectionToDirection(const Vector3& from, const Vector3& to)
-{
+Matrix4x4 Quaternion::DirectionToDirection(const Vector3& from, const Vector3& to){
 	// fromとtoの正規化
 	Vector3 fromNormal = from;
 	fromNormal = fromNormal.Normalize();
@@ -52,18 +50,15 @@ Matrix4x4 Quaternion::DirectionToDirection(const Vector3& from, const Vector3& t
 	return rotationMatrix;
 }
 
-Quaternion Quaternion::Identity()
-{
+Quaternion Quaternion::Identity(){
 	return Quaternion(0.0f,0.0f,0.0f,1.0f);
 }
 
-Quaternion Quaternion::Conjugate(const Quaternion& quaternion)
-{
+Quaternion Quaternion::Conjugate(const Quaternion& quaternion){
 	return Quaternion(-quaternion.x, -quaternion.y, -quaternion.z, quaternion.w);
 }
 
-Quaternion Quaternion::Inverse(const Quaternion& quaternion)
-{
+Quaternion Quaternion::Inverse(const Quaternion& quaternion){
 	float norm = Norm(quaternion);
 	if (norm == 0.0f) {
 		// 単位Quaternionを返す
@@ -74,8 +69,7 @@ Quaternion Quaternion::Inverse(const Quaternion& quaternion)
 	return conjugate / norm2;
 }
 
-Quaternion Quaternion::Normalize(const Quaternion& quaternion)
-{
+Quaternion Quaternion::Normalize(const Quaternion& quaternion){
 	float norm = Norm(quaternion);
 	if (norm == 0.0f) {
 		// 単位Quaternionを返す
@@ -93,13 +87,11 @@ Quaternion Quaternion::Multiply(const Quaternion& lhs, const Quaternion& rhs){
 	return result;
 }
 
-float Quaternion::Norm(const Quaternion& quaternion)
-{
+float Quaternion::Norm(const Quaternion& quaternion){
 	return sqrtf(quaternion.x * quaternion.x + quaternion.y * quaternion.y + quaternion.z * quaternion.z + quaternion.w * quaternion.w);
 }
 
-Quaternion Quaternion::MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle)
-{
+Quaternion Quaternion::MakeRotateAxisAngleQuaternion(const Vector3& axis, float angle){
 	Quaternion result;
 	float halfAngle = angle / 2.0f;
 	float sinHalfAngle = sinf(halfAngle);
@@ -116,8 +108,7 @@ Quaternion Quaternion::MakeRotateAxisAngleQuaternion(const Vector3& axis, float 
 	return result;
 }
 
-Vector3 Quaternion::RotateVector(const Vector3& vector, const Quaternion& quaternion)
-{
+Vector3 Quaternion::RotateVector(const Vector3& vector, const Quaternion& quaternion){
 	Quaternion vQuaternion = { vector.x, vector.y, vector.z, 0.0f };
 	//共役を取得
 	Quaternion vConjugate = Quaternion::Conjugate(quaternion);
@@ -126,8 +117,7 @@ Vector3 Quaternion::RotateVector(const Vector3& vector, const Quaternion& quater
 	return Vector3(vResult.x, vResult.y, vResult.z);
 }
 
-Matrix4x4 Quaternion::MakeRotateMatrix(const Quaternion& quaternion)
-{
+Matrix4x4 Quaternion::MakeRotateMatrix(const Quaternion& quaternion){
 	float xx = quaternion.x * quaternion.x;
 	float yy = quaternion.y * quaternion.y;
 	float zz = quaternion.z * quaternion.z;
@@ -153,14 +143,12 @@ Matrix4x4 Quaternion::MakeAffineMatrix(const Vector3& scale, const Quaternion& r
 	return m;
 }
 Quaternion Quaternion::Slerp(const Quaternion& q0, const Quaternion& q1, float t){
-	Quaternion q0Copy = q0;
-	Quaternion q1Copy = q1;
 	// q0とq1の内積
-	float dot = q0Copy.x * q1Copy.x + q0Copy.y * q1Copy.y + q0Copy.z * q1Copy.z + q0Copy.w * q1Copy.w;
-
+	float dot = q0.x * q1.x + q0.y * q1.y + q0.z * q1.z + q0.w * q1.w;
+	Quaternion q1Copy = q1;
 	// 内積が負の場合は反転させて最短経路を取るようにする
 	if (dot < 0.0f) {
-		q1Copy = -q1Copy;//もう片方の回転を利用
+		q1Copy = -q1;//もう片方の回転を利用
 		dot = -dot; //内積も反転
 	}
 
@@ -168,7 +156,7 @@ Quaternion Quaternion::Slerp(const Quaternion& q0, const Quaternion& q1, float t
 	const float EPSILON = 0.0005f;
 	if (dot >= 1.0f - EPSILON) {
 		// 線形補間
-		return q0Copy * (1.0f - t) + q1Copy * t;
+		return q0 * (1.0f - t) + q1Copy * t;
 	}
 
 	// なす角を求める
@@ -180,7 +168,7 @@ Quaternion Quaternion::Slerp(const Quaternion& q0, const Quaternion& q1, float t
 	float scale1 = sinf(t * theta) / sinTheta;
 
 	// 補間されたクォータニオンを計算
-	return q0Copy * scale0 + q1Copy * scale1;
+	return q0 * scale0 + q1Copy * scale1;
 }
 
 Vector3 Quaternion::ToEulerAngles() const{
@@ -199,8 +187,7 @@ Vector3 Quaternion::ToEulerAngles() const{
 	return angles;
 }
 
-Quaternion Quaternion::operator+(const Quaternion& q)
-{
+Quaternion Quaternion::operator+(const Quaternion& q) const{
 	Quaternion result;
 	result.x = (*this).x + q.x;
 	result.y = (*this).y + q.y;
@@ -209,8 +196,7 @@ Quaternion Quaternion::operator+(const Quaternion& q)
 	return result;
 }
 
-Quaternion Quaternion::operator*(const float& f)
-{
+Quaternion Quaternion::operator*(const float& f) const {
 	Quaternion result;
 	result.x = (*this).x * f;
 	result.y = (*this).y * f;
@@ -218,8 +204,7 @@ Quaternion Quaternion::operator*(const float& f)
 	result.w = (*this).w * f;
 	return result;
 }
-Quaternion Quaternion::operator/(const float& f)
-{
+Quaternion Quaternion::operator/(const float& f) const {
 	Quaternion result;
 	result.x = (*this).x / f;
 	result.y = (*this).y / f;
@@ -228,8 +213,7 @@ Quaternion Quaternion::operator/(const float& f)
 	return result;
 }
 
-Quaternion Quaternion::operator-()
-{
+Quaternion Quaternion::operator-() const {
 	Quaternion result;
 	result.x = -(*this).x;
 	result.y = -(*this).y;
