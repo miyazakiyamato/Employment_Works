@@ -1,7 +1,7 @@
 #pragma once
 #include "Matrix4x4.h"
 
-class Quaternion{
+struct Quaternion{
 public:
 	float x, y, z, w;
 	static Matrix4x4 MakeRotateAxisAngle(const Vector3& axis, float angle);

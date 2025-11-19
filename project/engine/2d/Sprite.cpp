@@ -103,8 +103,6 @@ void Sprite::Update(){
 
 	//SpriteのTransform変数を作る。
 	Transform transform{ {size_.x,size_.y,1.0f},{0.0f,0.0f,rotation_},{position_.x,position_.y,0.0f} };
-	//SpriteのUVTransform変数を作る。
-	Transform uvTransform{ {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
 
 	//Sprite用のWorldViewProjectionMtrixを作る
 	Matrix4x4 worldMatrix = Matrix4x4::MakeAffineMatrix(transform.scale, transform.rotate, transform.translate);
@@ -115,7 +113,7 @@ void Sprite::Update(){
 	wvpData->World = worldMatrix;
 
 	//SpriteのuvTransformを作る
-	Matrix4x4 uvTransformMatrix = Matrix4x4::MakeAffineMatrix(uvTransform.scale, { 0.0f,0.0f,uvTransform.rotate.z }, uvTransform.translate);
+	Matrix4x4 uvTransformMatrix = Matrix4x4::MakeAffineMatrix(uvTransform_.scale, { 0.0f,0.0f,uvTransform_.rotate.z }, uvTransform_.translate);
 	materialData->uvTransform = uvTransformMatrix;
 }
 

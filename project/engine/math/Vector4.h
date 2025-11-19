@@ -1,10 +1,10 @@
 #pragma once
 #include <random>
+
 /// <summary>
 /// 4次元ベクトル
 /// </summary>
-class Vector4{
-public:
+struct Vector4{
 	//メンバ変数
 	float x;
 	float y;
