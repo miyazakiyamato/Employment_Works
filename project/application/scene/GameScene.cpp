@@ -101,6 +101,12 @@ void GameScene::Initialize(){
 	hitEffect->SetPosition({ 1.0f,1.0f,0.0f });
 	hitEffect->SetTexture("circle2.png");
 	particleSystem_->SetParticleEmitter(std::move(hitEffect));
+
+	std::unique_ptr<EmitterSphere> airEffect = std::make_unique<EmitterSphere>();
+	airEffect->Initialize("airEffect", 1000);
+	airEffect->SetTranslate({ 0.0f,0.0f,0.0f });
+	airEffect->SetTexture("circle2.png");
+	particleSystem_->SetParticleEmitter(std::move(airEffect));
 	//レールカメラ
 	railCamera_ = std::make_unique<RailCamera>();
 	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });

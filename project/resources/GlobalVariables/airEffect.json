@@ -1,54 +1,54 @@
 {
-    "emitterHit": {
-        "Count": 30,
+    "airEffect": {
+        "Count": 10,
         "EndColor": [
             1.0,
-            0.9411764740943909,
-            0.0,
+            1.0,
+            0.11274510622024536,
             0.0
         ],
         "EndScale": [
-            5.0,
-            5.0,
-            5.0
+            1.0,
+            1.0,
+            1.0
         ],
         "EndUvTranslate": [
             0.0,
             0.0
         ],
-        "Frequency": 3.0,
+        "Frequency": 0.009999999776482582,
         "IsBillboard": true,
-        "IsEmitUpdate": false,
-        "RLifeTimeMax": 1.0,
-        "RLifeTimeMin": 0.5,
+        "IsEmitUpdate": true,
+        "RLifeTimeMax": 10.0,
+        "RLifeTimeMin": 0.10000000149011612,
         "RVelocityMax": [
-            5.0,
-            5.0,
-            5.0
+            2.5,
+            10.0,
+            2.5
         ],
         "RVelocityMin": [
-            -5.0,
-            -5.0,
-            -5.0
+            -2.5,
+            2.5,
+            -2.5
         ],
-        "Radius": 0.0,
+        "Radius": 100.0,
         "StartColor": [
             1.0,
-            0.0,
-            0.0,
+            1.0,
+            0.4852941036224365,
             1.0
         ],
         "StartScale": [
-            0.0,
-            0.0,
-            0.0
+            0.5,
+            0.5,
+            1.0
         ],
         "StartUvTranslate": [
             0.0,
             0.0
         ]
     },
-    "emitterHit_DisplayOrder": [
+    "airEffect_DisplayOrder": [
         "Radius",
         "Count",
         "Frequency",

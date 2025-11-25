@@ -42,6 +42,9 @@ void Player::Update(){
 	Attack();
 
 	object3d_->SetTranslate(Vector3::Clamp(object3d_->GetTranslate(), {-50,-50,-100}, {50,50,100}));
+
+	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("airEffect"))->SetTranslate(object3d_->GetCenterPosition());
+
 	BaseCharacter::Update();
 	ReticleUpdate();
 }
@@ -141,7 +144,7 @@ void Player::Move(){// 移動量
 	} else {
 		railCamera_->SetVelocity(10.0f);
 	}*/
-	railCamera_->SetVelocity(100.0f);
+	railCamera_->SetVelocity(30.0f);
 
 	if (velocity_.Length() != 0) {
 		velocity_.Normalize();

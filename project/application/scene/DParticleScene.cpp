@@ -74,6 +74,12 @@ void DParticleScene::Initialize(){
 	hitEffect->SetTranslate({ 1.0f,1.0f,0.0f });
 	hitEffect->SetTexture("circle2.png");
 	particleSystem_->SetParticleEmitter(std::move(hitEffect));
+
+	std::unique_ptr<EmitterSphere> airEffect = std::make_unique<EmitterSphere>();
+	airEffect->Initialize("airEffect", 100);
+	airEffect->SetTranslate({ 0.0f,0.0f,0.0f });
+	airEffect->SetTexture("circle2.png");
+	particleSystem_->SetParticleEmitter(std::move(airEffect));
 	//スプライトの初期化
 	/*for (uint32_t i = 0; i < 5; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
