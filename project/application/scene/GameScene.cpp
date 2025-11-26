@@ -71,6 +71,7 @@ void GameScene::Initialize(){
 	TextureManager::GetInstance()->LoadTexture("circle2.png");
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
 	TextureManager::GetInstance()->LoadTexture("reticle.png");
+	TextureManager::GetInstance()->LoadTexture("flash.png");
 	TextureManager::GetInstance()->LoadTexture("rostock_laage_airport_4k.dds");
 
 	//skybox
@@ -88,12 +89,13 @@ void GameScene::Initialize(){
 	//object3d2->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
 	//object3ds_.push_back(std::move(object3d2));
 
+	//パーティクルシステムの生成
 	particleSystem_.reset(new ParticleSystem);
 
 	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
 	emitterHit->Initialize("emitterHit", 100);
 	emitterHit->SetTranslate({ 1.0f,1.0f,0.0f });
-	emitterHit->SetTexture("circle2.png");
+	emitterHit->SetTexture("flash.png");
 	particleSystem_->SetParticleEmitter(std::move(emitterHit));
 
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<EmitterSphere>();
@@ -107,6 +109,13 @@ void GameScene::Initialize(){
 	airEffect->SetTranslate({ 0.0f,0.0f,0.0f });
 	airEffect->SetTexture("circle2.png");
 	particleSystem_->SetParticleEmitter(std::move(airEffect));
+
+	std::unique_ptr<EmitterSphere> chargeEffect = std::make_unique<EmitterSphere>();
+	chargeEffect->Initialize("chargeEffect", 100);
+	chargeEffect->SetTranslate({ 0.0f,0.0f,0.0f });
+	chargeEffect->SetTexture("gradationLine.png");
+	chargeEffect->SetRing(16, 0.5f, 0.0f);
+	particleSystem_->SetParticleEmitter(std::move(chargeEffect));
 	//レールカメラ
 	railCamera_ = std::make_unique<RailCamera>();
 	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });

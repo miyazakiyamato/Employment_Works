@@ -1,54 +1,54 @@
 {
-    "emitterHit": {
-        "Count": 30,
+    "chargeEffect": {
+        "Count": 1,
         "EndColor": [
+            0.05882352963089943,
             1.0,
-            0.9411764740943909,
             0.0,
             0.0
         ],
         "EndScale": [
-            5.0,
-            5.0,
-            5.0
-        ],
-        "EndUvTranslate": [
+            0.0,
             0.0,
             0.0
         ],
-        "Frequency": 3.0,
+        "EndUvTranslate": [
+            1.0,
+            1.0
+        ],
+        "Frequency": 0.30000001192092896,
         "IsBillboard": true,
         "IsEmitUpdate": false,
-        "RLifeTimeMax": 1.0,
-        "RLifeTimeMin": 0.5,
+        "RLifeTimeMax": 0.30000001192092896,
+        "RLifeTimeMin": 0.30000001192092896,
         "RVelocityMax": [
-            10.0,
-            10.0,
-            10.0
+            0.0,
+            0.0,
+            0.0
         ],
         "RVelocityMin": [
-            -10.0,
-            -10.0,
-            -10.0
+            0.0,
+            0.0,
+            0.0
         ],
         "Radius": 0.0,
         "StartColor": [
+            0.05882352963089943,
             1.0,
-            0.0,
             0.0,
             1.0
         ],
         "StartScale": [
-            0.0,
-            0.0,
-            0.0
+            10.0,
+            10.0,
+            10.0
         ],
         "StartUvTranslate": [
             0.0,
             0.0
         ]
     },
-    "emitterHit_DisplayOrder": [
+    "chargeEffect_DisplayOrder": [
         "Radius",
         "Count",
         "Frequency",

@@ -39,9 +39,17 @@ void Player::Initialize(){
 
 void Player::Update(){
 	Move();
-	Attack();
-
 	object3d_->SetTranslate(Vector3::Clamp(object3d_->GetTranslate(), {-50,-50,-100}, {50,50,100}));
+	
+	if (attackData_.isCharging == false) {
+		Attack();
+	} else {
+		if (attackData_.chargeCount < attackData_.kChargeTime) {
+			Shoot();
+		} else {
+			ChargeShoot();
+		}
+	}
 
 	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("airEffect"))->SetTranslate(object3d_->GetCenterPosition());
 
@@ -139,12 +147,11 @@ void Player::Move(){// 移動量
 			velocity_.y -= moveSpeed_;
 		}
 	}
-	/*if (input_->TriggerKey(DIK_LSHIFT) || input_->TriggerControllerButton(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
-		railCamera_->SetVelocity(100.0f);
+	if (input_->PushKey(DIK_LSHIFT) || input_->PushControllerButton(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
+		railCamera_->SetVelocity(30.0f);
 	} else {
-		railCamera_->SetVelocity(10.0f);
-	}*/
-	railCamera_->SetVelocity(30.0f);
+		railCamera_->SetVelocity(15.0f);
+	}
 
 	if (velocity_.Length() != 0) {
 		velocity_.Normalize();
@@ -156,18 +163,16 @@ void Player::Move(){// 移動量
 }
 
 void Player::Attack() {
-	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
-		const float kBulletSpeed = 100.0f;
-		Vector3 velocity(0, 0, kBulletSpeed);
-
-		velocity = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
-		velocity = Vector3::Multiply(kBulletSpeed, Vector3::Normalize(velocity));
-
-		//velocity = Matrix4x4::TransformNormal(velocity, reticle3D_->GetWorldMatrix());
-
-		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(GetWorldPosition(), velocity);
-		bulletManager_->AddBullet(std::move(newBullet));
+	if (input_->PushKey(DIK_SPACE) || input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
+		attackData_.chargeCount += TimeManager::GetInstance()->deltaTime_;
+		if (attackData_.chargeCount >= attackData_.kChargeTime) {
+			attackData_.isCharging = true;
+		}
+	} else {
+		if (attackData_.chargeCount != 0.0f) {
+			attackData_.isCharging = true;
+		}
+		attackData_.chargeCount = 0.0f;
 	}
 }
 
@@ -221,6 +226,53 @@ void Player::ReticleUpdate(){
 	Vector3 velocityZ = Matrix4x4::Transform(direction, Matrix4x4::MakeRotateYMatrix(-rotate.y));
 	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
 	object3d_->SetRotate(rotate);
+}
+
+void Player::Shoot(){
+	attackData_.chargeCount += TimeManager::GetInstance()->deltaTime_;
+	if (attackData_.bulletCount == 0 ||
+		attackData_.chargeCount >= attackData_.kChargeTime) {
+		// 弾の速度
+		Vector3 velocity(0, 0, attackData_.kBulletSpeed);
+		velocity = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
+		velocity = Vector3::Multiply(attackData_.kBulletSpeed, Vector3::Normalize(velocity));
+		// 弾の生成
+		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Initialize(GetWorldPosition(), velocity);
+		newBullet->GetObject3d()->SetScale({ attackData_.kChargeTime,attackData_.kChargeTime,attackData_.kChargeTime });
+		bulletManager_->AddBullet(std::move(newBullet));
+		
+		// 次の弾への初期化
+		attackData_.bulletCount++;
+		attackData_.chargeCount = 0.0f;
+	}
+	if (attackData_.bulletCount >= attackData_.kBulletCount) {
+		attackData_.isCharging = false;
+		attackData_.bulletCount = 0;
+	}
+}
+
+void Player::ChargeShoot(){
+	EmitterSphere* chargeEffect = static_cast<EmitterSphere*>(particleSystem_->FindEmitter("chargeEffect"));
+	chargeEffect->SetTranslate(object3d_->GetCenterPosition());
+	chargeEffect->SetIsEmitUpdate(true);
+	attackData_.chargeCount += TimeManager::GetInstance()->deltaTime_;
+	if (!input_->PushKey(DIK_SPACE) && !input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
+		// 弾の速度
+		Vector3 velocity(0, 0, attackData_.kBulletSpeed);
+		velocity = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
+		velocity = Vector3::Multiply(attackData_.kBulletSpeed, Vector3::Normalize(velocity));
+		// 弾の生成
+		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Initialize(GetWorldPosition(), velocity);
+		newBullet->GetObject3d()->SetScale({ attackData_.chargeCount,attackData_.chargeCount,attackData_.chargeCount });
+		bulletManager_->AddBullet(std::move(newBullet));
+
+		// 次の弾への初期化
+		attackData_.isCharging = false;
+		attackData_.chargeCount = 0.0f;
+		chargeEffect->SetIsEmitUpdate(false);
+	}
 }
 
 Vector3 Player::GetWorldPosition(){

@@ -41,4 +41,5 @@ protected:
 public:
 	bool isAlive() const { return isAlive_; }
 	Vector3 GetCenterPosition()const override;
+	Object3d* GetObject3d() const {return object3d_.get();}
 };

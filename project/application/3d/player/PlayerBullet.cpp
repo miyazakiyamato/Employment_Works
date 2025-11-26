@@ -5,14 +5,18 @@
 void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayerBullet));
 	BaseBullet::Initialize(position, velocity);
-	object3d_->SetModel("airship/airship.obj");
+	object3d_->SetModel("sphere/sphere.obj");
+	object3d_->SetTexture("white.png");
+	object3d_->SetEnableLighting(false,0);
+	object3d_->SetBlendMode(BlendMode::kAdd);
 	Collider::SetRadius(0.5f);
 	object3d_->SetScale({ 0.5f, 0.5f, 0.5f });
-	object3d_->SetColor({ 0.2f, 0.2f, 0.2f, 1.0f },0);
+	object3d_->SetColor({ 0.05f, 1.0f, 0.0f, 1.0f },0);
 	Rotate(velocity_);
 }
 
 void PlayerBullet::Update() {
+	Collider::SetRadius(object3d_->GetScale().x);
 	BaseBullet::Update();
 }
 

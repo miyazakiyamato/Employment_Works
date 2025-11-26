@@ -149,6 +149,14 @@ void ParticleManager::CreateParticleGroup(const std::string name,uint32_t kMaxPa
 
 	particleGroups[name] = std::move(group);
 }
+void ParticleManager::ClearParticleGroup(const std::string name){
+	// パーティクルグループの削除
+	auto it = particleGroups.find(name);
+	if (it != particleGroups.end()) {
+		it->second.reset();
+		particleGroups.erase(it);
+	}
+}
 void ParticleManager::CreateParticle(ParticleGroup* group){
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 	// リソースバリアをUAVに遷移

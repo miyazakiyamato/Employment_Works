@@ -11,10 +11,15 @@ class ParticleSystem;
 class RailCamera;
 class Player : public BaseCharacter{
 public://構造体
-	/*struct AttackData{
-		float elapsedTime = 0.0f;
-		BaseBullet* bullet = nullptr;
-	};*/
+	struct AttackData{
+		bool isCharging = false;
+		float kBulletSpeed = 100.0f;
+		float kChargeTime = 0.3f;
+		float chargeCount = 0.0f;
+		uint32_t kBulletCount = 3;
+		uint32_t bulletCount = 0;
+		//BaseBullet* bullet = nullptr;
+	};
 
 public://メンバ関数
 	Player() {}
@@ -42,6 +47,8 @@ private://ローカル関数
 	void Move();
 	void Attack();
 	void ReticleUpdate();
+	void Shoot();
+	void ChargeShoot();
 private://メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
@@ -56,6 +63,9 @@ private://メンバ変数
 	float moveSpeed_ = 3.0f;
 	// clear毎フレーム更新する角度（公転）
 	float revolveAngle_ = 0.0f;
+
+	//攻撃データ
+	AttackData attackData_{};
 
 	int hp_ = 10;
 	bool isAlive_ = true;

@@ -109,3 +109,8 @@ void EmitterSphere::ApplyGlobalVariables(){
 	emitterData_->startUvTranslate = globalVariables_->GetValue<Vector2>(groupName, "StartUvTranslate");
 	emitterData_->endUvTranslate = globalVariables_->GetValue<Vector2>(groupName, "EndUvTranslate");
 }
+
+void EmitterSphere::SetIsEmitUpdate(bool isEmitUpdate) {
+	emitterData_->isEmitUpdate = isEmitUpdate;
+	globalVariables_->SetValue(name_, "IsEmitUpdate", (bool)emitterData_->isEmitUpdate);
+}

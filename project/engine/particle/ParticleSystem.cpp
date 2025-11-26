@@ -8,8 +8,8 @@
 
 void ParticleSystem::Finalize() {
 	// すべてのエミッターを削除
-	for (auto& emitter : emitters_) {
-		emitter.second.reset();
+	for (const auto& [name, emitter] : emitters_) {
+		ParticleManager::GetInstance()->ClearParticleGroup(name);
 	}
 	emitters_.clear();
 }

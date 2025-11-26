@@ -50,7 +50,7 @@ void Enemy::OnCollision(Collider* other){
 		distance = distance.Normalize() * GetRadius();
 		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(object3d_->GetCenterPosition() + distance);
 		particleSystem_->Emit("hitEffect");
-		hp_ -= 1;
+		hp_ -= int(playerBullet->GetObject3d()->GetScale().x * 4.0f);
 		if (hp_ <= 0) {
 			isAlive_ = false;
 		}

@@ -61,7 +61,7 @@ public:
 	void SetCount(uint32_t count) { emitterData_->count = count; }
 	void SetFrequency(float frequency) { emitterData_->frequency = frequency; }
 	void SetIsBillboard(bool isBillboard) { emitterData_->isBillboard = isBillboard; }
-	void SetIsEmitUpdate(bool isEmitUpdate) { emitterData_->isEmitUpdate = isEmitUpdate; }
+	void SetIsEmitUpdate(bool isEmitUpdate);
 	void SetRLifeTimeMin(float rlifeTimeMin) { emitterData_->rlifeTimeMin = rlifeTimeMin; }
 	void SetRLifeTimeMax(float rlifeTimeMax) { emitterData_->rlifeTimeMax = rlifeTimeMax; }
 	void SetRVelocityMin(const Vector3& rVelocityMin) { emitterData_->rVelocityMin = rVelocityMin; }

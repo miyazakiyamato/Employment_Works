@@ -89,6 +89,8 @@ public://メンバ関数
 	void Draw();
 	//パーティクルグループの生成
 	void CreateParticleGroup(const std::string name, uint32_t kMaxParticles);
+	//パーティクルグループの削除
+	void ClearParticleGroup(const std::string name);
 	//調整項目の更新
 	//void UpdateGlobalVariables();
 private:
