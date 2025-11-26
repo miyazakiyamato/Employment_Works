@@ -20,6 +20,8 @@ private://メンバ変数
 	float duration_ = 1.0f;
 	//経過時間カウンター
 	float counter_ = 0.0f;
+
+	Vector2 spriteSize_ = { 90.0f,144.0f };
 public:
 	//ゲッター
 	float GetDuration() const { return duration_; }

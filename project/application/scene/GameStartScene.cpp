@@ -12,7 +12,7 @@ void GameStartScene::Initialize(){
 		std::unique_ptr<Sprite> sprite(new Sprite);
 		sprite->Initialize("num.png");
 		sprite->SetPosition({ 640,360 });
-		sprite->SetSize({ 90.0f,144.0f });
+		sprite->SetSize(spriteSize_);
 		sprite->SetAnchorPoint({ 0.5f, 0.5f });
 		sprite->SetUVTranslate({ 0.3f,0.0f });
 		sprite->SetUVScale({ 0.1f,1.0f });
@@ -50,6 +50,7 @@ void GameStartScene::Update() {
        camera_->SetRotate(rotation); // SetRotationがラジアンの場合
 	   camera_->Update();
    }
+   sprites_[0]->SetSize(spriteSize_ * counter_ * 2);
    if (counter_ < duration_) {
        float t = (counter_ / duration_) * 3.14159265f; // 0～πに正規化
        float alpha = std::sinf(t);
@@ -64,8 +65,8 @@ void GameStartScene::Update() {
        } else if (sprites_[0]->GetUVTranslate().x - 0.1f >= 0.0f) {
            sprites_[0]->SetTexture("go.png");
            sprites_[0]->SetUVTranslate({ 0.0f,0.0f });
+		   spriteSize_ = { 180.0f,144.0f };
            sprites_[0]->SetUVScale({ 1.0f,1.0f });
-           sprites_[0]->SetSize({ 180.0f,144.0f });
            isFinished_ = true;
        }
        else {
