@@ -4,42 +4,75 @@
 #include "Animation.h"
 
 class SrvUavManager;
-class ModelManager{
-public://メンバ関数
-	//シングルトンインスタンスの取得
+
+/// <summary>
+/// モデル・アニメーションリソース管理クラス（シングルトン）
+/// 同じファイルパスのモデルやアニメーションを重複して読み込まないように管理する
+/// </summary>
+class ModelManager {
+public:
+		// --- メンバ関数 ---
+	/// <summary>
+	/// シングルトンインスタンスの取得
+	/// </summary>
 	static ModelManager* GetInstance();
-	//初期化
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
 	void Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager);
-	//終了
+
+	/// <summary>
+	/// 終了処理
+	/// </summary>
 	void Finalize();
 
-	//モデルファイルの読み込み
+	/// <summary>
+	/// モデルファイルを読み込む
+	/// 既に読み込み済みの場合はスキップする
+	/// </summary>
+	/// <param name="filePath">ファイルパス</param>
 	void LoadModel(const std::string& filePath);
-	//モデルの検索
+
+	/// <summary>
+	/// 読み込み済みのモデルを検索して取得する
+	/// </summary>
+	/// <param name="filePath">ファイルパス</param>
+	/// <returns>Modelへのポインタ、なければnullptr</returns>
 	Model* FindModel(const std::string& filePath);
 
-	//アニメーションファイルの読み込み
+	/// <summary>
+	/// アニメーションファイルを読み込む
+	/// </summary>
 	void LoadAnimation(const std::string& filePath);
-	//アニメーションの検索
+
+	/// <summary>
+	/// 読み込み済みのアニメーションを検索して取得する
+	/// </summary>
 	Animation* FindAnimation(const std::string& filePath);
 
-private://シングルインスタンス
+private:
+		// --- シングルインスタンス ---
 	static ModelManager* instance;
 
 	ModelManager() = default;
 	~ModelManager() = default;
 	ModelManager(ModelManager&) = delete;
 	ModelManager& operator=(ModelManager&) = delete;
-private://メンバ変数
-	//ポインタ
+
+		// --- メンバ変数 ---
+	// ポインタ
 	DirectXCommon* dxCommon_ = nullptr;
 	SrvUavManager* srvUavManager_ = nullptr;
-	//モデルデータ
+
+	// モデルデータ (キー: ファイルパス)
 	std::map<std::string, std::unique_ptr<Model>> models;
-	//アニメーションデータ
+
+	// アニメーションデータ (キー: ファイルパス)
 	std::map<std::string, std::unique_ptr<Animation>> animations;
-public://ゲッターセッター
+
+public:
+		// --- ゲッター ---
 	DirectXCommon* GetDirectXCommon() { return dxCommon_; }
 	SrvUavManager* GetSrvManager() { return srvUavManager_; }
 };
-

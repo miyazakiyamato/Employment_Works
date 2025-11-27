@@ -199,8 +199,7 @@ Vector3 Quaternion::ToEulerAngles() const{
 	return angles;
 }
 
-Quaternion Quaternion::operator+(const Quaternion& q)
-{
+Quaternion Quaternion::operator+(const Quaternion& q) const{
 	Quaternion result;
 	result.x = (*this).x + q.x;
 	result.y = (*this).y + q.y;
@@ -209,8 +208,7 @@ Quaternion Quaternion::operator+(const Quaternion& q)
 	return result;
 }
 
-Quaternion Quaternion::operator*(const float& f)
-{
+Quaternion Quaternion::operator*(const float& f) const{
 	Quaternion result;
 	result.x = (*this).x * f;
 	result.y = (*this).y * f;
@@ -218,8 +216,7 @@ Quaternion Quaternion::operator*(const float& f)
 	result.w = (*this).w * f;
 	return result;
 }
-Quaternion Quaternion::operator/(const float& f)
-{
+Quaternion Quaternion::operator/(const float& f) const{
 	Quaternion result;
 	result.x = (*this).x / f;
 	result.y = (*this).y / f;
@@ -228,8 +225,7 @@ Quaternion Quaternion::operator/(const float& f)
 	return result;
 }
 
-Quaternion Quaternion::operator-()
-{
+Quaternion Quaternion::operator-() const{
 	Quaternion result;
 	result.x = -(*this).x;
 	result.y = -(*this).y;

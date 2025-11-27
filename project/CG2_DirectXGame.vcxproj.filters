@@ -521,9 +521,6 @@
     <ClInclude Include="engine\3d\SkinCluster.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="engine\3d\SkinningObject3dPipeline.h">
-      <Filter>ヘッダー ファイル\engine\3d</Filter>
-    </ClInclude>
     <ClInclude Include="engine\base\OffScreenPipeline.h">
       <Filter>ヘッダー ファイル\engine\base</Filter>
     </ClInclude>

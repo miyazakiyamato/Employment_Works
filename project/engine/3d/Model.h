@@ -8,12 +8,16 @@
 #include "BlendMode.h"
 #include "Quaternion.h"
 
-class Model{
+/// <summary>
+/// 3Dモデルリソースクラス
+/// メッシュデータ、階層構造(Node)、マテリアル情報などを保持する
+/// </summary>
+class Model {
 private:
-	//namespace省略
+		// --- namespace省略 ---
 	template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 public:
-	//構造体
+		// --- 構造体 ---
 	struct VertexData {
 		Vector4 position;
 		Vector2 texcoord;
@@ -21,7 +25,7 @@ public:
 	};
 	struct EulerTransform {
 		Vector3 scale;
-		Vector3 rotate;//Eulerでの回転
+		Vector3 rotate; // Eulerでの回転
 		Vector3 translate;
 	};
 	struct QuaternionTransform {
@@ -29,14 +33,14 @@ public:
 		Quaternion rotate;
 		Vector3 translate;
 	};
-	struct Node{
+	struct Node {
 		QuaternionTransform transform;
 		Matrix4x4 localMatrix;
 		std::string name;
 		std::vector<Node> children;
 	};
 	struct MeshMaterialData {
-		//EulerTransform uvTransform;
+		// EulerTransform uvTransform;
 		Vector4 color;
 		std::string textureFilePath;
 	};
@@ -45,48 +49,87 @@ public:
 		uint32_t vertexIndex;
 	};
 	struct JointWeightData {
-		Matrix4x4 inverseBindPoseMatrix;
+		Matrix4x4 inverseBindPoseMatrix; // 逆バインドポーズ行列（初期姿勢の逆行列）
 		std::vector<VertexWeightData> vertexWeights;
 	};
+
+	/// <summary>
+	/// メッシュデータ構造体
+	/// 1つのモデルは複数のメッシュで構成される場合がある
+	/// </summary>
 	struct Mesh {
 		std::vector<VertexData> vertices;
 		std::vector<uint32_t> indices;
 		MeshMaterialData material;
-		std::map<std::string, JointWeightData> skinClusterData;
-		//バッファリソース
+		std::map<std::string, JointWeightData> skinClusterData; // スキニング用データ
+
+		// バッファリソース
 		ComPtr<ID3D12Resource> vertexResource;
 		ComPtr<ID3D12Resource> indexResource;
-		//バッファリソース内のデータを指すポインタ
+
+		// バッファリソース内のデータを指すポインタ
 		VertexData* vertexData = nullptr;
 		uint32_t* indexData = nullptr;
-		//バッファリソースの使い道を補足するバッファビュー
+
+		// バッファビュー
 		D3D12_VERTEX_BUFFER_VIEW vertexBufferView;
 		D3D12_INDEX_BUFFER_VIEW indexBufferView;
 	};
 
-public://メンバ関数
-	//初期化
+		// --- メンバ関数 ---
+	/// <summary>
+	/// 初期化（ファイル読み込みとリソース生成）
+	/// </summary>
 	void Initialize(DirectXCommon* dxCommon, const std::string& directoryPath, const std::string& filename);
-	//描画
+
+	/// <summary>
+	/// 描画コマンドの発行
+	/// </summary>
+	/// <param name="meshIndex">描画するメッシュのインデックス</param>
 	void Draw(size_t meshIndex);
-	void Draw(size_t meshIndex,const D3D12_VERTEX_BUFFER_VIEW* vertexBufferView);
-	//ファイルの読み取り
+
+	/// <summary>
+	/// スキニング済み頂点バッファなど、外部のVBVを使用して描画する場合
+	/// </summary>
+	void Draw(size_t meshIndex, const D3D12_VERTEX_BUFFER_VIEW* vertexBufferView);
+
+	/// <summary>
+	/// Assimpを使用してファイルを読み込む
+	/// </summary>
 	void LoadFile(const std::string& directoryPath, const std::string& filename);
-	//Node解析
+
+	/// <summary>
+	/// ノード階層を再帰的に読み込む
+	/// </summary>
 	Node ReadNode(aiNode* node);
-	//カラー
-	void LoadColor(Mesh& mesh,aiMaterial* aiMeshMaterial);
+
+	/// <summary>
+	/// マテリアルカラーを読み込む
+	/// </summary>
+	void LoadColor(Mesh& mesh, aiMaterial* aiMeshMaterial);
+
 private:
+		// --- ローカル関数 ---
+	/// <summary>
+	/// 標準プリミティブ（球や立方体など）の生成処理が必要か判定する
+	/// </summary>
 	bool IsPrimitive(const std::string& filename);
+
+	/// <summary>
+	/// スカイボックス用のモデルデータを生成する
+	/// </summary>
 	void ModelDataSkybox();
-private://メンバ変数
+
+		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;
-	//Objファイルのデータ
+
+	// Obj/GLTFファイルの解析データ
 	std::vector<Mesh> meshDates_;
 	size_t meshCount_ = 0;
 	Node rootNode_;
-public://ゲッターセッター
+
+public:
+		// --- ゲッター ---
 	const std::vector<Mesh>& GetMeshData() { return meshDates_; }
 	const Node& GetNode() { return rootNode_; }
 };
-

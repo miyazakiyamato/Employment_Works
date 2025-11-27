@@ -276,7 +276,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\3d\Line3DPipeline.h" />
     <ClInclude Include="engine\3d\Skeleton.h" />
     <ClInclude Include="engine\3d\SkinCluster.h" />
-    <ClInclude Include="engine\3d\SkinningObject3dPipeline.h" />
     <ClInclude Include="engine\particle\EmitterSphere.h" />
     <ClInclude Include="engine\particle\ParticleSystem.h" />
     <ClInclude Include="engine\base\PipelineFactory.h" />

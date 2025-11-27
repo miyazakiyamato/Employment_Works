@@ -7,21 +7,27 @@
 #include "Skeleton.h"
 #include "SkinCluster.h"
 
-class Object3d{
-public:
-	//namespace省略
-	template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+/// <summary>
+/// 3Dオブジェクトクラス
+/// ワールド空間上の1つのオブジェクト実体を表す
+/// モデル、アニメーション、スケルトンなどのコンポーネントを所有・管理する
+/// </summary>
+class Object3d {
 private:
+		// --- namespace省略 ---
+	template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
+public:
+		// --- 構造体 ---
 	struct TransformationMatrix {
 		Matrix4x4 WVP;
 		Matrix4x4 World;
-		Matrix4x4 WorldInverseTranspose;
+		Matrix4x4 WorldInverseTranspose; // 法線変換用
 	};
 	struct CameraForGpu {
 		Vector3 worldPosition;
 		float padding;
 	};
-	struct AnimationData{
+	struct AnimationData {
 		Animation* animation;
 		float time = 0.0f;
 		bool isLoop = false;
@@ -30,10 +36,10 @@ private:
 		Vector4 color{ 1,1,1,1 };
 		Vector4 highLightColor{ 1,1,1,1 };
 		Matrix4x4 uvTransform;
-		int enableLighting; // ライティングを有効にするかどうか
-		float shininess; // シェーダーの光沢度
-		int enableEnvironmentMap; // 環境マップを有効にするかどうか
-		float environmentCoefficient; // 環境マップの寄与度
+		int enableLighting;           // ライティング有効フラグ
+		float shininess;              // 光沢度 (スペキュラ)
+		int enableEnvironmentMap;     // 環境マップ有効フラグ
+		float environmentCoefficient; // 環境マップ寄与度
 	};
 	struct MaterialData {
 		std::string textureFilePath_ = "";
@@ -41,18 +47,34 @@ private:
 		Material* material = nullptr;
 		Microsoft::WRL::ComPtr<ID3D12Resource> materialResource;
 	};
-public://メンバ関数
+
+		// --- メンバ関数 ---
 	Object3d() = default;
 	~Object3d();
-	//初期化
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
 	void Initialize();
-	//更新
+
+	/// <summary>
+	/// 更新処理
+	/// 行列計算、アニメーション進行、スケルトン更新を行う
+	/// </summary>
 	void Update();
-	//描画
+
+	/// <summary>
+	/// 描画処理
+	/// </summary>
 	void Draw();
-	//ImGuiでの編集用
+
+	/// <summary>
+	/// ImGui更新処理
+	/// </summary>
 	void ImGuiUpdate(const std::string& name);
-private://メンバ変数
+
+private:
+		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;
 
 	Model* model_ = nullptr;
@@ -60,30 +82,36 @@ private://メンバ変数
 	BlendMode blendMode_ = BlendMode::kNormal;
 	std::string pipelineStateName_ = "";
 	std::string computeShaderPipelineName_ = "";
-	//バッファリソース
+
+	// バッファリソース
 	ComPtr<ID3D12Resource> wvpResource;
 	ComPtr<ID3D12Resource> cameraResource;
-	//バッファリソース内のデータを指すポインタ
+
+	// マッピングポインタ
 	TransformationMatrix* wvpData = nullptr;
 	CameraForGpu* cameraData = nullptr;
 	LightManager* lightManager_ = nullptr;
 
-	//Transform変数を作る。
-	Transform transform { {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
+	// トランスフォーム
+	Transform transform{ {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
 	Matrix4x4 worldMatrix_;
+
+	// アニメーション・スキニング関連
 	std::unique_ptr<AnimationData> animationData_ = nullptr;
-	std::unique_ptr<AnimationData> nextAnimationData_ = nullptr;
+	std::unique_ptr<AnimationData> nextAnimationData_ = nullptr; // ブレンド用次アニメーション
 	std::unique_ptr<Skeleton> skeletonData_ = nullptr;
 	std::unique_ptr<SkinCluster> skinClusterData_ = nullptr;
-	float lerpTime_ = 0.1f; //!< アニメーションを何秒で補間するか
+	float lerpTime_ = 0.1f; //!< アニメーションブレンド時間
 
-	Object3d* parent_ = nullptr;
-	
-	bool isSetWorldMatrix_ = false; //!< WorldMatrixをセットするかどうか
-	bool isDrawSkeleton_ = false; //!< Skeletonを描画するかどうか
-	bool isSkybox_ = false; //!< SkyBoxかどうか
-	std::string environmentTextureFilePath_ = "";
-public://ゲッターセッター
+	Object3d* parent_ = nullptr; // 親オブジェクト
+
+	bool isSetWorldMatrix_ = false;       //!< WorldMatrixを外部からセットするか
+	bool isDrawSkeleton_ = false;         //!< Skeleton(骨)を描画するか
+	bool isSkybox_ = false;               //!< SkyBoxとして描画するか
+	std::string environmentTextureFilePath_ = ""; // 環境マップテクスチャパス
+
+public:
+		// --- ゲッター ---
 	const BlendMode& GetBlendMode() { return blendMode_; }
 	const Vector3& GetScale() const { return transform.scale; }
 	const Vector3& GetRotate() const { return transform.rotate; }
@@ -102,7 +130,7 @@ public://ゲッターセッター
 	bool GetIsDrawSkeleton() const { return isDrawSkeleton_; }
 	Matrix4x4 GetJointMatrix(std::string jointName) const; 
 	Vector3 GetJointsPosition(std::string jointName);
-
+		// --- セッター ---
 	void SetParent(Object3d* parent) { parent_ = parent; }
 	void SetWorldMatrix(const Matrix4x4& worldMatrix);
 	void SetTexture(const std::string& textureFilePath) { materialDates_[0].textureFilePath_ = textureFilePath; }
