@@ -3,49 +3,76 @@
 #include <map>
 #include "DirectXCommon.h"
 
-class TimeManager{
-public:
-	//namespace省略
+/// <summary>
+/// タイムマネージャクラス
+/// ゲーム内の時間経過、デルタタイム、タイマー機能を管理する
+/// </summary>
+class TimeManager {
+private:
+		// --- namespace省略 ---
 	template<class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
-	struct Timer{
-		float kLimitTime = 0.5f;
-		float timeCount = 0.0f;
-		bool isStart = false;
+public:
+		// --- 構造体定義 ---
+	struct Timer {
+		float kLimitTime = 0.5f; // 制限時間
+		float timeCount = 0.0f;  // 現在のカウント
+		bool isStart = false;    // 計測中フラグ
 	};
+
 	struct PerFrame {
-		float time; // 時間
+		float time;      // ゲーム開始からの経過時間
 		float deltaTime; // 1フレームの経過時間
 	};
-public:
-	//シングルインスタンスの取得
+
+		// --- メンバ関数 ---
+	/// <summary>
+	/// シングルトンインスタンスの取得
+	/// </summary>
 	static TimeManager* GetInstance();
-	//終了
+
+	/// <summary>
+	/// 終了処理
+	/// </summary>
 	void Finalize();
 
 	/// <summary>
-	/// 初期化
+	/// 初期化処理
+	/// 時間管理用リソースを作成する
 	/// </summary>
 	void Initialize(DirectXCommon* dxCommon);
-	
+
 	/// <summary>
-	/// 更新
+	/// 更新処理
+	/// 毎フレーム呼び出し、時間を進める
 	/// </summary>
 	void Update();
 
+	/// <summary>
+	/// 時間速度のリセット
+	/// </summary>
 	void TimeSpeedReset();
 
-	void SetDeltaTimeSpeedStart(float timeSpeed,float kLimitTime);
-	//デルタタイム
+	/// <summary>
+	/// デルタタイムの速度変更（スローモーション等）
+	/// </summary>
+	/// <param name="timeSpeed">時間の進行速度 (1.0fが通常)</param>
+	/// <param name="kLimitTime">効果を持続させる時間</param>
+	void SetDeltaTimeSpeedStart(float timeSpeed, float kLimitTime);
+
+	// デルタタイム
 	static inline float deltaTime_ = 1.0f / 60.0f;
 	static inline const float kFlamTime_ = 1.0f / 60.0f;
-private://シングルインスタンス
+
+private:
+	// --- シングルトン ---
 	static TimeManager* instance;
 
 	TimeManager() = default;
 	~TimeManager() = default;
 	TimeManager(TimeManager&) = delete;
 	TimeManager& operator=(TimeManager&) = delete;
-private:
+
+	// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr; // DirectXの共通インスタンス
 
 	float timeSpeed_ = kFlamTime_;
@@ -53,15 +80,24 @@ private:
 	float timeCount_ = 0.0f;
 	std::map<std::string, Timer> timers_;
 
-	//timeのリソース
+	// timeのリソース
 	ComPtr<ID3D12Resource> perFrameResource_;
 	PerFrame* perFrameData_ = nullptr; // フレームごとの時間情報
+
 public:
+		// --- ゲッター ---
 	Timer GetTimer(std::string name) { return timers_[name]; }
-	// 現在の時間を取得
+
+	/// <summary>
+	/// 現在の時間を取得
+	/// </summary>
 	float GetTimeCurrent() const { return perFrameData_->time; }
+
 	ID3D12Resource* GetPerFrameResource() const { return perFrameResource_.Get(); }
 
+		// --- セッター ---
+	/// <summary>
+	/// タイマーの設定
+	/// </summary>
 	void SetTimer(std::string name, float kLimitTime);
 };
-

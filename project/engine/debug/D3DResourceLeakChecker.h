@@ -1,9 +1,15 @@
-﻿#pragma once
-class D3DResourceLeakChecker{
+#pragma once
+
+/// <summary>
+/// Direct3Dリソースリークチェッカー
+/// プログラム終了時に解放されていないD3Dリソースがあれば警告を出力する
+/// 基本的にデバッグビルド時のみ動作させる
+/// </summary>
+class D3DResourceLeakChecker {
 public:
-	///<summary>
-	///デストラクタ
-	///</summary>
+	/// <summary>
+	/// デストラクタ
+	/// インスタンス破棄時にリークチェックを実行する
+	/// </summary>
 	~D3DResourceLeakChecker();
 };
-

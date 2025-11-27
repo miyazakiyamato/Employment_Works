@@ -4,44 +4,87 @@
 #include "BaseParticleEmitter.h"
 
 class GlobalVariables;
-class ParticleSystem{
+
+/// <summary>
+/// パーティクルシステムクラス
+/// 複数のエミッターを統合管理し、ゲームループ内でのパーティクル処理を統括する
+/// </summary>
+class ParticleSystem {
 public:
-	// ParticleSystemのコンストラクタ
+		// --- メンバ関数 ---
 	ParticleSystem() {};
 	void Finalize();
-	// パーティクルの初期化
+
+	/// <summary>
+	/// 初期化
+	/// GlobalVariablesの読み込み等を行う
+	/// </summary>
 	void Initialize();
-	// パーティクルの更新
+
+	/// <summary>
+	/// 更新処理
+	/// 管理下の全エミッターの更新を行う
+	/// </summary>
 	void Update();
-	// パーティクルの描画
+
+	/// <summary>
+	/// 描画処理
+	/// ParticleManagerの描画処理を呼び出す
+	/// </summary>
 	void Draw();
-	// パーティクルエミッターのセット
+
+	/// <summary>
+	/// エミッターの登録
+	/// </summary>
+	/// <param name="emitter">所有権を移譲するエミッターのポインタ</param>
 	void SetParticleEmitter(std::unique_ptr<BaseParticleEmitter> emitter);
-	//パーティクルの管理取得
+
+	/// <summary>
+	/// エミッターの取得
+	/// </summary>
 	BaseParticleEmitter* GetParticleEmitter(const std::string& emitterName);
-	// パーティクルの発生
+
+	/// <summary>
+	/// 特定のエミッターからパーティクルを発生させる
+	/// </summary>
 	void Emit(const std::string& emitterName);
-	// ImGuiの更新
+
+	/// <summary>
+	/// ImGui更新処理
+	/// エミッターのパラメータ調整UIを表示する
+	/// </summary>
 	void ImGuiUpdate();
-	BaseParticleEmitter* FindEmitter(const std::string& emitterName) {return emitters_[emitterName].get();}
+
+	/// <summary>
+	/// エミッターの検索
+	/// </summary>
+	BaseParticleEmitter* FindEmitter(const std::string& emitterName) { return emitters_[emitterName].get(); }
+
 private:
-		// ローカル関数
+		// --- ローカル関数 ---
+	/// <summary>
+	/// タイプ名からエミッターインスタンスを作成するファクトリ関数
+	/// </summary>
 	std::unique_ptr<BaseParticleEmitter> CreateEmitterByType(const std::string& typeName);
+
 	// 調整項目の初期化
 	void InitializeGlobalVariables();
 	// 調整項目の適用
 	void ApplyGlobalVariables();
-		// メンバ変数
-	// ポインタ
+
+		// --- メンバ変数 ---
 	GlobalVariables* globalVariables_ = nullptr;
-	// パーティクルエミッターの管理
+
+	// パーティクルエミッターの管理マップ (名前 -> インスタンス)
 	std::unordered_map<std::string, std::unique_ptr<BaseParticleEmitter>> emitters_;
-	//  エミッター名入力用テキスト
-	std::string emitterNameText_ = ""; // エミッター名
-	char textBuffer_[128] = ""; // 入力用のバッファ
-	// パーティクル最大数
+
+	// ImGui用: エミッター名入力バッファ
+	std::string emitterNameText_ = "";
+	char textBuffer_[128] = "";
+
+	// パーティクル最大数設定
 	int maxParticles_ = 1000;
-	// エミッタータイプ作成用
+
+	// 作成するエミッターのタイプ名
 	std::string nowEmitterTypeName_ = "Sphere";
 };
-

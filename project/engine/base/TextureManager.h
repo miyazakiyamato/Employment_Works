@@ -7,10 +7,18 @@
 
 class DirectXCommon;
 class SrvUavManager;
-class TextureManager{
-private://構造体
-	//テクスチャ一枚分のデータ
-	struct TextureData{
+
+/// <summary>
+/// テクスチャマネージャクラス
+/// テクスチャの読み込み、保持、デスクリプタの管理を行う
+/// </summary>
+class TextureManager {
+public:
+		// --- 構造体定義 ---
+	/// <summary>
+	/// テクスチャ一枚分のデータ
+	/// </summary>
+	struct TextureData {
 		DirectX::TexMetadata metadata;
 		Microsoft::WRL::ComPtr<ID3D12Resource> resource;
 		Microsoft::WRL::ComPtr<ID3D12Resource> intermediateResource;
@@ -18,37 +26,65 @@ private://構造体
 		D3D12_CPU_DESCRIPTOR_HANDLE srvHandleCPU;
 		D3D12_GPU_DESCRIPTOR_HANDLE srvHandleGPU;
 	};
-public://メンバ関数
-	//シングルインスタンスの取得
+
+		// --- メンバ関数 ---
+	/// <summary>
+	/// シングルトンインスタンスの取得
+	/// </summary>
 	static TextureManager* GetInstance();
-	//初期化
+
+	/// <summary>
+	/// 初期化処理
+	/// </summary>
 	void Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager);
-	//終了
+
+	/// <summary>
+	/// 終了処理
+	/// </summary>
 	void Finalize();
-	//テクスチャファイルの読み込み
+
+	/// <summary>
+	/// テクスチャファイルの読み込み
+	/// </summary>
+	/// <param name="filePath">読み込むテクスチャのパス</param>
 	void LoadTexture(const std::string& filePath);
 
-	//テクスチャ番号からGPUハンドルを取得
+	/// <summary>
+	/// テクスチャパスからGPUハンドルを取得
+	/// </summary>
 	D3D12_GPU_DESCRIPTOR_HANDLE GetSrvHandleGPU(const std::string& filePath);
-	//メタデータの取得
+
+	/// <summary>
+	/// メタデータの取得
+	/// </summary>
 	const DirectX::TexMetadata& GetMetaData(const std::string& filePath);
-	//SRVインデックスの取得
+
+	/// <summary>
+	/// SRVインデックスの取得
+	/// </summary>
 	uint32_t GetSrvIndex(const std::string& filePath);
-private://シングルインスタンス
+
+	/// <summary>
+	/// 読み込み済みテクスチャのキー一覧を取得
+	/// </summary>
+	std::vector<std::string> GetKeys();
+
+private:
+		// --- シングルトン ---
 	static TextureManager* instance;
 
 	TextureManager() = default;
 	~TextureManager() = default;
 	TextureManager(TextureManager&) = delete;
 	TextureManager& operator=(TextureManager&) = delete;
-private://メンバ変数
+
+		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;
 	SrvUavManager* srvUavManager_ = nullptr;
-	//テクスチャのファイルパス
-	std::string directoryPath_ = "resources/texture/";
-	//テクスチャデータ
-	std::unordered_map<std::string,TextureData> textureDates;
-public:
-	std::vector<std::string> GetKeys(); // 結果を格納するベクター
-};
 
+	// テクスチャディレクトリパス
+	std::string directoryPath_ = "resources/texture/";
+
+	// テクスチャデータコンテナ
+	std::unordered_map<std::string, TextureData> textureDates;
+};

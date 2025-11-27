@@ -35,59 +35,84 @@
 #include "Line3D.h"
 #include "PostEffectManager.h"
 
-class Framework{
-public://メンバ関数
+/// <summary>
+/// ゲームフレームワーク基底クラス
+/// アプリケーションのライフサイクル（初期化、メインループ、終了）と
+/// 各種マネージャクラスの統合管理を行う
+/// </summary>
+class Framework {
+public:
+		// --- メンバ関数 ---
 	virtual ~Framework() = default;
-	//初期化
-	virtual void Initialize();
-	//終了処理
-	virtual void Finalize();
-	//毎フレーム更新
-	virtual void Update();
-	//描画
-	virtual void Draw() = 0;
-	//実行
-	void Run();
-protected://メンバ変数
 
-	//ポインタ
-	//WindowsAPI
+	/// <summary>
+	/// 初期化処理
+	/// ウィンドウ生成、DirectX初期化、各マネージャの生成と初期化を行う
+	/// </summary>
+	virtual void Initialize();
+
+	/// <summary>
+	/// 終了処理
+	/// 確保したリソースやマネージャの解放を行う
+	/// </summary>
+	virtual void Finalize();
+
+	/// <summary>
+	/// 毎フレーム更新
+	/// 入力、時間、各マネージャ、シーンの更新処理を行う
+	/// </summary>
+	virtual void Update();
+
+	/// <summary>
+	/// 描画処理 (純粋仮想関数)
+	/// 派生クラスで具体的な描画パスを実装する
+	/// </summary>
+	virtual void Draw() = 0;
+
+	/// <summary>
+	/// アプリケーション実行
+	/// ウィンドウが閉じられるまでメインループを回す
+	/// </summary>
+	void Run();
+
+protected:
+		// --- メンバ変数 ---
+	// ポインタ
+	// WindowsAPI
 	std::unique_ptr<WinApp> winApp = nullptr;
-	//DirecX
+	// DirecX
 	std::unique_ptr<DirectXCommon> dxCommon = nullptr;
-	//入力
+	// 入力
 	Input* input_ = nullptr;
-	//SRV
+	// SRV/UAV
 	std::unique_ptr<SrvUavManager> srvUavManager = nullptr;
-	//
-	// 
-	// マネージャ
+
+	// マネージャ群
 	std::unique_ptr<ImGuiManager> imGuiManager = nullptr;
-	//
+
 	GlobalVariables* globalVariables_ = nullptr;
-	//パイプラインマネージャ
+	// パイプラインマネージャ
 	PipelineManager* pipelineManager = nullptr;
-	//テクスチャマネージャ
+	// テクスチャマネージャ
 	TextureManager* textureManager_ = nullptr;
-	//パーティクルマネージャ
+	// パーティクルマネージャ
 	ParticleManager* particleManager_ = nullptr;
-	//モデルマネージャ
+	// モデルマネージャ
 	ModelManager* modelManager_ = nullptr;
-	//ラインマネージャ
+	// ラインマネージャ
 	Line3dManager* lineManager_ = nullptr;
-	//ライトマネージャ
+	// ライトマネージャ
 	LightManager* lightManager_ = nullptr;
-	//カメラマネージャ
+	// カメラマネージャ
 	CameraManager* cameraManager_ = nullptr;
-	//オーディオマネージャの初期化
+	// オーディオマネージャ
 	AudioManager* audioManager_ = nullptr;
-	//シーン
+	// シーンマネージャ
 	SceneManager* sceneManager_ = nullptr;
-	//シーンファクトリー
+	// シーンファクトリー
 	std::unique_ptr<AbstractSceneFactory> sceneFactory_ = nullptr;
-	//タイムマネージャ
+	// タイムマネージャ
 	TimeManager* timeManager_ = nullptr;
-	//PostEffectManager
+	// ポストエフェクトマネージャ
 	PostEffectManager* postEffectManager_ = nullptr;
 };
-
