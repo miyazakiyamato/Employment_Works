@@ -21,11 +21,10 @@ struct ObjectData {
 /// JSONファイルからレベルデータを読み込み、管理する
 /// </summary>
 class LevelDataManager {
-private:
+public:
 		// --- namespace省略 ---
 	using LevelData = std::vector<std::unique_ptr<ObjectData>>;
 
-public:
 		// --- メンバ関数 ---
 	LevelDataManager() = default;
 	~LevelDataManager() = default;
