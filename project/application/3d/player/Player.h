@@ -6,6 +6,7 @@
 
 class Input;
 class Camera;
+class BaseBullet;
 class BulletManager;
 class ParticleSystem;
 class RailCamera;
@@ -43,12 +44,11 @@ public://メンバ関数
 	void DrawUi();
 	//衝突を検知したら呼び出されるコールバック関数
 	void OnCollision([[maybe_unused]] Collider* other) override;
-private://ローカル関数
+
 	void Move();
-	void Attack();
+	void AddBullet(std::unique_ptr<BaseBullet> bullet);
+private://ローカル関数
 	void ReticleUpdate();
-	void Shoot();
-	void ChargeShoot();
 private://メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
@@ -61,6 +61,7 @@ private://メンバ変数
 
 	Vector3 velocity_{};
 	float moveSpeed_ = 3.0f;
+	Vector3 moveLimit_{ 15.0f,10.0f,100.0f };
 	// clear毎フレーム更新する角度（公転）
 	float revolveAngle_ = 0.0f;
 
@@ -75,6 +76,9 @@ public://ゲッターセッター
 	Vector3 GetWorldPosition();
 	int GetHp() { return hp_; }
 	bool GetIsAlive() const { return isAlive_; }
+	Object3d* GetReticle3d() { return reticle3d_.get(); }
+	const AttackData& GetAttackData() const { return attackData_; }
+	ParticleSystem* GetParticleSystem() { return particleSystem_; }
 
 	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
 	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }
@@ -82,5 +86,6 @@ public://ゲッターセッター
 	void SetCamera(const Camera* camera) { camera_ = camera; }
 	void SetParticleSystem(ParticleSystem* particleSystem) { particleSystem_ = particleSystem; }
 	void SetRailCamera(RailCamera* railCamera) { railCamera_ = railCamera; }
+	void SetAttackData(const AttackData& attackData) { attackData_ = attackData; }
 };
 

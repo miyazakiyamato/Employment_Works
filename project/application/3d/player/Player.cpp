@@ -11,6 +11,7 @@
 #include "EnemyBullet.h"
 #include "RailCamera.h"
 #include "TimeManager.h"
+#include "PlayerStateRoot.h"
 
 void Player::Initialize(){
 	BaseCharacter::Initialize();
@@ -35,25 +36,16 @@ void Player::Initialize(){
 	reticle2d_->SetAnchorPoint({ 0.5f, 0.5f });
 	reticle2d_->SetSize({ 64.0f, 64.0f });
 	reticle2d_->Update();
+
+	ChangeState(std::make_unique<PlayerStateRoot>(this));
 }
 
 void Player::Update(){
-	Move();
-	object3d_->SetTranslate(Vector3::Clamp(object3d_->GetTranslate(), {-50,-50,-100}, {50,50,100}));
-	
-	if (attackData_.isCharging == false) {
-		Attack();
-	} else {
-		if (attackData_.chargeCount < attackData_.kChargeTime) {
-			Shoot();
-		} else {
-			ChargeShoot();
-		}
-	}
+
+	state_->Update();
+	BaseCharacter::Update();
 
 	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("airEffect"))->SetTranslate(object3d_->GetCenterPosition());
-
-	BaseCharacter::Update();
 	ReticleUpdate();
 }
 
@@ -160,20 +152,12 @@ void Player::Move(){// 移動量
 		Vector3 position = object3d_->GetTranslate();
 		object3d_->SetTranslate(position + velocity_);
 	}
+
+	object3d_->SetTranslate(Vector3::Clamp(object3d_->GetTranslate(), -moveLimit_, moveLimit_));
 }
 
-void Player::Attack() {
-	if (input_->PushKey(DIK_SPACE) || input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
-		attackData_.chargeCount += TimeManager::GetInstance()->deltaTime_;
-		if (attackData_.chargeCount >= attackData_.kChargeTime) {
-			attackData_.isCharging = true;
-		}
-	} else {
-		if (attackData_.chargeCount != 0.0f) {
-			attackData_.isCharging = true;
-		}
-		attackData_.chargeCount = 0.0f;
-	}
+void Player::AddBullet(std::unique_ptr<BaseBullet> bullet){
+	bulletManager_->AddBullet(std::move(bullet));
 }
 
 void Player::ReticleUpdate(){
@@ -226,53 +210,6 @@ void Player::ReticleUpdate(){
 	Vector3 velocityZ = Matrix4x4::Transform(direction, Matrix4x4::MakeRotateYMatrix(-rotate.y));
 	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
 	object3d_->SetRotate(rotate);
-}
-
-void Player::Shoot(){
-	attackData_.chargeCount += TimeManager::GetInstance()->deltaTime_;
-	if (attackData_.bulletCount == 0 ||
-		attackData_.chargeCount >= attackData_.kChargeTime) {
-		// 弾の速度
-		Vector3 velocity(0, 0, attackData_.kBulletSpeed);
-		velocity = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
-		velocity = Vector3::Multiply(attackData_.kBulletSpeed, Vector3::Normalize(velocity));
-		// 弾の生成
-		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(GetWorldPosition(), velocity);
-		newBullet->GetObject3d()->SetScale({ attackData_.kChargeTime,attackData_.kChargeTime,attackData_.kChargeTime });
-		bulletManager_->AddBullet(std::move(newBullet));
-		
-		// 次の弾への初期化
-		attackData_.bulletCount++;
-		attackData_.chargeCount = 0.0f;
-	}
-	if (attackData_.bulletCount >= attackData_.kBulletCount) {
-		attackData_.isCharging = false;
-		attackData_.bulletCount = 0;
-	}
-}
-
-void Player::ChargeShoot(){
-	EmitterSphere* chargeEffect = static_cast<EmitterSphere*>(particleSystem_->FindEmitter("chargeEffect"));
-	chargeEffect->SetTranslate(object3d_->GetCenterPosition());
-	chargeEffect->SetIsEmitUpdate(true);
-	attackData_.chargeCount += TimeManager::GetInstance()->deltaTime_;
-	if (!input_->PushKey(DIK_SPACE) && !input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
-		// 弾の速度
-		Vector3 velocity(0, 0, attackData_.kBulletSpeed);
-		velocity = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
-		velocity = Vector3::Multiply(attackData_.kBulletSpeed, Vector3::Normalize(velocity));
-		// 弾の生成
-		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(GetWorldPosition(), velocity);
-		newBullet->GetObject3d()->SetScale({ attackData_.chargeCount,attackData_.chargeCount,attackData_.chargeCount });
-		bulletManager_->AddBullet(std::move(newBullet));
-
-		// 次の弾への初期化
-		attackData_.isCharging = false;
-		attackData_.chargeCount = 0.0f;
-		chargeEffect->SetIsEmitUpdate(false);
-	}
 }
 
 Vector3 Player::GetWorldPosition(){

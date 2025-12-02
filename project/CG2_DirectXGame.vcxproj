@@ -113,10 +113,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="application\3d\base\BaseCharacterState.cpp" />
     <ClCompile Include="application\3d\enemy\EnemyBullet.cpp" />
     <ClCompile Include="application\3d\base\BaseBullet.cpp" />
     <ClCompile Include="application\3d\base\BulletManager.cpp" />
     <ClCompile Include="application\3d\base\TimedCall.cpp" />
+    <ClCompile Include="application\3d\player\PlayerStateChargeShoot.cpp" />
+    <ClCompile Include="application\3d\player\PlayerStateRoot.cpp" />
+    <ClCompile Include="application\3d\player\PlayerStateShoot.cpp" />
     <ClCompile Include="application\scene\ClearScene.cpp" />
     <ClCompile Include="application\scene\GameOverScene.cpp" />
     <ClCompile Include="application\scene\DParticleScene.cpp" />
@@ -198,10 +202,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\base\PostEffectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application\3d\base\BaseCharacterState.h" />
     <ClInclude Include="application\3d\enemy\EnemyBullet.h" />
     <ClInclude Include="application\3d\base\BaseBullet.h" />
     <ClInclude Include="application\3d\base\BulletManager.h" />
     <ClInclude Include="application\3d\base\TimedCall.h" />
+    <ClInclude Include="application\3d\player\PlayerStateChargeShoot.h" />
+    <ClInclude Include="application\3d\player\PlayerStateRoot.h" />
+    <ClInclude Include="application\3d\player\PlayerStateShoot.h" />
     <ClInclude Include="application\scene\ClearScene.h" />
     <ClInclude Include="application\scene\GameOverScene.h" />
     <ClInclude Include="application\scene\DParticleScene.h" />

@@ -9,7 +9,11 @@ void BaseCharacter::Update(){
 	object3d_->Update();
 }
 
-Vector3 BaseCharacter::GetCenterPosition() const
-{
+void BaseCharacter::ChangeState(std::unique_ptr<BaseCharacterState> newState) {
+	state_ = std::move(newState);
+	state_->Initialize();
+}
+
+Vector3 BaseCharacter::GetCenterPosition() const{
 	return object3d_->GetCenterPosition();
 }

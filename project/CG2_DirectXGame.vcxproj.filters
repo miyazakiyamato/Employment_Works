@@ -396,6 +396,18 @@
     <ClCompile Include="application\scene\PlayerWinScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
+    <ClCompile Include="application\3d\base\BaseCharacterState.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\player\PlayerStateRoot.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\player\PlayerStateChargeShoot.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\player\PlayerStateShoot.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -649,6 +661,18 @@
     </ClInclude>
     <ClInclude Include="application\scene\PlayerWinScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\base\BaseCharacterState.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\player\PlayerStateRoot.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\player\PlayerStateChargeShoot.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\player\PlayerStateShoot.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
