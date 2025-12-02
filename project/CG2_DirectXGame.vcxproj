@@ -119,6 +119,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\3d\base\BulletManager.cpp" />
     <ClCompile Include="application\3d\base\TimedCall.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateChargeShoot.cpp" />
+    <ClCompile Include="application\3d\player\PlayerStateClear.cpp" />
+    <ClCompile Include="application\3d\player\PlayerStateLeave.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateRoot.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateShoot.cpp" />
     <ClCompile Include="application\scene\ClearScene.cpp" />
@@ -208,6 +210,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\3d\base\BulletManager.h" />
     <ClInclude Include="application\3d\base\TimedCall.h" />
     <ClInclude Include="application\3d\player\PlayerStateChargeShoot.h" />
+    <ClInclude Include="application\3d\player\PlayerStateClear.h" />
+    <ClInclude Include="application\3d\player\PlayerStateLeave.h" />
     <ClInclude Include="application\3d\player\PlayerStateRoot.h" />
     <ClInclude Include="application\3d\player\PlayerStateShoot.h" />
     <ClInclude Include="application\scene\ClearScene.h" />

@@ -20,6 +20,7 @@
 #include <Easing.h>
 #include <PlayerWinScene.h>
 #include "GameStartScene.h"
+#include "PlayerStateLeave.h"
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -281,11 +282,7 @@ void GameScene::Update() {
 	//地面
 	ground_->Update();
 	//プレイヤー
-	if (sceneManager_->IsSceneAlive("PLAYER_WIN")) {
-		player_->LeaveUpdate();
-	} else {
-		player_->Update();
-	}
+	player_->Update();
 
 	//エネミー
 	for (std::unique_ptr<Enemy>& enemy : enemies_) {
@@ -406,6 +403,7 @@ void GameScene::ClearCheck() {
 
 		if (railCamera_->GetIsFinished()) {
 			sceneManager_->AddScene("PLAYER_WIN");
+			player_->ChangeState(std::make_unique<PlayerStateLeave>(player_.get()));
 		}
 	}
 	if (sceneManager_->IsSceneFinished("FADE_OUT")) {

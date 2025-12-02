@@ -41,54 +41,7 @@ void Player::Initialize(){
 }
 
 void Player::Update(){
-
 	state_->Update();
-	BaseCharacter::Update();
-
-	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("airEffect"))->SetTranslate(object3d_->GetCenterPosition());
-	ReticleUpdate();
-}
-
-void Player::ClearUpdate(){
-
-	// 回転スピード
-	float revolveSpeed = 1.0f * 3.141592f / 180.0f; // 1度/フレーム
-	float rotateSpeed = revolveSpeed;             // 1周ごとに1回転 → 公転と同じ増え方
-
-	
-	// 公転
-	revolveAngle_ += revolveSpeed;
-
-	// 半径
-	float radius = 5.0f;
-
-	// 位置 = 原点から見た円運動
-	Vector3 newPos = {
-		radius * std::sin(revolveAngle_) + 8.0f,
-		1.0f,
-		radius* std::cos(revolveAngle_) + 30.0f
-	};
-	Vector3 nextPos = {
-		radius * std::sin(revolveAngle_ + revolveSpeed) + 8.0f,
-		1.0f,
-		radius * std::cos(revolveAngle_ + revolveSpeed) + 30.0f
-	};
-
-	// プレイヤーの位置を更新
-	object3d_->SetTranslate(newPos);
-	// 向きの更新
-	Vector3 direction = Vector3::Subtract(nextPos, newPos);
-	Vector3 rotate = object3d_->GetRotate();
-	rotate.y = std::atan2f(direction.x, direction.z);
-	Vector3 velocityZ = Matrix4x4::Transform(direction, Matrix4x4::MakeRotateYMatrix(-rotate.y));
-	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
-	object3d_->SetRotate(rotate);
-
-	BaseCharacter::Update();
-}
-
-void Player::LeaveUpdate(){
-	object3d_->SetTranslate(object3d_->GetTranslate() + Vector3(0.0f,0.0f,1.0f));
 	BaseCharacter::Update();
 }
 
@@ -154,6 +107,8 @@ void Player::Move(){// 移動量
 	}
 
 	object3d_->SetTranslate(Vector3::Clamp(object3d_->GetTranslate(), -moveLimit_, moveLimit_));
+	
+	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("airEffect"))->SetTranslate(object3d_->GetCenterPosition());
 }
 
 void Player::AddBullet(std::unique_ptr<BaseBullet> bullet){
@@ -189,7 +144,7 @@ void Player::ReticleUpdate(){
 		spritePosition.y = std::clamp(spritePosition.y, 0.0f, (float)WinApp::kClientHeight);
 		reticle2d_->SetPosition(spritePosition);
 	}
-	//
+	//マウスの位置から3Dレティクルの位置を計算
 	Matrix4x4 matViewport = Matrix4x4::MakeViewportMatrix(0, 0, WinApp::kClientWidth, WinApp::kClientHeight, 0, 1);
 	Matrix4x4 matVPV = Matrix4x4(camera_->GetViewMatrix()) * camera_->GetProjectionMatrix() * matViewport;
 	Matrix4x4 matInverseVPV = Matrix4x4::Inverse(matVPV);
@@ -199,11 +154,14 @@ void Player::ReticleUpdate(){
 	posFar = Matrix4x4::Transform(posFar, matInverseVPV);
 	Vector3 mouseDirection = Vector3::Subtract(posFar, posNear);
 	mouseDirection = Vector3::Normalize(mouseDirection);
-	//
+	
+	//　3Dレティクルの位置を更新
 	const float kDistanceTestObject = 100.0f;
 	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
 	reticle3d_->Update();
 	reticle2d_->Update();
+
+	// プレイヤーの向きを更新
 	Vector3 direction = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
 	Vector3 rotate = object3d_->GetRotate();
 	rotate.y = std::atan2f(direction.x, direction.z);

@@ -4,7 +4,8 @@
 #include "ModelManager.h"
 #include "CameraManager.h"
 #include "Easing.h"
-#include <TimeManager.h>
+#include "TimeManager.h"
+#include "PlayerStateClear.h"
 
 void ClearScene::Initialize(){
 	BaseScene::Initialize();
@@ -27,6 +28,7 @@ void ClearScene::Initialize(){
 	//プレイヤー
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
+	player_->ChangeState(std::make_unique<PlayerStateClear>(player_.get()));
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 1; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
@@ -71,7 +73,7 @@ void ClearScene::Update() {
 	//地面の更新
 	ground_->Update();
 	//プレイヤーの更新
-	player_->ClearUpdate();
+	player_->Update();
 
 	scaleCount_ += TimeManager::GetInstance()->deltaTime_;
 	if (scaleCount_ > 1.0f) {

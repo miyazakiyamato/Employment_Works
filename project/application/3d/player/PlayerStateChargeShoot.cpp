@@ -17,6 +17,7 @@ void PlayerStateChargeShoot::Initialize(){
 // 更新
 void PlayerStateChargeShoot::Update(){
 	player_->Move();
+	player_->ReticleUpdate();
 
 	// チャージエフェクト更新
 	EmitterSphere* chargeEffect = static_cast<EmitterSphere*>(player_->GetParticleSystem()->FindEmitter("chargeEffect"));

@@ -15,7 +15,9 @@ void PlayerStateShoot::Initialize(){
 // 更新
 void PlayerStateShoot::Update(){
 	player_->Move();
-
+	player_->ReticleUpdate();
+	
+	// 発射
 	Player::AttackData attackData = player_->GetAttackData();
 	attackData.chargeCount += TimeManager::GetInstance()->deltaTime_;
 	if (attackData.bulletCount == 0 ||
@@ -35,6 +37,8 @@ void PlayerStateShoot::Update(){
 		attackData.chargeCount = 0.0f;
 	}
 	player_->SetAttackData(attackData);
+
+	// 全弾発射したら状態遷移
 	if (attackData.bulletCount >= attackData.kBulletCount) {
 		attackData.bulletCount = 0;
 		player_->SetAttackData(attackData);

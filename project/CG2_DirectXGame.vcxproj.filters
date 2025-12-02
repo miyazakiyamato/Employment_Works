@@ -408,6 +408,12 @@
     <ClCompile Include="application\3d\player\PlayerStateShoot.cpp">
       <Filter>ソース ファイル\application\3d\Player</Filter>
     </ClCompile>
+    <ClCompile Include="application\3d\player\PlayerStateLeave.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\player\PlayerStateClear.cpp">
+      <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -672,6 +678,12 @@
       <Filter>ヘッダー ファイル\application\3d\Player</Filter>
     </ClInclude>
     <ClInclude Include="application\3d\player\PlayerStateShoot.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\player\PlayerStateLeave.h">
+      <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\player\PlayerStateClear.h">
       <Filter>ヘッダー ファイル\application\3d\Player</Filter>
     </ClInclude>
   </ItemGroup>
