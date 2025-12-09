@@ -16,7 +16,6 @@
 
 void Player::Initialize(){
 	BaseCharacter::Initialize();
-	Collider::Initialize();
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
 	Collider::SetRadius(1.0f);
 	input_ = Input::GetInstance();

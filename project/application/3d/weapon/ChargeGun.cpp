@@ -12,6 +12,7 @@ void ChargeGun::Initialize(){
 	timeManager_ = TimeManager::GetInstance();
 
 	object3d_->SetModel("chargeGun/chargeGun.obj");
+	object3d_->SetScale({ 0.8f,0.8f,0.8f });
 	gunBarrel_->SetTranslate({ 0.0f,0.0f,4.0f });
 	gunBarrel_->SetParent(object3d_.get());
 	// 攻撃データの設定
@@ -30,7 +31,11 @@ void ChargeGun::Initialize(){
 // 更新
 void ChargeGun::Update(){
 	// 銃の向きを更新
-	Vector3 direction = Vector3::Subtract(target_->GetCenterPosition(), object3d_->GetCenterPosition()).Normalize();
+	Vector3 targetPosition = object3d_->GetCenterPosition() + Vector3(0.0f, 0.0f, 1.0f);
+	if (target_) {
+		targetPosition = target_->GetCenterPosition();
+	}
+	Vector3 direction = Vector3::Subtract(targetPosition, object3d_->GetCenterPosition()).Normalize();
 	Quaternion targetQuaternion = Quaternion::DirectionToDirection({ 0.0f, 0.0f, 1.0f }, direction).ToQuaternion();
 	Quaternion parentQuaternion = object3d_->GetParent()->GetWorldMatrix().ToQuaternion();
 	Quaternion quaternion = Quaternion::Inverse(parentQuaternion) * targetQuaternion;

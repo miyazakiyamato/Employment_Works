@@ -3,6 +3,7 @@
 #include "CollisionTypeIdDef.h"
 
 void BaseBullet::Initialize(const Vector3& position, const Vector3& velocity){
+	Collider::Initialize();
 	object3d_ = std::make_unique<Object3d>();
 	object3d_->Initialize();
 	object3d_->SetTranslate(position);

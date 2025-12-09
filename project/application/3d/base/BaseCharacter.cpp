@@ -1,6 +1,7 @@
 #include "BaseCharacter.h"
 
 void BaseCharacter::Initialize(){
+	Collider::Initialize();
 	object3d_ = std::make_unique<Object3d>();
 	object3d_->Initialize();
 }

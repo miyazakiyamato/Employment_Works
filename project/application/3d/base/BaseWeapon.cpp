@@ -5,6 +5,7 @@
 #include "PlayerBullet.h"
 
 void BaseWeapon::Initialize(){
+	Collider::Initialize();
 	object3d_ = std::make_unique<Object3d>();
 	object3d_->Initialize();
 	gunBarrel_ = std::make_unique<Object3d>();

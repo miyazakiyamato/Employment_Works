@@ -16,4 +16,7 @@ void PlayerStateLeave::Initialize(){
 void PlayerStateLeave::Update(){
 	Object3d* playerObject = player_->GetObject3d();
 	playerObject->SetTranslate(playerObject->GetTranslate() + leaveVelocity_ * timeManager_->deltaTime_);
+	if (player_->GetWeapon()) {
+		player_->GetWeapon()->SetTarget(nullptr);
+	}
 }

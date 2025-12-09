@@ -35,7 +35,8 @@ public://メンバ関数
 
 	void Move();
 	void ReticleUpdate();
-private://メンバ変数
+private:
+	//メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
 	ParticleSystem* particleSystem_ = nullptr;
@@ -43,7 +44,7 @@ private://メンバ変数
 	//武器
 	std::unique_ptr<BaseWeapon> weapon_ = nullptr;
 	std::unique_ptr<Object3d> hand_ = nullptr;
-	Vector3 handOffset_{ 0.0f,-1.3f,0.0f };
+	Vector3 handOffset_{ 0.0f,-1.5f,0.0f };
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
 	std::unique_ptr<Sprite> reticle2d_ = nullptr;
