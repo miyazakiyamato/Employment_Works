@@ -228,7 +228,7 @@ void ParticleManager::CreatePlane(ParticleGroup* group){
 	group->indexData[3] = 1; group->indexData[4] = 3; group->indexData[5] = 2;
 	group->indexResource->Unmap(0, nullptr);
 }
-void ParticleManager::CreateRing(ParticleGroup* group, const uint32_t& kDivide, const float& kOuterRadius, const float& kInnerRadius){
+void ParticleManager::CreateRing(ParticleGroup* group, const uint32_t& kDivide, float kOuterRadius, float kInnerRadius){
 	group->kParticleVertexNum = 4 * kDivide;
 	group->kParticleIndexNum = 6 * kDivide;
 	// 頂点リソースの生成
@@ -274,7 +274,7 @@ void ParticleManager::CreateRing(ParticleGroup* group, const uint32_t& kDivide, 
 	group->vertexResource->Unmap(0, nullptr);
 	group->indexResource->Unmap(0, nullptr);
 }
-void ParticleManager::CreateCylinder(ParticleGroup* group, const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius, const float& kHeight){
+void ParticleManager::CreateCylinder(ParticleGroup* group, const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight){
 	group->kParticleVertexNum = 4 * kDivide;
 	group->kParticleIndexNum = 6 * kDivide;
 	// 頂点リソースの生成
@@ -357,9 +357,9 @@ void ParticleManager::SetTexture(std::string name, std::string textureName){
 	particleGroups[name]->materialData.textureFilePath = textureName;
 }
 
-void ParticleManager::SetRing(std::string name, const uint32_t& kDivide, const float& kOuterRadius, const float& kInnerRadius){
+void ParticleManager::SetRing(std::string name, const uint32_t& kDivide, float kOuterRadius, float kInnerRadius){
 	CreateRing(particleGroups[name].get(), kDivide, kOuterRadius, kInnerRadius);
 }
-void ParticleManager::SetCylinder(std::string name, const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius, const float& kHeight) {
+void ParticleManager::SetCylinder(std::string name, const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight) {
 	CreateCylinder(particleGroups[name].get(), kDivide, kTopRadius, kBottomRadius, kHeight);
 }

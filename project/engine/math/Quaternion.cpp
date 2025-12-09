@@ -208,7 +208,7 @@ Quaternion Quaternion::operator+(const Quaternion& q) const{
 	return result;
 }
 
-Quaternion Quaternion::operator*(const float& f) const{
+Quaternion Quaternion::operator*(float f) const{
 	Quaternion result;
 	result.x = (*this).x * f;
 	result.y = (*this).y * f;
@@ -216,7 +216,7 @@ Quaternion Quaternion::operator*(const float& f) const{
 	result.w = (*this).w * f;
 	return result;
 }
-Quaternion Quaternion::operator/(const float& f) const{
+Quaternion Quaternion::operator/(float f) const{
 	Quaternion result;
 	result.x = (*this).x / f;
 	result.y = (*this).y / f;
@@ -232,4 +232,8 @@ Quaternion Quaternion::operator-() const{
 	result.z = -(*this).z;
 	result.w = -(*this).w;
 	return result;
+}
+
+Quaternion Quaternion::operator*(const Quaternion& q) const{
+	return Multiply(*this, q);
 }

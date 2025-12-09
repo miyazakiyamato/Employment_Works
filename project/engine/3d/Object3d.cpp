@@ -18,7 +18,9 @@ Object3d::~Object3d(){
 			materialData.materialResource.Get()->Unmap(0, nullptr);
 		}
 	}
-	skinClusterData_->Finalize();
+	if (skinClusterData_) {
+		skinClusterData_->Finalize();
+	}
 }
 
 void Object3d::Initialize(){
@@ -269,6 +271,7 @@ void Object3d::SetEnvironmentTexture(const std::string& cubeTextureFilePath) {
 
 void Object3d::SetModel(const std::string& filePath){
 	//モデルを検索してセット
+	ModelManager::GetInstance()->LoadModel(filePath);
 	model_ = ModelManager::GetInstance()->FindModel(filePath);
 	if (filePath == "skybox") {
 		//パイプラインを設定

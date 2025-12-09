@@ -132,15 +132,20 @@ public:
 	/// <summary>
 	/// スカラー乗算
 	/// </summary>
-	Quaternion operator*(const float& f) const;
+	Quaternion operator*(float f) const;
 
 	/// <summary>
 	/// スカラー除算
 	/// </summary>
-	Quaternion operator/(const float& f) const;
+	Quaternion operator/(float f) const;
 
 	/// <summary>
 	/// 単項マイナス（各成分の符号反転）
 	/// </summary>
 	Quaternion operator-() const;
+
+	/// <summary>
+	/// クォータニオン同士の乗算
+	/// </summary>
+	Quaternion operator*(const Quaternion& q) const;
 };

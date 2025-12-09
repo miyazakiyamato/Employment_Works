@@ -170,7 +170,7 @@ Vector3 Vector3::Slerp(const Vector3& v1, const Vector3& v2, float t) {
     v3 = Multiply(length, nCompVector);
     return v3;
 }
-Vector3 Vector3::CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, const float& t){
+Vector3 Vector3::CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t){
     const float s = 0.5f; // 1/2
     float t2 = t * t;  // t の2乗
     float t3 = t2 * t; // t の3乗
@@ -245,11 +245,11 @@ Vector3 Vector3::operator-(const Vector3& v2) const {
     return { x - v2.x, y - v2.y, z - v2.z };
 }
 
-Vector3 Vector3::operator*(const float& v2) const {
+Vector3 Vector3::operator*(float v2) const {
     return { x * v2, y * v2, z * v2 };
 }
 
-Vector3 Vector3::operator/(const float& v2) const {
+Vector3 Vector3::operator/(float v2) const {
     return { x / v2, y / v2, z / v2 };
 }
 
@@ -267,7 +267,7 @@ Vector3& Vector3::operator-=(const Vector3& v2){
     return *this;
 }
 
-Vector3& Vector3::operator*=(const float& v2)
+Vector3& Vector3::operator*=(float v2)
 {
     x *= v2;
     y *= v2;
@@ -275,7 +275,7 @@ Vector3& Vector3::operator*=(const float& v2)
     return *this;
 }
 
-Vector3& Vector3::operator/=(const float& v2){
+Vector3& Vector3::operator/=(float v2){
     x /= v2;
     y /= v2;
     z /= v2;

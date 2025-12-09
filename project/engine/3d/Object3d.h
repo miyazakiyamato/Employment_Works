@@ -112,6 +112,7 @@ private:
 
 public:
 		// --- ゲッター ---
+	Object3d* GetParent() const { return parent_; }
 	const BlendMode& GetBlendMode() { return blendMode_; }
 	const Vector3& GetScale() const { return transform.scale; }
 	const Vector3& GetRotate() const { return transform.rotate; }

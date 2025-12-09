@@ -1,6 +1,7 @@
 #include "Matrix4x4.h"
 #include <cmath>
 #include <cassert>
+#include "Quaternion.h"
 
 Matrix4x4 Matrix4x4::Inverse() const{
 	return Inverse(*this);
@@ -14,6 +15,37 @@ Matrix4x4 Matrix4x4::Transpose() const
 Vector3 Matrix4x4::Transform(const Vector3& Vector) const
 {
 	return Transform(Vector,*this);
+}
+
+Quaternion Matrix4x4::ToQuaternion() const{
+	Quaternion q;
+	float trace = m[0][0] + m[1][1] + m[2][2];
+	if (trace > 0.0f) {
+		float s = std::sqrt(trace + 1.0f) * 2.0f;
+		q.w = 0.25f * s;
+		q.x = (m[1][2] - m[2][1]) / s; 
+		q.y = (m[2][0] - m[0][2]) / s; 
+		q.z = (m[0][1] - m[1][0]) / s; 
+	} else if ((m[0][0] > m[1][1]) && (m[0][0] > m[2][2])) {
+		float s = std::sqrt(1.0f + m[0][0] - m[1][1] - m[2][2]) * 2.0f;
+		q.w = (m[1][2] - m[2][1]) / s;
+		q.x = 0.25f * s;
+		q.y = (m[0][1] + m[1][0]) / s;
+		q.z = (m[2][0] + m[0][2]) / s; 
+	} else if (m[1][1] > m[2][2]) {
+		float s = std::sqrt(1.0f + m[1][1] - m[0][0] - m[2][2]) * 2.0f;
+		q.w = (m[2][0] - m[0][2]) / s;
+		q.x = (m[0][1] + m[1][0]) / s;
+		q.y = 0.25f * s;
+		q.z = (m[1][2] + m[2][1]) / s;
+	} else {
+		float s = std::sqrt(1.0f + m[2][2] - m[0][0] - m[1][1]) * 2.0f;
+		q.w = (m[0][1] - m[1][0]) / s;
+		q.x = (m[2][0] + m[0][2]) / s;
+		q.y = (m[1][2] + m[2][1]) / s;
+		q.z = 0.25f * s;
+	}
+	return q;
 }
 
 Matrix4x4 Matrix4x4::Inverse(const Matrix4x4& m) {

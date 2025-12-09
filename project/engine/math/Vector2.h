@@ -51,10 +51,10 @@ struct Vector2 {
 	Vector2 operator-() const;
 	Vector2 operator+(const Vector2& v2) const;
 	Vector2 operator-(const Vector2& v2) const;
-	Vector2 operator*(const float& v2) const;
-	Vector2 operator/(const float& v2) const;
+	Vector2 operator*(float v2) const;
+	Vector2 operator/(float v2) const;
 	Vector2& operator+=(const Vector2& v2);
 	Vector2& operator-=(const Vector2& v2);
-	Vector2& operator*=(const float& v2);
-	Vector2& operator/=(const float& v2);
+	Vector2& operator*=(float v2);
+	Vector2& operator/=(float v2);
 };

@@ -144,7 +144,7 @@ void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std:
 #endif // USE_IMGUI
 }
 void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std::string>& items,
-	int& selectedIndex, std::function<void(const int&)> onSelect) {
+	int& selectedIndex, std::function<void(int)> onSelect) {
 #ifdef USE_IMGUI
 	if (items.empty()) return;
 	const char* currentItem = items[selectedIndex].c_str();

@@ -102,14 +102,14 @@ Vector2 Vector2::operator-(const Vector2& v2) const{
 	return result;
 }
 
-Vector2 Vector2::operator*(const float& v2) const{
+Vector2 Vector2::operator*(float v2) const{
 	Vector2 result;
 	result.x = (*this).x * v2;
 	result.y = (*this).y * v2;
 	return result;
 }
 
-Vector2 Vector2::operator/(const float& v2) const{
+Vector2 Vector2::operator/(float v2) const{
 	Vector2 result;
 	result.x = (*this).x / v2;
 	result.y = (*this).y / v2;
@@ -130,14 +130,14 @@ Vector2& Vector2::operator-=(const Vector2& v2){
 	return *this;
 }
 
-Vector2& Vector2::operator*=(const float& v2){
+Vector2& Vector2::operator*=(float v2){
 	(*this).x = (*this).x * v2;
 	(*this).y = (*this).y * v2;
 
 	return *this;
 }
 
-Vector2& Vector2::operator/=(const float& v2){
+Vector2& Vector2::operator/=(float v2){
 	(*this).x = (*this).x / v2;
 	(*this).y = (*this).y / v2;
 

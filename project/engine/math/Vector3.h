@@ -95,7 +95,7 @@ struct Vector3 {
 	/// <summary>
 	/// Catmull-Romスプライン補間 (4点指定)
 	/// </summary>
-	static Vector3 CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, const float& t);
+	static Vector3 CatmullRomInterpolation(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3, float t);
 
 	/// <summary>
 	/// Catmull-Romスプラインによる座標取得 (点群指定)
@@ -111,10 +111,10 @@ struct Vector3 {
 	Vector3 operator-() const;
 	Vector3 operator+(const Vector3& v2) const;
 	Vector3 operator-(const Vector3& v2) const;
-	Vector3 operator*(const float& v2) const;
-	Vector3 operator/(const float& v2) const;
+	Vector3 operator*(float v2) const;
+	Vector3 operator/(float v2) const;
 	Vector3& operator+=(const Vector3& v2);
 	Vector3& operator-=(const Vector3& v2);
-	Vector3& operator*=(const float& v2);
-	Vector3& operator/=(const float& v2);
+	Vector3& operator*=(float v2);
+	Vector3& operator/=(float v2);
 };

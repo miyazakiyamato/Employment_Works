@@ -12,6 +12,7 @@
 #include "RailCamera.h"
 #include "TimeManager.h"
 #include "PlayerStateRoot.h"
+#include "ChargeGun.h"
 
 void Player::Initialize(){
 	BaseCharacter::Initialize();
@@ -19,16 +20,18 @@ void Player::Initialize(){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
 	Collider::SetRadius(1.0f);
 	input_ = Input::GetInstance();
-	object3d_->SetModel("airship/airship.obj");
+	object3d_->SetModel("drone/drone.obj");
 	object3d_->SetTranslate({ 0.0f, 0.0f, 30.0f });
 	object3d_->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f }, 0);
 	object3d_->Update();
+
 	//レティクル3D
 	reticle3d_ = std::make_unique<Object3d>();
 	reticle3d_->Initialize();
 	reticle3d_->SetModel("sphere/sphere.obj");
 	reticle3d_->SetTranslate({ 0,0,10.0f });
 	reticle3d_->Update();
+
 	//レティクル2D
 	reticle2d_ = std::make_unique<Sprite>();
 	reticle2d_->Initialize("reticle.png");
@@ -37,16 +40,30 @@ void Player::Initialize(){
 	reticle2d_->SetSize({ 64.0f, 64.0f });
 	reticle2d_->Update();
 
+	//手
+	hand_ = std::make_unique<Object3d>();
+	hand_->Initialize();
+	hand_->SetTranslate(handOffset_);
+	hand_->SetParent(object3d_.get());
+
+	//プレイヤーの初期行動ステート
 	ChangeState(std::make_unique<PlayerStateRoot>(this));
 }
 
 void Player::Update(){
 	state_->Update();
 	BaseCharacter::Update();
+	hand_->Update();
+	if (weapon_) {
+		weapon_->Update();
+	}
 }
 
 void Player::Draw(){
 	object3d_->Draw();
+	if (weapon_) {
+		weapon_->Draw();
+	}
 }
 
 void Player::DrawUi(){
@@ -111,10 +128,6 @@ void Player::Move(){// 移動量
 	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("airEffect"))->SetTranslate(object3d_->GetCenterPosition());
 }
 
-void Player::AddBullet(std::unique_ptr<BaseBullet> bullet){
-	bulletManager_->AddBullet(std::move(bullet));
-}
-
 void Player::ReticleUpdate(){
 	Vector2 move{};
 	float speed = 10.0f;
@@ -160,14 +173,6 @@ void Player::ReticleUpdate(){
 	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
 	reticle3d_->Update();
 	reticle2d_->Update();
-
-	// プレイヤーの向きを更新
-	Vector3 direction = Vector3::Subtract(reticle3d_->GetCenterPosition(), object3d_->GetCenterPosition());
-	Vector3 rotate = object3d_->GetRotate();
-	rotate.y = std::atan2f(direction.x, direction.z);
-	Vector3 velocityZ = Matrix4x4::Transform(direction, Matrix4x4::MakeRotateYMatrix(-rotate.y));
-	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
-	object3d_->SetRotate(rotate);
 }
 
 Vector3 Player::GetWorldPosition(){
@@ -176,4 +181,10 @@ Vector3 Player::GetWorldPosition(){
 
 void Player::SetParent(Object3d* object3d){
 	object3d_->SetParent(object3d);
+}
+
+void Player::SetWeapon(std::unique_ptr<BaseWeapon> weapon){
+	weapon_ = std::move(weapon);
+	weapon_->GetObject3d()->SetParent(hand_.get());
+	weapon_->SetTarget(reticle3d_.get());
 }

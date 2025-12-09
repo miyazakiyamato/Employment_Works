@@ -91,9 +91,10 @@ private:
 public:
 		// --- ゲッター ---
 	const Vector3& GetTranslate() const { return emitterData_->translate; }
-	const float& GetRadius() const { return emitterData_->radius; }
+	
+	float GetRadius() const { return emitterData_->radius; }
 	const uint32_t& GetCount() const { return emitterData_->count; }
-	const float& GetFrequency() const { return emitterData_->frequency; }
+	float GetFrequency() const { return emitterData_->frequency; }
 	bool GetIsBillboard() const { return (bool)emitterData_->isBillboard; }
 	bool GetIsEmitUpdate() const { return (bool)emitterData_->isEmitUpdate; }
 

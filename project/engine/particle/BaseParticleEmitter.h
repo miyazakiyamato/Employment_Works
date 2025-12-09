@@ -79,10 +79,10 @@ public:
 	/// <summary>
 	/// リング形状のメッシュ設定 (パーティクル表示用)
 	/// </summary>
-	void SetRing(const uint32_t& kDivide, const float& kOuterRadius, const float& kInnerRadius);
+	void SetRing(const uint32_t& kDivide, float kOuterRadius, float kInnerRadius);
 
 	/// <summary>
 	/// 円柱形状のメッシュ設定 (パーティクル表示用)
 	/// </summary>
-	void SetCylinder(const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius, const float& kHeight);
+	void SetCylinder(const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight);
 };

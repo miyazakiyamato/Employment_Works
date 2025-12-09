@@ -4,6 +4,7 @@
 #include "Skeleton.h"
 
 void SkinCluster::Finalize(){
+    if (paletteSrvIndex_ == 0) {return;}
 	srvUavManager_->ResourceClear(paletteSrvIndex_);
 }
 

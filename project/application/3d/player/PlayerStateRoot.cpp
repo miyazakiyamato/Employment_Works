@@ -17,22 +17,16 @@ void PlayerStateRoot::Update(){
 	player_->Move();
 	player_->ReticleUpdate();
 
-	Player::AttackData attackData = player_->GetAttackData();
 	if (input_->PushKey(DIK_SPACE) || input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
-		attackData.chargeCount += TimeManager::GetInstance()->deltaTime_;
-		if (attackData.chargeCount >= attackData.kChargeTime) {
-			player_->SetAttackData(attackData);
+		player_->GetWeapon()->Charge();
+		if (player_->GetWeapon()->GetChargeCount() >= player_->GetWeapon()->GetKChargeTime()) {
 			player_->ChangeState(std::make_unique<PlayerStateChargeShoot>(character_));
 			return;
 		}
 	} else {
-		if (attackData.chargeCount != 0.0f) {
-			attackData.chargeCount = 0.0f;
-			player_->SetAttackData(attackData);
+		if (player_->GetWeapon()->GetChargeCount() != 0.0f) {
 			player_->ChangeState(std::make_unique<PlayerStateShoot>(character_));
 			return;
 		}
-		attackData.chargeCount = 0.0f;
 	}
-	player_->SetAttackData(attackData);
 }

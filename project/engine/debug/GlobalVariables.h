@@ -38,7 +38,7 @@ public:
 	/// <summary>
 	/// コンボボックスの表示 (intインデックス版)
 	/// </summary>
-	void ShowCombo(const std::string& label, const std::vector<std::string>& items, int& selectedIndex, std::function<void(const int&)> onSelect);
+	void ShowCombo(const std::string& label, const std::vector<std::string>& items, int& selectedIndex, std::function<void(int)> onSelect);
 
 	/// <summary>
 	/// ファイルに書き出し

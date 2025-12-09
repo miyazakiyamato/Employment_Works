@@ -145,6 +145,12 @@
     <Filter Include="ヘッダー ファイル\application\2d">
       <UniqueIdentifier>{071fada5-6d01-4ceb-a860-7b3606787d1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\application\3d\weapon">
+      <UniqueIdentifier>{1c819bc3-18aa-4d91-b6b7-b59200398231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\3d\weapon">
+      <UniqueIdentifier>{dec8299b-b83c-4868-8c54-0eeb2a7b862e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -413,6 +419,12 @@
     </ClCompile>
     <ClCompile Include="application\3d\player\PlayerStateClear.cpp">
       <Filter>ソース ファイル\application\3d\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\base\BaseWeapon.cpp">
+      <Filter>ソース ファイル\application\3d\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\weapon\ChargeGun.cpp">
+      <Filter>ソース ファイル\application\3d\weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -685,6 +697,12 @@
     </ClInclude>
     <ClInclude Include="application\3d\player\PlayerStateClear.h">
       <Filter>ヘッダー ファイル\application\3d\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\base\BaseWeapon.h">
+      <Filter>ヘッダー ファイル\application\3d\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\weapon\ChargeGun.h">
+      <Filter>ヘッダー ファイル\application\3d\weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

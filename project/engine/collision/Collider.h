@@ -57,7 +57,7 @@ public:
 	// 識別IDを取得
 	uint32_t GetTypeID() const { return typeID_; }
 		// --- セッター ---
-	void SetRadius(const float& radius) { radius_ = radius; }
+	void SetRadius(float radius) { radius_ = radius; }
 	// 識別IDを設定
 	void SetTypeID(uint32_t typeID) { typeID_ = typeID; }
 };

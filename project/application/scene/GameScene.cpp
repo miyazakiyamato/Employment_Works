@@ -21,6 +21,7 @@
 #include <PlayerWinScene.h>
 #include "GameStartScene.h"
 #include "PlayerStateLeave.h"
+#include <ChargeGun.h>
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -45,29 +46,6 @@ void GameScene::Initialize(){
 	//衝突マネージャの生成
 	collisionManager_ = std::make_unique<CollisionManager>();
 	collisionManager_->Initialize();
-
-	ModelManager::GetInstance()->LoadModel("plane/plane.obj");
-	ModelManager::GetInstance()->LoadModel("fence/fence.obj");
-	ModelManager::GetInstance()->LoadModel("axis/axis.obj");
-	ModelManager::GetInstance()->LoadModel("sphere/sphere.obj");
-	ModelManager::GetInstance()->LoadModel("terrain/terrain.obj");
-	ModelManager::GetInstance()->LoadModel("skybox");
-	ModelManager::GetInstance()->LoadModel("sword/sword.obj");
-	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
-	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
-	ModelManager::GetInstance()->LoadModel("airship/airship.obj");
-	ModelManager::GetInstance()->LoadModel("cube/cube.obj");
-
-	/*ModelManager::GetInstance()->LoadModel("AnimatedCube/AnimatedCube.gltf");
-	ModelManager::GetInstance()->LoadAnimation("AnimatedCube/AnimatedCube.gltf");
-	ModelManager::GetInstance()->LoadModel("simpleSkin/simpleSkin.gltf");
-	ModelManager::GetInstance()->LoadAnimation("simpleSkin/simpleSkin.gltf");
-	ModelManager::GetInstance()->LoadModel("human/sneakWalk.gltf");
-	ModelManager::GetInstance()->LoadAnimation("human/sneakWalk.gltf");
-	ModelManager::GetInstance()->LoadModel("human/walk.gltf");
-	ModelManager::GetInstance()->LoadAnimation("human/walk.gltf");*/
-	ModelManager::GetInstance()->LoadModel("BrainStem/BrainStem.gltf");
-	ModelManager::GetInstance()->LoadAnimation("BrainStem/BrainStem.gltf");
 
 	TextureManager::GetInstance()->LoadTexture("circle2.png");
 	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
@@ -136,9 +114,12 @@ void GameScene::Initialize(){
 	//プレイヤー
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
-	player_->SetBulletManager(bulletManager_.get());
 	player_->SetParticleSystem(particleSystem_.get());
 	player_->SetRailCamera(railCamera_.get());
+	auto weapon = std::make_unique<ChargeGun>();
+	weapon->Initialize();
+	weapon->SetBulletManager(bulletManager_.get());
+	player_->SetWeapon(std::move(weapon));
 
 	hpUI_ = std::make_unique<HpUI>();
 	hpUI_->Initialize(player_.get());

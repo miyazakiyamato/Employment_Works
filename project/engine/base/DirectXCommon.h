@@ -90,7 +90,7 @@ public:
 	/// <summary>
 	/// ディスクリプタヒープの生成
 	/// </summary>
-	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> CreateDescriptorHeap(const D3D12_DESCRIPTOR_HEAP_TYPE& heapType, const UINT& numDescriptors, const bool& shaderVisible);
+	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> CreateDescriptorHeap(const D3D12_DESCRIPTOR_HEAP_TYPE& heapType, const UINT& numDescriptors, bool shaderVisible);
 
 	/// <summary>
 	/// 各種ディスクリプタヒープの一括生成

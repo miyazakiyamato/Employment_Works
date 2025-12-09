@@ -15,6 +15,8 @@ struct Transform {
 	Vector3 translate{ 0.0f, 0.0f, 0.0f };  // 平行移動
 };
 
+struct Quaternion;
+
 /// <summary>
 /// 4x4行列構造体
 /// 3D座標変換に使用する
@@ -39,6 +41,10 @@ struct Matrix4x4 {
 	/// </summary>
 	Vector3 Transform(const Vector3& Vector) const;
 
+	/// <summary>
+	// Matrix4x4 からクォータニオンを生成する静的関数
+	/// </summary>
+	Quaternion ToQuaternion() const;
 	// --- 静的関数 ---
 
 	/// <summary>

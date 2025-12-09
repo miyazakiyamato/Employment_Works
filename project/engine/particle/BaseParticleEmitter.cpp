@@ -28,10 +28,11 @@ void BaseParticleEmitter::SetTexture(const std::string& textureName) {
 	particleManager_->SetTexture(name_, textureName);
 }
 
-void BaseParticleEmitter::SetRing(const uint32_t& kDivide, const float& kOuterRadius, const float& kInnerRadius) {
+void BaseParticleEmitter::SetRing(const uint32_t& kDivide, 
+	float kOuterRadius, float kInnerRadius) {
 	particleManager_->SetRing(name_, kDivide, kOuterRadius, kInnerRadius);
 }
 
-void BaseParticleEmitter::SetCylinder(const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius, const float& kHeight) {
+void BaseParticleEmitter::SetCylinder(const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight) {
 	particleManager_->SetCylinder(name_, kDivide, kTopRadius, kBottomRadius, kHeight);
 }

@@ -21,29 +21,22 @@ void PlayerStateChargeShoot::Update(){
 
 	// チャージエフェクト更新
 	EmitterSphere* chargeEffect = static_cast<EmitterSphere*>(player_->GetParticleSystem()->FindEmitter("chargeEffect"));
-	chargeEffect->SetTranslate(player_->GetObject3d()->GetCenterPosition());
+	chargeEffect->SetTranslate(player_->GetWeapon()->GetGunBarrel()->GetCenterPosition());
 	chargeEffect->SetIsEmitUpdate(true);
-	
+
+	const BaseWeapon::AttackData& attackData = player_->GetWeapon()->GetAttackData(AttackType::kCharge);
 	// チャージ継続
-	Player::AttackData attackData = player_->GetAttackData();
-	attackData.chargeCount += TimeManager::GetInstance()->deltaTime_;
-	player_->SetAttackData(attackData);
+	if ((input_->PushKey(DIK_SPACE) || input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) &&
+		attackData.bulletCount == 0) {
+		player_->GetWeapon()->Charge();
+		return;
+	}
 
 	// 発射
-	if (!input_->PushKey(DIK_SPACE) && !input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
-		// 弾の速度
-		Vector3 velocity(0, 0, attackData.kBulletSpeed);
-		velocity = Vector3::Subtract(player_->GetReticle3d()->GetCenterPosition(), player_->GetObject3d()->GetCenterPosition());
-		velocity = Vector3::Multiply(attackData.kBulletSpeed, Vector3::Normalize(velocity));
-		// 弾の生成
-		std::unique_ptr<BaseBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(player_->GetWorldPosition(), velocity);
-		newBullet->GetObject3d()->SetScale({ attackData.chargeCount,attackData.chargeCount,attackData.chargeCount });
-		player_->AddBullet(std::move(newBullet));
+	player_->GetWeapon()->Shoot(AttackType::kCharge);
 
-		// 次の弾への初期化
-		attackData.chargeCount = 0.0f;
-		player_->SetAttackData(attackData);
+	// 全弾発射したら状態遷移
+	if (attackData.bulletCount == 0 ) {
 		chargeEffect->SetIsEmitUpdate(false);
 		player_->ChangeState(std::make_unique<PlayerStateRoot>(character_));
 	}

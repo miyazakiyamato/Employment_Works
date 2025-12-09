@@ -3,24 +3,14 @@
 //#include "LockOn.h"
 #include "ContactRecord.h"
 #include "Sprite.h"
+#include "BaseWeapon.h"
 
 class Input;
 class Camera;
-class BaseBullet;
-class BulletManager;
 class ParticleSystem;
 class RailCamera;
 class Player : public BaseCharacter{
 public://構造体
-	struct AttackData{
-		bool isCharging = false;
-		float kBulletSpeed = 100.0f;
-		float kChargeTime = 0.3f;
-		float chargeCount = 0.0f;
-		uint32_t kBulletCount = 3;
-		uint32_t bulletCount = 0;
-		//BaseBullet* bullet = nullptr;
-	};
 
 public://メンバ関数
 	Player() {}
@@ -44,14 +34,16 @@ public://メンバ関数
 	void OnCollision([[maybe_unused]] Collider* other) override;
 
 	void Move();
-	void AddBullet(std::unique_ptr<BaseBullet> bullet);
 	void ReticleUpdate();
 private://メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
-	BulletManager* bulletManager_ = nullptr;
 	ParticleSystem* particleSystem_ = nullptr;
 	RailCamera* railCamera_ = nullptr;
+	//武器
+	std::unique_ptr<BaseWeapon> weapon_ = nullptr;
+	std::unique_ptr<Object3d> hand_ = nullptr;
+	Vector3 handOffset_{ 0.0f,-1.3f,0.0f };
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
 	std::unique_ptr<Sprite> reticle2d_ = nullptr;
@@ -59,9 +51,6 @@ private://メンバ変数
 	Vector3 velocity_{};
 	float moveSpeed_ = 3.0f;
 	Vector3 moveLimit_{ 15.0f,10.0f,100.0f };
-
-	//攻撃データ
-	AttackData attackData_{};
 
 	int hp_ = 10;
 	bool isAlive_ = true;
@@ -72,15 +61,14 @@ public://ゲッターセッター
 	int GetHp() { return hp_; }
 	bool GetIsAlive() const { return isAlive_; }
 	Object3d* GetReticle3d() { return reticle3d_.get(); }
-	const AttackData& GetAttackData() const { return attackData_; }
+	BaseWeapon* GetWeapon() { return weapon_.get(); }
 	ParticleSystem* GetParticleSystem() { return particleSystem_; }
 
 	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
-	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }
 	void SetParent(Object3d* object3d);
 	void SetCamera(const Camera* camera) { camera_ = camera; }
 	void SetParticleSystem(ParticleSystem* particleSystem) { particleSystem_ = particleSystem; }
 	void SetRailCamera(RailCamera* railCamera) { railCamera_ = railCamera; }
-	void SetAttackData(const AttackData& attackData) { attackData_ = attackData; }
+	void SetWeapon(std::unique_ptr<BaseWeapon> weapon);
 };
 

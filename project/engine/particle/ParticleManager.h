@@ -160,8 +160,8 @@ private:
 		// --- ローカル関数 ---
 	void CreateParticle(ParticleGroup* group);
 	void CreatePlane(ParticleGroup* group);
-	void CreateRing(ParticleGroup* group, const uint32_t& kDivide, const float& kOuterRadius, const float& kInnerRadius);
-	void CreateCylinder(ParticleGroup* group, const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius, const float& kHeight);
+	void CreateRing(ParticleGroup* group, const uint32_t& kDivide, float kOuterRadius, float kInnerRadius);
+	void CreateCylinder(ParticleGroup* group, const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight);
 
 	// 調整項目の初期化
 	void InitializeGlobalVariables();
@@ -214,6 +214,6 @@ public:
 	void SetTexture(std::string name, std::string textureName);
 
 	// 形状設定用セッター
-	void SetRing(std::string name, const uint32_t& kDivide, const float& kOuterRadius, const float& kInnerRadius);
-	void SetCylinder(std::string name, const uint32_t& kDivide, const float& kTopRadius, const float& kBottomRadius, const float& kHeight);
+	void SetRing(std::string name, const uint32_t& kDivide, float kOuterRadius, float kInnerRadius);
+	void SetCylinder(std::string name, const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight);
 };
