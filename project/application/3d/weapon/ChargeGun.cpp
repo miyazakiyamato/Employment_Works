@@ -31,16 +31,16 @@ void ChargeGun::Initialize(){
 // 更新
 void ChargeGun::Update(){
 	// 銃の向きを更新
-	Vector3 targetPosition = object3d_->GetCenterPosition() + Vector3(0.0f, 0.0f, 1.0f);
 	if (target_) {
-		targetPosition = target_->GetCenterPosition();
-	}
-	Vector3 direction = Vector3::Subtract(targetPosition, object3d_->GetCenterPosition()).Normalize();
-	Quaternion targetQuaternion = Quaternion::DirectionToDirection({ 0.0f, 0.0f, 1.0f }, direction).ToQuaternion();
-	Quaternion parentQuaternion = object3d_->GetParent()->GetWorldMatrix().ToQuaternion();
-	Quaternion quaternion = Quaternion::Inverse(parentQuaternion) * targetQuaternion;
+		targetPosition_ = target_->GetCenterPosition();
+		
+		Vector3 direction = Vector3::Subtract(targetPosition_, object3d_->GetCenterPosition()).Normalize();
+		Quaternion targetQuaternion = Quaternion::DirectionToDirection({ 0.0f, 0.0f, 1.0f }, direction).ToQuaternion();
+		Quaternion parentQuaternion = object3d_->GetParent()->GetWorldMatrix().ToQuaternion();
+		Quaternion quaternion = Quaternion::Inverse(parentQuaternion) * targetQuaternion;
 
-	object3d_->SetRotate(quaternion.ToEulerAngles());
+		object3d_->SetRotate(quaternion.ToEulerAngles());
+	}
 	BaseWeapon::Update();
 }
 

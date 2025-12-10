@@ -57,6 +57,7 @@ protected:
 	std::unique_ptr<Object3d> gunBarrel_ = nullptr;
 	//ターゲットオブジェクト
 	Object3d* target_ = nullptr;
+	Vector3 targetPosition_{0.0f,0.0f,1.0f};
 	//攻撃データ
 	float kChargeTime_ = 0.3f;
 	float chargeCount_ = 0.0f;

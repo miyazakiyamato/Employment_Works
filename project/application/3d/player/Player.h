@@ -11,7 +11,17 @@ class ParticleSystem;
 class RailCamera;
 class Player : public BaseCharacter{
 public://構造体
+	struct Shake {
+		Quaternion shakeQuaternion{};        // ターゲット回転（のけぞり先）
+		Quaternion preShakeQuaternion{};     // 1フレーム前
+		Quaternion startQuaternion{};        // 開始時の回転
+		float kTime;
+		float time;
+		bool isShake = false;
 
+		Vector3 move{};
+		Vector3 preMove{};
+	};
 public://メンバ関数
 	Player() {}
 
@@ -35,7 +45,12 @@ public://メンバ関数
 
 	void Move();
 	void ReticleUpdate();
+
 private:
+	void Damage(int damage, const Vector3& hitDirection);
+	void DamageKnockbackStart(const Vector3& hitDirection, float power, float duration);
+	void ShakeStart(Quaternion shakeQuaternion, float kTime);
+	void Shaking();
 	//メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
@@ -50,8 +65,13 @@ private:
 	std::unique_ptr<Sprite> reticle2d_ = nullptr;
 
 	Vector3 velocity_{};
-	float moveSpeed_ = 3.0f;
-	Vector3 moveLimit_{ 15.0f,10.0f,100.0f };
+	Vector3 acceleration_{};
+	float airResistance = 0.9f;
+	Vector3 moveSpeed_{1.5f,3.0f,10.0f};
+	Vector3 velocityLimit_{ 100.0f,100.0f,100.0f };
+	Vector3 moveLimit_{ 10.0f,7.0f,100.0f };
+
+	Shake shake_{};
 
 	int hp_ = 10;
 	bool isAlive_ = true;
