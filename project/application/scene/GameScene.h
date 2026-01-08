@@ -11,7 +11,7 @@
 #include "Ground.h"
 #include "Player.h"
 #include "BulletManager.h"
-#include "Enemy.h"
+#include "BaseEnemy.h"
 #include "RailCamera.h"
 #include "HpUI.h"
 
@@ -42,7 +42,7 @@ private://メンバ変数
 	//プレイヤー
 	std::unique_ptr<Player> player_ = nullptr;
 	//エネミー
-	std::vector<std::unique_ptr<Enemy>> enemies_;
+	std::vector<std::unique_ptr<BaseEnemy>> enemies_;
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_ = nullptr;
 	//HPのUI

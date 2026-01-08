@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "BaseEnemy.h"
 #include <CollisionTypeIdDef.h>
 #include "ParticleSystem.h"
 #include "PlayerBullet.h"
@@ -7,72 +7,39 @@
 #include "Player.h"
 #include <cassert>
 #include "EmitterSphere.h"
-#include <TimeManager.h>
+#include "TimeManager.h"
+#include "SmallDroneStateShoot.h"
 
-void Enemy::Initialize(){
+void BaseEnemy::Initialize(){
 	BaseCharacter::Initialize();
 	Collider::Initialize();
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kEnemy));
 	Collider::SetRadius(1.0f);
-	object3d_->SetTranslate({ 0.0f, 1.0f, 30.0f });
-	object3d_->SetModel("drone/drone.obj");
-	object3d_->SetRotate({ 0,3.14f,0 });
-	object3d_->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f },0);
-	object3d_->Update();
-	FireTimed();
+	ChangeState(std::make_unique<SmallDroneStateShoot>(this));
 }
 
-void Enemy::Update() {
-	if (dethTimer_ > 0) {
-		dethTimer_ += TimeManager::deltaTime_;
-		object3d_->SetTranslate(object3d_->GetTranslate() + Vector3(0, -10, 0) * TimeManager::deltaTime_);
-		if (dethTimer_ >= kDethTimer) {
-			isAlive_ = false;
-		}
-	}
-	//
-	timedCalls_.remove_if([](TimedCall* timedCalls) {
-		if (timedCalls->IsFinished()) {
-			delete timedCalls;
-			return true;
-		}
-		return false;
-		});
-	for (TimedCall* timedCalls : timedCalls_) {
-		timedCalls->Update();
-	}
+void BaseEnemy::Update() {
+	state_->Update();
 	Shaking();
 	BaseCharacter::Update();
 }
 
-void Enemy::Draw(){
-	object3d_->Draw();
-}
-
-void Enemy::OnCollision(Collider* other){
+void BaseEnemy::OnCollision(Collider* other){
 	// 衝突相手の種別IDを取得
 	uint32_t typeID = other->GetTypeID();
-	//衝突相手が敵なら
+	//衝突相手がプレイヤーの弾なら
 	if (typeID == static_cast<uint32_t>(CollisionTypeIdDef::kPlayerBullet)) {
 		PlayerBullet* playerBullet = static_cast<PlayerBullet*>(other);
 		Vector3 distance = playerBullet->GetCenterPosition() - object3d_->GetCenterPosition();
 		Damage(int(playerBullet->GetObject3d()->GetScale().x * 4.0f), distance.Normalize());
 	}
 }
-void Enemy::FireTimed() {
-	Fire();
-	//
-	timedCalls_.push_back(new TimedCall(std::bind_front(&Enemy::FireTimed, this), kFireInterval));
+void BaseEnemy::ChangeState(std::unique_ptr<BaseEnemyState> state){
+	state_ = std::move(state);
+	state_->Initialize();
 }
 
-void Enemy::FireCancel() {
-	timedCalls_.remove_if([](TimedCall* timedCalls) {
-		delete timedCalls;
-		return true;
-		});
-}
-
-void Enemy::Damage(int damage, const Vector3& hitDirection) {
+void BaseEnemy::Damage(int damage, const Vector3& hitDirection) {
 	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(object3d_->GetCenterPosition() + hitDirection * GetRadius());
 	particleSystem_->Emit("hitEffect");
 	DamageKnockbackStart(
@@ -82,19 +49,18 @@ void Enemy::Damage(int damage, const Vector3& hitDirection) {
 	);
 	hp_ -= damage;
 	if (hp_ <= 0) {
-		dethTimer_ += TimeManager::deltaTime_;
 		hp_ = 0;
 	}
 }
 
-void Enemy::ShakeStart(Quaternion shakeQuaternion, float kTime) {
+void BaseEnemy::ShakeStart(Quaternion shakeQuaternion, float kTime) {
 	shake_.shakeQuaternion = shakeQuaternion;
 	shake_.preShakeQuaternion = {};
 	shake_.kTime = kTime;
 	shake_.time = 0.0f;
 	shake_.isShake = true;
 }
-void Enemy::DamageKnockbackStart(const Vector3& hitDirection, float power, float duration)
+void BaseEnemy::DamageKnockbackStart(const Vector3& hitDirection, float power, float duration)
 {
 	// 現在の回転を保存
 	if (!shake_.isShake) {
@@ -119,7 +85,7 @@ void Enemy::DamageKnockbackStart(const Vector3& hitDirection, float power, float
 	// Shake 開始
 	ShakeStart(target, duration);
 }
-void Enemy::Shaking() {
+void BaseEnemy::Shaking() {
 	if (!shake_.isShake) { return; }
 
 	shake_.time += TimeManager::deltaTime_;
@@ -144,18 +110,4 @@ void Enemy::Shaking() {
 	);
 
 	object3d_->SetRotate(q.ToEulerAngles());
-}
-
-
-void Enemy::Fire() {
-	assert(player_);
-	//
-	const float kBulletSpeed = 30.0f;
-
-	Vector3 velocity{ player_->GetWorldPosition() - object3d_->GetCenterPosition() };
-	velocity = Vector3::Multiply(kBulletSpeed, velocity.Normalize());
-
-	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Initialize(object3d_->GetCenterPosition(), velocity);
-	bulletManager_->AddBullet(std::move(newBullet));
 }

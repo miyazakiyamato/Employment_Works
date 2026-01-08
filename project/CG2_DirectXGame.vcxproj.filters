@@ -342,9 +342,6 @@
     <ClCompile Include="application\3d\player\Player.cpp">
       <Filter>ソース ファイル\application\3d\Player</Filter>
     </ClCompile>
-    <ClCompile Include="application\3d\enemy\Enemy.cpp">
-      <Filter>ソース ファイル\application\3d\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="application\3d\enemy\EnemyBullet.cpp">
       <Filter>ソース ファイル\application\3d\Enemy</Filter>
     </ClCompile>
@@ -425,6 +422,21 @@
     </ClCompile>
     <ClCompile Include="application\3d\weapon\ChargeGun.cpp">
       <Filter>ソース ファイル\application\3d\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\enemy\BaseEnemyState.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\enemy\BaseEnemy.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\enemy\SmallDrone.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\enemy\SmallDroneStateShoot.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="application\3d\enemy\SmallDroneStateDeath.cpp">
+      <Filter>ソース ファイル\application\3d\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -608,9 +620,6 @@
     <ClInclude Include="application\3d\base\CollisionTypeIdDef.h">
       <Filter>ヘッダー ファイル\application\3d\Base</Filter>
     </ClInclude>
-    <ClInclude Include="application\3d\enemy\Enemy.h">
-      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="application\3d\enemy\EnemyBullet.h">
       <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
     </ClInclude>
@@ -703,6 +712,21 @@
     </ClInclude>
     <ClInclude Include="application\3d\weapon\ChargeGun.h">
       <Filter>ヘッダー ファイル\application\3d\weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\enemy\BaseEnemyState.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\enemy\BaseEnemy.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\enemy\SmallDrone.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\enemy\SmallDroneStateShoot.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\enemy\SmallDroneStateDeath.h">
+      <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

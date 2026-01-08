@@ -22,6 +22,7 @@
 #include "GameStartScene.h"
 #include "PlayerStateLeave.h"
 #include <ChargeGun.h>
+#include "SmallDrone.h"
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -159,7 +160,7 @@ void GameScene::Initialize(){
 		}
 		//エネミー
 		if (objectData->typeName == "EnemySpawn") {
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>();
+			std::unique_ptr<BaseEnemy> enemy = std::make_unique<SmallDrone>();
 			enemy->SetBulletManager(bulletManager_.get());
 			enemy->SetParticleSystem(particleSystem_.get());
 			enemy->SetPlayer(player_.get());
@@ -195,7 +196,7 @@ void GameScene::Finalize(){
 	railCamera_.reset();
 
 	bulletManager_->Finalize();
-	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		enemy.reset();
 	}
 	hpUI_->Finalize();
@@ -266,7 +267,7 @@ void GameScene::Update() {
 	player_->Update();
 
 	//エネミー
-	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		enemy->Update();
 	}
 	bulletManager_->Update();
@@ -295,7 +296,7 @@ void GameScene::Update() {
 
 	//当たり判定
 	CheckAllCollisions();
-	enemies_.erase(std::remove_if(enemies_.begin(), enemies_.end(), [](std::unique_ptr<Enemy>& enemy) {
+	enemies_.erase(std::remove_if(enemies_.begin(), enemies_.end(), [](std::unique_ptr<BaseEnemy>& enemy) {
 		if (!enemy->GetIsAlive()) {
 			enemy.reset();
 			return true;
@@ -322,7 +323,7 @@ void GameScene::Draw(){
 	//プレイヤー
 	player_->Draw();
 
-	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		enemy->Draw();
 	}
 	bulletManager_->Draw();
@@ -359,7 +360,7 @@ void GameScene::CheckAllCollisions(){
 	collisionManager_->Reset();
 	//全てのコライダーを衝突マネージャのリストに登録する
 	collisionManager_->AddCollider(player_.get());
-	for (std::unique_ptr<Enemy>& enemy : enemies_) {
+	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		collisionManager_->AddCollider(enemy.get());
 	}
 	bulletManager_->AddCollider(collisionManager_.get());

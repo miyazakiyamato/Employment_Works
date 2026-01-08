@@ -115,10 +115,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
   <ItemGroup>
     <ClCompile Include="application\3d\base\BaseCharacterState.cpp" />
     <ClCompile Include="application\3d\base\BaseWeapon.cpp" />
+    <ClCompile Include="application\3d\enemy\BaseEnemy.cpp" />
+    <ClCompile Include="application\3d\enemy\BaseEnemyState.cpp" />
     <ClCompile Include="application\3d\enemy\EnemyBullet.cpp" />
     <ClCompile Include="application\3d\base\BaseBullet.cpp" />
     <ClCompile Include="application\3d\base\BulletManager.cpp" />
     <ClCompile Include="application\3d\base\TimedCall.cpp" />
+    <ClCompile Include="application\3d\enemy\SmallDroneStateDeath.cpp" />
+    <ClCompile Include="application\3d\enemy\SmallDroneStateShoot.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateChargeShoot.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateClear.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateLeave.cpp" />
@@ -144,7 +148,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\3d\player\Player.cpp" />
     <ClCompile Include="application\3d\player\PlayerBullet.cpp" />
     <ClCompile Include="application\3d\background\Skydome.cpp" />
-    <ClCompile Include="application\3d\enemy\Enemy.cpp" />
     <ClCompile Include="engine\3d\Animation.cpp" />
     <ClCompile Include="application\3d\background\AccelerationField.cpp" />
     <ClCompile Include="engine\base\BasePipeline.cpp" />
@@ -204,14 +207,19 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\particle\ParticleSystem.cpp" />
     <ClCompile Include="engine\base\PipelineFactory.cpp" />
     <ClCompile Include="engine\base\PostEffectManager.cpp" />
+    <ClCompile Include="application\3d\enemy\SmallDrone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application\3d\base\BaseCharacterState.h" />
     <ClInclude Include="application\3d\base\BaseWeapon.h" />
+    <ClInclude Include="application\3d\enemy\BaseEnemy.h" />
+    <ClInclude Include="application\3d\enemy\BaseEnemyState.h" />
     <ClInclude Include="application\3d\enemy\EnemyBullet.h" />
     <ClInclude Include="application\3d\base\BaseBullet.h" />
     <ClInclude Include="application\3d\base\BulletManager.h" />
     <ClInclude Include="application\3d\base\TimedCall.h" />
+    <ClInclude Include="application\3d\enemy\SmallDroneStateDeath.h" />
+    <ClInclude Include="application\3d\enemy\SmallDroneStateShoot.h" />
     <ClInclude Include="application\3d\player\PlayerStateChargeShoot.h" />
     <ClInclude Include="application\3d\player\PlayerStateClear.h" />
     <ClInclude Include="application\3d\player\PlayerStateLeave.h" />
@@ -238,7 +246,6 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\3d\player\Player.h" />
     <ClInclude Include="application\3d\player\PlayerBullet.h" />
     <ClInclude Include="application\3d\background\Skydome.h" />
-    <ClInclude Include="application\3d\enemy\Enemy.h" />
     <ClInclude Include="engine\3d\Animation.h" />
     <ClInclude Include="application\3d\background\AccelerationField.h" />
     <ClInclude Include="engine\base\BasePipeline.h" />
@@ -298,6 +305,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\base\LevelDataManager.h" />
     <ClInclude Include="engine\base\PostEffectManager.h" />
     <ClInclude Include="application\2d\HpUI.h" />
+    <ClInclude Include="application\3d\enemy\SmallDrone.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="externals\DirectXTex\DirectXTex_Desktop_2022_Win10.vcxproj">
