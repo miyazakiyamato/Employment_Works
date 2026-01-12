@@ -6,9 +6,7 @@
 #include "ParticleSystem.h"
 #include "CollisionManager.h"
 #include "AccelerationField.h"
-#include "LevelDataManager.h"
-#include "Skydome.h"
-#include "Ground.h"
+#include "StageManager.h"
 #include "Player.h"
 #include "BulletManager.h"
 #include "BaseEnemy.h"
@@ -35,31 +33,20 @@ private://メンバ変数
 	//衝突マネージャ
 	std::unique_ptr<CollisionManager> collisionManager_;
 
-	//天球
-	std::unique_ptr<Skydome> skydome_ = nullptr;
-	//地面
-	std::unique_ptr<Ground> ground_ = nullptr;
+	//ステージマネージャ
+	std::unique_ptr<StageManager> stageManager_;
 	//プレイヤー
-	std::unique_ptr<Player> player_ = nullptr;
-	//エネミー
-	std::vector<std::unique_ptr<BaseEnemy>> enemies_;
-	//レールカメラ
-	std::unique_ptr<RailCamera> railCamera_ = nullptr;
+	Player* player_ = nullptr;
 	//HPのUI
 	std::unique_ptr<HpUI> hpUI_ = nullptr;
 
-	//3Dオブジェクト
-	std::vector<std::unique_ptr<Object3d>> object3ds_;
 	//スプライト
 	std::vector< std::unique_ptr<Sprite>> sprites_;
 	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
-	//レベルデータマネージャー
-	std::unique_ptr<LevelDataManager> levelDataManager_ = nullptr;
 	//バレットマネージャー
 	std::unique_ptr<BulletManager> bulletManager_ = nullptr;
 	public:
 		ParticleSystem* GetParticleSystem() { return particleSystem_.get(); }
-		Player* GetPlayer() { return player_.get(); }
 };
 

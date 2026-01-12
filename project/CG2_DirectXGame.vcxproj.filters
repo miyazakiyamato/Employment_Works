@@ -438,6 +438,9 @@
     <ClCompile Include="application\3d\enemy\SmallDroneStateDeath.cpp">
       <Filter>ソース ファイル\application\3d\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="application\scene\StageManager.cpp">
+      <Filter>ソース ファイル\application\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -727,6 +730,9 @@
     </ClInclude>
     <ClInclude Include="application\3d\enemy\SmallDroneStateDeath.h">
       <Filter>ヘッダー ファイル\application\3d\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\StageManager.h">
+      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

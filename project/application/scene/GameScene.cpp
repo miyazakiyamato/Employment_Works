@@ -96,88 +96,16 @@ void GameScene::Initialize(){
 	chargeEffect->SetTexture("gradationLine.png");
 	chargeEffect->SetRing(16, 0.5f, 0.0f);
 	particleSystem_->SetParticleEmitter(std::move(chargeEffect));
-	//レールカメラ
-	railCamera_ = std::make_unique<RailCamera>();
-	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
-	//railCamera_->SetSegmentTime(30.0f);
-	std::vector<Vector3> railCameraPoints = {};
-
-	//天球
-	skydome_ = std::make_unique<Skydome>();
-	skydome_->Initialize();
-	//地面
-	ground_ = std::make_unique<Ground>();
-	ground_->Initialize();
-
 	//バレットマネージャーの生成
 	bulletManager_ = std::make_unique<BulletManager>();
 
-	//プレイヤー
-	player_ = std::make_unique<Player>();
-	player_->Initialize();
-	player_->SetParticleSystem(particleSystem_.get());
-	player_->SetRailCamera(railCamera_.get());
-	auto weapon = std::make_unique<ChargeGun>();
-	weapon->Initialize();
-	weapon->SetBulletManager(bulletManager_.get());
-	player_->SetWeapon(std::move(weapon));
+	//ステージマネージャ
+	stageManager_ = std::make_unique<StageManager>();
+	stageManager_->Initialize(bulletManager_.get(), particleSystem_.get());
+	player_ = stageManager_->GetPlayer();
 
 	hpUI_ = std::make_unique<HpUI>();
-	hpUI_->Initialize(player_.get());
-
-	//レベルデータマネージャの生成
-	levelDataManager_ = std::make_unique<LevelDataManager>();
-	//レベルデータの読み込み取得
-	levelDataManager_->LoadJsonFile("level1"); 
-	LevelDataManager::LevelData* levelData = levelDataManager_->GetObjectData("level1");
-	for (const std::unique_ptr<ObjectData>& objectData : *levelData) {
-		if (objectData->typeName == "MESH") {
-			std::unique_ptr<Object3d> object3d(new Object3d);
-			object3d->Initialize();
-			object3d->SetScale(objectData->scaling);
-			object3d->SetRotate(objectData->rotation);
-			object3d->SetTranslate(objectData->translation);
-			if (!objectData->fileName.empty()) {
-				object3d->SetModel(objectData->fileName);
-				//object3d->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-			}
-			object3ds_.push_back(std::move(object3d));
-		}
-		if (objectData->typeName == "ARMATURE") {
-			for (const std::unique_ptr<ObjectData>&childData : objectData->children) {
-				if (childData->typeName == "MESH") {
-					std::unique_ptr<Object3d> object3d(new Object3d);
-					object3d->Initialize();
-					object3d->SetTranslate(objectData->translation);
-					if (!childData->fileName.empty()) {
-						object3d->SetModel(childData->fileName);
-						object3d->SetAnimation(childData->fileName, true);
-						//object3d->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-					}
-					object3ds_.push_back(std::move(object3d));
-				}
-			}
-		}
-		//エネミー
-		if (objectData->typeName == "EnemySpawn") {
-			std::unique_ptr<BaseEnemy> enemy = std::make_unique<SmallDrone>();
-			enemy->SetBulletManager(bulletManager_.get());
-			enemy->SetParticleSystem(particleSystem_.get());
-			enemy->SetPlayer(player_.get());
-			enemy->Initialize();
-			enemy->SetPosition(objectData->translation);
-			enemies_.push_back(std::move(enemy));
-		}
-		//レールカメラポイント
-		if (objectData->typeName == "ControlPointSpawn") {
-			railCameraPoints.push_back(objectData->translation);
-		}
-	}
-
-	railCamera_->SetControlPoints(railCameraPoints);
-
-	player_->SetParent(railCamera_->GetObject3d());
-	player_->SetCamera(railCamera_->GetCamera());
+	hpUI_->Initialize(player_);
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 0; ++i) {
@@ -193,17 +121,10 @@ void GameScene::Initialize(){
 void GameScene::Finalize(){
 	particleSystem_->Finalize();
 	//解放
-	railCamera_.reset();
 
 	bulletManager_->Finalize();
-	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
-		enemy.reset();
-	}
+	stageManager_->Finalize();
 	hpUI_->Finalize();
-
-	player_.reset();
-	ground_.reset();
-	skydome_.reset();
 
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite.reset();  // メモリを解放する
@@ -251,25 +172,9 @@ void GameScene::Update() {
 		ImGui::End();
 	}
 #endif //_DEBUG
-	railCamera_->Update();
-	CameraManager::GetInstance()->GetCamera()->Update();
-	PostEffectManager::GetInstance()->Update();
-#ifdef _DEBUG
-	// デバッグ用にワールドトランスフォームの更新
-	collisionManager_->UpdateWorldTransform();
-#endif //_DEBUG
+	//ステージ
+	stageManager_->Update();
 
-	//天球
-	skydome_->Update();
-	//地面
-	ground_->Update();
-	//プレイヤー
-	player_->Update();
-
-	//エネミー
-	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
-		enemy->Update();
-	}
 	bulletManager_->Update();
 
 
@@ -296,13 +201,6 @@ void GameScene::Update() {
 
 	//当たり判定
 	CheckAllCollisions();
-	enemies_.erase(std::remove_if(enemies_.begin(), enemies_.end(), [](std::unique_ptr<BaseEnemy>& enemy) {
-		if (!enemy->GetIsAlive()) {
-			enemy.reset();
-			return true;
-		}
-		return false;
-		}), enemies_.end());
 
 	particleSystem_->Update();
 
@@ -316,16 +214,8 @@ void GameScene::Update() {
 
 void GameScene::Draw(){
 	//Object3dの描画
-	//天球
-	skydome_->Draw();
-	//地面
-	ground_->Draw();
-	//プレイヤー
-	player_->Draw();
-
-	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
-		enemy->Draw();
-	}
+	//ステージ
+	stageManager_->Draw();
 	bulletManager_->Draw();
 	/*for (std::unique_ptr<Object3d>& object3d : object3ds_) {
 		object3d->Draw();
@@ -333,7 +223,7 @@ void GameScene::Draw(){
 	//当たり判定の表示
 	collisionManager_->Draw();
 	//レールカメラの描画
-	railCamera_->Draw();
+	//railCamera_->Draw();
 	//ラインの描画
 	//Line3dManager::GetInstance()->DrawLine(object3ds_[0]->GetCenterPosition(), object3ds_[1]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
 	//Line3dManager::GetInstance()->DrawLine(object3ds_[1]->GetCenterPosition(), object3ds_[2]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
@@ -359,10 +249,7 @@ void GameScene::CheckAllCollisions(){
 	//衝突マネージャのリストクリアする
 	collisionManager_->Reset();
 	//全てのコライダーを衝突マネージャのリストに登録する
-	collisionManager_->AddCollider(player_.get());
-	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
-		collisionManager_->AddCollider(enemy.get());
-	}
+	stageManager_->SetStageCollisions(collisionManager_.get());
 	bulletManager_->AddCollider(collisionManager_.get());
 	//リスト内の総当たり判定
 	collisionManager_->CheckAllCollisions();
@@ -383,9 +270,9 @@ void GameScene::ClearCheck() {
 			sceneManager_->AddScene("PLAYER_DEATH");
 		}
 
-		if (railCamera_->GetIsFinished()) {
+		if (stageManager_->GetRailCamera()->GetIsFinished()) {
 			sceneManager_->AddScene("PLAYER_WIN");
-			player_->ChangeState(std::make_unique<PlayerStateLeave>(player_.get()));
+			player_->ChangeState(std::make_unique<PlayerStateLeave>(player_));
 		}
 	}
 	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
@@ -393,7 +280,7 @@ void GameScene::ClearCheck() {
 			sceneManager_->RemoveScene("PLAYER_DEATH");
 			sceneManager_->AddScene("GAMEOVER");
 		}
-		if (railCamera_->GetIsFinished()) {
+		if (stageManager_->GetRailCamera()->GetIsFinished()) {
 			sceneManager_->RemoveScene("PLAYER_WIN");
 			sceneManager_->AddScene("CLEAR");
 		}
