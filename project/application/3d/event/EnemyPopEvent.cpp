@@ -4,6 +4,7 @@
 
 void EnemyPopEvent::Initialize() {
 	BaseEventObject::Initialize();
+	Collider::SetRadius(10.0f);
 }
 
 void EnemyPopEvent::OnCollision(Collider* other) {

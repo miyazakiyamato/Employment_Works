@@ -23,6 +23,13 @@ from .disabled import MYADDON_OT_add_disabled
 #EnemySpawn追加
 from .add_EnemySpawn import MYADDON_OT_add_enemy_spawn
 from .add_EnemySpawn import OBJECT_PT_enemy_spawn
+#Rail追加
+from .add_rail import MYADDON_OT_add_rail
+from .add_rail import OBJECT_PT_rail
+#ControlPointSpawn追加
+from .add_controlPointSpawn import MYADDON_OT_add_control_point_spawn
+#Rail描画
+from .draw_rail import DrawRail
 #パネル ファイル名
 from .file_name import OBJECT_PT_file_name
 #パネル コライダー
@@ -47,8 +54,8 @@ from .stretch_vertex import MYADDON_OT_stretch_vertex
 from .create_ico_sphere import MYADDON_OT_create_ico_sphere
 #コライダー描画
 from .draw_collider import DrawCollider
-#レールカメラ描画
-from .railcamera import DrawRailCamera
+#レール描画
+#from .railcamera import DrawRailCamera
 # トップバーの拡張メニュー
 from .my_menu import TOPBAR_MT_my_menu
 #Blenderに登録するクラスリスト
@@ -71,6 +78,9 @@ classes = (
     OBJECT_PT_collider,
     OBJECT_PT_disabled,
     OBJECT_PT_enemy_spawn,
+    MYADDON_OT_add_rail,
+    OBJECT_PT_rail,
+    MYADDON_OT_add_control_point_spawn,
 )
 # Add-On有効化時コールバック
 def register():
@@ -81,7 +91,8 @@ def register():
     bpy.types.TOPBAR_MT_editor_menus.append(TOPBAR_MT_my_menu.submenu)
     #3Dビューに描画関数を追加
     DrawCollider.handle = bpy.types.SpaceView3D.draw_handler_add(DrawCollider.draw_collider,(),"WINDOW","POST_VIEW")
-    DrawRailCamera.register_draw()
+    #DrawRailCamera.register_draw()
+    DrawRail.register_draw()
     print("レベルエディタが有効化されました")
     print("bl_info:", bl_info)
 # Add-On無効化時コールバック
@@ -90,7 +101,8 @@ def unregister():
     bpy.types.TOPBAR_MT_editor_menus.remove(TOPBAR_MT_my_menu.submenu)
     #3Dビューから描画関数を削除
     bpy.types.SpaceView3D.draw_handler_remove(DrawCollider.handle,"WINDOW")
-    DrawRailCamera.unregister_draw()
+    #DrawRailCamera.unregister_draw()
+    DrawRail.unregister_draw()
     #Blenderからクラスを削除
     for cls in classes:
         bpy.utils.unregister_class(cls)

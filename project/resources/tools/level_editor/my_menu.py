@@ -10,7 +10,11 @@ from .spawn import MYADDON_OT_spawn_create_player_symbol
 #オペレータ モジュールの生成 エネミー
 from .spawn import MYADDON_OT_spawn_create_enemy_symbol 
 #オペレータ モジュールの生成 レールカメラ コントロールポイント
-from .spawn import MYADDON_OT_spawn_create_controlpoint_symbol
+#from .spawn import MYADDON_OT_spawn_create_controlpoint_symbol
+#オペレータ モジュールの生成 Rail
+from .add_rail import MYADDON_OT_add_rail
+#オペレータ モジュールの生成 Control Point Spawn
+from .add_controlPointSpawn import MYADDON_OT_add_control_point_spawn
 #オペレータ モジュールの生成 EnemyPopEvent
 from .spawn import MYADDON_OT_spawn_create_enemy_pop_event
 #オペレータ シーン出力
@@ -33,8 +37,10 @@ class TOPBAR_MT_my_menu(bpy.types.Menu):
                              text = MYADDON_OT_spawn_create_player_symbol.bl_label)
         self.layout.operator(MYADDON_OT_spawn_create_enemy_symbol.bl_idname,
                              text = MYADDON_OT_spawn_create_enemy_symbol.bl_label)
-        self.layout.operator(MYADDON_OT_spawn_create_controlpoint_symbol.bl_idname,
-                             text = MYADDON_OT_spawn_create_controlpoint_symbol.bl_label)
+        self.layout.operator(MYADDON_OT_add_rail.bl_idname,
+                             text = MYADDON_OT_add_rail.bl_label)
+        self.layout.operator(MYADDON_OT_add_control_point_spawn.bl_idname,
+                             text = MYADDON_OT_add_control_point_spawn.bl_label)
         self.layout.operator(MYADDON_OT_spawn_create_enemy_pop_event.bl_idname,
                              text = MYADDON_OT_spawn_create_enemy_pop_event.bl_label)
         self.layout.operator(MYADDON_OT_stretch_vertex.bl_idname,

@@ -48,7 +48,7 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 			}
 			object3ds_.push_back(std::move(object3d));
 		}
-		if (objectData->typeName == "ARMATURE") {
+		else if (objectData->typeName == "ARMATURE") {
 			for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
 				if (childData->typeName == "MESH") {
 					std::unique_ptr<Object3d> object3d(new Object3d);
@@ -63,7 +63,7 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 			}
 		}
 		// エネミー
-		if (objectData->typeName == "EnemySpawn") {
+		else if (objectData->typeName == "EnemySpawn") {
 			std::unique_ptr<BaseEnemy> enemy = std::make_unique<SmallDrone>();
 			enemy->SetBulletManager(bulletManager);
 			enemy->SetParticleSystem(particleSystem);
@@ -73,7 +73,7 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 			enemies_.push_back(std::move(enemy));
 		}
 		// 敵出現イベント
-		if (objectData->typeName == "EnemyPopEvent") {
+		else if (objectData->typeName == "EnemyPopEvent") {
 			std::unique_ptr<EnemyPopEvent> event = std::make_unique<EnemyPopEvent>();
 			event->Initialize();
 			event->SetPosition(objectData->translation);
@@ -95,9 +95,20 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 
 			AddEventObject(std::move(event));
 		}
-		// レールカメラポイント
-		if (objectData->typeName == "ControlPointSpawn") {
-			railCameraPoints.push_back(objectData->translation);
+
+		// カメラ
+		else if (objectData->typeName == "CAMERA") {
+			for (const std::unique_ptr<ObjectData>& child : objectData->children) {
+				if (child->typeName == "Rail") {
+					for (const std::unique_ptr<ObjectData>& grandChild : child->children) {
+						if (grandChild->typeName == "ControlPointSpawn") {
+							// 階層構造の座標を合算してワールド座標を計算 (簡易実装: 回転・スケール無視で座標加算)
+							Vector3 worldPos = objectData->translation + child->translation + grandChild->translation;
+							railCameraPoints.push_back(worldPos);
+						}
+					}
+				}
+			}
 		}
 	}
 

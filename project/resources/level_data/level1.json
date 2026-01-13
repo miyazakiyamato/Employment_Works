@@ -44,174 +44,6 @@
             }
         },
         {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn",
-            "transform": {
-                "translation": [
-                    0.0,
-                    -2.5810861587524414,
-                    0.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn.002",
-            "transform": {
-                "translation": [
-                    3.2153282165527344,
-                    37.8507080078125,
-                    -0.2789273262023926
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    5.2760748863220215,
-                    5.2760748863220215,
-                    5.2760748863220215
-                ]
-            }
-        },
-        {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn.001",
-            "transform": {
-                "translation": [
-                    19.34848403930664,
-                    123.7861328125,
-                    2.5001673698425293
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    5.2760748863220215,
-                    5.2760748863220215,
-                    5.2760748863220215
-                ]
-            }
-        },
-        {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn.003",
-            "transform": {
-                "translation": [
-                    7.762270927429199,
-                    229.71707153320312,
-                    5.831860542297363
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    5.2760748863220215,
-                    5.2760748863220215,
-                    5.2760748863220215
-                ]
-            }
-        },
-        {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn.004",
-            "transform": {
-                "translation": [
-                    -34.26980972290039,
-                    349.68963623046875,
-                    5.831860542297363
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    5.2760748863220215,
-                    5.2760748863220215,
-                    5.2760748863220215
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn",
-            "transform": {
-                "translation": [
-                    -13.136329650878906,
-                    677.5680541992188,
-                    7.922438621520996
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.001",
-            "transform": {
-                "translation": [
-                    19.709285736083984,
-                    257.5010681152344,
-                    15.160747528076172
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.002",
-            "transform": {
-                "translation": [
-                    -42.77757263183594,
-                    476.545654296875,
-                    12.245868682861328
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
             "type": "PlayerSpawn",
             "name": "PlayerSpawn",
             "transform": {
@@ -233,163 +65,16 @@
             }
         },
         {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn.005",
-            "transform": {
-                "translation": [
-                    -40.2914924621582,
-                    555.633544921875,
-                    5.831860542297363
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    5.2760748863220215,
-                    5.2760748863220215,
-                    5.2760748863220215
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.003",
-            "transform": {
-                "translation": [
-                    -55.08033752441406,
-                    398.08935546875,
-                    6.7181477546691895
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.004",
-            "transform": {
-                "translation": [
-                    6.678601264953613,
-                    194.46286010742188,
-                    5.713148593902588
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.005",
-            "transform": {
-                "translation": [
-                    -49.06889724731445,
-                    295.4547119140625,
-                    8.383984565734863
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.006",
-            "transform": {
-                "translation": [
-                    -63.0970458984375,
-                    750.7249145507812,
-                    8.614394187927246
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "EnemySpawn",
-            "name": "EnemySpawn.007",
-            "transform": {
-                "translation": [
-                    -81.62338256835938,
-                    650.9096069335938,
-                    0.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
-            "type": "ControlPointSpawn",
-            "name": "ControlPointSpawn.006",
-            "transform": {
-                "translation": [
-                    -42.70549774169922,
-                    791.27490234375,
-                    0.0
-                ],
-                "rotation": [
-                    0.0,
-                    -0.0,
-                    0.0
-                ],
-                "scaling": [
-                    1.0,
-                    1.0,
-                    1.0
-                ]
-            }
-        },
-        {
             "type": "MESH",
             "name": "Cube",
             "transform": {
                 "translation": [
                     27.458784103393555,
                     82.25324249267578,
-                    0.0
+                    1.0
                 ],
                 "rotation": [
-                    90.00000762939453,
+                    0.0,
                     -0.0,
                     0.0
                 ],
@@ -406,9 +91,9 @@
             "name": "EnemyPopEvent",
             "transform": {
                 "translation": [
-                    13.54762077331543,
+                    10.606377601623535,
                     65.76667022705078,
-                    9.483540534973145
+                    2.760542869567871
                 ],
                 "rotation": [
                     0.0,
@@ -427,8 +112,8 @@
                     "name": "EnemySpawn.008",
                     "transform": {
                         "translation": [
-                            12.418664932250977,
-                            20.935569763183594,
+                            12.418665885925293,
+                            52.996421813964844,
                             2.790679931640625
                         ],
                         "rotation": [
@@ -448,8 +133,8 @@
                     "name": "EnemySpawn.009",
                     "transform": {
                         "translation": [
-                            15.428380966186523,
-                            12.224594116210938,
+                            15.428380012512207,
+                            27.2784423828125,
                             2.7197484970092773
                         ],
                         "rotation": [
@@ -469,9 +154,9 @@
                     "name": "EnemySpawn.010",
                     "transform": {
                         "translation": [
-                            16.287137985229492,
-                            50.15288543701172,
-                            4.538580894470215
+                            16.287139892578125,
+                            65.3562240600586,
+                            4.538580417633057
                         ],
                         "rotation": [
                             0.0,
@@ -486,6 +171,547 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "CAMERA",
+            "name": "カメラ",
+            "transform": {
+                "translation": [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "children": [
+                {
+                    "type": "Rail",
+                    "name": "Rail",
+                    "transform": {
+                        "translation": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "rotation": [
+                            0.0,
+                            -0.0,
+                            0.0
+                        ],
+                        "scaling": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    },
+                    "children": [
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn",
+                            "transform": {
+                                "translation": [
+                                    0.13780975341796875,
+                                    -3.754964828491211,
+                                    0.0
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.001",
+                            "transform": {
+                                "translation": [
+                                    0.9946873188018799,
+                                    5.403964042663574,
+                                    0.0
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.002",
+                            "transform": {
+                                "translation": [
+                                    2.0529770851135254,
+                                    13.73928165435791,
+                                    0.0
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.003",
+                            "transform": {
+                                "translation": [
+                                    6.603930473327637,
+                                    55.566307067871094,
+                                    0.24833112955093384
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.004",
+                            "transform": {
+                                "translation": [
+                                    14.393998146057129,
+                                    95.79464721679688,
+                                    2.608693838119507
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.005",
+                            "transform": {
+                                "translation": [
+                                    6.117224216461182,
+                                    130.87045288085938,
+                                    6.133984565734863
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.006",
+                            "transform": {
+                                "translation": [
+                                    -8.148898124694824,
+                                    159.47938537597656,
+                                    6.334571838378906
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.007",
+                            "transform": {
+                                "translation": [
+                                    -13.209879875183105,
+                                    209.93296813964844,
+                                    9.297344207763672
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        },
+                        {
+                            "type": "ControlPointSpawn",
+                            "name": "ControlPointSpawn.008",
+                            "transform": {
+                                "translation": [
+                                    -7.939479827880859,
+                                    412.1628723144531,
+                                    7.337927341461182
+                                ],
+                                "rotation": [
+                                    0.0,
+                                    -0.0,
+                                    0.0
+                                ],
+                                "scaling": [
+                                    1.0,
+                                    1.0,
+                                    1.0
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "EnemyPopEvent",
+            "name": "EnemyPopEvent.001",
+            "transform": {
+                "translation": [
+                    0.0,
+                    140.0626220703125,
+                    6.879013538360596
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "children": [
+                {
+                    "type": "EnemySpawn",
+                    "name": "EnemySpawn",
+                    "transform": {
+                        "translation": [
+                            -31.598133087158203,
+                            89.61428833007812,
+                            3.184622287750244
+                        ],
+                        "rotation": [
+                            0.0,
+                            -0.0,
+                            0.0
+                        ],
+                        "scaling": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                },
+                {
+                    "type": "EnemySpawn",
+                    "name": "EnemySpawn.001",
+                    "transform": {
+                        "translation": [
+                            -37.98334503173828,
+                            133.75634765625,
+                            3.7799277305603027
+                        ],
+                        "rotation": [
+                            0.0,
+                            -0.0,
+                            0.0
+                        ],
+                        "scaling": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                },
+                {
+                    "type": "EnemySpawn",
+                    "name": "EnemySpawn.002",
+                    "transform": {
+                        "translation": [
+                            -42.91783142089844,
+                            176.61416625976562,
+                            5.706044673919678
+                        ],
+                        "rotation": [
+                            0.0,
+                            -0.0,
+                            0.0
+                        ],
+                        "scaling": [
+                            1.0,
+                            1.0,
+                            1.0
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.001",
+            "transform": {
+                "translation": [
+                    -18.365358352661133,
+                    113.71615600585938,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.002",
+            "transform": {
+                "translation": [
+                    24.61746597290039,
+                    91.0722885131836,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.003",
+            "transform": {
+                "translation": [
+                    -1.7068181037902832,
+                    414.80059814453125,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.004",
+            "transform": {
+                "translation": [
+                    2.566556453704834,
+                    414.80059814453125,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.005",
+            "transform": {
+                "translation": [
+                    6.320249080657959,
+                    414.80059814453125,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.006",
+            "transform": {
+                "translation": [
+                    16.43728256225586,
+                    192.94039916992188,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.007",
+            "transform": {
+                "translation": [
+                    16.337772369384766,
+                    193.13442993164062,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.008",
+            "transform": {
+                "translation": [
+                    -12.982994079589844,
+                    259.8527526855469,
+                    3.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.009",
+            "transform": {
+                "translation": [
+                    -12.88348388671875,
+                    259.6587219238281,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
+        },
+        {
+            "type": "MESH",
+            "name": "Cube.010",
+            "transform": {
+                "translation": [
+                    -9.744405746459961,
+                    254.6162109375,
+                    1.0
+                ],
+                "rotation": [
+                    0.0,
+                    -0.0,
+                    0.0
+                ],
+                "scaling": [
+                    1.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "file_name": "cube/cube.obj"
         }
     ]
 }
