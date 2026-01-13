@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "CollisionManager.h"
 #include "BulletManager.h"
+#include "BaseEventObject.h"
 
 class ParticleSystem;
 
@@ -56,9 +57,23 @@ public:
 	/// <returns></returns>
 	Player* GetPlayer() const { return player_.get(); }
 
+	/// <summary>
+	/// 敵の追加
+	/// </summary>
+	/// <param name="enemy">追加するエネミー</param>
+	/// <param name="position">出現位置</param>
+	void AddEnemy(std::unique_ptr<BaseEnemy> enemy, const Vector3& position);
+
+	/// <summary>
+	/// イベントオブジェクトの追加
+	/// </summary>
+	/// <param name="eventObject">追加するイベントオブジェクト</param>
+	void AddEventObject(std::unique_ptr<BaseEventObject> eventObject);
+
 private:
 	// 天球
 	std::unique_ptr<Skydome> skydome_;
+
 	// 地面
 	std::unique_ptr<Ground> ground_;
 	// 3Dオブジェクト(背景など)
@@ -71,4 +86,10 @@ private:
 	std::unique_ptr<Player> player_;
 	// エネミー
 	std::vector<std::unique_ptr<BaseEnemy>> enemies_;
+	// イベントオブジェクト
+	std::vector<std::unique_ptr<BaseEventObject>> eventObjects_;
+
+	// 借りてくるもの
+	BulletManager* bulletManager_ = nullptr;
+	ParticleSystem* particleSystem_ = nullptr;
 };

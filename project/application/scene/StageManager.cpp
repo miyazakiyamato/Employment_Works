@@ -2,8 +2,12 @@
 #include "SmallDrone.h"
 
 #include "ChargeGun.h"
+#include "EnemyPopEvent.h"
 
 void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* particleSystem) {
+	bulletManager_ = bulletManager;
+	particleSystem_ = particleSystem;
+
 	// 天球
 	skydome_ = std::make_unique<Skydome>();
 	skydome_->Initialize();
@@ -80,6 +84,26 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 	player_->SetRailCamera(railCamera_.get());
 	player_->SetParent(railCamera_->GetObject3d());
 	player_->SetCamera(railCamera_->GetCamera());
+
+	// テスト用イベント配置
+	std::unique_ptr<EnemyPopEvent> event = std::make_unique<EnemyPopEvent>();
+	event->Initialize();
+	event->SetPosition({ 10.0f, 5.0f, 30.0f }); // プレイヤーの近く
+	event->SetStageManager(this);
+	AddEventObject(std::move(event));
+}
+
+void StageManager::AddEnemy(std::unique_ptr<BaseEnemy> enemy, const Vector3& position) {
+	enemy->SetBulletManager(bulletManager_);
+	enemy->SetParticleSystem(particleSystem_);
+	enemy->SetPlayer(player_.get());
+	enemy->Initialize();
+	enemy->SetPosition(position);
+	enemies_.push_back(std::move(enemy));
+}
+
+void StageManager::AddEventObject(std::unique_ptr<BaseEventObject> eventObject) {
+	eventObjects_.push_back(std::move(eventObject));
 }
 
 void StageManager::SetStageCollisions(CollisionManager* collisionManager) {
@@ -88,12 +112,18 @@ void StageManager::SetStageCollisions(CollisionManager* collisionManager) {
 	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		collisionManager->AddCollider(enemy.get());
 	}
+	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
+		collisionManager->AddCollider(eventObject.get());
+	}
 }
 
 void StageManager::Finalize() {
 	player_.reset();
 	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		enemy.reset();
+	}
+	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
+		eventObject.reset();
 	}
 	skydome_.reset();
 	ground_.reset();
@@ -129,6 +159,19 @@ void StageManager::Update() {
 		return false;
 		}), enemies_.end());
 
+	// イベントオブジェクト
+	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
+		eventObject->Update();
+	}
+	// 終了したイベントを削除
+	eventObjects_.erase(std::remove_if(eventObjects_.begin(), eventObjects_.end(), [](std::unique_ptr<BaseEventObject>& event) {
+		if (event->GetIsFinished()) {
+			event.reset();
+			return true;
+		}
+		return false;
+		}), eventObjects_.end());
+
 	// Object3d
 	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
 		object3d->Update();
@@ -157,5 +200,10 @@ void StageManager::Draw() {
 	// エネミー
 	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		enemy->Draw();
+	}
+
+	// イベントオブジェクト
+	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
+		eventObject->Draw();
 	}
 }

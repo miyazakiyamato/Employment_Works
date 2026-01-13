@@ -155,6 +155,7 @@ void GameScene::Update() {
 
 				object3dCount++;
 			}*/
+
 			particleSystem_->ImGuiUpdate();
 			
 			hpUI_->ImGuiUpdate();
@@ -201,7 +202,8 @@ void GameScene::Update() {
 
 	//当たり判定
 	CheckAllCollisions();
-
+	collisionManager_->UpdateWorldTransform();
+	
 	particleSystem_->Update();
 
 	hpUI_->Update();
@@ -217,13 +219,10 @@ void GameScene::Draw(){
 	//ステージ
 	stageManager_->Draw();
 	bulletManager_->Draw();
-	/*for (std::unique_ptr<Object3d>& object3d : object3ds_) {
-		object3d->Draw();
-		}*/
+	
 	//当たり判定の表示
 	collisionManager_->Draw();
-	//レールカメラの描画
-	//railCamera_->Draw();
+	
 	//ラインの描画
 	//Line3dManager::GetInstance()->DrawLine(object3ds_[0]->GetCenterPosition(), object3ds_[1]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
 	//Line3dManager::GetInstance()->DrawLine(object3ds_[1]->GetCenterPosition(), object3ds_[2]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
