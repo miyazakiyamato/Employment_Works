@@ -70,7 +70,30 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 			enemy->SetPlayer(player_.get());
 			enemy->Initialize();
 			enemy->SetPosition(objectData->translation);
-			enemies_.push_back(std::move(enemy)); // Use member enemies_
+			enemies_.push_back(std::move(enemy));
+		}
+		// 敵出現イベント
+		if (objectData->typeName == "EnemyPopEvent") {
+			std::unique_ptr<EnemyPopEvent> event = std::make_unique<EnemyPopEvent>();
+			event->Initialize();
+			event->SetPosition(objectData->translation);
+			event->GetObject3d()->SetRotate(objectData->rotation);
+			event->GetObject3d()->SetScale(objectData->scaling);
+			event->SetStageManager(this);
+
+			// 子供のデータを解析してスポーンデータを追加
+			for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
+				if (childData->typeName == "EnemySpawn") {
+					EnemySpawnData data;
+					// 親からの相対位置
+					// Blenderの構造上、子供のtranslationは親からの相対位置になっているはず
+					data.translation = childData->translation;
+					data.rotation = childData->rotation.ToQuaternion();
+					event->AddEnemySpawnData(data);
+				}
+			}
+
+			AddEventObject(std::move(event));
 		}
 		// レールカメラポイント
 		if (objectData->typeName == "ControlPointSpawn") {
@@ -85,12 +108,6 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 	player_->SetParent(railCamera_->GetObject3d());
 	player_->SetCamera(railCamera_->GetCamera());
 
-	// テスト用イベント配置
-	std::unique_ptr<EnemyPopEvent> event = std::make_unique<EnemyPopEvent>();
-	event->Initialize();
-	event->SetPosition({ 10.0f, 5.0f, 30.0f }); // プレイヤーの近く
-	event->SetStageManager(this);
-	AddEventObject(std::move(event));
 }
 
 void StageManager::AddEnemy(std::unique_ptr<BaseEnemy> enemy, const Vector3& position) {

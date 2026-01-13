@@ -2,6 +2,14 @@
 #include "BaseEventObject.h"
 
 class StageManager;
+
+/// <summary>
+/// エネミー出現データ
+/// </summary>
+struct EnemySpawnData {
+	Vector3 translation; // イベント発生地点からの相対座標
+	Quaternion rotation; // 回転
+};
 /// <summary>
 /// 敵出現イベント
 /// </summary>
@@ -24,6 +32,13 @@ public:
 	/// <param name="stageManager"></param>
 	void SetStageManager(StageManager* stageManager) { stageManager_ = stageManager; }
 
+	/// <summary>
+	/// エネミー出現データの追加
+	/// </summary>
+	/// <param name="data"></param>
+	void AddEnemySpawnData(const EnemySpawnData& data) { enemySpawnDatas_.push_back(data); }
+
 private:
 	StageManager* stageManager_ = nullptr;
+	std::vector<EnemySpawnData> enemySpawnDatas_;
 };

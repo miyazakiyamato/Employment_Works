@@ -55,4 +55,6 @@ protected:
 	std::unique_ptr<Object3d> object3d_;
 	// 終了フラグ
 	bool isFinished_ = false;
+public:
+	Object3d* GetObject3d() { return object3d_.get(); }
 };

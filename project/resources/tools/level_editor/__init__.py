@@ -20,6 +20,9 @@ from .add_filename import MYADDON_OT_add_filename
 from .add_collider import MYADDON_OT_add_collider
 #オペレータ カスタムプロパティ['disabled']追加
 from .disabled import MYADDON_OT_add_disabled
+#EnemySpawn追加
+from .add_EnemySpawn import MYADDON_OT_add_enemy_spawn
+from .add_EnemySpawn import OBJECT_PT_enemy_spawn
 #パネル ファイル名
 from .file_name import OBJECT_PT_file_name
 #パネル コライダー
@@ -36,6 +39,8 @@ from .spawn import MYADDON_OT_spawn_create_player_symbol
 from .spawn import MYADDON_OT_spawn_create_enemy_symbol
 #オペレータ モジュールの生成 レールカメラ コントロールポイント
 from .spawn import MYADDON_OT_spawn_create_controlpoint_symbol
+#オペレータ モジュールの生成 EnemyPopEvent
+from .spawn import MYADDON_OT_spawn_create_enemy_pop_event
 #オペレータ 頂点を伸ばす
 from .stretch_vertex import MYADDON_OT_stretch_vertex
 #オペレータ ICO球生成
@@ -57,12 +62,15 @@ classes = (
     MYADDON_OT_spawn_create_player_symbol,
     MYADDON_OT_spawn_create_enemy_symbol,
     MYADDON_OT_spawn_create_controlpoint_symbol,
+    MYADDON_OT_spawn_create_enemy_pop_event,
     MYADDON_OT_add_filename,
     MYADDON_OT_add_collider,
     MYADDON_OT_add_disabled,
+    MYADDON_OT_add_enemy_spawn,
     OBJECT_PT_file_name,
     OBJECT_PT_collider,
     OBJECT_PT_disabled,
+    OBJECT_PT_enemy_spawn,
 )
 # Add-On有効化時コールバック
 def register():

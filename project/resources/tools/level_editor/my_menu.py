@@ -11,6 +11,8 @@ from .spawn import MYADDON_OT_spawn_create_player_symbol
 from .spawn import MYADDON_OT_spawn_create_enemy_symbol 
 #オペレータ モジュールの生成 レールカメラ コントロールポイント
 from .spawn import MYADDON_OT_spawn_create_controlpoint_symbol
+#オペレータ モジュールの生成 EnemyPopEvent
+from .spawn import MYADDON_OT_spawn_create_enemy_pop_event
 #オペレータ シーン出力
 from .export_scene import MYADDON_OT_export_scene
 #オペレータ 頂点を伸ばす
@@ -33,6 +35,8 @@ class TOPBAR_MT_my_menu(bpy.types.Menu):
                              text = MYADDON_OT_spawn_create_enemy_symbol.bl_label)
         self.layout.operator(MYADDON_OT_spawn_create_controlpoint_symbol.bl_idname,
                              text = MYADDON_OT_spawn_create_controlpoint_symbol.bl_label)
+        self.layout.operator(MYADDON_OT_spawn_create_enemy_pop_event.bl_idname,
+                             text = MYADDON_OT_spawn_create_enemy_pop_event.bl_label)
         self.layout.operator(MYADDON_OT_stretch_vertex.bl_idname,
                              text = MYADDON_OT_stretch_vertex.bl_label)
         self.layout.operator(MYADDON_OT_create_ico_sphere.bl_idname,

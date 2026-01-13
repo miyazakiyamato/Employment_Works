@@ -88,6 +88,10 @@ class MYADDON_OT_spawn_create_symbol(bpy.types.Operator):
         bpy.context.collection.objects.link(object)
         # オブジェクト名を変更
         object.name = SpawnNames.names[self.type][SpawnNames.INSTANCE]
+        
+        # 選択状態にしてアクティブにする
+        object.select_set(True)
+        bpy.context.view_layer.objects.active = object
 
         return {'FINISHED'}
 class MYADDON_OT_spawn_create_player_symbol(bpy.types.Operator):
@@ -106,6 +110,35 @@ class MYADDON_OT_spawn_create_enemy_symbol(bpy.types.Operator):
 
     def execute(self,context):
         bpy.ops.myaddon.myaddon_ot_spawn_create_symbol('EXEC_DEFAULT',type="Enemy")
+        
+        return {'FINISHED'}
+
+class MYADDON_OT_spawn_create_enemy_pop_event(bpy.types.Operator):
+    bl_idname = "myaddon.myaddon_ot_spawn_create_enemy_pop_event"
+    bl_label = "EnemyPopEvent作成"
+    bl_description = "EnemyPopEventを作成し、その中にEnemyを配置します"
+    bl_options = {'REGISTER','UNDO'}
+
+    def execute(self, context):
+        # EnemyPopEventを作成 (Empty)
+        bpy.ops.object.empty_add(type='CUBE', radius=1.0)
+        event_obj = context.active_object
+        event_obj.name = "EnemyPopEvent"
+        event_obj["type"] = "EnemyPopEvent"
+        
+        # EnemySpawnを作成
+        bpy.ops.myaddon.myaddon_ot_spawn_create_symbol('EXEC_DEFAULT', type="Enemy")
+        enemy_obj = context.active_object
+        
+        # 親子関係を設定
+        enemy_obj.parent = event_obj
+        # 親の原点に配置
+        enemy_obj.location = (0, 0, 0)
+        
+        # 親を選択状態に戻す
+        bpy.ops.object.select_all(action='DESELECT')
+        event_obj.select_set(True)
+        context.view_layer.objects.active = event_obj
         
         return {'FINISHED'}
 class MYADDON_OT_spawn_create_controlpoint_symbol(bpy.types.Operator):

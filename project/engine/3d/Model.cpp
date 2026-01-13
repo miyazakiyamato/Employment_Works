@@ -72,7 +72,7 @@ void Model::Draw(size_t meshIndex, const D3D12_VERTEX_BUFFER_VIEW* vertexBufferV
 
 void Model::LoadFile(const std::string& directoryPath, const std::string& filename) {
 	Assimp::Importer importer;
-	std::string filePath = directoryPath + "/" + filename;
+	std::string filePath = directoryPath + filename;
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
 	assert(scene->HasMeshes());//メッシュがないのは対応しない
 	meshCount_ = (size_t)scene->mNumMeshes;//メッシュの数を取得
