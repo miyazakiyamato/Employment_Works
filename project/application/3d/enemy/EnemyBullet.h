@@ -4,6 +4,9 @@
 #include "Object3d.h"
 #include "BaseBullet.h"
 
+/// <summary>
+/// 敵の弾
+/// </summary>
 class EnemyBullet : public BaseBullet {
 public:
 	~EnemyBullet() {}
@@ -22,6 +25,10 @@ public:
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 衝突時コールバック
+	/// </summary>
+	/// <param name="other">衝突相手</param>
 	void OnCollision([[maybe_unused]] Collider* other) override;
 
 private:

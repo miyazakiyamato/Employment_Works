@@ -4,17 +4,32 @@
 #include "Sprite.h"
 
 class Player;
+/// <summary>
+/// HP UIクラス
+/// プレイヤーのHPバーを表示する
+/// </summary>
 class HpUI{
 public:
-	//初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="player">プレイヤー</param>
 	void Initialize(Player* player);
-	//終了
+	/// <summary>
+	/// 終了
+	/// </summary>
 	void Finalize();
-	//更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-	//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
-	//imGui
+	/// <summary>
+	/// ImGui更新
+	/// </summary>
 	void ImGuiUpdate();
 private:
 	//プレイヤーデータ

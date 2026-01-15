@@ -2,6 +2,9 @@
 #include <Vector3.h>
 #include "Collision.h"
 
+/// <summary>
+/// 加速フィールド
+/// </summary>
 class AccelerationField{
 public:
 

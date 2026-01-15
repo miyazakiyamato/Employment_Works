@@ -7,6 +7,9 @@
 class BulletManager;
 class ParticleSystem;
 class Player;
+/// <summary>
+/// 敵基底クラス
+/// </summary>
 class BaseEnemy : public BaseCharacter {
 public:
 	struct Shake {
@@ -36,10 +39,16 @@ public:
 	/// </summary>
 	virtual void Draw() = 0;
 
-	// 衝突を検知したら呼び出されるコールバック関数
+	/// <summary>
+	/// 衝突時コールバック
+	/// </summary>
+	/// <param name="other">衝突相手</param>
 	void OnCollision([[maybe_unused]] Collider* other) override;
 
-	//Updateのステートチェンジ
+	/// <summary>
+	/// ステート変更
+	/// </summary>
+	/// <param name="state">新しいステート</param>
 	void ChangeState(std::unique_ptr<BaseEnemyState> state);
 	
 	

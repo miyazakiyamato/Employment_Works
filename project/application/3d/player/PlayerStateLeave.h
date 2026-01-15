@@ -5,13 +5,20 @@
 class Input;
 class TimeManager;
 class Player;
+/// <summary>
+/// プレイヤーの状態：離脱演出
+/// </summary>
 class PlayerStateLeave : public BaseCharacterState{
 public:
 	// コンストラクタ
 	PlayerStateLeave(BaseCharacter* character) : BaseCharacterState("PlayerRoot", character) {};
-	// 初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize() override;
-	// 更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update() override;
 private:
 	Input* input_ = nullptr;

@@ -9,6 +9,9 @@ class Input;
 class Camera;
 class ParticleSystem;
 class RailCamera;
+/// <summary>
+/// プレイヤー
+/// </summary>
 class Player : public BaseCharacter{
 public://構造体
 	struct Shake {
@@ -39,11 +42,23 @@ public://メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw() override;
+	/// <summary>
+	/// UI描画
+	/// </summary>
 	void DrawUi();
-	//衝突を検知したら呼び出されるコールバック関数
+	/// <summary>
+	/// 衝突時コールバック
+	/// </summary>
+	/// <param name="other">衝突相手</param>
 	void OnCollision([[maybe_unused]] Collider* other) override;
 
+	/// <summary>
+	/// 移動処理
+	/// </summary>
 	void Move();
+	/// <summary>
+	/// レティクル更新
+	/// </summary>
 	void ReticleUpdate();
 
 private:

@@ -16,6 +16,10 @@
 
 class ParticleSystem;
 
+/// <summary>
+/// ステージマネージャ
+/// ステージ上のオブジェクト（敵、イベント、背景など）を管理する
+/// </summary>
 class StageManager {
 public:
 	/// <summary>

@@ -2,15 +2,26 @@
 #include "Input.h"
 
 class SceneManager;
+/// <summary>
+/// シーン基底クラス
+/// </summary>
 class BaseScene{
 public://メンバ関数
-	//初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	virtual void Initialize();
-	//終了
+	/// <summary>
+	/// 終了
+	/// </summary>
 	virtual void Finalize();
-	//毎フレーム更新
+	/// <summary>
+	/// 毎フレーム更新
+	/// </summary>
 	virtual void Update();
-	//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
 	virtual void Draw() = 0;
 private://メンバ変数
 

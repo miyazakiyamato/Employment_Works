@@ -3,13 +3,20 @@
 
 class BulletManager;
 class TimeManager;
+/// <summary>
+/// 小型ドローンの状態：射撃
+/// </summary>
 class SmallDroneStateShoot : public BaseEnemyState {
 public:
 	SmallDroneStateShoot(BaseEnemy* smallDrone);
 
-	//初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize()override;
-	//更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update()override;
 private:
 	// 攻撃

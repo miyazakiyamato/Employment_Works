@@ -3,19 +3,34 @@
 #include <memory>
 
 class CollisionManager;
+/// <summary>
+/// 弾丸マネージャ
+/// </summary>
 class BulletManager{
 public:
 	BulletManager() = default;
 	~BulletManager() = default;
-	// 終了
+	/// <summary>
+	/// 終了
+	/// </summary>
 	void Finalize();
-	// 更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-	// 描画
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
-	// 弾を追加
+	/// <summary>
+	/// 弾を追加
+	/// </summary>
+	/// <param name="bullet">追加する弾</param>
 	void AddBullet(std::unique_ptr<BaseBullet> bullet);
-	// コライダーを追加
+	/// <summary>
+	/// コライダーを追加
+	/// </summary>
+	/// <param name="collisionManager">コリジョンマネージャー</param>
 	void AddCollider(CollisionManager* collisionManager);
 private:
 	std::list<std::unique_ptr<BaseBullet>> bullets_; // 弾のリスト

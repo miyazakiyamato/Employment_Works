@@ -10,6 +10,9 @@ enum class AttackType {
 };
 
 class BulletManager;
+/// <summary>
+/// 武器基底クラス
+/// </summary>
 class BaseWeapon : public Collider {
 public:
 		// --- 構造体 ---
@@ -40,12 +43,20 @@ public:
 	/// </summary>
 	virtual void Draw();
 	
-	// 衝突を検知したら呼び出されるコールバック関数
+	/// <summary>
+	/// 衝突時コールバック
+	/// </summary>
+	/// <param name="other">衝突相手</param>
 	virtual void OnCollision([[maybe_unused]] Collider* other) override;
 
-	// 通常ショット
+	/// <summary>
+	/// 通常ショット
+	/// </summary>
+	/// <param name="attackType">攻撃タイプ</param>
 	void Shoot(AttackType attackType);
-	// チャージ
+	/// <summary>
+	/// チャージ
+	/// </summary>
 	virtual void Charge();
 private:
 	void Rotate(const Vector3& velocity);

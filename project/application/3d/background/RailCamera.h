@@ -4,6 +4,9 @@
 #include "Object3d.h"
 #include <vector>
 
+/// <summary>
+/// レールカメラ
+/// </summary>
 class RailCamera {
 public:
 	//構造体
@@ -15,13 +18,21 @@ public:
 		bool isShake = false;
 	};
 	//メンバ関数
-	//初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize(const Vector3& position, const Vector3& rotate);
-	//更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-	//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
-	//カメラ振動開始
+	/// <summary>
+	/// カメラ振動開始
+	/// </summary>
 	void ShakeStart(Vector2 move, float kTime);
 private:
 	//カメラ振動

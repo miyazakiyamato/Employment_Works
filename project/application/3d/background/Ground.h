@@ -2,13 +2,22 @@
 #include <memory>
 #include <Object3d.h>
 
+/// <summary>
+/// 地面
+/// </summary>
 class Ground{
 public://メンバ関数
-	//初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize();
-	//更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update();
-	//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw();
 private://メンバ変数
 	std::unique_ptr<Object3d> object3d;

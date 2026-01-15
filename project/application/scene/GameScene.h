@@ -13,21 +13,36 @@
 #include "RailCamera.h"
 #include "HpUI.h"
 
+/// <summary>
+/// ゲームシーン
+/// </summary>
 class GameScene : public BaseScene {
 public://メンバ関数
-	//初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize() override;
-	//終了
+	/// <summary>
+	/// 終了
+	/// </summary>
 	void Finalize() override;
-	//毎フレーム更新
+	/// <summary>
+	/// 毎フレーム更新
+	/// </summary>
 	void Update() override;
-	//描画
+	/// <summary>
+	/// 描画
+	/// </summary>
 	void Draw() override;
 
 private:
-	//衝突判定と応答 
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary>
 	void CheckAllCollisions();
-	//クリア判定
+	/// <summary>
+	/// クリア判定
+	/// </summary>
 	void ClearCheck();
 private://メンバ変数
 	//衝突マネージャ

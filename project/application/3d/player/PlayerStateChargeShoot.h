@@ -4,13 +4,20 @@
 class Input;
 class TimeManager;
 class Player;
+/// <summary>
+/// プレイヤーの状態：溜め撃ち
+/// </summary>
 class PlayerStateChargeShoot : public BaseCharacterState{
 public:
 	// コンストラクタ
 	PlayerStateChargeShoot(BaseCharacter* character) : BaseCharacterState("PlayerRoot", character) {};
-	// 初期化
+	/// <summary>
+	/// 初期化
+	/// </summary>
 	void Initialize() override;
-	// 更新
+	/// <summary>
+	/// 更新
+	/// </summary>
 	void Update() override;
 private:
 	Input* input_ = nullptr;

@@ -1,6 +1,9 @@
 #pragma once
 #include "BaseEnemy.h"
 
+/// <summary>
+/// 小型ドローン（敵）
+/// </summary>
 class SmallDrone : public BaseEnemy{
 public:
 	/// <summary>
@@ -18,7 +21,10 @@ public:
 	/// </summary>
 	void Draw() override;
 
-	//衝突を検知したら呼び出されるコールバック関数
+	/// <summary>
+	/// 衝突時コールバック
+	/// </summary>
+	/// <param name="other">衝突相手</param>
 	void OnCollision([[maybe_unused]] Collider* other) override;
 };
 

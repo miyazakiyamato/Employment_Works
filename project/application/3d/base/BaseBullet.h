@@ -4,6 +4,9 @@
 #include "Object3d.h"
 #include "Collider.h"
 
+/// <summary>
+/// 弾基底クラス
+/// </summary>
 class BaseBullet : public Collider {
 public:
 	virtual ~BaseBullet() {}
@@ -22,6 +25,10 @@ public:
 	/// </summary>
 	virtual void Draw();
 
+	/// <summary>
+	/// 衝突時コールバック
+	/// </summary>
+	/// <param name="other">衝突相手</param>
 	virtual void OnCollision([[maybe_unused]] Collider* other) override;
 
 protected:
@@ -36,6 +43,10 @@ protected:
 	//生存フラグ
 	bool isAlive_ = true;
 	//
+	/// <summary>
+	/// 速度に合わせて回転させる
+	/// </summary>
+	/// <param name="velocity">速度ベクトル</param>
 	void Rotate(const Vector3& velocity);
 
 public:
