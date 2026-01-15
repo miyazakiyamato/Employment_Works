@@ -12,18 +12,6 @@ class Player;
 /// </summary>
 class BaseEnemy : public BaseCharacter {
 public:
-	struct Shake {
-		Quaternion shakeQuaternion{};        // ターゲット回転（のけぞり先）
-		Quaternion preShakeQuaternion{};     // 1フレーム前
-		Quaternion startQuaternion{};        // 開始時の回転
-		float kTime;
-		float time;
-		bool isShake = false;
-
-		Vector3 move{};
-		Vector3 preMove{};
-	};
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -54,9 +42,7 @@ public:
 	
 protected:
 	void Damage(int damage, const Vector3& hitDirection);
-	void DamageKnockbackStart(const Vector3& hitDirection, float power, float duration);
-	void ShakeStart(Quaternion shakeQuaternion, float kTime);
-	void Shaking();
+
 	// メンバ変数
 	BulletManager* bulletManager_ = nullptr; // バレットマネージャー
 	ParticleSystem* particleSystem_ = nullptr;
@@ -69,8 +55,7 @@ protected:
 
 	// ステート
 	std::unique_ptr<BaseEnemyState> state_;
-	// シェイクデータ
-	Shake shake_{};
+
 public:
 	/// <summary>
 	/// パーティクルシステムの設定
