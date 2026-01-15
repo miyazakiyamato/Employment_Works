@@ -4,6 +4,7 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include <vector>
+#include "TitleUI.h"
 
 /// <summary>
 /// タイトルシーン
@@ -31,8 +32,8 @@ private://メンバ変数
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	//地面
 	std::unique_ptr<Ground> ground_ = nullptr;
-	//スプライト
-	std::vector< std::unique_ptr<Sprite>> sprites_;
+	//タイトルUI
+	std::unique_ptr<TitleUI> titleUI_;
 	//カメラ
 	Camera* camera_ = nullptr;
 };

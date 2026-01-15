@@ -32,12 +32,9 @@ void Player::Initialize(){
 	reticle3d_->Update();
 
 	//レティクル2D
-	reticle2d_ = std::make_unique<Sprite>();
-	reticle2d_->Initialize("reticle.png");
-	reticle2d_->SetPosition({ WinApp::kClientWidth / 2.0f,WinApp::kClientHeight / 2.0f });
-	reticle2d_->SetAnchorPoint({ 0.5f, 0.5f });
-	reticle2d_->SetSize({ 64.0f, 64.0f });
-	reticle2d_->Update();
+	reticleUI_ = std::make_unique<ReticleUI>();
+	reticleUI_->Initialize();
+	reticleUI_->Update();
 
 	//手
 	hand_ = std::make_unique<Object3d>();
@@ -63,10 +60,6 @@ void Player::Draw(){
 	if (weapon_) {
 		weapon_->Draw();
 	}
-}
-
-void Player::DrawUi(){
-	reticle2d_->Draw();
 }
 
 void Player::OnCollision([[maybe_unused]] Collider* other){
@@ -162,18 +155,18 @@ void Player::ReticleUpdate(){
 	if (move.Length() != 0) {
 		move.Normalize();
 		move *= speed;
-		Vector2 spritePosition = reticle2d_->GetPosition();
+		Vector2 spritePosition = reticleUI_->GetPosition();
 		spritePosition += move;
 		spritePosition.x = std::clamp(spritePosition.x, 0.0f, (float)WinApp::kClientWidth);
 		spritePosition.y = std::clamp(spritePosition.y, 0.0f, (float)WinApp::kClientHeight);
-		reticle2d_->SetPosition(spritePosition);
+		reticleUI_->SetPosition(spritePosition);
 	}
 	//マウスの位置から3Dレティクルの位置を計算
 	Matrix4x4 matViewport = Matrix4x4::MakeViewportMatrix(0, 0, WinApp::kClientWidth, WinApp::kClientHeight, 0, 1);
 	Matrix4x4 matVPV = Matrix4x4(camera_->GetViewMatrix()) * camera_->GetProjectionMatrix() * matViewport;
 	Matrix4x4 matInverseVPV = Matrix4x4::Inverse(matVPV);
-	Vector3 posNear = Vector3(reticle2d_->GetPosition().x, reticle2d_->GetPosition().y, 0);
-	Vector3 posFar = Vector3(reticle2d_->GetPosition().x, reticle2d_->GetPosition().y, 1);
+	Vector3 posNear = Vector3(reticleUI_->GetPosition().x, reticleUI_->GetPosition().y, 0);
+	Vector3 posFar = Vector3(reticleUI_->GetPosition().x, reticleUI_->GetPosition().y, 1);
 	posNear = Matrix4x4::Transform(posNear, matInverseVPV);
 	posFar = Matrix4x4::Transform(posFar, matInverseVPV);
 	Vector3 mouseDirection = Vector3::Subtract(posFar, posNear);
@@ -183,7 +176,7 @@ void Player::ReticleUpdate(){
 	const float kDistanceTestObject = 100.0f;
 	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
 	reticle3d_->Update();
-	reticle2d_->Update();
+	reticleUI_->Update();
 }
 
 void Player::Damage(int damage, const Vector3& hitDirection){

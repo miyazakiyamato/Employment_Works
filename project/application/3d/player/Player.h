@@ -3,6 +3,7 @@
 //#include "LockOn.h"
 #include "ContactRecord.h"
 #include "Sprite.h"
+#include "ReticleUI.h"
 #include "BaseWeapon.h"
 
 class Input;
@@ -30,10 +31,7 @@ public://メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw() override;
-	/// <summary>
-	/// UI描画
-	/// </summary>
-	void DrawUi();
+
 	/// <summary>
 	/// 衝突時コールバック
 	/// </summary>
@@ -63,8 +61,9 @@ private:
 	Vector3 handOffset_{ 0.0f,-1.5f,0.0f };
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
-	std::unique_ptr<Sprite> reticle2d_ = nullptr;
+	std::unique_ptr<ReticleUI> reticleUI_ = nullptr;
 
+	//移動関連
 	Vector3 velocity_{};
 	Vector3 acceleration_{};
 	float airResistance = 0.9f;
@@ -72,7 +71,7 @@ private:
 	Vector3 velocityLimit_{ 100.0f,100.0f,100.0f };
 	Vector3 moveLimit_{ 10.0f,7.0f,100.0f };
 
-
+	//体力
 	int hp_ = 10;
 	bool isAlive_ = true;
 	//ロックオン
@@ -84,6 +83,7 @@ public://ゲッターセッター
 	Object3d* GetReticle3d() { return reticle3d_.get(); }
 	BaseWeapon* GetWeapon() { return weapon_.get(); }
 	ParticleSystem* GetParticleSystem() { return particleSystem_; }
+	BaseUI* GetUI() { return reticleUI_.get(); }
 
 	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
 	void SetParent(Object3d* object3d);

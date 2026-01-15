@@ -1,7 +1,6 @@
 #pragma once
 #include "BaseScene.h"
-#include "Sprite.h"
-#include <vector>
+#include "PlayerDeathUI.h"
 
 /// <summary>
 /// プレイヤー死亡シーン
@@ -26,7 +25,7 @@ public://メンバ関数
 	void Draw() override;
 private://メンバ変数
 	//スプライト群
-	std::vector< std::unique_ptr<Sprite>> sprites_;
+	std::unique_ptr<PlayerDeathUI> playerDeathUI_;
 
 	//フェードの持続時間
 	float duration_ = 1.0f;

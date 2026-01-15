@@ -22,21 +22,13 @@ void GameOverScene::Initialize(){
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize();
 
-	//スプライトの初期化
-	for (uint32_t i = 0; i < 1; ++i) {
-		std::unique_ptr<Sprite> sprite(new Sprite);
-		sprite->Initialize("gameOver.png");
-		sprite->SetPosition({640, 260 });
-		sprite->SetSize({ 720.0f,140.0f });
-		sprite->SetAnchorPoint({ 0.5f, 0.5f });
-		sprites_.push_back(std::move(sprite));
-	}
+	// GameOver UI
+	gameOverUI_ = std::make_unique<GameOverUI>();
+	gameOverUI_->Initialize();
 }
 
 void GameOverScene::Finalize(){
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite.reset();  // メモリを解放する
-	}
+	gameOverUI_->Finalize();
 	ground_.reset();
 	skydome_.reset();
 	BaseScene::Finalize();
@@ -63,18 +55,15 @@ void GameOverScene::Update(){
 	//天球の更新
 	skydome_->Update();
 	//地面の更新
+	//地面の更新
 	ground_->Update();
 
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite->Update();
-	}
+	gameOverUI_->Update();
 }
 
 void GameOverScene::Draw(){
 	skydome_->Draw();
 	ground_->Draw();
 
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite->Draw();
-	}
+	gameOverUI_->Draw();
 }

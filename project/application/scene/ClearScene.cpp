@@ -29,21 +29,13 @@ void ClearScene::Initialize(){
 	player_ = std::make_unique<Player>();
 	player_->Initialize();
 	player_->ChangeState(std::make_unique<PlayerStateClear>(player_.get()));
-	//スプライトの初期化
-	for (uint32_t i = 0; i < 1; ++i) {
-		std::unique_ptr<Sprite> sprite(new Sprite);
-		sprite->Initialize("clear.png");
-		sprite->SetPosition({640, 260 });
-		sprite->SetSize({ 360.0f,140.0f });
-		sprite->SetAnchorPoint({ 0.5f, 0.5f });
-		sprites_.push_back(std::move(sprite));
-	}
+	// Clear UI
+	clearUI_ = std::make_unique<ClearUI>();
+	clearUI_->Initialize();
 }
 
 void ClearScene::Finalize(){
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite.reset();  // メモリを解放する
-	}
+	clearUI_->Finalize();
 	player_.reset();
 	ground_.reset();
 	skydome_.reset();
@@ -73,29 +65,16 @@ void ClearScene::Update() {
 	//地面の更新
 	ground_->Update();
 	//プレイヤーの更新
+	//プレイヤーの更新
 	player_->Update();
 
-	scaleCount_ += TimeManager::GetInstance()->deltaTime_;
-	if (scaleCount_ > 1.0f) {
-		scaleCount_ = 0.0f;
-	}
-	float scale{};
-	if (scaleCount_ <= 0.5f) {
-		scale = Easing::EaseInOutSine(scaleCount_ * 2.0f, 0.5f, 1.0f);
-	} else {
-		scale = Easing::EaseInOutSine(scaleCount_ * 2.0f - 1.0f, 1.0f, 0.5f);
-	}
-	sprites_[0]->SetSize(Vector2(360.0f, 140.0f) *scale);
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite->Update();
-	}
+	clearUI_->Update();
 }
 
 void ClearScene::Draw(){
 	skydome_->Draw();
 	ground_->Draw();
 	player_->Draw();
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite->Draw();
-	}
+	
+	clearUI_->Draw();
 }

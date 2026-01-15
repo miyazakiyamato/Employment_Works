@@ -113,6 +113,14 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="application\2d\ClearUI.cpp" />
+    <ClCompile Include="application\2d\GameOverUI.cpp" />
+    <ClCompile Include="application\2d\GameStartUI.cpp" />
+    <ClCompile Include="application\2d\OperationUI.cpp" />
+    <ClCompile Include="application\2d\PlayerDeathUI.cpp" />
+    <ClCompile Include="application\2d\PlayerWinUI.cpp" />
+    <ClCompile Include="application\2d\ReticleUI.cpp" />
+    <ClCompile Include="application\2d\TitleUI.cpp" />
     <ClCompile Include="application\3d\base\BaseCharacterState.cpp" />
     <ClCompile Include="application\3d\base\BaseWeapon.cpp" />
     <ClCompile Include="application\3d\enemy\BaseEnemy.cpp" />
@@ -213,6 +221,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\3d\enemy\SmallDrone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="application\2d\BaseUI.h" />
+    <ClInclude Include="application\2d\ClearUI.h" />
+    <ClInclude Include="application\2d\GameOverUI.h" />
+    <ClInclude Include="application\2d\GameStartUI.h" />
+    <ClInclude Include="application\2d\OperationUI.h" />
+    <ClInclude Include="application\2d\PlayerDeathUI.h" />
+    <ClInclude Include="application\2d\PlayerWinUI.h" />
+    <ClInclude Include="application\2d\ReticleUI.h" />
+    <ClInclude Include="application\2d\TitleUI.h" />
     <ClInclude Include="application\3d\base\BaseCharacterState.h" />
     <ClInclude Include="application\3d\base\BaseWeapon.h" />
     <ClInclude Include="application\3d\enemy\BaseEnemy.h" />

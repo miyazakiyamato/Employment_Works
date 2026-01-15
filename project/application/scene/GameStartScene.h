@@ -1,7 +1,6 @@
 #pragma once
 #include "BaseScene.h"
-#include "Sprite.h"
-#include <vector>
+#include "GameStartUI.h"
 
 /// <summary>
 /// ゲームスタートシーン
@@ -25,7 +24,7 @@ public://メンバ関数
 	/// </summary>
 	void Draw() override;
 private://メンバ変数
-	std::vector< std::unique_ptr<Sprite>> sprites_;
+	std::unique_ptr<GameStartUI> gameStartUI_;
 
 	//フェードの持続時間
 	float duration_ = 1.0f;

@@ -453,6 +453,30 @@
     <ClCompile Include="application\3d\event\EnemyPopEvent.cpp">
       <Filter>ソース ファイル\application\3d\event</Filter>
     </ClCompile>
+    <ClCompile Include="application\2d\OperationUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\ClearUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\GameOverUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\GameStartUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\ReticleUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\TitleUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\PlayerDeathUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\PlayerWinUI.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -751,6 +775,33 @@
     </ClInclude>
     <ClInclude Include="application\3d\event\EnemyPopEvent.h">
       <Filter>ヘッダー ファイル\application\3d\event</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\BaseUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\OperationUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\ClearUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\GameOverUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\GameStartUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\ReticleUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\TitleUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\PlayerDeathUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\PlayerWinUI.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

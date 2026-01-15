@@ -4,6 +4,7 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include "Player.h"
+#include "ClearUI.h"
 
 /// <summary>
 /// クリアシーン
@@ -33,8 +34,8 @@ private://メンバ変数
 	std::unique_ptr<Ground> ground_ = nullptr;
 	//プレイヤー
 	std::unique_ptr<Player> player_ = nullptr;
-	//スプライト
-	std::vector< std::unique_ptr<Sprite>> sprites_;
+	// Clear UI
+	std::unique_ptr<ClearUI> clearUI_;
 
 	float scaleCount_ = 0.0f;
 };

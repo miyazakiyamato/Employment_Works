@@ -11,7 +11,7 @@
 #include "BulletManager.h"
 #include "BaseEnemy.h"
 #include "RailCamera.h"
-#include "HpUI.h"
+#include "BaseUI.h"
 
 /// <summary>
 /// ゲームシーン
@@ -52,11 +52,10 @@ private://メンバ変数
 	std::unique_ptr<StageManager> stageManager_;
 	//プレイヤー
 	Player* player_ = nullptr;
-	//HPのUI
-	std::unique_ptr<HpUI> hpUI_ = nullptr;
+	
+	//UIリスト
+	std::vector<std::unique_ptr<BaseUI>> uiList_;
 
-	//スプライト
-	std::vector< std::unique_ptr<Sprite>> sprites_;
 	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
 	//バレットマネージャー

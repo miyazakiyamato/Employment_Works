@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Skydome.h"
 #include "Ground.h"
+#include "GameOverUI.h"
 
 /// <summary>
 /// ゲームオーバーシーン
@@ -30,7 +31,7 @@ private://メンバ変数
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	//地面
 	std::unique_ptr<Ground> ground_ = nullptr;
-	//スプライト
-	std::vector< std::unique_ptr<Sprite>> sprites_;
+	// UI
+	std::unique_ptr<GameOverUI> gameOverUI_;
 };
 
