@@ -25,45 +25,21 @@ public:
 
 	/// <summary>
 	/// 毎フレーム更新
-	/// 追加・削除リクエストの処理後、各シーンのUpdateを呼ぶ
+	/// シーン変更後、シーンのUpdateを呼ぶ
 	/// </summary>
 	void Update();
 
 	/// <summary>
 	/// 描画
-	/// 各シーンのDrawを呼ぶ
+	/// シーンのDrawを呼ぶ
 	/// </summary>
 	void Draw();
 
 	/// <summary>
-	/// シーン追加
-	/// 次のフレーム開始時にファクトリを使ってシーンを生成・追加する
+	/// シーン変更
+	/// 次のシーン予約する
 	/// </summary>
-	/// <param name="sceneName">追加するシーン名</param>
-	void AddScene(const std::string& sceneName);
-
-	/// <summary>
-	/// シーン削除
-	/// 次のフレーム開始時に指定されたシーンを破棄する
-	/// </summary>
-	/// <param name="sceneName">削除するシーン名</param>
-	void RemoveScene(const std::string& sceneName);
-
-	/// <summary>
-	/// シーン生存確認
-	/// </summary>
-	/// <param name="sceneName">確認するシーン名</param>
-	/// <returns>シーンが存在すればtrue</returns>
-	bool IsSceneAlive(const std::string& sceneName);
-
-	/// <summary>
-	/// シーン終了確認
-	/// シーンクラス内の終了フラグ(IsFinished)を確認する
-	/// </summary>
-	/// <param name="sceneName">確認するシーン名</param>
-	/// <returns>終了フラグが立っていればtrue</returns>
-	bool IsSceneFinished(const std::string& sceneName);
-
+	void ChangeScene(std::string SceneName);
 private:
 		// --- シングルトン ---
 	static SceneManager* instance;
@@ -74,23 +50,15 @@ private:
 	SceneManager& operator=(SceneManager&) = delete;
 
 		// --- メンバ変数 ---
-	// 管理中のシーン (名前 -> インスタンス)
-	std::unordered_map<std::string, std::unique_ptr<BaseScene>> scenes_;
+	//今のシーン
+	BaseScene* scene_ = nullptr;
 
-	// 追加・削除予約リスト
-	std::list<std::string> addSceneNames_;
-	std::list<std::string> removeSceneNames_;
+	//次のシーン
+	BaseScene* nextScene_ = nullptr;
 
 	// シーンファクトリー
 	AbstractSceneFactory* sceneFactory_ = nullptr;
-
 public:
-		// --- ゲッター ---
-	/// <summary>
-	/// シーンの取得
-	/// </summary>
-	BaseScene* GetScene(const std::string& sceneName);
-
 		// --- セッター ---
 	/// <summary>
 	/// シーンファクトリーの設定

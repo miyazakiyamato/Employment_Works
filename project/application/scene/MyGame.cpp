@@ -12,8 +12,8 @@ void MyGame::Initialize(){
 
 	//最初のシーンセット
 	//sceneManager_->AddScene("D_PARTICLE");
-	sceneManager_->AddScene("TITLE");
-	sceneManager_->AddScene("FADE_IN");
+	sceneManager_->ChangeScene("TITLE");
+	//sceneManager_->AddScene("FADE_IN");
 }
 
 void MyGame::Finalize(){

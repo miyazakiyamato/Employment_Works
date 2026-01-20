@@ -29,7 +29,7 @@ void PlayerDeathScene::Update() {
    }
    else if (isFinished_ == false){
 	   isFinished_ = true;
-       sceneManager_->AddScene("FADE_OUT");
+       //sceneManager_->AddScene("FADE_OUT");
    }
 
    playerDeathUI_->Update();

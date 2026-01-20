@@ -43,7 +43,7 @@ void GameStartScene::Update() {
        isFinished_ = true;
    }
    if (gameStartUI_->ShouldClose()) {
-       sceneManager_->RemoveScene("GAME_START");
+       //sceneManager_->RemoveScene("GAME_START");
    }
 }
 

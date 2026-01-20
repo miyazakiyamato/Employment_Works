@@ -28,7 +28,7 @@ void PlayerWinScene::Update() {
    }
    else if (isFinished_ == false){
 	   isFinished_ = true;
-       sceneManager_->AddScene("FADE_OUT");
+       //sceneManager_->AddScene("FADE_OUT");
    }
 
    playerWinUI_->Update();

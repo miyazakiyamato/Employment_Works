@@ -23,16 +23,6 @@ BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
 		newScene = new ClearScene();
 	} else if (sceneName == "GAMEOVER") {
 		newScene = new GameOverScene();
-	} else if (sceneName == "FADE_IN") {
-		newScene = new FadeInScene();
-	} else if (sceneName == "FADE_OUT") {
-		newScene = new FadeOutScene();
-	} else if (sceneName == "GAME_START") {
-		newScene = new GameStartScene();
-	} else if (sceneName == "PLAYER_DEATH") {
-		newScene = new PlayerDeathScene();
-	} else if (sceneName == "PLAYER_WIN") {
-		newScene = new PlayerWinScene();
 	} else if (sceneName == "D_PARTICLE") {
 		newScene = new DParticleScene();
 	}else {

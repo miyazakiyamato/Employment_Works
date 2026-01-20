@@ -33,7 +33,7 @@ void FadeInScene::Update(){
 		sprites_[0]->SetColor({ 0.0f,0.0f,0.0f,alpha });
 	} else {
 		sprites_[0]->SetColor({ 0.0f,0.0f,0.0f,0.0f });
-		sceneManager_->RemoveScene("FADE_IN");
+		//sceneManager_->RemoveScene("FADE_IN");
 	}
 
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {

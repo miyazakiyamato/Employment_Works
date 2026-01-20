@@ -31,11 +31,6 @@ void Player::Initialize(){
 	reticle3d_->SetTranslate({ 0,0,10.0f });
 	reticle3d_->Update();
 
-	//レティクル2D
-	reticleUI_ = std::make_unique<ReticleUI>();
-	reticleUI_->Initialize();
-	reticleUI_->Update();
-
 	//手
 	hand_ = std::make_unique<Object3d>();
 	hand_->Initialize();

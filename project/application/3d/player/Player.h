@@ -61,8 +61,7 @@ private:
 	Vector3 handOffset_{ 0.0f,-1.5f,0.0f };
 	//3Dレティクル
 	std::unique_ptr<Object3d> reticle3d_ = nullptr;
-	std::unique_ptr<ReticleUI> reticleUI_ = nullptr;
-
+	ReticleUI* reticleUI_ = nullptr;
 	//移動関連
 	Vector3 velocity_{};
 	Vector3 acceleration_{};
@@ -83,9 +82,9 @@ public://ゲッターセッター
 	Object3d* GetReticle3d() { return reticle3d_.get(); }
 	BaseWeapon* GetWeapon() { return weapon_.get(); }
 	ParticleSystem* GetParticleSystem() { return particleSystem_; }
-	BaseUI* GetUI() { return reticleUI_.get(); }
 
 	//void SetLockOn(LockOn* lockOn) { lockOn_ = lockOn; }
+	void SetReticleUI(ReticleUI* reticleUI) { reticleUI_ = reticleUI; }
 	void SetParent(Object3d* object3d);
 	void SetCamera(const Camera* camera) { camera_ = camera; }
 	void SetParticleSystem(ParticleSystem* particleSystem) { particleSystem_ = particleSystem; }

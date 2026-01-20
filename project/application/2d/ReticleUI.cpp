@@ -14,6 +14,7 @@ void ReticleUI::Initialize() {
 	sprite_->SetPosition({ WinApp::kClientWidth / 2.0f, WinApp::kClientHeight / 2.0f });
 	sprite_->SetAnchorPoint({ 0.5f, 0.5f });
 	sprite_->SetSize({ 64.0f, 64.0f });
+	sprite_->Update();
 }
 
 void ReticleUI::Update() {

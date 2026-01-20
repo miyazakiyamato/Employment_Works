@@ -38,15 +38,8 @@ void GameOverScene::Update(){
 	BaseScene::Update();
 
 
-	if ((input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) &&
-		sceneManager_->IsSceneAlive("FADE_OUT") == false && sceneManager_->IsSceneAlive("FADE_IN") == false) {
-		sceneManager_->AddScene("FADE_OUT");
-	}
-	if (sceneManager_->IsSceneFinished("FADE_OUT") && sceneManager_->IsSceneAlive("FADE_IN") == false) {
-		sceneManager_->RemoveScene("GAMEOVER");
-		sceneManager_->RemoveScene("FADE_OUT");
-		sceneManager_->AddScene("TITLE");
-		sceneManager_->AddScene("FADE_IN");
+	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) {
+		sceneManager_->ChangeScene("TITLE");
 	}
 
 	//カメラの更新
@@ -54,7 +47,6 @@ void GameOverScene::Update(){
 
 	//天球の更新
 	skydome_->Update();
-	//地面の更新
 	//地面の更新
 	ground_->Update();
 

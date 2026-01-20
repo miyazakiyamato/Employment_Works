@@ -106,6 +106,12 @@ void GameScene::Initialize(){
 	stageManager_->Initialize(bulletManager_.get(), particleSystem_.get());
 	player_ = stageManager_->GetPlayer();
 
+	// Play Reticle UI
+	std::unique_ptr<ReticleUI> reticleUI = std::make_unique<ReticleUI>();
+	reticleUI->Initialize();
+	player_->SetReticleUI(reticleUI.get());
+	uiList_.push_back(std::move(reticleUI));
+
 	// HP UI
 	std::unique_ptr<HpUI> hpUI = std::make_unique<HpUI>();
 	hpUI->Initialize(player_);
@@ -171,26 +177,26 @@ void GameScene::Update() {
 	bulletManager_->Update();
 
 
-	if (sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
-		PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));
-		float scale = Easing::EaseOutBounce(playerDeathScene->GetCounter() / playerDeathScene->GetDuration(), 1.0f, 0.0f);
-		player_->GetObject3d()->SetScale({ scale,scale ,scale });
-		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
-		if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
-			particleSystem_->Emit("hitEffect");
-		}/*if (scale == 1) {
-			particleSystem_->Emit("hitEffect");
-		}*/
-	}
-	if (sceneManager_->IsSceneAlive("PLAYER_WIN")) {
-		PlayerWinScene* playerWinScene = static_cast<PlayerWinScene*>(sceneManager_->GetScene("PLAYER_WIN"));
-		float scale = Easing::EaseOutBounce(playerWinScene->GetCounter() / playerWinScene->GetDuration(), 1.0f, 0.0f);
-		//player_->GetObject3d()->SetScale({ scale,scale ,scale });
-		static_cast<EmitterSphere*>(particleSystem_->FindEmitter("emitterHit"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
-		if (scale == 1) {
-			particleSystem_->Emit("emitterHit");
-		}
-	}
+	//if (sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
+	//	PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));
+	//	float scale = Easing::EaseOutBounce(playerDeathScene->GetCounter() / playerDeathScene->GetDuration(), 1.0f, 0.0f);
+	//	player_->GetObject3d()->SetScale({ scale,scale ,scale });
+	//	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
+	//	if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
+	//		particleSystem_->Emit("hitEffect");
+	//	}/*if (scale == 1) {
+	//		particleSystem_->Emit("hitEffect");
+	//	}*/
+	//}
+	//if (sceneManager_->IsSceneAlive("PLAYER_WIN")) {
+	//	PlayerWinScene* playerWinScene = static_cast<PlayerWinScene*>(sceneManager_->GetScene("PLAYER_WIN"));
+	//	float scale = Easing::EaseOutBounce(playerWinScene->GetCounter() / playerWinScene->GetDuration(), 1.0f, 0.0f);
+	//	//player_->GetObject3d()->SetScale({ scale,scale ,scale });
+	//	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("emitterHit"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
+	//	if (scale == 1) {
+	//		particleSystem_->Emit("emitterHit");
+	//	}
+	//}
 
 	//当たり判定
 	CheckAllCollisions();
@@ -226,11 +232,6 @@ void GameScene::Draw(){
 	particleSystem_->Draw();
 
 	//Spriteの描画
-	if (!sceneManager_->IsSceneAlive("PLAYER_WIN") && !sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
-		if (player_->GetUI()) {
-			player_->GetUI()->Draw();
-		}
-	}
 	for (auto& ui : uiList_) {
 		ui->Draw();
 	}
@@ -254,29 +255,12 @@ void GameScene::ClearCheck() {
 	}*/
 	//プレイヤーのHPが0になったらゲームオーバー
 	//レールカメラの移動が終わったらクリア
-	if (sceneManager_->IsSceneAlive("FADE_OUT") == false &&
-		sceneManager_->IsSceneAlive("PLAYER_DEATH") == false &&
-		sceneManager_->IsSceneAlive("PLAYER_WIN") == false) {
-		if (!player_->GetIsAlive()) {
-			sceneManager_->AddScene("PLAYER_DEATH");
-		}
-
-		if (stageManager_->GetRailCamera()->GetIsFinished()) {
-			sceneManager_->AddScene("PLAYER_WIN");
-			player_->ChangeState(std::make_unique<PlayerStateLeave>(player_));
-		}
+	if (!player_->GetIsAlive()) {
+		sceneManager_->ChangeScene("GAMEOVER");
 	}
-	if (sceneManager_->IsSceneFinished("FADE_OUT")) {
-		if (!player_->GetIsAlive()) {
-			sceneManager_->RemoveScene("PLAYER_DEATH");
-			sceneManager_->AddScene("GAMEOVER");
-		}
-		if (stageManager_->GetRailCamera()->GetIsFinished()) {
-			sceneManager_->RemoveScene("PLAYER_WIN");
-			sceneManager_->AddScene("CLEAR");
-		}
-		sceneManager_->RemoveScene("GAME");
-		sceneManager_->RemoveScene("FADE_OUT");
-		sceneManager_->AddScene("FADE_IN");
+
+	if (stageManager_->GetRailCamera()->GetIsFinished()) {
+		sceneManager_->ChangeScene("CLEAR");
+		player_->ChangeState(std::make_unique<PlayerStateLeave>(player_));
 	}
 }
