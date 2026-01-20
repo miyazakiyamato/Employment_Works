@@ -1,5 +1,6 @@
 #include "Framework.h"
 #include "SceneFactory.h"
+#include "TransitionFactory.h"
 
 void Framework::Initialize(){
 	(void)CoInitializeEx(0, COINIT_MULTITHREADED);
@@ -67,8 +68,10 @@ void Framework::Initialize(){
 
 	//シーンマネージャの初期化
 	sceneFactory_.reset(new SceneFactory());
+	transitionFactory_.reset(new TransitionFactory());
 	sceneManager_ = SceneManager::GetInstance();
 	sceneManager_->SetSceneFactory(sceneFactory_.get());
+	sceneManager_->SetTransitionFactory(transitionFactory_.get());
 
 	//タイムマネージャの初期化
 	timeManager_ = TimeManager::GetInstance();

@@ -257,10 +257,11 @@ void GameScene::ClearCheck() {
 	//レールカメラの移動が終わったらクリア
 	if (!player_->GetIsAlive()) {
 		sceneManager_->ChangeScene("GAMEOVER");
+		sceneManager_->ChangeTransition("FADE");
 	}
-
-	if (stageManager_->GetRailCamera()->GetIsFinished()) {
+	else if (stageManager_->GetRailCamera()->GetIsFinished()) {
 		sceneManager_->ChangeScene("CLEAR");
+		sceneManager_->ChangeTransition("FADE");
 		player_->ChangeState(std::make_unique<PlayerStateLeave>(player_));
 	}
 }

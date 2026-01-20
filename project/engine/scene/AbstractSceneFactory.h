@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <memory>
 #include "BaseScene.h"
 
 /// <summary>
@@ -19,5 +20,5 @@ public:
 	/// </summary>
 	/// <param name="sceneName">生成したいシーンの名前</param>
 	/// <returns>生成されたシーンへのポインタ</returns>
-	virtual BaseScene* CreateScene(const std::string& sceneName) = 0;
+	virtual std::unique_ptr<BaseScene> CreateScene(const std::string& sceneName) = 0;
 };

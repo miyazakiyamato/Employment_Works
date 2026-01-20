@@ -23,15 +23,10 @@ public://メンバ関数
 	/// 描画
 	/// </summary>
 	virtual void Draw() = 0;
-private://メンバ変数
-
 protected://継承
 	SceneManager* sceneManager_ = nullptr;
 	Input* input_ = nullptr;
-	//シーン終了フラグ
-	bool isFinished_ = false;
 public://ゲッターセッター
 	virtual void SetSceneManager(SceneManager* sceneManager) { sceneManager_ = sceneManager; }
-	bool IsFinished() { return isFinished_; }
 };
 

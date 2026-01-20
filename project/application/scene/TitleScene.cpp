@@ -84,6 +84,7 @@ void TitleScene::Update(){
 
 	if ((input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A))) {
 		sceneManager_->ChangeScene("GAME");
+		sceneManager_->ChangeTransition("FADE");
 	}
 
 	titleUI_->Update();

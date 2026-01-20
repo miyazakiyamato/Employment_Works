@@ -48,6 +48,7 @@ void ClearScene::Update() {
 
 	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)){
 		sceneManager_->ChangeScene("TITLE");
+		sceneManager_->ChangeTransition("FADE");
 	}
 
 	//カメラの更新

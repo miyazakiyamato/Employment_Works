@@ -3,30 +3,25 @@
 #include "GameScene.h"
 #include "ClearScene.h"
 #include "GameOverScene.h"
-#include "FadeInScene.h"
-#include "FadeOutScene.h"
-#include "GameStartScene.h"
-#include "PlayerDeathScene.h"
-#include "PlayerWinScene.h"
 #include "DParticleScene.h"
 
-BaseScene* SceneFactory::CreateScene(const std::string& sceneName)
+std::unique_ptr<BaseScene> SceneFactory::CreateScene(const std::string& sceneName)
 {
 	//次のシーンを生成
-	BaseScene* newScene = nullptr;
+	std::unique_ptr<BaseScene> newScene = nullptr;
 
 	if (sceneName == "TITLE") {
-		newScene = new TitleScene();
+		newScene = std::make_unique<TitleScene>();
 	} else if (sceneName == "GAME") {
-		newScene = new GameScene();
+		newScene = std::make_unique<GameScene>();
 	} else if (sceneName == "CLEAR") {
-		newScene = new ClearScene();
+		newScene = std::make_unique<ClearScene>();
 	} else if (sceneName == "GAMEOVER") {
-		newScene = new GameOverScene();
+		newScene = std::make_unique<GameOverScene>();
 	} else if (sceneName == "D_PARTICLE") {
-		newScene = new DParticleScene();
+		newScene = std::make_unique<DParticleScene>();
 	}else {
 		assert(0 && "不明なシーン名");
 	}
-	return newScene;
+	return std::move(newScene);
 }

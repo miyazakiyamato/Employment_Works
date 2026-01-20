@@ -157,6 +157,12 @@
     <Filter Include="ヘッダー ファイル\application\3d\player">
       <UniqueIdentifier>{5aa1bd4d-5a3d-4703-89ef-ddd67171f3b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\application\scene\transition">
+      <UniqueIdentifier>{7ba57c05-c6b9-41e8-87df-86fa5937fee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\transition">
+      <UniqueIdentifier>{422bceb5-fd75-435a-8ac5-021643867cd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -381,29 +387,14 @@
     <ClCompile Include="engine\particle\UpdateParticlePipeline.cpp">
       <Filter>ソース ファイル\engine\particle</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\FadeInScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\FadeOutScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
     <ClCompile Include="engine\math\Vector2.cpp">
       <Filter>ソース ファイル\engine\math</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\GameStartScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\PlayerDeathScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\scene\DParticleScene.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\2d\HpUI.cpp">
       <Filter>ソース ファイル\application\2d</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\PlayerWinScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\3d\base\BaseCharacterState.cpp">
       <Filter>ソース ファイル\application\3d\base</Filter>
@@ -476,6 +467,12 @@
     </ClCompile>
     <ClCompile Include="application\2d\PlayerWinUI.cpp">
       <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\transition\FadeTransition.cpp">
+      <Filter>ソース ファイル\application\scene\transition</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\transition\TransitionFactory.cpp">
+      <Filter>ソース ファイル\application\scene\transition</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -698,12 +695,6 @@
     <ClInclude Include="engine\particle\UpdateParticlePipeline.h">
       <Filter>ヘッダー ファイル\engine\particle</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\FadeInScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\FadeOutScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
     <ClInclude Include="application\scene\GameOverScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
@@ -713,20 +704,11 @@
     <ClInclude Include="engine\math\Vector2.h">
       <Filter>ヘッダー ファイル\engine\math</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\GameStartScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\PlayerDeathScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
     <ClInclude Include="application\scene\DParticleScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\2d\HpUI.h">
       <Filter>ヘッダー ファイル\application\2d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\PlayerWinScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\3d\base\BaseCharacterState.h">
       <Filter>ヘッダー ファイル\application\3d\base</Filter>
@@ -802,6 +784,18 @@
     </ClInclude>
     <ClInclude Include="application\2d\PlayerWinUI.h">
       <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\transition\BaseTransition.h">
+      <Filter>ヘッダー ファイル\application\scene\transition</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\transition\FadeTransition.h">
+      <Filter>ヘッダー ファイル\application\scene\transition</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\transition\TransitionFactory.h">
+      <Filter>ヘッダー ファイル\application\scene\transition</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene\AbstractTransitionFactory.h">
+      <Filter>ヘッダー ファイル\engine\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

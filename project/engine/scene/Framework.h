@@ -111,6 +111,8 @@ protected:
 	SceneManager* sceneManager_ = nullptr;
 	// シーンファクトリー
 	std::unique_ptr<AbstractSceneFactory> sceneFactory_ = nullptr;
+	// シーン遷移エフェクトファクトリー
+	std::unique_ptr<AbstractTransitionFactory> transitionFactory_ = nullptr;
 	// タイムマネージャ
 	TimeManager* timeManager_ = nullptr;
 	// ポストエフェクトマネージャ
