@@ -9,7 +9,7 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotate){
 	object3d_->Initialize();
 	offset = position;
 	object3d_->SetRotate(rotate);
-	object3d_->SetModel("sphere/sphere.obj");
+	//object3d_->SetModel("sphere/sphere.obj");
 	object3d_->Update();
 	CameraManager::GetInstance()->SetCamera("RailCamera");
 	CameraManager::GetInstance()->FindCamera("RailCamera");

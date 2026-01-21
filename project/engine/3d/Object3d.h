@@ -94,7 +94,7 @@ private:
 
 	// トランスフォーム
 	Transform transform{ {1.0f,1.0f,1.0f},{0.0f,0.0f,0.0f},{0.0f,0.0f,0.0f} };
-	Matrix4x4 worldMatrix_;
+	Matrix4x4 worldMatrix_ = Matrix4x4::MakeIdentity4x4();
 
 	// アニメーション・スキニング関連
 	std::unique_ptr<AnimationData> animationData_ = nullptr;
