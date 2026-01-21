@@ -36,6 +36,10 @@ void GameSceneStateWin::Initialize(GameScene* gameScene) {
 			particleSystem->Emit("emitterHit");
 		}
 	}
+	// カメラ追従停止
+	if (player) {
+		player->StopCameraFollow();
+	}
 }
 
 void GameSceneStateWin::Update() {

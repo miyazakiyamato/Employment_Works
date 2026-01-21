@@ -501,6 +501,9 @@
     <ClCompile Include="application\scene\gameScene\GameSceneStateStart.cpp">
       <Filter>ソース ファイル\application\scene\gameScene</Filter>
     </ClCompile>
+    <ClCompile Include="application\3d\base\FollowCamera.cpp">
+      <Filter>ソース ファイル\application\3d\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -838,6 +841,9 @@
     </ClInclude>
     <ClInclude Include="application\scene\gameScene\GameSceneStateWin.h">
       <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\base\FollowCamera.h">
+      <Filter>ヘッダー ファイル\application\3d\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

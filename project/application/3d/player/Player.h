@@ -5,6 +5,7 @@
 #include "Sprite.h"
 #include "ReticleUI.h"
 #include "BaseWeapon.h"
+#include "FollowCamera.h"
 
 class Input;
 class Camera;
@@ -47,6 +48,11 @@ public://メンバ関数
 	/// </summary>
 	void ReticleUpdate();
 
+	/// <summary>
+	/// カメラ追従を停止
+	/// </summary>
+	void StopCameraFollow();
+
 private:
 	void Damage(int damage, const Vector3& hitDirection);
 
@@ -55,6 +61,7 @@ private:
 	const Camera* camera_ = nullptr;
 	ParticleSystem* particleSystem_ = nullptr;
 	RailCamera* railCamera_ = nullptr;
+	std::unique_ptr<FollowCamera> followCamera_ = nullptr;
 	//武器
 	std::unique_ptr<BaseWeapon> weapon_ = nullptr;
 	std::unique_ptr<Object3d> hand_ = nullptr;

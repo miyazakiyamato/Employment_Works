@@ -13,6 +13,7 @@
 #include "TimeManager.h"
 #include "PlayerStateRoot.h"
 #include "ChargeGun.h"
+#include "Object3d.h"
 
 void Player::Initialize(){
 	BaseCharacter::Initialize();
@@ -38,10 +39,16 @@ void Player::Initialize(){
 	hand_->SetParent(object3d_.get());
 
 	//プレイヤーの初期行動ステート
+	followCamera_ = std::make_unique<FollowCamera>();
+	followCamera_->Initialize();
+	followCamera_->SetTarget(object3d_.get());
 	ChangeState(std::make_unique<PlayerStateRoot>(this));
 }
 
 void Player::Update(){
+	// 親（レールカメラ）の更新を反映させるために行列のみ更新
+	object3d_->Update();
+	followCamera_->Update();
 	state_->Update();
 	BaseCharacter::Update();
 	hand_->Update();
@@ -158,7 +165,7 @@ void Player::ReticleUpdate(){
 	}
 	//マウスの位置から3Dレティクルの位置を計算
 	Matrix4x4 matViewport = Matrix4x4::MakeViewportMatrix(0, 0, WinApp::kClientWidth, WinApp::kClientHeight, 0, 1);
-	Matrix4x4 matVPV = Matrix4x4(camera_->GetViewMatrix()) * camera_->GetProjectionMatrix() * matViewport;
+	Matrix4x4 matVPV = Matrix4x4(followCamera_->GetCamera()->GetViewMatrix()) * followCamera_->GetCamera()->GetProjectionMatrix() * matViewport;
 	Matrix4x4 matInverseVPV = Matrix4x4::Inverse(matVPV);
 	Vector3 posNear = Vector3(reticleUI_->GetPosition().x, reticleUI_->GetPosition().y, 0);
 	Vector3 posFar = Vector3(reticleUI_->GetPosition().x, reticleUI_->GetPosition().y, 1);
@@ -172,6 +179,12 @@ void Player::ReticleUpdate(){
 	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
 	reticle3d_->Update();
 	reticleUI_->Update();
+}
+
+void Player::StopCameraFollow() {
+	if (followCamera_) {
+		followCamera_->SetTarget(nullptr);
+	}
 }
 
 void Player::Damage(int damage, const Vector3& hitDirection){
