@@ -163,6 +163,18 @@
     <Filter Include="ヘッダー ファイル\application\scene\transition">
       <UniqueIdentifier>{422bceb5-fd75-435a-8ac5-021643867cd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\application\scene\base">
+      <UniqueIdentifier>{73467e57-7460-4774-ae84-49b210350970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\scene\gameScene">
+      <UniqueIdentifier>{6434667c-713f-42a5-b0f6-2d3ebb9c7f78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\base">
+      <UniqueIdentifier>{6f1378eb-2da1-4dd6-85c6-f6fed1a8c9d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\gameScene">
+      <UniqueIdentifier>{479e47b8-41fa-45f4-a583-1efeed8623eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -195,22 +207,10 @@
     <ClCompile Include="engine\3d\Camera.cpp">
       <Filter>ソース ファイル\engine\3d</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\MyGame.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
     <ClCompile Include="engine\scene\AbstractSceneFactory.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\BaseScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\GameScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
     <ClCompile Include="application\scene\TitleScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\SceneFactory.cpp">
       <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="engine\scene\SceneManager.cpp">
@@ -435,9 +435,6 @@
     <ClCompile Include="application\3d\enemy\SmallDroneStateDeath.cpp">
       <Filter>ソース ファイル\application\3d\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\StageManager.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
     <ClCompile Include="application\3d\event\BaseEventObject.cpp">
       <Filter>ソース ファイル\application\3d\event</Filter>
     </ClCompile>
@@ -474,6 +471,36 @@
     <ClCompile Include="application\scene\transition\TransitionFactory.cpp">
       <Filter>ソース ファイル\application\scene\transition</Filter>
     </ClCompile>
+    <ClCompile Include="application\scene\base\BaseScene.cpp">
+      <Filter>ソース ファイル\application\scene\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\base\MyGame.cpp">
+      <Filter>ソース ファイル\application\scene\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\base\SceneFactory.cpp">
+      <Filter>ソース ファイル\application\scene\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\base\StageManager.cpp">
+      <Filter>ソース ファイル\application\scene\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameScene\GameScene.cpp">
+      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\base\BaseSceneState.cpp">
+      <Filter>ソース ファイル\application\scene\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameScene\GameSceneStateWin.cpp">
+      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameScene\GameSceneStateBattle.cpp">
+      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameScene\GameSceneStateDeath.cpp">
+      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameScene\GameSceneStateStart.cpp">
+      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -506,23 +533,11 @@
     <ClInclude Include="engine\3d\Camera.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\BaseScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\GameScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
     <ClInclude Include="application\scene\TitleScene.h">
       <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="engine\scene\AbstractSceneFactory.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\MyGame.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\SceneFactory.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="engine\scene\SceneManager.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
@@ -749,9 +764,6 @@
     <ClInclude Include="application\3d\enemy\SmallDroneStateDeath.h">
       <Filter>ヘッダー ファイル\application\3d\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\StageManager.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
     <ClInclude Include="application\3d\event\BaseEventObject.h">
       <Filter>ヘッダー ファイル\application\3d\event</Filter>
     </ClInclude>
@@ -796,6 +808,36 @@
     </ClInclude>
     <ClInclude Include="engine\scene\AbstractTransitionFactory.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameScene\GameScene.h">
+      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\base\BaseScene.h">
+      <Filter>ヘッダー ファイル\application\scene\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\base\MyGame.h">
+      <Filter>ヘッダー ファイル\application\scene\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\base\SceneFactory.h">
+      <Filter>ヘッダー ファイル\application\scene\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\base\StageManager.h">
+      <Filter>ヘッダー ファイル\application\scene\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\base\BaseSceneState.h">
+      <Filter>ヘッダー ファイル\application\scene\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameScene\GameSceneStateBattle.h">
+      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameScene\GameSceneStateDeath.h">
+      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameScene\GameSceneStateStart.h">
+      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameScene\GameSceneStateWin.h">
+      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

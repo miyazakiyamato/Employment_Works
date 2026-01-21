@@ -66,7 +66,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)application\2d;$(ProjectDir)application\3d;$(ProjectDir)application\3d\background;$(ProjectDir)application\3d\base;$(ProjectDir)application\3d\enemy;$(ProjectDir)application\3d\event;$(ProjectDir)application\3d\player;$(ProjectDir)application\3d\weapon;$(ProjectDir)application\manager;$(ProjectDir)application\math;$(ProjectDir)application\particle;$(ProjectDir)application\scene;$(ProjectDir)application\scene\transition;$(ProjectDir)engine\2d;$(ProjectDir)engine\3d;$(ProjectDir)engine\audio;$(ProjectDir)engine\base;$(ProjectDir)engine\collision;$(ProjectDir)engine\io;$(ProjectDir)engine\math;$(ProjectDir)engine\particle;$(ProjectDir)engine\scene;$(ProjectDir)engine\debug;$(ProjectDir)externals\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)application\2d;$(ProjectDir)application\3d;$(ProjectDir)application\3d\background;$(ProjectDir)application\3d\base;$(ProjectDir)application\3d\enemy;$(ProjectDir)application\3d\event;$(ProjectDir)application\3d\player;$(ProjectDir)application\3d\weapon;$(ProjectDir)application\manager;$(ProjectDir)application\math;$(ProjectDir)application\particle;$(ProjectDir)application\scene;$(ProjectDir)application\scene\base;$(ProjectDir)application\scene\transition;$(ProjectDir)application\scene\gameScene;$(ProjectDir)engine\2d;$(ProjectDir)engine\3d;$(ProjectDir)engine\audio;$(ProjectDir)engine\base;$(ProjectDir)engine\collision;$(ProjectDir)engine\io;$(ProjectDir)engine\math;$(ProjectDir)engine\particle;$(ProjectDir)engine\scene;$(ProjectDir)engine\debug;$(ProjectDir)externals\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -97,7 +97,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)application\2d;$(ProjectDir)application\3d;$(ProjectDir)application\3d\background;$(ProjectDir)application\3d\base;$(ProjectDir)application\3d\enemy;$(ProjectDir)application\3d\event;$(ProjectDir)application\3d\player;$(ProjectDir)application\3d\weapon;$(ProjectDir)application\manager;$(ProjectDir)application\math;$(ProjectDir)application\particle;$(ProjectDir)application\scene;$(ProjectDir)application\scene\transition;$(ProjectDir)engine\2d;$(ProjectDir)engine\3d;$(ProjectDir)engine\audio;$(ProjectDir)engine\base;$(ProjectDir)engine\collision;$(ProjectDir)engine\io;$(ProjectDir)engine\math;$(ProjectDir)engine\particle;$(ProjectDir)engine\scene;$(ProjectDir)engine\debug;$(ProjectDir)externals\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)application\2d;$(ProjectDir)application\3d;$(ProjectDir)application\3d\background;$(ProjectDir)application\3d\base;$(ProjectDir)application\3d\enemy;$(ProjectDir)application\3d\event;$(ProjectDir)application\3d\player;$(ProjectDir)application\3d\weapon;$(ProjectDir)application\manager;$(ProjectDir)application\math;$(ProjectDir)application\particle;$(ProjectDir)application\scene;$(ProjectDir)application\scene\base;$(ProjectDir)application\scene\transition;$(ProjectDir)application\scene\gameScene;$(ProjectDir)engine\2d;$(ProjectDir)engine\3d;$(ProjectDir)engine\audio;$(ProjectDir)engine\base;$(ProjectDir)engine\collision;$(ProjectDir)engine\io;$(ProjectDir)engine\math;$(ProjectDir)engine\particle;$(ProjectDir)engine\scene;$(ProjectDir)engine\debug;$(ProjectDir)externals\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,10 +139,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\3d\player\PlayerStateRoot.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateShoot.cpp" />
     <ClCompile Include="application\3d\weapon\ChargeGun.cpp" />
+    <ClCompile Include="application\scene\base\BaseSceneState.cpp" />
     <ClCompile Include="application\scene\ClearScene.cpp" />
     <ClCompile Include="application\scene\GameOverScene.cpp" />
     <ClCompile Include="application\scene\DParticleScene.cpp" />
-    <ClCompile Include="application\scene\StageManager.cpp" />
+    <ClCompile Include="application\scene\gameScene\GameSceneStateBattle.cpp" />
+    <ClCompile Include="application\scene\gameScene\GameSceneStateDeath.cpp" />
+    <ClCompile Include="application\scene\gameScene\GameSceneStateStart.cpp" />
+    <ClCompile Include="application\scene\gameScene\GameSceneStateWin.cpp" />
+    <ClCompile Include="application\scene\base\StageManager.cpp" />
     <ClCompile Include="application\scene\transition\FadeTransition.cpp" />
     <ClCompile Include="application\scene\transition\TransitionFactory.cpp" />
     <ClCompile Include="engine\3d\ModelComputePipeline.cpp" />
@@ -172,7 +177,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\particle\InitializeParticlePipeline.cpp" />
     <ClCompile Include="engine\particle\UpdateParticlePipeline.cpp" />
     <ClCompile Include="engine\scene\AbstractSceneFactory.cpp" />
-    <ClCompile Include="application\scene\BaseScene.cpp" />
+    <ClCompile Include="application\scene\base\BaseScene.cpp" />
     <ClCompile Include="engine\audio\AudioManager.cpp" />
     <ClCompile Include="engine\3d\CameraManager.cpp" />
     <ClCompile Include="engine\3d\Camera.cpp" />
@@ -192,7 +197,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\math\Vector4.cpp" />
     <ClCompile Include="engine\debug\ImGuiManager.cpp" />
     <ClCompile Include="engine\scene\Framework.cpp" />
-    <ClCompile Include="application\scene\GameScene.cpp" />
+    <ClCompile Include="application\scene\gameScene\GameScene.cpp" />
     <ClCompile Include="engine\debug\GlobalVariables.cpp" />
     <ClCompile Include="engine\3d\LightManager.cpp" />
     <ClCompile Include="engine\3d\Line3D.cpp" />
@@ -201,8 +206,8 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\base\LevelDataManager.cpp" />
     <ClCompile Include="application\2d\HpUI.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="application\scene\MyGame.cpp" />
-    <ClCompile Include="application\scene\SceneFactory.cpp" />
+    <ClCompile Include="application\scene\base\MyGame.cpp" />
+    <ClCompile Include="application\scene\base\SceneFactory.cpp" />
     <ClCompile Include="engine\scene\SceneManager.cpp" />
     <ClCompile Include="application\scene\TitleScene.cpp" />
     <ClCompile Include="engine\particle\ParticleManager.cpp" />
@@ -245,10 +250,15 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\3d\player\PlayerStateRoot.h" />
     <ClInclude Include="application\3d\player\PlayerStateShoot.h" />
     <ClInclude Include="application\3d\weapon\ChargeGun.h" />
+    <ClInclude Include="application\scene\base\BaseSceneState.h" />
     <ClInclude Include="application\scene\ClearScene.h" />
     <ClInclude Include="application\scene\GameOverScene.h" />
     <ClInclude Include="application\scene\DParticleScene.h" />
-    <ClInclude Include="application\scene\StageManager.h" />
+    <ClInclude Include="application\scene\gameScene\GameSceneStateBattle.h" />
+    <ClInclude Include="application\scene\gameScene\GameSceneStateDeath.h" />
+    <ClInclude Include="application\scene\gameScene\GameSceneStateStart.h" />
+    <ClInclude Include="application\scene\gameScene\GameSceneStateWin.h" />
+    <ClInclude Include="application\scene\base\StageManager.h" />
     <ClInclude Include="application\scene\transition\BaseTransition.h" />
     <ClInclude Include="application\scene\transition\FadeTransition.h" />
     <ClInclude Include="application\scene\transition\TransitionFactory.h" />
@@ -281,7 +291,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\particle\InitializeParticlePipeline.h" />
     <ClInclude Include="engine\particle\UpdateParticlePipeline.h" />
     <ClInclude Include="engine\scene\AbstractSceneFactory.h" />
-    <ClInclude Include="application\scene\BaseScene.h" />
+    <ClInclude Include="application\scene\base\BaseScene.h" />
     <ClInclude Include="engine\audio\AudioManager.h" />
     <ClInclude Include="engine\3d\CameraManager.h" />
     <ClInclude Include="engine\3d\Camera.h" />
@@ -302,9 +312,9 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\debug\ImGuiManager.h" />
     <ClInclude Include="engine\scene\AbstractTransitionFactory.h" />
     <ClInclude Include="engine\scene\Framework.h" />
-    <ClInclude Include="application\scene\MyGame.h" />
-    <ClInclude Include="application\scene\GameScene.h" />
-    <ClInclude Include="application\scene\SceneFactory.h" />
+    <ClInclude Include="application\scene\base\MyGame.h" />
+    <ClInclude Include="application\scene\gameScene\GameScene.h" />
+    <ClInclude Include="application\scene\base\SceneFactory.h" />
     <ClInclude Include="engine\scene\SceneManager.h" />
     <ClInclude Include="application\scene\TitleScene.h" />
     <ClInclude Include="engine\debug\GlobalVariables.h" />

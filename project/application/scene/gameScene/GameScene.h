@@ -12,12 +12,14 @@
 #include "BaseEnemy.h"
 #include "RailCamera.h"
 #include "BaseUI.h"
+#include "BaseSceneState.h"
 
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene : public BaseScene {
-public://メンバ関数
+public:
+		// --- メンバ関数 ---
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -34,17 +36,13 @@ public://メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw() override;
-
+	
+	/// <summary>
+	/// ステート変更
+	/// </summary>
+	void ChangeState(std::unique_ptr<BaseSceneState> newState);
 private:
-	/// <summary>
-	/// 衝突判定と応答
-	/// </summary>
-	void CheckAllCollisions();
-	/// <summary>
-	/// クリア判定
-	/// </summary>
-	void ClearCheck();
-private://メンバ変数
+		// --- メンバ変数 ---
 	//衝突マネージャ
 	std::unique_ptr<CollisionManager> collisionManager_;
 
@@ -60,7 +58,14 @@ private://メンバ変数
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
 	//バレットマネージャー
 	std::unique_ptr<BulletManager> bulletManager_ = nullptr;
-	public:
-		ParticleSystem* GetParticleSystem() { return particleSystem_.get(); }
+
+	//ステート
+	std::unique_ptr<BaseSceneState> state_;
+public:
+	ParticleSystem* GetParticleSystem() { return particleSystem_.get(); }
+	StageManager* GetStageManager() { return stageManager_.get(); }
+	BulletManager* GetBulletManager() { return bulletManager_.get(); }
+	CollisionManager* GetCollisionManager() { return collisionManager_.get(); }
+	std::vector<std::unique_ptr<BaseUI>>& GetUIList() { return uiList_; }
 };
 

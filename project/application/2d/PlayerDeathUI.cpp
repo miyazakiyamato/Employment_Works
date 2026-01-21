@@ -23,7 +23,7 @@ void PlayerDeathUI::Update() {
 
 void PlayerDeathUI::Draw() {
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite->Draw();
+		//sprite->Draw();
 	}
 }
 

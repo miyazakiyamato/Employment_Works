@@ -16,15 +16,18 @@
 #include "EmitterSphere.h"
 #include "PostEffectManager.h"
 #include <numbers>
-#include "PlayerDeathScene.h"
 #include <Easing.h>
-#include <PlayerWinScene.h>
-#include "GameStartScene.h"
 #include "PlayerStateLeave.h"
 #include <ChargeGun.h>
 #include "SmallDrone.h"
 #include "HpUI.h"
 #include "OperationUI.h"
+#include "GameSceneStateStart.h"
+
+void GameScene::ChangeState(std::unique_ptr<BaseSceneState> newState) {
+	state_ = std::move(newState);
+	state_->Initialize(this);
+}
 
 void GameScene::Initialize(){
 	BaseScene::Initialize();
@@ -55,21 +58,6 @@ void GameScene::Initialize(){
 	TextureManager::GetInstance()->LoadTexture("reticle.png");
 	TextureManager::GetInstance()->LoadTexture("flash.png");
 	TextureManager::GetInstance()->LoadTexture("rostock_laage_airport_4k.dds");
-
-	//skybox
-	/*std::unique_ptr<Object3d> object3d(new Object3d);
-	object3d->Initialize();
-	object3d->SetScale({ 1000.0f,1000.0f,1000.0f });
-	object3d->SetModel("skybox");
-	object3d->SetTexture("rostock_laage_airport_4k.dds");
-	object3ds_.push_back(std::move(object3d));
-	std::unique_ptr<Object3d> object3d2(new Object3d);
-	object3d2->Initialize();
-	object3d2->SetTranslate({-1.0f,0.0f,0.0f});
-	object3d2->SetModel("BrainStem/BrainStem.gltf");
-	object3d2->SetAnimation("BrainStem/BrainStem.gltf", true);*/
-	//object3d2->SetEnvironmentTexture("rostock_laage_airport_4k.dds");
-	//object3ds_.push_back(std::move(object3d2));
 
 	//パーティクルシステムの生成
 	particleSystem_.reset(new ParticleSystem);
@@ -121,6 +109,8 @@ void GameScene::Initialize(){
 	std::unique_ptr<OperationUI> opUI = std::make_unique<OperationUI>();
 	opUI->Initialize(player_);
 	uiList_.push_back(std::move(opUI));
+
+	ChangeState(std::make_unique<GameSceneStateStart>());
 }
 
 void GameScene::Finalize(){
@@ -171,97 +161,16 @@ void GameScene::Update() {
 		ImGui::End();
 	}
 #endif //_DEBUG
-	//ステージ
-	stageManager_->Update();
-
-	bulletManager_->Update();
-
-
-	//if (sceneManager_->IsSceneAlive("PLAYER_DEATH")) {
-	//	PlayerDeathScene* playerDeathScene = static_cast<PlayerDeathScene*>(sceneManager_->GetScene("PLAYER_DEATH"));
-	//	float scale = Easing::EaseOutBounce(playerDeathScene->GetCounter() / playerDeathScene->GetDuration(), 1.0f, 0.0f);
-	//	player_->GetObject3d()->SetScale({ scale,scale ,scale });
-	//	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
-	//	if (int(scale * 100.0f) % 5 < 1 && scale > 0.1f) {
-	//		particleSystem_->Emit("hitEffect");
-	//	}/*if (scale == 1) {
-	//		particleSystem_->Emit("hitEffect");
-	//	}*/
-	//}
-	//if (sceneManager_->IsSceneAlive("PLAYER_WIN")) {
-	//	PlayerWinScene* playerWinScene = static_cast<PlayerWinScene*>(sceneManager_->GetScene("PLAYER_WIN"));
-	//	float scale = Easing::EaseOutBounce(playerWinScene->GetCounter() / playerWinScene->GetDuration(), 1.0f, 0.0f);
-	//	//player_->GetObject3d()->SetScale({ scale,scale ,scale });
-	//	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("emitterHit"))->SetTranslate(player_->GetObject3d()->GetCenterPosition());
-	//	if (scale == 1) {
-	//		particleSystem_->Emit("emitterHit");
-	//	}
-	//}
-
-	//当たり判定
-	CheckAllCollisions();
-	collisionManager_->UpdateWorldTransform();
 	
-	particleSystem_->Update();
-
-	for (auto& ui : uiList_) {
-		ui->Update();
+	if (state_) {
+		state_->Update();
 	}
-
-	ClearCheck();
 }
 
 void GameScene::Draw(){
-	//Object3dの描画
-	//ステージ
-	stageManager_->Draw();
-	bulletManager_->Draw();
-	
-	//当たり判定の表示
-	collisionManager_->Draw();
-	
-	//ラインの描画
-	//Line3dManager::GetInstance()->DrawLine(object3ds_[0]->GetCenterPosition(), object3ds_[1]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
-	//Line3dManager::GetInstance()->DrawLine(object3ds_[1]->GetCenterPosition(), object3ds_[2]->GetCenterPosition(),{1.0f,0.0f,0.0f,1.0f});
-	//Line3dManager::GetInstance()->DrawSphere({ object3ds_[0]->GetCenterPosition(),1.0f }, { 1.0f,0.0f,0.0f,1.0f });
-	/*Line3dManager::GetInstance()->DrawSphere({ {},1.0f}, {1.0f,0.0f,0.0f,1.0f},10);
-	Line3dManager::GetInstance()->DrawGrid({50.0f,3.0f});*/
-	Line3dManager::GetInstance()->Draw();
-
-	//Particleの描画
-	particleSystem_->Draw();
-
-	//Spriteの描画
-	for (auto& ui : uiList_) {
-		ui->Draw();
+	if (state_) {
+		state_->Draw();
 	}
 }
 
-void GameScene::CheckAllCollisions(){
-	//衝突マネージャのリストクリアする
-	collisionManager_->Reset();
-	//全てのコライダーを衝突マネージャのリストに登録する
-	stageManager_->SetStageCollisions(collisionManager_.get());
-	bulletManager_->AddCollider(collisionManager_.get());
-	//リスト内の総当たり判定
-	collisionManager_->CheckAllCollisions();
-}
 
-void GameScene::ClearCheck() {
-	//クリア判定
-	/*if (enemies_.empty()) {
-		敵がいなくなったらクリア
-
-	}*/
-	//プレイヤーのHPが0になったらゲームオーバー
-	//レールカメラの移動が終わったらクリア
-	if (!player_->GetIsAlive()) {
-		sceneManager_->ChangeScene("GAMEOVER");
-		sceneManager_->ChangeTransition("FADE");
-	}
-	else if (stageManager_->GetRailCamera()->GetIsFinished()) {
-		sceneManager_->ChangeScene("CLEAR");
-		sceneManager_->ChangeTransition("FADE");
-		player_->ChangeState(std::make_unique<PlayerStateLeave>(player_));
-	}
-}
