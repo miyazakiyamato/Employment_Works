@@ -5,12 +5,20 @@
 #include "CameraManager.h"
 #include "GameSceneStateBattle.h" 
 
+GameSceneStateStart::~GameSceneStateStart() {
+	if (gameStartUI_) {
+		gameStartUI_->SetIsDead(true);
+	}
+}
+
 void GameSceneStateStart::Initialize(GameScene* gameScene) {
 	BaseSceneState::Initialize(gameScene);
 
 	// Game Start UI
-	gameStartUI_ = std::make_unique<GameStartUI>();
-	gameStartUI_->Initialize(duration_);
+	std::unique_ptr<GameStartUI> newUI = std::make_unique<GameStartUI>();
+	newUI->Initialize(duration_);
+	gameStartUI_ = newUI.get();
+	gameScene_->GetUIList().push_back(std::move(newUI));
 
 	TimeManager::GetInstance()->SetDeltaTimeSpeedStart(0.0f, duration_ * 3.0f);
 }
@@ -45,9 +53,6 @@ void GameSceneStateStart::Update() {
 		ui->Update();
 	}
 	
-	// 開始UIの更新
-	gameStartUI_->Update();
-	
 	if (gameStartUI_->ShouldClose()) {
 		// Battleへ遷移
 		gameScene_->ChangeState(std::make_unique<GameSceneStateBattle>());
@@ -79,6 +84,4 @@ void GameSceneStateStart::Draw() {
 	for (auto& ui : uiList) {
 		ui->Draw();
 	}
-
-	gameStartUI_->Draw();
 }

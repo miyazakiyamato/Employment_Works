@@ -6,6 +6,11 @@
 class GameSceneStateStart : public BaseSceneState {
 public:
 	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~GameSceneStateStart() override;
+
+	/// <summary>
 	/// 初期化
 	/// </summary>
 	void Initialize(GameScene* gameScene) override;
@@ -21,7 +26,7 @@ public:
 	void Draw() override;
 
 private:
-	std::unique_ptr<GameStartUI> gameStartUI_;
+	GameStartUI* gameStartUI_ = nullptr;
 	//フェードの持続時間
 	float duration_ = 1.0f;
 };

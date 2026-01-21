@@ -10,12 +10,20 @@
 #include "Easing.h"
 #include "EmitterSphere.h"
 
+GameSceneStateDeath::~GameSceneStateDeath() {
+	if (playerDeathUI_) {
+		playerDeathUI_->SetIsDead(true);
+	}
+}
+
 void GameSceneStateDeath::Initialize(GameScene* gameScene) {
 	BaseSceneState::Initialize(gameScene);
 
 	// Player Death UI
-	playerDeathUI_ = std::make_unique<PlayerDeathUI>();
-	playerDeathUI_->Initialize();
+	std::unique_ptr<PlayerDeathUI> newUI = std::make_unique<PlayerDeathUI>();
+	newUI->Initialize();
+	playerDeathUI_ = newUI.get();
+	gameScene_->GetUIList().push_back(std::move(newUI));
 }
 
 void GameSceneStateDeath::Update() {
@@ -55,7 +63,6 @@ void GameSceneStateDeath::Update() {
 	for (auto& ui : uiList) {
 		ui->Update();
 	}
-	playerDeathUI_->Update();
 }
 
 void GameSceneStateDeath::Draw() {
@@ -73,5 +80,4 @@ void GameSceneStateDeath::Draw() {
 	for (auto& ui : uiList) {
 		ui->Draw();
 	}
-	playerDeathUI_->Draw();
 }

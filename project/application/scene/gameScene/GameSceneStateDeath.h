@@ -6,6 +6,11 @@
 class GameSceneStateDeath : public BaseSceneState {
 public:
 	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~GameSceneStateDeath() override;
+
+	/// <summary>
 	/// 初期化
 	/// </summary>
 	void Initialize(GameScene* gameScene) override;
@@ -21,7 +26,7 @@ public:
 	void Draw() override;
 
 private:
-	std::unique_ptr<PlayerDeathUI> playerDeathUI_;
+	PlayerDeathUI* playerDeathUI_ = nullptr;
 
 	//フェードの持続時間
 	float duration_ = 1.0f;

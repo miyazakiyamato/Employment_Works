@@ -10,18 +10,26 @@
 #include "Easing.h"
 #include "EmitterSphere.h"
 
+GameSceneStateWin::~GameSceneStateWin() {
+	if (playerWinUI_) {
+		playerWinUI_->SetIsDead(true);
+	}
+}
+
 void GameSceneStateWin::Initialize(GameScene* gameScene) {
 	BaseSceneState::Initialize(gameScene);
 
 	// Player Win UI
-	playerWinUI_ = std::make_unique<PlayerWinUI>();
-	playerWinUI_->Initialize();
+	std::unique_ptr<PlayerWinUI> newUI = std::make_unique<PlayerWinUI>();
+	newUI->Initialize();
+	playerWinUI_ = newUI.get();
+	gameScene_->GetUIList().push_back(std::move(newUI));
 
 	auto particleSystem = gameScene_->GetParticleSystem();
 	auto player = gameScene_->GetStageManager()->GetPlayer();
 	float scale = Easing::EaseOutBounce(counter_ / duration_, 1.0f, 0.0f);
 
-	// エフェクト処理(コメントアウトされていたものを復活・調整して実装)
+	// エフェクト処理
 	if (particleSystem->FindEmitter("emitterHit")) {
 		static_cast<EmitterSphere*>(particleSystem->FindEmitter("emitterHit"))->SetTranslate(player->GetObject3d()->GetCenterPosition());
 		if (scale >= 1.0f) {
@@ -58,8 +66,6 @@ void GameSceneStateWin::Update() {
 	for (auto& ui : uiList) {
 		ui->Update();
 	}
-
-	playerWinUI_->Update();
 }
 
 void GameSceneStateWin::Draw() {
@@ -74,5 +80,7 @@ void GameSceneStateWin::Draw() {
 	particleSystem->Draw();
 
 	// UI描画
-	playerWinUI_->Draw();
+	for (auto& ui : uiList) {
+		ui->Draw();
+	}
 }

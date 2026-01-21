@@ -162,6 +162,11 @@ void GameScene::Update() {
 	}
 #endif //_DEBUG
 	
+	// UIの死活監視
+	uiList_.erase(std::remove_if(uiList_.begin(), uiList_.end(), [](const std::unique_ptr<BaseUI>& ui) {
+		return ui->GetIsDead();
+		}), uiList_.end());
+
 	if (state_) {
 		state_->Update();
 	}

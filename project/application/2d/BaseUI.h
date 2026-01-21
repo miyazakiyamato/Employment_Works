@@ -8,8 +8,6 @@ class BaseUI {
 public:
 	virtual ~BaseUI() = default;
 
-
-
 	/// <summary>
 	/// 更新
 	/// </summary>
@@ -29,4 +27,18 @@ public:
 	/// ImGui更新
 	/// </summary>
 	virtual void ImGuiUpdate() {}
+
+	/// <summary>
+	/// デッドフラグの取得
+	/// </summary>
+	bool GetIsDead() const { return isDead_; }
+
+	/// <summary>
+	/// デッドフラグの設定
+	/// </summary>
+	void SetIsDead(bool isDead) { isDead_ = isDead; }
+
+protected:
+	// デッドフラグ
+	bool isDead_ = false;
 };

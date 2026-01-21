@@ -80,7 +80,7 @@ void GameSceneStateBattle::Draw() {
 	//Particleの描画
 	particleSystem->Draw();
 
-	//Spriteの描画
+	//UIの描画
 	for (auto& ui : uiList) {
 		ui->Draw();
 	}
