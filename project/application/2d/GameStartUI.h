@@ -21,10 +21,7 @@ public:
 	/// </summary>
 	void Draw() override;
 
-	/// <summary>
-	/// 終了処理
-	/// </summary>
-	void Finalize() override;
+
 
 	bool IsFinished() const { return isFinished_; }
 	bool ShouldClose() const { return shouldClose_; }

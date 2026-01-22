@@ -32,11 +32,7 @@ void GameOverScene::Initialize(){
 	ChangeState(std::make_unique<GameOverSceneStateMain>());
 }
 
-void GameOverScene::Finalize(){
-	ground_.reset();
-	skydome_.reset();
-	BaseScene::Finalize();
-}
+
 
 void GameOverScene::Update(){
 	BaseScene::Update();

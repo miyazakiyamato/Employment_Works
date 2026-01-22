@@ -45,10 +45,7 @@ public:
 	/// <param name="collisionManager">コリジョンマネージャー</param>
 	void SetStageCollisions(CollisionManager* collisionManager);
 
-	/// <summary>
-	/// 終了処理
-	/// </summary>
-	void Finalize();
+
 
 	/// <summary>
 	/// レールカメラ取得

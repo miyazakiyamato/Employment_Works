@@ -45,6 +45,20 @@ public:
 		
 		// --- メンバ関数 ---
 	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Sprite();
+
+	/// <summary>
+	/// コンストラクタ
+	/// </summary>
+	Sprite() = default;
+	Sprite(const Sprite&) = delete;
+	Sprite& operator=(const Sprite&) = delete;
+	Sprite(Sprite&&) = default;
+	Sprite& operator=(Sprite&&) = default;
+
+	/// <summary>
 	/// 初期化処理
 	/// 頂点バッファ、インデックスバッファ、マテリアル等のリソースを作成する
 	/// </summary>

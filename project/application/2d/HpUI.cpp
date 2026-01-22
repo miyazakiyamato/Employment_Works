@@ -20,11 +20,7 @@ void HpUI::Initialize(Player* player){
 	sprites_[2]->SetColor({ 0.0f,1.0f,0.0f,1.0f });//通常HP
 }
 
-void HpUI::Finalize(){
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite.reset();  // メモリを解放する
-	}
-}
+
 
 void HpUI::Update(){
 	damegeHpTimer_ += TimeManager::GetInstance()->deltaTime_;

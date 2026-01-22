@@ -30,8 +30,5 @@ void UIManager::AddUI(std::unique_ptr<BaseUI> ui) {
 }
 
 void UIManager::Clear() {
-    for (auto& ui : uiList_) {
-        ui->Finalize();
-    }
     uiList_.clear();
 }

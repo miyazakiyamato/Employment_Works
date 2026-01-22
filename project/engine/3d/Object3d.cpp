@@ -11,11 +11,15 @@
 #endif // USE_IMGUI
 
 Object3d::~Object3d(){
-	wvpResource.Get()->Unmap(0, nullptr);
-	cameraResource.Get()->Unmap(0, nullptr);
+	if (wvpResource) {
+		wvpResource->Unmap(0, nullptr);
+	}
+	if (cameraResource) {
+		cameraResource->Unmap(0, nullptr);
+	}
 	for (MaterialData& materialData : materialDates_) {
 		if (materialData.materialResource) {
-			materialData.materialResource.Get()->Unmap(0, nullptr);
+			materialData.materialResource->Unmap(0, nullptr);
 		}
 	}
 	if (skinClusterData_) {

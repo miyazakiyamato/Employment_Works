@@ -5,6 +5,22 @@
 #include <imgui.h>
 #endif // USE_IMGUI
 
+
+Sprite::~Sprite() {
+	if (vertexResource) {
+		vertexResource->Unmap(0, nullptr);
+	}
+	if (indexResource) {
+		indexResource->Unmap(0, nullptr);
+	}
+	if (materialResource) {
+		materialResource->Unmap(0, nullptr);
+	}
+	if (wvpResource) {
+		wvpResource->Unmap(0, nullptr);
+	}
+}
+
 void Sprite::Initialize(std::string textureFilePath){
 	textureFilePath_ = textureFilePath;
 

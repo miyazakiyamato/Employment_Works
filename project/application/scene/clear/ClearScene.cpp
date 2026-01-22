@@ -36,11 +36,7 @@ void ClearScene::Initialize(){
 	ChangeState(std::make_unique<ClearSceneStateMain>());
 }
 
-void ClearScene::Finalize(){
-	ground_.reset();
-	skydome_.reset();
-	BaseScene::Finalize();
-}
+
 
 void ClearScene::Update() {
 	BaseScene::Update();

@@ -118,9 +118,7 @@ void OperationUI::Draw() {
 	}
 }
 
-void OperationUI::Finalize() {
-	sprites_.clear();
-}
+
 
 void OperationUI::ImGuiUpdate() {
 #ifdef USE_IMGUI

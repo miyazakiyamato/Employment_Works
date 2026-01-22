@@ -27,9 +27,7 @@ void PlayerDeathUI::Draw() {
 	}
 }
 
-void PlayerDeathUI::Finalize() {
-	sprites_.clear();
-}
+
 
 void PlayerDeathUI::SetSpriteSize(const Vector2& size) {
 	if (!sprites_.empty()) {

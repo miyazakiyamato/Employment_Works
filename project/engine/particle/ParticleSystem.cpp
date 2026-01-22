@@ -6,7 +6,7 @@
 #include "EmitterSphere.h"
 #include "GlobalVariables.h"
 
-void ParticleSystem::Finalize() {
+ParticleSystem::~ParticleSystem() {
 	// すべてのエミッターを削除
 	for (const auto& [name, emitter] : emitters_) {
 		ParticleManager::GetInstance()->ClearParticleGroup(name);

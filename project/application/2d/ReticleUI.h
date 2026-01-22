@@ -20,10 +20,7 @@ public:
 	/// </summary>
 	void Draw() override;
 
-	/// <summary>
-	/// 終了処理
-	/// </summary>
-	void Finalize() override;
+
 
 	/// <summary>
 	/// ImGui更新

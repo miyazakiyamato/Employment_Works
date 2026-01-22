@@ -39,6 +39,4 @@ void ClearUI::Draw() {
 	}
 }
 
-void ClearUI::Finalize() {
-	sprites_.clear();
-}
+

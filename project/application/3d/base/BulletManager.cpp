@@ -1,11 +1,7 @@
 #include "BulletManager.h"
 #include "CollisionManager.h"
 
-void BulletManager::Finalize(){
-	for (std::unique_ptr<BaseBullet>& bullet : bullets_) {
-		bullet.reset();
-	}
-}
+
 
 void BulletManager::Update(){
 	bullets_.remove_if([](std::unique_ptr<BaseBullet>& bullet) {

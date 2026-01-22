@@ -25,10 +25,7 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize() override;
-	/// <summary>
-	/// 終了
-	/// </summary>
-	void Finalize() override;
+
 	/// <summary>
 	/// 毎フレーム更新
 	/// </summary>

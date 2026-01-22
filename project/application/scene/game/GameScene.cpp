@@ -116,15 +116,7 @@ void GameScene::Initialize(){
 	ChangeState(std::make_unique<GameSceneStateStart>());
 }
 
-void GameScene::Finalize(){
-	particleSystem_->Finalize();
-	//解放
 
-	bulletManager_->Finalize();
-	stageManager_->Finalize();
-	uiManager_->Clear();
-	BaseScene::Finalize();
-}
 
 void GameScene::Update() {
 	BaseScene::Update();

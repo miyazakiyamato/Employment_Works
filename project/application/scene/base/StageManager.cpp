@@ -145,19 +145,7 @@ void StageManager::SetStageCollisions(CollisionManager* collisionManager) {
 	}
 }
 
-void StageManager::Finalize() {
-	player_.reset();
-	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
-		enemy.reset();
-	}
-	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
-		eventObject.reset();
-	}
-	skydome_.reset();
-	ground_.reset();
-	railCamera_.reset();
-	object3ds_.clear();
-}
+
 
 void StageManager::Update() {
 	// 天球

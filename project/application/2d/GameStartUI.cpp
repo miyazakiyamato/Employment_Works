@@ -60,6 +60,4 @@ void GameStartUI::Draw() {
 	}
 }
 
-void GameStartUI::Finalize() {
-	sprites_.clear();
-}
+

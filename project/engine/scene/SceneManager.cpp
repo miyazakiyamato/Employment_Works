@@ -12,10 +12,6 @@ SceneManager* SceneManager::GetInstance(){
 }
 
 void SceneManager::Finalize() {
-	//シーンの終了
-	scene_->Finalize();
-	scene_.reset();
-
 	//インスタンスの削除
 	delete instance;
 	instance = nullptr;
@@ -85,11 +81,7 @@ void SceneManager::SceneTransition(){
 	// transition_が存在しないなら
 	if (!transition_ ||
 		transition_->GetType() == BaseTransition::Type::kOut && transition_->IsFinished()) {
-		//旧シーンの終了
-		if (scene_) {
-			scene_->Finalize();
-			scene_.reset();
-		}
+
 		//シーンの切り替え
 		scene_ = std::move(nextScene_);
 		//次のシーンを初期化する

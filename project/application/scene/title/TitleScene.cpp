@@ -39,11 +39,7 @@ void TitleScene::Initialize(){
 	ChangeState(std::make_unique<TitleSceneStateMain>());
 }
 
-void TitleScene::Finalize(){
-	ground_.reset();
-	skydome_.reset();
-	BaseScene::Finalize();
-}
+
 
 void TitleScene::Update(){
 #ifdef _DEBUG

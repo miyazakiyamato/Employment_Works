@@ -13,7 +13,7 @@ class ParticleSystem {
 public:
 		// --- メンバ関数 ---
 	ParticleSystem() {};
-	void Finalize();
+	~ParticleSystem();
 
 	/// <summary>
 	/// 初期化
