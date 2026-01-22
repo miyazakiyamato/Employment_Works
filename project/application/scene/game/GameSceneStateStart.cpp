@@ -18,7 +18,7 @@ void GameSceneStateStart::Initialize(GameScene* gameScene) {
 	std::unique_ptr<GameStartUI> newUI = std::make_unique<GameStartUI>();
 	newUI->Initialize(duration_);
 	gameStartUI_ = newUI.get();
-	scene_->GetUIList().push_back(std::move(newUI));
+	scene_->GetUIManager()->AddUI(std::move(newUI));
 
 	TimeManager::GetInstance()->SetDeltaTimeSpeedStart(0.0f, duration_ * 3.0f);
 }
@@ -28,7 +28,6 @@ void GameSceneStateStart::Update() {
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
 	auto collisionManager = scene_->GetCollisionManager();
-	auto& uiList = scene_->GetUIList();
 	auto player = stageManager->GetPlayer();
 
 	//ステージ
@@ -48,10 +47,6 @@ void GameSceneStateStart::Update() {
 	collisionManager->UpdateWorldTransform();
 
 	particleSystem->Update();
-
-	for (auto& ui : uiList) {
-		ui->Update();
-	}
 	
 	if (gameStartUI_->ShouldClose()) {
 		// Battleへ遷移
@@ -64,7 +59,6 @@ void GameSceneStateStart::Draw() {
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
 	auto collisionManager = scene_->GetCollisionManager();
-	auto& uiList = scene_->GetUIList();
 
 	//Object3dの描画
 	//ステージ
@@ -79,9 +73,4 @@ void GameSceneStateStart::Draw() {
 
 	//Particleの描画
 	particleSystem->Draw();
-
-	//Spriteの描画
-	for (auto& ui : uiList) {
-		ui->Draw();
-	}
 }

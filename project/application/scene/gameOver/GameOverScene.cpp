@@ -4,6 +4,13 @@
 #include "ModelManager.h"
 #include "CameraManager.h"
 
+#include "GameOverSceneStateMain.h"
+
+void GameOverScene::ChangeState(std::unique_ptr<BaseSceneState<GameOverScene>> newState) {
+	state_ = std::move(newState);
+	state_->Initialize(this);
+}
+
 void GameOverScene::Initialize(){
 	BaseScene::Initialize();
 
@@ -22,13 +29,10 @@ void GameOverScene::Initialize(){
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize();
 
-	// GameOver UI
-	gameOverUI_ = std::make_unique<GameOverUI>();
-	gameOverUI_->Initialize();
+	ChangeState(std::make_unique<GameOverSceneStateMain>());
 }
 
 void GameOverScene::Finalize(){
-	gameOverUI_->Finalize();
 	ground_.reset();
 	skydome_.reset();
 	BaseScene::Finalize();
@@ -37,26 +41,13 @@ void GameOverScene::Finalize(){
 void GameOverScene::Update(){
 	BaseScene::Update();
 
-
-	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)) {
-		sceneManager_->ChangeScene("TITLE");
-		sceneManager_->ChangeTransition("FADE");
+	if (state_) {
+		state_->Update();
 	}
-
-	//カメラの更新
-	CameraManager::GetInstance()->GetCamera()->Update();
-
-	//天球の更新
-	skydome_->Update();
-	//地面の更新
-	ground_->Update();
-
-	gameOverUI_->Update();
 }
 
 void GameOverScene::Draw(){
-	skydome_->Draw();
-	ground_->Draw();
-
-	gameOverUI_->Draw();
+	if (state_) {
+		state_->Draw();
+	}
 }

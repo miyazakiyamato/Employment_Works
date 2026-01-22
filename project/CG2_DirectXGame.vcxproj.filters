@@ -528,6 +528,18 @@
     <ClCompile Include="application\scene\debug\DParticleScene.cpp">
       <Filter>ソース ファイル\application\scene\debug</Filter>
     </ClCompile>
+    <ClCompile Include="application\scene\clear\ClearSceneStateMain.cpp">
+      <Filter>ソース ファイル\application\scene\clear</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameOver\GameOverSceneStateMain.cpp">
+      <Filter>ソース ファイル\application\scene\gameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\title\TitleSceneStateMain.cpp">
+      <Filter>ソース ファイル\application\scene\title</Filter>
+    </ClCompile>
+    <ClCompile Include="application\2d\UIManager.cpp">
+      <Filter>ソース ファイル\application\2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -868,6 +880,18 @@
     </ClInclude>
     <ClInclude Include="application\scene\debug\DParticleScene.h">
       <Filter>ヘッダー ファイル\application\scene\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\clear\ClearSceneStateMain.h">
+      <Filter>ヘッダー ファイル\application\scene\clear</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameOver\GameOverSceneStateMain.h">
+      <Filter>ヘッダー ファイル\application\scene\gameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\title\TitleSceneStateMain.h">
+      <Filter>ヘッダー ファイル\application\scene\title</Filter>
+    </ClInclude>
+    <ClInclude Include="application\2d\UIManager.h">
+      <Filter>ヘッダー ファイル\application\2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

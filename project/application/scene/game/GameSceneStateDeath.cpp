@@ -23,14 +23,13 @@ void GameSceneStateDeath::Initialize(GameScene* gameScene) {
 	std::unique_ptr<PlayerDeathUI> newUI = std::make_unique<PlayerDeathUI>();
 	newUI->Initialize();
 	playerDeathUI_ = newUI.get();
-	scene_->GetUIList().push_back(std::move(newUI));
+	scene_->GetUIManager()->AddUI(std::move(newUI));
 }
 
 void GameSceneStateDeath::Update() {
 	auto stageManager = scene_->GetStageManager();
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
-	auto& uiList = scene_->GetUIList();
 	auto player = scene_->GetStageManager()->GetPlayer();
 
 	//死んだ時の処理
@@ -58,11 +57,6 @@ void GameSceneStateDeath::Update() {
 	bulletManager->Update();
 	//パーティクルシステム
 	particleSystem->Update();
-
-	// UIの更新
-	for (auto& ui : uiList) {
-		ui->Update();
-	}
 }
 
 void GameSceneStateDeath::Draw() {
@@ -70,14 +64,8 @@ void GameSceneStateDeath::Draw() {
 	auto stageManager = scene_->GetStageManager();
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
-	auto& uiList = scene_->GetUIList();
 
 	stageManager->Draw();
 	bulletManager->Draw();
 	particleSystem->Draw();
-
-	// UI描画
-	for (auto& ui : uiList) {
-		ui->Draw();
-	}
 }

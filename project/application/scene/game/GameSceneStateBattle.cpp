@@ -21,7 +21,6 @@ void GameSceneStateBattle::Update() {
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
 	auto collisionManager = scene_->GetCollisionManager();
-	auto& uiList = scene_->GetUIList();
 	auto player = stageManager->GetPlayer();
 	auto sceneManager = SceneManager::GetInstance();
 
@@ -43,10 +42,6 @@ void GameSceneStateBattle::Update() {
 
 	particleSystem->Update();
 
-	for (auto& ui : uiList) {
-		ui->Update();
-	}
-
 	//クリアチェック
 	if (!player->GetIsAlive()) {
 		// GAMEOVER遷移 -> StateDeath
@@ -64,7 +59,6 @@ void GameSceneStateBattle::Draw() {
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
 	auto collisionManager = scene_->GetCollisionManager();
-	auto& uiList = scene_->GetUIList();
 
 	//Object3dの描画
 	//ステージ
@@ -79,9 +73,4 @@ void GameSceneStateBattle::Draw() {
 
 	//Particleの描画
 	particleSystem->Draw();
-
-	//UIの描画
-	for (auto& ui : uiList) {
-		ui->Draw();
-	}
 }

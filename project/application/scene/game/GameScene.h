@@ -12,6 +12,7 @@
 #include "BaseEnemy.h"
 #include "RailCamera.h"
 #include "BaseUI.h"
+#include "UIManager.h"
 #include "BaseSceneState.h"
 
 /// <summary>
@@ -51,8 +52,8 @@ private:
 	//プレイヤー
 	Player* player_ = nullptr;
 	
-	//UIリスト
-	std::vector<std::unique_ptr<BaseUI>> uiList_;
+	//UIマネージャ
+	std::unique_ptr<UIManager> uiManager_;
 
 	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
@@ -66,6 +67,6 @@ public:
 	StageManager* GetStageManager() { return stageManager_.get(); }
 	BulletManager* GetBulletManager() { return bulletManager_.get(); }
 	CollisionManager* GetCollisionManager() { return collisionManager_.get(); }
-	std::vector<std::unique_ptr<BaseUI>>& GetUIList() { return uiList_; }
+	UIManager* GetUIManager() { return uiManager_.get(); }
 };
 

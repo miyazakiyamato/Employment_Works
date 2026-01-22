@@ -7,6 +7,13 @@
 #include "TimeManager.h"
 #include "PlayerStateClear.h"
 
+#include "ClearSceneStateMain.h"
+
+void ClearScene::ChangeState(std::unique_ptr<BaseSceneState<ClearScene>> newState) {
+	state_ = std::move(newState);
+	state_->Initialize(this);
+}
+
 void ClearScene::Initialize(){
 	BaseScene::Initialize();
 
@@ -25,18 +32,11 @@ void ClearScene::Initialize(){
 	//地面
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize();
-	//プレイヤー
-	player_ = std::make_unique<Player>();
-	player_->Initialize();
-	player_->ChangeState(std::make_unique<PlayerStateClear>(player_.get()));
-	// Clear UI
-	clearUI_ = std::make_unique<ClearUI>();
-	clearUI_->Initialize();
+
+	ChangeState(std::make_unique<ClearSceneStateMain>());
 }
 
 void ClearScene::Finalize(){
-	clearUI_->Finalize();
-	player_.reset();
 	ground_.reset();
 	skydome_.reset();
 	BaseScene::Finalize();
@@ -46,28 +46,13 @@ void ClearScene::Update() {
 	BaseScene::Update();
 
 
-	if (input_->TriggerKey(DIK_SPACE) || input_->TriggerControllerButton(XINPUT_GAMEPAD_A)){
-		sceneManager_->ChangeScene("TITLE");
-		sceneManager_->ChangeTransition("FADE");
+	if (state_) {
+		state_->Update();
 	}
-
-	//カメラの更新
-	CameraManager::GetInstance()->GetCamera()->Update();
-
-	//天球の更新
-	skydome_->Update();
-	//地面の更新
-	ground_->Update();
-	//プレイヤーの更新
-	player_->Update();
-
-	clearUI_->Update();
 }
 
 void ClearScene::Draw(){
-	skydome_->Draw();
-	ground_->Draw();
-	player_->Draw();
-	
-	clearUI_->Draw();
+	if (state_) {
+		state_->Draw();
+	}
 }

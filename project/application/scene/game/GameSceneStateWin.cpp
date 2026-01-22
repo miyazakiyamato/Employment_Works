@@ -23,7 +23,7 @@ void GameSceneStateWin::Initialize(GameScene* gameScene) {
 	std::unique_ptr<PlayerWinUI> newUI = std::make_unique<PlayerWinUI>();
 	newUI->Initialize();
 	playerWinUI_ = newUI.get();
-	scene_->GetUIList().push_back(std::move(newUI));
+	scene_->GetUIManager()->AddUI(std::move(newUI));
 
 	auto particleSystem = scene_->GetParticleSystem();
 	auto player = scene_->GetStageManager()->GetPlayer();
@@ -46,7 +46,6 @@ void GameSceneStateWin::Update() {
 	auto stageManager = scene_->GetStageManager();
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
-	auto& uiList = scene_->GetUIList();
 	auto player = scene_->GetStageManager()->GetPlayer();
 	//勝った時の処理
 	counter_ += TimeManager::GetInstance()->kFlamTime_;
@@ -65,11 +64,6 @@ void GameSceneStateWin::Update() {
 	bulletManager->Update();
 	//パーティクルシステム
 	particleSystem->Update();
-
-	// UIの更新
-	for (auto& ui : uiList) {
-		ui->Update();
-	}
 }
 
 void GameSceneStateWin::Draw() {
@@ -77,14 +71,8 @@ void GameSceneStateWin::Draw() {
 	auto stageManager = scene_->GetStageManager();
 	auto bulletManager = scene_->GetBulletManager();
 	auto particleSystem = scene_->GetParticleSystem();
-	auto& uiList = scene_->GetUIList();
 
 	stageManager->Draw();
 	bulletManager->Draw();
 	particleSystem->Draw();
-
-	// UI描画
-	for (auto& ui : uiList) {
-		ui->Draw();
-	}
 }

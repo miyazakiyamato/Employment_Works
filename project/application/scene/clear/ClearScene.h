@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+#include "BaseSceneState.h"
 #include "Sprite.h"
 #include "Skydome.h"
 #include "Ground.h"
@@ -27,16 +28,22 @@ public://メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw() override;
+	/// <summary>
+	/// ステート変更
+	/// </summary>
+	void ChangeState(std::unique_ptr<BaseSceneState<ClearScene>> newState);
+
 private://メンバ変数
 	//天球
 	std::unique_ptr<Skydome> skydome_ = nullptr;
 	//地面
 	std::unique_ptr<Ground> ground_ = nullptr;
-	//プレイヤー
-	std::unique_ptr<Player> player_ = nullptr;
-	// Clear UI
-	std::unique_ptr<ClearUI> clearUI_;
 
 	float scaleCount_ = 0.0f;
-};
 
+	//ステート
+	std::unique_ptr<BaseSceneState<ClearScene>> state_;
+public:
+	Skydome* GetSkydome() { return skydome_.get(); }
+	Ground* GetGround() { return ground_.get(); }
+};

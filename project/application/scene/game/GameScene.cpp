@@ -94,21 +94,24 @@ void GameScene::Initialize(){
 	stageManager_->Initialize(bulletManager_.get(), particleSystem_.get());
 	player_ = stageManager_->GetPlayer();
 
+	// UIマネージャの初期化
+	uiManager_ = std::make_unique<UIManager>();
+
 	// Play Reticle UI
 	std::unique_ptr<ReticleUI> reticleUI = std::make_unique<ReticleUI>();
 	reticleUI->Initialize();
 	player_->SetReticleUI(reticleUI.get());
-	uiList_.push_back(std::move(reticleUI));
+	uiManager_->AddUI(std::move(reticleUI));
 
 	// HP UI
 	std::unique_ptr<HpUI> hpUI = std::make_unique<HpUI>();
 	hpUI->Initialize(player_);
-	uiList_.push_back(std::move(hpUI));
+	uiManager_->AddUI(std::move(hpUI));
 
 	// Operation UI
 	std::unique_ptr<OperationUI> opUI = std::make_unique<OperationUI>();
 	opUI->Initialize(player_);
-	uiList_.push_back(std::move(opUI));
+	uiManager_->AddUI(std::move(opUI));
 
 	ChangeState(std::make_unique<GameSceneStateStart>());
 }
@@ -119,10 +122,7 @@ void GameScene::Finalize(){
 
 	bulletManager_->Finalize();
 	stageManager_->Finalize();
-	for (auto& ui : uiList_) {
-		ui->Finalize();
-	}
-	uiList_.clear();
+	uiManager_->Clear();
 	BaseScene::Finalize();
 }
 
@@ -152,9 +152,7 @@ void GameScene::Update() {
 
 			particleSystem_->ImGuiUpdate();
 			
-			for (auto& ui : uiList_) {
-				ui->ImGuiUpdate();
-			}
+			uiManager_->ImGuiUpdate();
 			PostEffectManager::GetInstance()->ImGuiUpdate();
 			ImGui::EndMenuBar();
 		}
@@ -162,10 +160,8 @@ void GameScene::Update() {
 	}
 #endif //_DEBUG
 	
-	// UIの死活監視
-	uiList_.erase(std::remove_if(uiList_.begin(), uiList_.end(), [](const std::unique_ptr<BaseUI>& ui) {
-		return ui->GetIsDead();
-		}), uiList_.end());
+	// UIの更新 (死活監視含む)
+	uiManager_->Update();
 
 	if (state_) {
 		state_->Update();
@@ -176,6 +172,8 @@ void GameScene::Draw(){
 	if (state_) {
 		state_->Draw();
 	}
+	// UIの描画
+	uiManager_->Draw();
 }
 
 
