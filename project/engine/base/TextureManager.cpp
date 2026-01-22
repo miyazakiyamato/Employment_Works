@@ -3,14 +3,14 @@
 #include "SrvUavManager.h"
 #include <algorithm>
 
-TextureManager* TextureManager::instance = nullptr;
+std::unique_ptr<TextureManager> TextureManager::instance = nullptr;
 
 TextureManager* TextureManager::GetInstance()
 {
 	if (instance == nullptr) {
-		instance = new TextureManager;
+		instance.reset(new TextureManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void TextureManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager){
@@ -19,8 +19,7 @@ void TextureManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavMa
 }
 
 void TextureManager::Finalize(){
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void TextureManager::LoadTexture(const std::string& filePath){

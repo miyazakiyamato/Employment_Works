@@ -36,8 +36,6 @@ void TitleUI::Draw() {
 	}
 }
 
-
-
 void TitleUI::ImGuiUpdate() {
 #ifdef USE_IMGUI
 	if (ImGui::TreeNode("TitleUI")) {

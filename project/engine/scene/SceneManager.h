@@ -56,7 +56,8 @@ private:
 	void SceneTransition();
 
 		// --- シングルトン ---
-	static SceneManager* instance;
+	static std::unique_ptr<SceneManager> instance;
+	friend struct std::default_delete<SceneManager>;
 
 	SceneManager() = default;
 	~SceneManager() = default;

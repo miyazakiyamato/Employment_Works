@@ -3,6 +3,7 @@
 #include "BlendMode.h"
 #include "BasePipeline.h"
 #include <map>
+#include <memory>
 
 	// --- 列挙型定義 ---
 /// <summary>
@@ -143,7 +144,8 @@ private:
 	void CreateComputePipeline(ComputePipelineData& pipeline);
 
 		// --- シングルトン ---
-	static PipelineManager* instance;
+	static std::unique_ptr<PipelineManager> instance;
+	friend struct std::default_delete<PipelineManager>;
 
 	PipelineManager() = default;
 	~PipelineManager() = default;

@@ -93,8 +93,9 @@ public:
 	void ImGuiUpdate();
 
 private:
-		// --- シングルインスタンス ---
-	static LightManager* instance;
+		// --- シングルトン ---
+	static std::unique_ptr<LightManager> instance;
+	friend struct std::default_delete<LightManager>;
 
 	LightManager() = default;
 	~LightManager() = default;

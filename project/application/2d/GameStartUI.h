@@ -21,8 +21,6 @@ public:
 	/// </summary>
 	void Draw() override;
 
-
-
 	bool IsFinished() const { return isFinished_; }
 	bool ShouldClose() const { return shouldClose_; }
 	float GetCounter() const { return counter_; }

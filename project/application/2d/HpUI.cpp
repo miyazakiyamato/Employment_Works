@@ -20,8 +20,6 @@ void HpUI::Initialize(Player* player){
 	sprites_[2]->SetColor({ 0.0f,1.0f,0.0f,1.0f });//通常HP
 }
 
-
-
 void HpUI::Update(){
 	damegeHpTimer_ += TimeManager::GetInstance()->deltaTime_;
 	float nowHp = (float)player_->GetHp();

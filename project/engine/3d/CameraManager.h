@@ -44,8 +44,9 @@ public:
 	void FindCamera(const std::string& cameraName);
 
 private:
-		// ---シングルトンインスタンス---
-	static CameraManager* instance;
+		// ---シングルトン---
+	static std::unique_ptr<CameraManager> instance;
+	friend struct std::default_delete<CameraManager>;
 
 	CameraManager() = default;
 	~CameraManager() = default;

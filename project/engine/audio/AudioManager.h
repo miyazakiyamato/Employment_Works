@@ -3,6 +3,7 @@
 #include <fstream>
 #include <wrl.h>
 #include <unordered_map>
+#include <memory>
 
 #pragma comment(lib, "xaudio2.lib")    // XAudio2のライブラリ
 
@@ -81,24 +82,12 @@ public:
 	void LoadWave(const std::string& filePath);
 
 	/// <summary>
-	/// MP3ファイルの読み込み
-	/// </summary>
-	/// <param name="filePath">読み込むファイルのパス</param>
-	void LoadMP3(const std::string& filePath);
-
-	/// <summary>
 	/// WAVEファイルの再生
 	/// </summary>
 	/// <param name="filePath">再生するファイルのキーとなるパス</param>
 	/// <param name="volume">音量 (0.0f ～ 1.0f, デフォルト1.0f)</param>
 	/// <param name="loop">ループ再生するかどうか (デフォルト false)</param>
 	void PlayWave(const std::string& filePath, float volume = 1.0f, bool loop = false);
-
-	/// <summary>
-	/// MP3ファイルの再生
-	/// </summary>
-	/// <param name="filePath">再生するファイルのキーとなるパス</param>
-	void PlayMP3(const std::string& filePath);
 
 	/// <summary>
 	/// 音声停止
@@ -108,14 +97,16 @@ public:
 	void StopWave(const std::string& filePath);
 
 private:
-		// --- メンバ変数 ---
-	static AudioManager* instance;
+		// --- シングルトン ---
+	static std::unique_ptr<AudioManager> instance;
+	friend struct std::default_delete<AudioManager>;
 
 	AudioManager() = default;
-	~AudioManager() = default;
+	~AudioManager();
 	AudioManager(AudioManager&) = delete;
 	AudioManager& operator=(AudioManager&) = delete;
-
+	
+		// --- メンバ変数 ---
 	ComPtr<IXAudio2> xAudio2;
 	IXAudio2MasteringVoice* masterVoice = nullptr;
 

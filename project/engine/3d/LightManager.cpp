@@ -7,13 +7,13 @@
 #include <imgui.h>
 #endif // USE_IMGUI
 
-LightManager* LightManager::instance = nullptr;
+std::unique_ptr<LightManager> LightManager::instance = nullptr;
 
 LightManager* LightManager::GetInstance() {
 	if (instance == nullptr) {
-		instance = new LightManager;
+		instance.reset(new LightManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void LightManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager) {
@@ -78,8 +78,7 @@ void LightManager::Draw(){
 }
 
 void LightManager::Finalize() {
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void LightManager::ImGuiUpdate(){

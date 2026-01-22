@@ -7,9 +7,13 @@
 #include <fstream>
 #include <set>
 
+std::unique_ptr<GlobalVariables> GlobalVariables::instance = nullptr;
+
 GlobalVariables* GlobalVariables::GetInstance() { 
-	static GlobalVariables instance;
-	return &instance;
+	if (instance == nullptr) {
+		instance.reset(new GlobalVariables);
+	}
+	return instance.get();
 }
 
 void GlobalVariables::CreateGroup(const std::string& groupName) {

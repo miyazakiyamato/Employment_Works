@@ -20,8 +20,6 @@ public:
 	/// </summary>
 	void Draw() override;
 
-
-
 private:
 	std::vector<std::unique_ptr<Sprite>> sprites_;
 };

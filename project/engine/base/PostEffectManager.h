@@ -72,10 +72,11 @@ public:
 
 private:
 		// --- シングルトン ---
-	static PostEffectManager* instance;
+	static std::unique_ptr<PostEffectManager> instance;
+	friend struct std::default_delete<PostEffectManager>;
 
 	PostEffectManager() = default;
-	~PostEffectManager() = default;
+	~PostEffectManager();
 	PostEffectManager(PostEffectManager&) = delete;
 	PostEffectManager& operator=(PostEffectManager&) = delete;
 

@@ -3,6 +3,7 @@
 #include <wrl.h>
 #include <d3d12.h>
 #include <unordered_map>
+#include <memory>
 #include "DirectXTex.h"
 
 class DirectXCommon;
@@ -71,7 +72,8 @@ public:
 
 private:
 		// --- シングルトン ---
-	static TextureManager* instance;
+	static std::unique_ptr<TextureManager> instance;
+	friend struct std::default_delete<TextureManager>;
 
 	TextureManager() = default;
 	~TextureManager() = default;

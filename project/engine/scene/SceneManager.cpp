@@ -1,20 +1,19 @@
 #include "SceneManager.h"
 #include <cassert>
 
-SceneManager* SceneManager::instance = nullptr;
+std::unique_ptr<SceneManager> SceneManager::instance = nullptr;
 
 SceneManager* SceneManager::GetInstance(){
 	//インスタンスがなければ生成
 	if (instance == nullptr) {
-		instance = new SceneManager;
+		instance.reset(new SceneManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void SceneManager::Finalize() {
 	//インスタンスの削除
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void SceneManager::Update() {

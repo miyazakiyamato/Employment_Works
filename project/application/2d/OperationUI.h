@@ -26,8 +26,6 @@ public:
 	/// </summary>
 	void Draw() override;
 
-
-
 	/// <summary>
 	/// ImGui更新
 	/// </summary>

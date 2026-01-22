@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <memory>
 #include "BlendMode.h"
 #include "random"
 #include "DirectXCommon.h"
@@ -170,7 +171,8 @@ private:
 
 private:
 		// --- シングルトン ---
-	static ParticleManager* instance;
+	static std::unique_ptr<ParticleManager> instance;
+	friend struct std::default_delete<ParticleManager>;
 
 	ParticleManager() = default;
 	~ParticleManager() = default;

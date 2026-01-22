@@ -38,5 +38,3 @@ void ClearUI::Draw() {
 		sprite->Draw();
 	}
 }
-
-

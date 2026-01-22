@@ -21,8 +21,6 @@ public:
 	/// </summary>
 	void Draw() override;
 
-
-
 	void SetSpriteSize(const Vector2& size);
 	void SetColor(const Vector4& color);
 

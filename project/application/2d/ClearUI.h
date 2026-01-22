@@ -20,8 +20,6 @@ public:
 	/// </summary>
 	void Draw() override;
 
-
-
 private:
 	std::vector<std::unique_ptr<Sprite>> sprites_;
 	float scaleCount_ = 0.0f;

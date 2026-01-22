@@ -118,8 +118,6 @@ void OperationUI::Draw() {
 	}
 }
 
-
-
 void OperationUI::ImGuiUpdate() {
 #ifdef USE_IMGUI
 	uint32_t spriteIDIndex = 0;

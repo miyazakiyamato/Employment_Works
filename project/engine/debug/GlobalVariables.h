@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <json.hpp>
+#include <memory>
 #include "Matrix4x4.h"
 
 /// <summary>
@@ -123,6 +124,9 @@ public:
 
 private:
 		// --- シングルトン ---
+	static std::unique_ptr<GlobalVariables> instance;
+	friend struct std::default_delete<GlobalVariables>;
+
 	GlobalVariables() = default;
 	~GlobalVariables() = default;
 	GlobalVariables(const GlobalVariables& obj) = delete;
