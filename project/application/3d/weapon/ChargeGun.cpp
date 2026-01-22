@@ -16,12 +16,12 @@ void ChargeGun::Initialize(){
 	gunBarrel_->SetTranslate({ 0.0f,0.0f,4.0f });
 	gunBarrel_->SetParent(object3d_.get());
 	// 攻撃データの設定
-	AttackData& rootAttackData = attackDatas_[static_cast<uint32_t>(AttackType::kRoot)];
+	AttackData& rootAttackData = attackData_[static_cast<uint32_t>(AttackType::kRoot)];
 	rootAttackData.kBulletSpeed = 150.0f;
 	rootAttackData.bulletSize = 0.3f;
 	rootAttackData.kCoolTime = 0.2f;
 	rootAttackData.kBulletCount = 3;
-	AttackData& chargeAttackData = attackDatas_[static_cast<uint32_t>(AttackType::kCharge)];
+	AttackData& chargeAttackData = attackData_[static_cast<uint32_t>(AttackType::kCharge)];
 	chargeAttackData.kBulletSpeed = 100.0f;
 	chargeAttackData.bulletSize = 0.3f;
 	chargeAttackData.kCoolTime = 0.5f;
@@ -56,6 +56,6 @@ void ChargeGun::OnCollision([[maybe_unused]] Collider* other){
 
 void ChargeGun::Charge(){
 	BaseWeapon::Charge();
-	AttackData& attackData = attackDatas_[static_cast<uint32_t>(AttackType::kCharge)];
+	AttackData& attackData = attackData_[static_cast<uint32_t>(AttackType::kCharge)];
 	attackData.bulletSize = std::clamp(chargeCount_, 0.0f, 10.0f);
 }

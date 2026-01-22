@@ -114,8 +114,8 @@ private:
 	const std::string audioFilePath = "resources/audio/";
 
 	// 音声データ格納コンテナ (読み込み済みデータ)
-	std::unordered_map<std::string, SoundData> soundDatas;
+	std::unordered_map<std::string, SoundData> soundData;
 
 	// 再生中データ格納コンテナ (ソースボイス)
-	std::unordered_map<std::string, IXAudio2SourceVoice*> playSoundDatas;
+	std::unordered_map<std::string, IXAudio2SourceVoice*> playSoundData;
 };

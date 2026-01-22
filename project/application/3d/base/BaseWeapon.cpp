@@ -11,8 +11,8 @@ void BaseWeapon::Initialize(){
 	gunBarrel_ = std::make_unique<Object3d>();
 	gunBarrel_->Initialize();
 
-	attackDatas_.push_back(AttackData{});
-	attackDatas_.push_back(AttackData{});
+	attackData_.push_back(AttackData{});
+	attackData_.push_back(AttackData{});
 }
 
 void BaseWeapon::Update(){
@@ -36,7 +36,7 @@ void BaseWeapon::OnCollision([[maybe_unused]] Collider* other){
 
 void BaseWeapon::Shoot(AttackType attackType){
 	// 発射
-	AttackData& attackData = attackDatas_[static_cast<uint32_t>(attackType)];
+	AttackData& attackData = attackData_[static_cast<uint32_t>(attackType)];
 	attackData.coolTimeCount += TimeManager::GetInstance()->deltaTime_;
 	if (attackData.bulletCount == 0 ||
 		attackData.coolTimeCount >= attackData.kCoolTime) {

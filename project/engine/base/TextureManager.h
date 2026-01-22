@@ -88,5 +88,5 @@ private:
 	std::string directoryPath_ = "resources/texture/";
 
 	// テクスチャデータコンテナ
-	std::unordered_map<std::string, TextureData> textureDates;
+	std::unordered_map<std::string, TextureData> textureData_;
 };

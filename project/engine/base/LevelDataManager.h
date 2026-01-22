@@ -45,18 +45,18 @@ public:
 	/// <summary>
 	/// データのクリア
 	/// </summary>
-	void Clear() { levelDates_.clear(); }
+	void Clear() { levelData_.clear(); }
 
 	/// <summary>
 	/// レベルデータの取得
 	/// </summary>
 	/// <param name="filePath">取得したいレベルデータのキー</param>
 	/// <returns>レベルデータへのポインタ</returns>
-	LevelData* GetObjectData(const std::string& filePath) { return levelDates_[filePath].get(); }
+	LevelData* GetObjectData(const std::string& filePath) { return levelData_[filePath].get(); }
 
 private:
 		// --- メンバ変数 ---
 	const std::string kDirectoryFilePath = "./resources/level_data/";
 	const std::string kExtension = ".json";
-	std::unordered_map<std::string, std::unique_ptr<LevelData>> levelDates_;
+	std::unordered_map<std::string, std::unique_ptr<LevelData>> levelData_;
 };

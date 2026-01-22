@@ -1,8 +1,6 @@
 #include "AudioManager.h"
 #include <cassert>
 
-#pragma comment(lib, "xaudio2.lib")
-
 std::unique_ptr<AudioManager> AudioManager::instance = nullptr;
 
 AudioManager* AudioManager::GetInstance()
@@ -12,7 +10,6 @@ AudioManager* AudioManager::GetInstance()
 	}
 	return instance.get();
 }
-
 
 void AudioManager::Initialize(){
 	HRESULT result;
@@ -30,10 +27,10 @@ AudioManager::~AudioManager() {
 	//xAudio2解放
 	xAudio2.Reset();
 	//音声データ解放
-	for (auto& pair : soundDatas) {
+	for (auto& pair : soundData) {
 		delete[] pair.second.pBuffer;
 	}
-	soundDatas.clear();
+	soundData.clear();
 }
 
 void AudioManager::Finalize(){
@@ -43,7 +40,7 @@ void AudioManager::Finalize(){
 void AudioManager::LoadWave(const std::string& filePath)
 {
 	//読み込み済みテクスチャを検索
-	if (soundDatas.contains(filePath)) {
+	if (soundData.contains(filePath)) {
 		//読み込み済みなら早期return
 		return;
 	}
@@ -122,28 +119,28 @@ void AudioManager::LoadWave(const std::string& filePath)
 	file.close();
 
 	//追加した音声データの参照を取得
-	SoundData& soundData = soundDatas[filePath];
+	SoundData& waveData = soundData[filePath];
 
-	soundData.wfex = format.fmt;
-	soundData.pBuffer = reinterpret_cast<BYTE*>(pBuffer);
-	soundData.bufferSize = data.size;
+	waveData.wfex = format.fmt;
+	waveData.pBuffer = reinterpret_cast<BYTE*>(pBuffer);
+	waveData.bufferSize = data.size;
 }
 
 void AudioManager::PlayWave(const std::string& filePath, float volume, bool loop){
 	//音声データの参照を取得
-	SoundData& soundData = soundDatas[filePath];
+	SoundData& waveData = soundData[filePath];
 
 	HRESULT result;
 
 	//波型フォーマットを元にSourceVoiceの生成
 	IXAudio2SourceVoice* pSourceVoice = nullptr;
-	result = xAudio2->CreateSourceVoice(&pSourceVoice, &soundData.wfex);
+	result = xAudio2->CreateSourceVoice(&pSourceVoice, &waveData.wfex);
 	assert(SUCCEEDED(result));
 
 	//生成する波型データの設定
 	XAUDIO2_BUFFER buf{};
-	buf.pAudioData = soundData.pBuffer;
-	buf.AudioBytes = soundData.bufferSize;
+	buf.pAudioData = waveData.pBuffer;
+	buf.AudioBytes = waveData.bufferSize;
 	buf.Flags = XAUDIO2_END_OF_STREAM;
 
 	// ループの設定
@@ -156,21 +153,19 @@ void AudioManager::PlayWave(const std::string& filePath, float volume, bool loop
 
 	if (loop)
 	{
-		if (playSoundDatas.contains(filePath)) {
+		if (playSoundData.contains(filePath)) {
 			return;
 		}
-		playSoundDatas[filePath] = pSourceVoice;
+		playSoundData[filePath] = pSourceVoice;
 	}
 }
 
-
-
 void AudioManager::StopWave(const std::string& filePath)
 {
-	IXAudio2SourceVoice* pSourceVoice = playSoundDatas[filePath];
+	IXAudio2SourceVoice* pSourceVoice = playSoundData[filePath];
 
 	//波型データの生成
 	pSourceVoice->Stop();
 
-	playSoundDatas.erase(filePath);
+	playSoundData.erase(filePath);
 }
