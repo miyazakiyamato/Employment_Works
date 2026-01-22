@@ -40,7 +40,7 @@ public:
 	/// <summary>
 	/// ステート変更
 	/// </summary>
-	void ChangeState(std::unique_ptr<BaseSceneState> newState);
+	void ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState);
 private:
 		// --- メンバ変数 ---
 	//衝突マネージャ
@@ -60,7 +60,7 @@ private:
 	std::unique_ptr<BulletManager> bulletManager_ = nullptr;
 
 	//ステート
-	std::unique_ptr<BaseSceneState> state_;
+	std::unique_ptr<BaseSceneState<GameScene>> state_;
 public:
 	ParticleSystem* GetParticleSystem() { return particleSystem_.get(); }
 	StageManager* GetStageManager() { return stageManager_.get(); }

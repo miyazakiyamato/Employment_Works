@@ -3,7 +3,9 @@
 #include "PlayerWinUI.h"
 #include <memory>
 
-class GameSceneStateWin : public BaseSceneState {
+class GameScene;
+
+class GameSceneStateWin : public BaseSceneState<GameScene> {
 public:
 	/// <summary>
 	/// デストラクタ

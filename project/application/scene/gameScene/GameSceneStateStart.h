@@ -3,7 +3,9 @@
 #include "GameStartUI.h"
 #include <memory>
 
-class GameSceneStateStart : public BaseSceneState {
+class GameScene;
+
+class GameSceneStateStart : public BaseSceneState<GameScene> {
 public:
 	/// <summary>
 	/// デストラクタ

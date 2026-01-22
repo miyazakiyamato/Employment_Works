@@ -24,7 +24,7 @@
 #include "OperationUI.h"
 #include "GameSceneStateStart.h"
 
-void GameScene::ChangeState(std::unique_ptr<BaseSceneState> newState) {
+void GameScene::ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
 }

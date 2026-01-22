@@ -1,7 +1,9 @@
 #pragma once
 #include "BaseSceneState.h"
 
-class GameSceneStateBattle : public BaseSceneState {
+class GameScene;
+
+class GameSceneStateBattle : public BaseSceneState<GameScene> {
 public:
 	/// <summary>
 	/// 初期化

@@ -17,16 +17,16 @@ GameSceneStateWin::~GameSceneStateWin() {
 }
 
 void GameSceneStateWin::Initialize(GameScene* gameScene) {
-	BaseSceneState::Initialize(gameScene);
+	BaseSceneState<GameScene>::Initialize(gameScene);
 
 	// Player Win UI
 	std::unique_ptr<PlayerWinUI> newUI = std::make_unique<PlayerWinUI>();
 	newUI->Initialize();
 	playerWinUI_ = newUI.get();
-	gameScene_->GetUIList().push_back(std::move(newUI));
+	scene_->GetUIList().push_back(std::move(newUI));
 
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto player = gameScene_->GetStageManager()->GetPlayer();
+	auto particleSystem = scene_->GetParticleSystem();
+	auto player = scene_->GetStageManager()->GetPlayer();
 	float scale = Easing::EaseOutBounce(counter_ / duration_, 1.0f, 0.0f);
 
 	// エフェクト処理
@@ -43,11 +43,11 @@ void GameSceneStateWin::Initialize(GameScene* gameScene) {
 }
 
 void GameSceneStateWin::Update() {
-	auto stageManager = gameScene_->GetStageManager();
-	auto bulletManager = gameScene_->GetBulletManager();
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto& uiList = gameScene_->GetUIList();
-	auto player = gameScene_->GetStageManager()->GetPlayer();
+	auto stageManager = scene_->GetStageManager();
+	auto bulletManager = scene_->GetBulletManager();
+	auto particleSystem = scene_->GetParticleSystem();
+	auto& uiList = scene_->GetUIList();
+	auto player = scene_->GetStageManager()->GetPlayer();
 	//勝った時の処理
 	counter_ += TimeManager::GetInstance()->kFlamTime_;
 
@@ -74,10 +74,10 @@ void GameSceneStateWin::Update() {
 
 void GameSceneStateWin::Draw() {
 	// 背景描画
-	auto stageManager = gameScene_->GetStageManager();
-	auto bulletManager = gameScene_->GetBulletManager();
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto& uiList = gameScene_->GetUIList();
+	auto stageManager = scene_->GetStageManager();
+	auto bulletManager = scene_->GetBulletManager();
+	auto particleSystem = scene_->GetParticleSystem();
+	auto& uiList = scene_->GetUIList();
 
 	stageManager->Draw();
 	bulletManager->Draw();

@@ -17,21 +17,21 @@ GameSceneStateDeath::~GameSceneStateDeath() {
 }
 
 void GameSceneStateDeath::Initialize(GameScene* gameScene) {
-	BaseSceneState::Initialize(gameScene);
+	BaseSceneState<GameScene>::Initialize(gameScene);
 
 	// Player Death UI
 	std::unique_ptr<PlayerDeathUI> newUI = std::make_unique<PlayerDeathUI>();
 	newUI->Initialize();
 	playerDeathUI_ = newUI.get();
-	gameScene_->GetUIList().push_back(std::move(newUI));
+	scene_->GetUIList().push_back(std::move(newUI));
 }
 
 void GameSceneStateDeath::Update() {
-	auto stageManager = gameScene_->GetStageManager();
-	auto bulletManager = gameScene_->GetBulletManager();
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto& uiList = gameScene_->GetUIList();
-	auto player = gameScene_->GetStageManager()->GetPlayer();
+	auto stageManager = scene_->GetStageManager();
+	auto bulletManager = scene_->GetBulletManager();
+	auto particleSystem = scene_->GetParticleSystem();
+	auto& uiList = scene_->GetUIList();
+	auto player = scene_->GetStageManager()->GetPlayer();
 
 	//死んだ時の処理
 	counter_ += TimeManager::GetInstance()->kFlamTime_;
@@ -67,10 +67,10 @@ void GameSceneStateDeath::Update() {
 
 void GameSceneStateDeath::Draw() {
 	// 背景描画
-	auto stageManager = gameScene_->GetStageManager();
-	auto bulletManager = gameScene_->GetBulletManager();
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto& uiList = gameScene_->GetUIList();
+	auto stageManager = scene_->GetStageManager();
+	auto bulletManager = scene_->GetBulletManager();
+	auto particleSystem = scene_->GetParticleSystem();
+	auto& uiList = scene_->GetUIList();
 
 	stageManager->Draw();
 	bulletManager->Draw();

@@ -3,7 +3,9 @@
 #include "PlayerDeathUI.h"
 #include <memory>
 
-class GameSceneStateDeath : public BaseSceneState {
+class GameScene;
+
+class GameSceneStateDeath : public BaseSceneState<GameScene> {
 public:
 	/// <summary>
 	/// デストラクタ
