@@ -166,14 +166,38 @@
     <Filter Include="ソース ファイル\application\scene\base">
       <UniqueIdentifier>{73467e57-7460-4774-ae84-49b210350970}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\application\scene\gameScene">
-      <UniqueIdentifier>{6434667c-713f-42a5-b0f6-2d3ebb9c7f78}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\application\scene\base">
       <UniqueIdentifier>{6f1378eb-2da1-4dd6-85c6-f6fed1a8c9d4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\application\scene\gameScene">
+    <Filter Include="ソース ファイル\application\scene\debug">
+      <UniqueIdentifier>{3649b3f6-afc6-4f0c-a404-71aa39cabfd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\debug">
+      <UniqueIdentifier>{26e7e250-b0d3-49c6-8a0d-545b4ebcbf2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\clear">
+      <UniqueIdentifier>{1d1ee895-b442-43d9-bb64-0ecfd863f4cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\gameOver">
+      <UniqueIdentifier>{10434060-878c-437f-a2ea-ea840f26d9f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\title">
+      <UniqueIdentifier>{2267055c-ca80-4f36-ae7f-78c7ba705ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\game">
       <UniqueIdentifier>{479e47b8-41fa-45f4-a583-1efeed8623eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\scene\title">
+      <UniqueIdentifier>{b7e21fe0-1e83-4635-bd57-a31344c75280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\scene\clear">
+      <UniqueIdentifier>{20b97840-bee6-4321-b496-9b86de3c7894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\scene\gameOver">
+      <UniqueIdentifier>{4851df5c-1a47-4740-82f0-9d2c195212d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\application\scene\game">
+      <UniqueIdentifier>{6434667c-713f-42a5-b0f6-2d3ebb9c7f78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +233,6 @@
     </ClCompile>
     <ClCompile Include="engine\scene\AbstractSceneFactory.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\TitleScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="engine\scene\SceneManager.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
@@ -330,12 +351,6 @@
     <ClCompile Include="engine\3d\SkyboxPipeline.cpp">
       <Filter>ソース ファイル\engine\3d</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\ClearScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\GameOverScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
-    </ClCompile>
     <ClCompile Include="application\3d\base\BaseCharacter.cpp">
       <Filter>ソース ファイル\application\3d\base</Filter>
     </ClCompile>
@@ -389,9 +404,6 @@
     </ClCompile>
     <ClCompile Include="engine\math\Vector2.cpp">
       <Filter>ソース ファイル\engine\math</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\DParticleScene.cpp">
-      <Filter>ソース ファイル\application\scene</Filter>
     </ClCompile>
     <ClCompile Include="application\2d\HpUI.cpp">
       <Filter>ソース ファイル\application\2d</Filter>
@@ -483,26 +495,38 @@
     <ClCompile Include="application\scene\base\StageManager.cpp">
       <Filter>ソース ファイル\application\scene\base</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\gameScene\GameScene.cpp">
-      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    <ClCompile Include="application\scene\game\GameScene.cpp">
+      <Filter>ソース ファイル\application\scene\game</Filter>
     </ClCompile>
     <ClCompile Include="application\scene\base\BaseSceneState.cpp">
       <Filter>ソース ファイル\application\scene\base</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\gameScene\GameSceneStateWin.cpp">
-      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    <ClCompile Include="application\scene\game\GameSceneStateWin.cpp">
+      <Filter>ソース ファイル\application\scene\game</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\gameScene\GameSceneStateBattle.cpp">
-      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    <ClCompile Include="application\scene\game\GameSceneStateBattle.cpp">
+      <Filter>ソース ファイル\application\scene\game</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\gameScene\GameSceneStateDeath.cpp">
-      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    <ClCompile Include="application\scene\game\GameSceneStateDeath.cpp">
+      <Filter>ソース ファイル\application\scene\game</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\gameScene\GameSceneStateStart.cpp">
-      <Filter>ソース ファイル\application\scene\gameScene</Filter>
+    <ClCompile Include="application\scene\game\GameSceneStateStart.cpp">
+      <Filter>ソース ファイル\application\scene\game</Filter>
     </ClCompile>
     <ClCompile Include="application\3d\base\FollowCamera.cpp">
       <Filter>ソース ファイル\application\3d\base</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\gameOver\GameOverScene.cpp">
+      <Filter>ソース ファイル\application\scene\gameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\title\TitleScene.cpp">
+      <Filter>ソース ファイル\application\scene\title</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\clear\ClearScene.cpp">
+      <Filter>ソース ファイル\application\scene\clear</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\debug\DParticleScene.cpp">
+      <Filter>ソース ファイル\application\scene\debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -535,9 +559,6 @@
     </ClInclude>
     <ClInclude Include="engine\3d\Camera.h">
       <Filter>ヘッダー ファイル\engine\3d</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\TitleScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="engine\scene\AbstractSceneFactory.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
@@ -713,17 +734,8 @@
     <ClInclude Include="engine\particle\UpdateParticlePipeline.h">
       <Filter>ヘッダー ファイル\engine\particle</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\GameOverScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\ClearScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
-    </ClInclude>
     <ClInclude Include="engine\math\Vector2.h">
       <Filter>ヘッダー ファイル\engine\math</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\DParticleScene.h">
-      <Filter>ヘッダー ファイル\application\scene</Filter>
     </ClInclude>
     <ClInclude Include="application\2d\HpUI.h">
       <Filter>ヘッダー ファイル\application\2d</Filter>
@@ -812,8 +824,8 @@
     <ClInclude Include="engine\scene\AbstractTransitionFactory.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\gameScene\GameScene.h">
-      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    <ClInclude Include="application\scene\game\GameScene.h">
+      <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
     <ClInclude Include="application\scene\base\BaseScene.h">
       <Filter>ヘッダー ファイル\application\scene\base</Filter>
@@ -830,20 +842,32 @@
     <ClInclude Include="application\scene\base\BaseSceneState.h">
       <Filter>ヘッダー ファイル\application\scene\base</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\gameScene\GameSceneStateBattle.h">
-      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    <ClInclude Include="application\scene\game\GameSceneStateBattle.h">
+      <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\gameScene\GameSceneStateDeath.h">
-      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    <ClInclude Include="application\scene\game\GameSceneStateDeath.h">
+      <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\gameScene\GameSceneStateStart.h">
-      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    <ClInclude Include="application\scene\game\GameSceneStateStart.h">
+      <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\gameScene\GameSceneStateWin.h">
-      <Filter>ヘッダー ファイル\application\scene\gameScene</Filter>
+    <ClInclude Include="application\scene\game\GameSceneStateWin.h">
+      <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
     <ClInclude Include="application\3d\base\FollowCamera.h">
       <Filter>ヘッダー ファイル\application\3d\base</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\title\TitleScene.h">
+      <Filter>ヘッダー ファイル\application\scene\title</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\gameOver\GameOverScene.h">
+      <Filter>ヘッダー ファイル\application\scene\gameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\clear\ClearScene.h">
+      <Filter>ヘッダー ファイル\application\scene\clear</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\debug\DParticleScene.h">
+      <Filter>ヘッダー ファイル\application\scene\debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
