@@ -149,6 +149,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\scene\gameOver\GameOverSceneStateMain.cpp" />
     <ClCompile Include="application\scene\game\GameSceneStateBattle.cpp" />
     <ClCompile Include="application\scene\game\GameSceneStateDeath.cpp" />
+    <ClCompile Include="application\scene\game\GameSceneStatePause.cpp" />
     <ClCompile Include="application\scene\game\GameSceneStateStart.cpp" />
     <ClCompile Include="application\scene\game\GameSceneStateWin.cpp" />
     <ClCompile Include="application\scene\base\StageManager.cpp" />
@@ -265,6 +266,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\scene\gameOver\GameOverSceneStateMain.h" />
     <ClInclude Include="application\scene\game\GameSceneStateBattle.h" />
     <ClInclude Include="application\scene\game\GameSceneStateDeath.h" />
+    <ClInclude Include="application\scene\game\GameSceneStatePause.h" />
     <ClInclude Include="application\scene\game\GameSceneStateStart.h" />
     <ClInclude Include="application\scene\game\GameSceneStateWin.h" />
     <ClInclude Include="application\scene\base\StageManager.h" />

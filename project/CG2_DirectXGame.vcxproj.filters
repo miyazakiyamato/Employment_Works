@@ -540,6 +540,9 @@
     <ClCompile Include="application\2d\UIManager.cpp">
       <Filter>ソース ファイル\application\2d</Filter>
     </ClCompile>
+    <ClCompile Include="application\scene\game\GameSceneStatePause.cpp">
+      <Filter>ソース ファイル\application\scene\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -892,6 +895,9 @@
     </ClInclude>
     <ClInclude Include="application\2d\UIManager.h">
       <Filter>ヘッダー ファイル\application\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\game\GameSceneStatePause.h">
+      <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

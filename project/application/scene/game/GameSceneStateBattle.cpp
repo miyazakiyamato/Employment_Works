@@ -12,6 +12,9 @@
 #include "PlayerStateLeave.h"
 #include "TextureManager.h"
 
+#include "GameSceneStatePause.h"
+#include "Input.h"
+
 void GameSceneStateBattle::Initialize(GameScene* gameScene) {
 	BaseSceneState<GameScene>::Initialize(gameScene);
 }
@@ -23,6 +26,12 @@ void GameSceneStateBattle::Update() {
 	auto collisionManager = scene_->GetCollisionManager();
 	auto player = stageManager->GetPlayer();
 	auto sceneManager = SceneManager::GetInstance();
+
+	// ポーズ遷移
+	if (Input::GetInstance()->TriggerKey(DIK_P) || Input::GetInstance()->TriggerKey(DIK_RETURN)) {
+		scene_->ChangeToPauseState(std::make_unique<GameSceneStatePause>());
+		return;
+	}
 
 	//ステージ
 	stageManager->Update();
@@ -55,22 +64,5 @@ void GameSceneStateBattle::Update() {
 }
 
 void GameSceneStateBattle::Draw() {
-	auto stageManager = scene_->GetStageManager();
-	auto bulletManager = scene_->GetBulletManager();
-	auto particleSystem = scene_->GetParticleSystem();
-	auto collisionManager = scene_->GetCollisionManager();
-
-	//Object3dの描画
-	//ステージ
-	stageManager->Draw();
-	bulletManager->Draw();
-
-	//当たり判定の表示
-	collisionManager->Draw();
-
-	//ラインの描画
-	Line3dManager::GetInstance()->Draw();
-
-	//Particleの描画
-	particleSystem->Draw();
+	scene_->DrawGame3D();
 }

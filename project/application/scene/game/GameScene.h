@@ -15,6 +15,7 @@
 #include "UIManager.h"
 #include "BaseSceneState.h"
 
+class GameSceneStatePause;
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -39,6 +40,16 @@ public:
 	/// ステート変更
 	/// </summary>
 	void ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState);
+
+	/// <summary>
+	/// ポーズステートへの変更（現在のステートを保存）
+	/// </summary>
+	void ChangeToPauseState(std::unique_ptr<GameSceneStatePause> pauseState);
+
+	/// <summary>
+	/// ゲーム本編の3D描画
+	/// </summary>
+	void DrawGame3D();
 private:
 		// --- メンバ変数 ---
 	//衝突マネージャ

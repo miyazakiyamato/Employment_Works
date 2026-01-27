@@ -23,10 +23,18 @@
 #include "HpUI.h"
 #include "OperationUI.h"
 #include "GameSceneStateStart.h"
+#include "GameSceneStatePause.h"
 
 void GameScene::ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
+}
+
+void GameScene::ChangeToPauseState(std::unique_ptr<GameSceneStatePause> pauseState) {
+	if (state_) {
+		pauseState->Initialize(this, std::move(state_));
+		state_ = std::move(pauseState);
+	}
 }
 
 void GameScene::Initialize(){
@@ -166,6 +174,22 @@ void GameScene::Draw(){
 	}
 	// UIの描画
 	uiManager_->Draw();
+}
+
+void GameScene::DrawGame3D() {
+	//Object3dの描画
+	//ステージ
+	stageManager_->Draw();
+	bulletManager_->Draw();
+
+	//当たり判定の表示
+	collisionManager_->Draw();
+
+	//ラインの描画
+	Line3dManager::GetInstance()->Draw();
+
+	//Particleの描画
+	particleSystem_->Draw();
 }
 
 
