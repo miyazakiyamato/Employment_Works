@@ -24,7 +24,10 @@ void PauseStateSelect::Update() {
 	}
 
 	// Action
-	if (input->TriggerKey(DIK_SPACE) || input->TriggerControllerButton(XINPUT_GAMEPAD_A)) {
+	bool isAction = input->TriggerKey(DIK_SPACE) || input->TriggerControllerButton(XINPUT_GAMEPAD_A);
+	bool isCancel = input->TriggerKey(DIK_P) || input->TriggerControllerButton(XINPUT_GAMEPAD_START) || input->TriggerControllerButton(XINPUT_GAMEPAD_B);
+
+	if (isAction) {
 		if (currentSelection == 0) {
 			// Resume (keepPlaying)
 			scene_->ChangeState(std::make_unique<PauseStateEnd>(0));
@@ -35,6 +38,11 @@ void PauseStateSelect::Update() {
 			scene_->ChangeState(std::make_unique<PauseStateEnd>(2));
 			return;
 		}
+	}
+	else if (isCancel) {
+		// Resume on Cancel input
+		scene_->ChangeState(std::make_unique<PauseStateEnd>(0));
+		return;
 	}
 
 	// Update Sprites
