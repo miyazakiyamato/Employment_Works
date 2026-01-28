@@ -12,7 +12,7 @@
 #include "PlayerStateLeave.h"
 #include "TextureManager.h"
 
-#include "GameSceneStatePause.h"
+#include "PauseScene.h"
 #include "Input.h"
 
 void GameSceneStateBattle::Initialize(GameScene* gameScene) {
@@ -27,11 +27,6 @@ void GameSceneStateBattle::Update() {
 	auto player = stageManager->GetPlayer();
 	auto sceneManager = SceneManager::GetInstance();
 
-	// ポーズ遷移
-	if (Input::GetInstance()->TriggerKey(DIK_P) || Input::GetInstance()->TriggerKey(DIK_RETURN)) {
-		scene_->ChangeToPauseState(std::make_unique<GameSceneStatePause>());
-		return;
-	}
 
 	//ステージ
 	stageManager->Update();

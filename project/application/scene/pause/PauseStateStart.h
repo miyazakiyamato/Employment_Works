@@ -1,14 +1,14 @@
+#pragma once
 #include "BaseSceneState.h"
-#include <memory>
 
-class GameScene;
+class PauseScene;
 
-class GameSceneStateBattle : public BaseSceneState<GameScene> {
+class PauseStateStart : public BaseSceneState<PauseScene> {
 public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize(GameScene* gameScene) override;
+	void Initialize(PauseScene* scene) override;
 
 	/// <summary>
 	/// 更新
@@ -19,4 +19,8 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw() override;
+
+private:
+	float animationTimer_ = 0.0f;
+	const float kAnimationDuration_ = 30.0f;
 };

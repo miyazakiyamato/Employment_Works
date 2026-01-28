@@ -23,18 +23,11 @@
 #include "HpUI.h"
 #include "OperationUI.h"
 #include "GameSceneStateStart.h"
-#include "GameSceneStatePause.h"
+#include "../pause/PauseScene.h"
 
 void GameScene::ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
-}
-
-void GameScene::ChangeToPauseState(std::unique_ptr<GameSceneStatePause> pauseState) {
-	if (state_) {
-		pauseState->Initialize(this, std::move(state_));
-		state_ = std::move(pauseState);
-	}
 }
 
 void GameScene::Initialize(){
@@ -162,6 +155,12 @@ void GameScene::Update() {
 	
 	// UIの更新 (死活監視含む)
 	uiManager_->Update();
+
+	// ポーズ遷移 (全ステート共通)
+	if (Input::GetInstance()->TriggerKey(DIK_P) || Input::GetInstance()->TriggerControllerButton(XINPUT_GAMEPAD_START)) {
+		SceneManager::GetInstance()->ChangeSceneToPause(std::make_unique<PauseScene>());
+		return;
+	}
 
 	if (state_) {
 		state_->Update();

@@ -48,8 +48,11 @@ void GameSceneStateDeath::Update() {
 	}
 	else {
 		// 次のシーンへ
-		SceneManager::GetInstance()->ChangeScene("GAMEOVER");
-		SceneManager::GetInstance()->ChangeTransition("FADE");
+		if (!isTransitioning_) {
+			isTransitioning_ = true;
+			SceneManager::GetInstance()->ChangeScene("GAMEOVER");
+			SceneManager::GetInstance()->ChangeTransition("FADE");
+		}
 	}
 	//ステージ
 	stageManager->Update();

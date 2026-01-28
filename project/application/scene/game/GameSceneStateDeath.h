@@ -34,4 +34,5 @@ private:
 	float duration_ = 1.0f;
 	//経過時間カウンター
 	float counter_ = 0.0f;
+	bool isTransitioning_ = false;
 };

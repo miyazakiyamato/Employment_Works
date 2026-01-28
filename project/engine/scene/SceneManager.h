@@ -44,10 +44,22 @@ public:
 	void ChangeScene(std::string sceneName);
 
 	/// <summary>
+	/// ポーズシーンへ変更（現在のシーンをスタックに積む）
+	/// </summary>
+	void ChangeSceneToPause(std::unique_ptr<BaseScene> pauseScene);
+
+	/// <summary>
+	/// シーン復帰（スタックからシーンを戻す）
+	/// </summary>
+	void ReturnScene();
+
+	/// <summary>
 	/// シーン遷移エフェクト変更
 	/// 次のシーン遷移エフェクトを変更
 	/// </summary>
-	void ChangeTransition(std::string transitionName);
+	/// <param name="transitionName">遷移名</param>
+	/// <param name="isGamePaused">遷移中にシーン更新を止めるか（true: 止める、false: 止めない）</param>
+	void ChangeTransition(std::string transitionName, bool isGamePaused = false);
 private:
 	/// <summary>
 	/// シーン遷移開始
@@ -69,6 +81,13 @@ private:
 	std::unique_ptr<BaseScene> scene_ = nullptr;
 	//次のシーン
 	std::unique_ptr<BaseScene> nextScene_ = nullptr;
+	// シーンスタック (ポーズ用)
+	std::vector<std::unique_ptr<BaseScene>> sceneStack_;
+
+	// シーン切り替えモード
+	bool isPushMode_ = false;
+	bool isPopMode_ = false;
+
 	// シーンファクトリー
 	AbstractSceneFactory* sceneFactory_ = nullptr;
 
@@ -76,6 +95,9 @@ private:
 	std::unique_ptr<BaseTransition> transition_ = nullptr;
 	// シーン遷移エフェクトファクトリー
 	AbstractTransitionFactory* transitionFactory_ = nullptr;
+
+	// トランジション中にシーン更新を止めるか
+	bool isScenePausedOnTransition_ = false;
 public:
 		// --- ゲッター ---
 	/// シーン遷移エフェクトの取得

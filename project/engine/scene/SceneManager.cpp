@@ -21,7 +21,9 @@ void SceneManager::Update() {
 	SceneTransition();
 
 	//シーンの更新
-	scene_->Update();
+	if (!transition_ || !isScenePausedOnTransition_) {
+		scene_->Update();
+	}
 	//シーン遷移エフェクトの更新
 	if (transition_) {
 		transition_->Update();
@@ -29,8 +31,14 @@ void SceneManager::Update() {
 }
 
 void SceneManager::Draw() {
+	// スタックされているシーンを描画（背景として）
+	for (auto& stack : sceneStack_) {
+		stack->Draw();
+	}
 	//シーンの描画
-	scene_->Draw();
+	if (scene_) {
+		scene_->Draw();
+	}
 	
 	//シーン遷移エフェクトの描画
 	if (transition_) {
@@ -40,8 +48,7 @@ void SceneManager::Draw() {
 
 void SceneManager::ChangeScene(std::string sceneName) {
 	assert(sceneFactory_);
-	if (nextScene_ != nullptr ||
-		transition_ != nullptr) { return; }
+	assert(nextScene_ == nullptr);
 
 	if (scene_ == nullptr) {
 		//最初のシーンの場合は即座にセットする
@@ -51,16 +58,43 @@ void SceneManager::ChangeScene(std::string sceneName) {
 		return;
 	}
 
-	nextScene_ = std::move(sceneFactory_->CreateScene(sceneName));
+	// 次のシーンを生成
+	nextScene_ = sceneFactory_->CreateScene(sceneName);
+	isPushMode_ = false;
+	isPopMode_ = false;
 }
 
-void SceneManager::ChangeTransition(std::string transitionName){
+void SceneManager::ChangeSceneToPause(std::unique_ptr<BaseScene> pauseScene) {
+	// トランジション中は割り込み（ポーズ）不可
+	if (transition_) { return; }
+
+	assert(nextScene_ == nullptr);
+	nextScene_ = std::move(pauseScene);
+	isPushMode_ = true;
+}
+
+void SceneManager::ReturnScene() {
+	isPopMode_ = true;
+}
+
+void SceneManager::ChangeTransition(std::string transitionName, bool isGamePaused){
 	assert(transitionFactory_);
-	if (transition_ != nullptr) { return; }
+	if (transition_ != nullptr) {
+		// すでにFadeIn中なら中断して次のFadeOutを開始する
+		if (transition_->GetType() == BaseTransition::Type::kIn) {
+			transition_->Finalize();
+			transition_.reset();
+		}
+		else {
+			// FadeOut中なら無視（重複呼び出し防止）
+			return;
+		}
+	}
 
 	transition_ = std::move(transitionFactory_->CreateTransition(transitionName));
 	transition_->Initialize();
 	transition_->SetType(BaseTransition::Type::kOut);
+	isScenePausedOnTransition_ = isGamePaused;
 }
 
 void SceneManager::SceneTransition(){
@@ -74,12 +108,35 @@ void SceneManager::SceneTransition(){
 		return;
 	}
 
+	// Popモードの処理
+	if (isPopMode_) {
+		if (!sceneStack_.empty()) {
+			// 現在のシーンを破棄し、スタックから戻す
+			scene_ = std::move(sceneStack_.back());
+			sceneStack_.pop_back();
+		}
+		isPopMode_ = false;
+		return;
+	}
+
 	//次のシーンの予約がないならreturn
 	if (nextScene_ == nullptr) { return; }
 
 	// transition_が存在しないなら
 	if (!transition_ ||
 		transition_->GetType() == BaseTransition::Type::kOut && transition_->IsFinished()) {
+
+		if (isPushMode_) {
+			// 現在のシーンをスタックに積む
+			if (scene_) {
+				sceneStack_.push_back(std::move(scene_));
+			}
+			isPushMode_ = false;
+		}
+		else {
+			// 通常遷移
+			sceneStack_.clear();
+		}
 
 		//シーンの切り替え
 		scene_ = std::move(nextScene_);

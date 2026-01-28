@@ -199,6 +199,12 @@
     <Filter Include="ソース ファイル\application\scene\game">
       <UniqueIdentifier>{6434667c-713f-42a5-b0f6-2d3ebb9c7f78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\application\scene\pause">
+      <UniqueIdentifier>{a839602d-f225-4a9d-86a8-c6ed39b789c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\application\scene\pause">
+      <UniqueIdentifier>{05003028-b0fd-420b-9c8d-3eee41861c6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\2d\Sprite.cpp">
@@ -540,8 +546,17 @@
     <ClCompile Include="application\2d\UIManager.cpp">
       <Filter>ソース ファイル\application\2d</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\game\GameSceneStatePause.cpp">
-      <Filter>ソース ファイル\application\scene\game</Filter>
+    <ClCompile Include="application\scene\pause\PauseScene.cpp">
+      <Filter>ソース ファイル\application\scene\pause</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\pause\PauseStateEnd.cpp">
+      <Filter>ソース ファイル\application\scene\pause</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\pause\PauseStateSelect.cpp">
+      <Filter>ソース ファイル\application\scene\pause</Filter>
+    </ClCompile>
+    <ClCompile Include="application\scene\pause\PauseStateStart.cpp">
+      <Filter>ソース ファイル\application\scene\pause</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -896,8 +911,17 @@
     <ClInclude Include="application\2d\UIManager.h">
       <Filter>ヘッダー ファイル\application\2d</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\game\GameSceneStatePause.h">
-      <Filter>ヘッダー ファイル\application\scene\game</Filter>
+    <ClInclude Include="application\scene\pause\PauseScene.h">
+      <Filter>ヘッダー ファイル\application\scene\pause</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\pause\PauseStateEnd.h">
+      <Filter>ヘッダー ファイル\application\scene\pause</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\pause\PauseStateSelect.h">
+      <Filter>ヘッダー ファイル\application\scene\pause</Filter>
+    </ClInclude>
+    <ClInclude Include="application\scene\pause\PauseStateStart.h">
+      <Filter>ヘッダー ファイル\application\scene\pause</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

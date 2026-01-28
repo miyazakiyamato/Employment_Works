@@ -55,8 +55,11 @@ void GameSceneStateWin::Update() {
 	}
 	else {
 		// 次のシーンへ
-		SceneManager::GetInstance()->ChangeScene("CLEAR");
-		SceneManager::GetInstance()->ChangeTransition("FADE");
+		if (!isTransitioning_) {
+			isTransitioning_ = true;
+			SceneManager::GetInstance()->ChangeScene("CLEAR");
+			SceneManager::GetInstance()->ChangeTransition("FADE");
+		}
 	}
 	//ステージ
 	stageManager->Update();
