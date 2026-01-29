@@ -5,23 +5,23 @@
 #include "GameOverScene.h"
 #include "DParticleScene.h"
 
-std::unique_ptr<BaseScene> SceneFactory::CreateScene(const std::string& sceneName)
-{
-	//次のシーンを生成
-	std::unique_ptr<BaseScene> newScene = nullptr;
+SceneFactory::SceneFactory(){
+	// シーン生成関数の登録
+	sceneGenerators_["TITLE"] = []() { return std::make_unique<TitleScene>(); };
+	sceneGenerators_["GAME"] = []() { return std::make_unique<GameScene>(); };
+	sceneGenerators_["CLEAR"] = []() { return std::make_unique<ClearScene>(); };
+	sceneGenerators_["GAMEOVER"] = []() { return std::make_unique<GameOverScene>(); };
+	sceneGenerators_["D_PARTICLE"] = []() { return std::make_unique<DParticleScene>(); };
+}
 
-	if (sceneName == "TITLE") {
-		newScene = std::make_unique<TitleScene>();
-	} else if (sceneName == "GAME") {
-		newScene = std::make_unique<GameScene>();
-	} else if (sceneName == "CLEAR") {
-		newScene = std::make_unique<ClearScene>();
-	} else if (sceneName == "GAMEOVER") {
-		newScene = std::make_unique<GameOverScene>();
-	} else if (sceneName == "D_PARTICLE") {
-		newScene = std::make_unique<DParticleScene>();
-	}else {
-		assert(0 && "不明なシーン名");
+std::unique_ptr<BaseScene> SceneFactory::CreateScene(const std::string& sceneName){
+	// マップからシーン生成関数を検索
+	auto it = sceneGenerators_.find(sceneName);
+	if (it != sceneGenerators_.end()) {
+		return it->second();
 	}
-	return std::move(newScene);
+
+	// 未登録のシーン名
+	assert(0 && "不明なシーン名");
+	return nullptr;
 }

@@ -2,15 +2,19 @@
 #include "FadeTransition.h"
 #include <cassert>
 
-std::unique_ptr<BaseTransition> TransitionFactory::CreateTransition(const std::string& transitionName)
-{
-	//次のシーンを生成
-	std::unique_ptr<BaseTransition> newTransition = nullptr;
+TransitionFactory::TransitionFactory(){
+	// 遷移エフェクト生成関数の登録
+	transitionGenerators_["FADE"] = []() { return std::make_unique<FadeTransition>(); };
+}
 
-	if (transitionName == "FADE") {
-		newTransition = std::make_unique<FadeTransition>();
-	}else {
-		assert(0 && "不明なシーン名");
+std::unique_ptr<BaseTransition> TransitionFactory::CreateTransition(const std::string& transitionName){
+	// マップから遷移エフェクト生成関数を検索
+	auto it = transitionGenerators_.find(transitionName);
+	if (it != transitionGenerators_.end()) {
+		return it->second();
 	}
-	return std::move(newTransition);
+
+	// 未登録の遷移名
+	assert(0 && "不明な遷移名");
+	return nullptr;
 }
