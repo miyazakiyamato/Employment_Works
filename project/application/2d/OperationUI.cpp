@@ -100,9 +100,11 @@ void OperationUI::Update() {
 				sprites_[2]->SetColor(activeColor);
 				sprites_[3]->SetColor(defaultIsColor);
 			}
+		} else {
+			// Not Pressed
+			sprites_[2]->SetColor(defaultIsColor);
+			sprites_[3]->SetColor(defaultIsColor);
 		}
-		sprites_[2]->SetColor(defaultIsColor);
-		sprites_[3]->SetColor(defaultIsColor);
 	}
 
 	// 4: Pause (pauseButton.png)

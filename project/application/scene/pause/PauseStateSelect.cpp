@@ -5,6 +5,7 @@
 
 void PauseStateSelect::Initialize(PauseScene* scene) {
 	BaseSceneState<PauseScene>::Initialize(scene);
+	inputCooldown_ = 0.0f;
 }
 
 void PauseStateSelect::Update() {
@@ -12,15 +13,22 @@ void PauseStateSelect::Update() {
 	int currentSelection = scene_->GetSelectionIndex();
 
 	// Navigation
-	if (input->TriggerKey(DIK_UP) || input->TriggerKey(DIK_W) || input->TriggerControllerButton(XINPUT_GAMEPAD_DPAD_UP)) {
-		currentSelection--;
-		if (currentSelection < 0) currentSelection = 1;
-		scene_->SetSelectionIndex(currentSelection);
+	if (inputCooldown_ > 0.0f) {
+		inputCooldown_ -= 1.0f / 60.0f;
 	}
-	else if (input->TriggerKey(DIK_DOWN) || input->TriggerKey(DIK_S) || input->TriggerControllerButton(XINPUT_GAMEPAD_DPAD_DOWN)) {
-		currentSelection++;
-		if (currentSelection > 1) currentSelection = 0;
-		scene_->SetSelectionIndex(currentSelection);
+	else {
+		if (input->TriggerKey(DIK_UP) || input->TriggerKey(DIK_W) || input->TriggerControllerButton(XINPUT_GAMEPAD_DPAD_UP) || input->GetControllerStickLY() > 0.5f) {
+			currentSelection--;
+			if (currentSelection < 0) currentSelection = 1;
+			scene_->SetSelectionIndex(currentSelection);
+			inputCooldown_ = 0.2f; // 0.2 seconds cooldown
+		}
+		else if (input->TriggerKey(DIK_DOWN) || input->TriggerKey(DIK_S) || input->TriggerControllerButton(XINPUT_GAMEPAD_DPAD_DOWN) || input->GetControllerStickLY() < -0.5f) {
+			currentSelection++;
+			if (currentSelection > 1) currentSelection = 0;
+			scene_->SetSelectionIndex(currentSelection);
+			inputCooldown_ = 0.2f; // 0.2 seconds cooldown
+		}
 	}
 
 	// Action
