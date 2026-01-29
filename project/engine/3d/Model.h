@@ -124,12 +124,12 @@ private:
 	DirectXCommon* dxCommon_ = nullptr;
 
 	// Obj/GLTFファイルの解析データ
-	std::vector<Mesh> meshDates_;
+	std::vector<Mesh> meshData_;
 	size_t meshCount_ = 0;
 	Node rootNode_;
 
 public:
 		// --- ゲッター ---
-	const std::vector<Mesh>& GetMeshData() { return meshDates_; }
+	const std::vector<Mesh>& GetMeshData() { return meshData_; }
 	const Node& GetNode() { return rootNode_; }
 };

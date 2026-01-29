@@ -7,13 +7,13 @@
 #endif // USE_IMGUI
 #include <string>
 
-Input* Input::instance = nullptr;
+std::unique_ptr<Input> Input::instance = nullptr;
 
 Input* Input::GetInstance() {
     if (!instance) {
-        instance = new Input();
+        instance.reset(new Input());
     }
-    return instance;
+    return instance.get();
 }
 
 void Input::Initialize(WinApp* winApp) {
@@ -42,8 +42,7 @@ void Input::Initialize(WinApp* winApp) {
 }
 
 void Input::Finalize() {
-    delete instance;
-    instance = nullptr;
+    instance.reset();
 }
 
 void Input::Update() {

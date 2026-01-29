@@ -7,7 +7,7 @@ const uint32_t SrvUavManager::kMaxSRVCount = 1u << 14;
 void SrvUavManager::Initialize(DirectXCommon* dxCommon){
 	dxCommon_ = dxCommon;
 
-	//デスクリプタヒープの生成。SRVはShader内で触るものなので、ShaderVisibleはture
+	//デスクリプタヒープの生成。SRVはShader内で触るものなので、ShaderVisibleはtrue
 	descriptorHeap_ = dxCommon_->CreateDescriptorHeap(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV, kMaxSRVCount, true);
 	//デスクリプタ1個分のサイズを取得して記録
 	descriptorSize = dxCommon_->GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
@@ -95,7 +95,7 @@ void SrvUavManager::CreateSRVforStructuredBuffer(uint32_t srvIndex, ID3D12Resour
 	dxCommon_->GetDevice()->CreateShaderResourceView(pResource, &srvDesc, GetCPUDescriptorHandle(srvIndex));
 }
 
-void SrvUavManager::CreateUAVforStructuredBuffer(uint32_t uavIndex, ID3D12Resource* pResource, UINT numElements, UINT structureByStride){
+void SrvUavManager::CreateUAVforStructuredBuffer(uint32_t uavIndex, ID3D12Resource* pResource, UINT numElements, UINT structureByteStride){
 	D3D12_UNORDERED_ACCESS_VIEW_DESC uavDesc{};
 	uavDesc.Format = DXGI_FORMAT_UNKNOWN; // 構造化バッファはフォーマット指定なし
 	uavDesc.ViewDimension = D3D12_UAV_DIMENSION_BUFFER;
@@ -103,7 +103,7 @@ void SrvUavManager::CreateUAVforStructuredBuffer(uint32_t uavIndex, ID3D12Resour
 	uavDesc.Buffer.NumElements = numElements; // 構造体の要素数
 	uavDesc.Buffer.CounterOffsetInBytes = 0; // カウンターオフセット（通常は0）
 	uavDesc.Buffer.Flags = D3D12_BUFFER_UAV_FLAG_NONE; // デフォルト
-	uavDesc.Buffer.StructureByteStride = structureByStride; // 各要素のバイトサイズ
+	uavDesc.Buffer.StructureByteStride = structureByteStride; // 各要素のバイトサイズ
 	dxCommon_->GetDevice()->CreateUnorderedAccessView(
 		pResource,
 		nullptr, // カウンターリソースは使用しない
@@ -119,7 +119,7 @@ void SrvUavManager::PreDraw(){
 	dxCommon_->GetCommandList()->SetDescriptorHeaps(1, descriptorHeaps);
 }
 
-void SrvUavManager::SetGraphicsRootDescriptorTable(UINT RootParaneterIndex, uint32_t srvIndex){
+void SrvUavManager::SetGraphicsRootDescriptorTable(UINT RootParameterIndex, uint32_t srvIndex){
 	// コマンドリストが有効か確認
 	auto commandList = dxCommon_->GetCommandList();
 	assert(commandList != nullptr);
@@ -131,10 +131,10 @@ void SrvUavManager::SetGraphicsRootDescriptorTable(UINT RootParaneterIndex, uint
 	auto gpuHandle = GetGPUDescriptorHandle(srvIndex);
 	assert(gpuHandle.ptr != 0); // GPUハンドルが有効か確認
 	// ルートディスクリプタテーブルを設定
-	commandList->SetGraphicsRootDescriptorTable(RootParaneterIndex, gpuHandle);
+	commandList->SetGraphicsRootDescriptorTable(RootParameterIndex, gpuHandle);
 }
 
-void SrvUavManager::SetComputeRootDescriptorTable(UINT RootParaneterIndex, uint32_t srvIndex){
+void SrvUavManager::SetComputeRootDescriptorTable(UINT RootParameterIndex, uint32_t srvIndex){
 	// コマンドリストが有効か確認
 	auto commandList = dxCommon_->GetCommandList();
 	assert(commandList != nullptr);
@@ -146,7 +146,7 @@ void SrvUavManager::SetComputeRootDescriptorTable(UINT RootParaneterIndex, uint3
 	auto gpuHandle = GetGPUDescriptorHandle(srvIndex);
 	assert(gpuHandle.ptr != 0); // GPUハンドルが有効か確認
 	// ルートディスクリプタテーブルを設定
-	commandList->SetComputeRootDescriptorTable(RootParaneterIndex, gpuHandle);
+	commandList->SetComputeRootDescriptorTable(RootParameterIndex, gpuHandle);
 }
 
 bool SrvUavManager::AvailabilityCheck(){

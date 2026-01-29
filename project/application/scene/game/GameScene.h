@@ -12,8 +12,10 @@
 #include "BaseEnemy.h"
 #include "RailCamera.h"
 #include "BaseUI.h"
+#include "UIManager.h"
 #include "BaseSceneState.h"
 
+class GameSceneStatePause;
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -24,10 +26,7 @@ public:
 	/// 初期化
 	/// </summary>
 	void Initialize() override;
-	/// <summary>
-	/// 終了
-	/// </summary>
-	void Finalize() override;
+
 	/// <summary>
 	/// 毎フレーム更新
 	/// </summary>
@@ -40,7 +39,12 @@ public:
 	/// <summary>
 	/// ステート変更
 	/// </summary>
-	void ChangeState(std::unique_ptr<BaseSceneState> newState);
+	void ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState);
+
+	/// <summary>
+	/// ゲーム本編の3D描画
+	/// </summary>
+	void DrawGame3D();
 private:
 		// --- メンバ変数 ---
 	//衝突マネージャ
@@ -51,8 +55,8 @@ private:
 	//プレイヤー
 	Player* player_ = nullptr;
 	
-	//UIリスト
-	std::vector<std::unique_ptr<BaseUI>> uiList_;
+	//UIマネージャ
+	std::unique_ptr<UIManager> uiManager_;
 
 	//パーティクルシステム
 	std::unique_ptr<ParticleSystem> particleSystem_ = nullptr;
@@ -60,12 +64,12 @@ private:
 	std::unique_ptr<BulletManager> bulletManager_ = nullptr;
 
 	//ステート
-	std::unique_ptr<BaseSceneState> state_;
+	std::unique_ptr<BaseSceneState<GameScene>> state_;
 public:
 	ParticleSystem* GetParticleSystem() { return particleSystem_.get(); }
 	StageManager* GetStageManager() { return stageManager_.get(); }
 	BulletManager* GetBulletManager() { return bulletManager_.get(); }
 	CollisionManager* GetCollisionManager() { return collisionManager_.get(); }
-	std::vector<std::unique_ptr<BaseUI>>& GetUIList() { return uiList_; }
+	UIManager* GetUIManager() { return uiManager_.get(); }
 };
 

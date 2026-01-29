@@ -11,13 +11,13 @@
 #include <imgui.h>
 #endif // USE_IMGUI
 
-ParticleManager* ParticleManager::instance = nullptr;
+std::unique_ptr<ParticleManager> ParticleManager::instance = nullptr;
 
 ParticleManager* ParticleManager::GetInstance(){
 	if (instance == nullptr) {
-		instance = new ParticleManager;
+		instance.reset(new ParticleManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void ParticleManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager) {
@@ -40,8 +40,7 @@ void ParticleManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavM
 }
 
 void ParticleManager::Finalize() {
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void ParticleManager::Update() {

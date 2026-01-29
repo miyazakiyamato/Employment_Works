@@ -37,7 +37,7 @@ void LevelDataManager::LoadJsonFile(const std::string& filePath){
 		}
 		levelData->push_back(std::move(objectData));
 	}
-	levelDates_[filePath] = std::move(levelData);
+	levelData_[filePath] = std::move(levelData);
 }
 
 std::unique_ptr<ObjectData> LevelDataManager::LoadObjectData(const nlohmann::json& object){

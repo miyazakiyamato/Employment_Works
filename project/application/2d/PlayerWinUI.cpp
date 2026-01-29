@@ -17,10 +17,6 @@ void PlayerWinUI::Draw() {
 	}
 }
 
-void PlayerWinUI::Finalize() {
-	sprites_.clear();
-}
-
 void PlayerWinUI::SetSpriteSize(const Vector2& size) {
 	if (!sprites_.empty()) {
 		sprites_[0]->SetSize(size);

@@ -8,13 +8,15 @@ class SceneManager;
 class BaseScene{
 public://メンバ関数
 	/// <summary>
+	/// 仮想デストラクタ
+	/// </summary>
+	virtual ~BaseScene() = default;
+
+	/// <summary>
 	/// 初期化
 	/// </summary>
 	virtual void Initialize();
-	/// <summary>
-	/// 終了
-	/// </summary>
-	virtual void Finalize();
+
 	/// <summary>
 	/// 毎フレーム更新
 	/// </summary>

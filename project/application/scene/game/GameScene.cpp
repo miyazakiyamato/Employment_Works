@@ -23,8 +23,9 @@
 #include "HpUI.h"
 #include "OperationUI.h"
 #include "GameSceneStateStart.h"
+#include "../pause/PauseScene.h"
 
-void GameScene::ChangeState(std::unique_ptr<BaseSceneState> newState) {
+void GameScene::ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
 }
@@ -94,37 +95,29 @@ void GameScene::Initialize(){
 	stageManager_->Initialize(bulletManager_.get(), particleSystem_.get());
 	player_ = stageManager_->GetPlayer();
 
+	// UIマネージャの初期化
+	uiManager_ = std::make_unique<UIManager>();
+
 	// Play Reticle UI
 	std::unique_ptr<ReticleUI> reticleUI = std::make_unique<ReticleUI>();
 	reticleUI->Initialize();
 	player_->SetReticleUI(reticleUI.get());
-	uiList_.push_back(std::move(reticleUI));
+	uiManager_->AddUI(std::move(reticleUI));
 
 	// HP UI
 	std::unique_ptr<HpUI> hpUI = std::make_unique<HpUI>();
 	hpUI->Initialize(player_);
-	uiList_.push_back(std::move(hpUI));
+	uiManager_->AddUI(std::move(hpUI));
 
 	// Operation UI
 	std::unique_ptr<OperationUI> opUI = std::make_unique<OperationUI>();
 	opUI->Initialize(player_);
-	uiList_.push_back(std::move(opUI));
+	uiManager_->AddUI(std::move(opUI));
 
 	ChangeState(std::make_unique<GameSceneStateStart>());
 }
 
-void GameScene::Finalize(){
-	particleSystem_->Finalize();
-	//解放
 
-	bulletManager_->Finalize();
-	stageManager_->Finalize();
-	for (auto& ui : uiList_) {
-		ui->Finalize();
-	}
-	uiList_.clear();
-	BaseScene::Finalize();
-}
 
 void GameScene::Update() {
 	BaseScene::Update();
@@ -152,9 +145,7 @@ void GameScene::Update() {
 
 			particleSystem_->ImGuiUpdate();
 			
-			for (auto& ui : uiList_) {
-				ui->ImGuiUpdate();
-			}
+			uiManager_->ImGuiUpdate();
 			PostEffectManager::GetInstance()->ImGuiUpdate();
 			ImGui::EndMenuBar();
 		}
@@ -162,10 +153,14 @@ void GameScene::Update() {
 	}
 #endif //_DEBUG
 	
-	// UIの死活監視
-	uiList_.erase(std::remove_if(uiList_.begin(), uiList_.end(), [](const std::unique_ptr<BaseUI>& ui) {
-		return ui->GetIsDead();
-		}), uiList_.end());
+	// UIの更新 (死活監視含む)
+	uiManager_->Update();
+
+	// ポーズ遷移 (全ステート共通)
+	if (Input::GetInstance()->TriggerKey(DIK_P) || Input::GetInstance()->TriggerControllerButton(XINPUT_GAMEPAD_START)) {
+		SceneManager::GetInstance()->ChangeSceneToPause(std::make_unique<PauseScene>());
+		return;
+	}
 
 	if (state_) {
 		state_->Update();
@@ -176,6 +171,24 @@ void GameScene::Draw(){
 	if (state_) {
 		state_->Draw();
 	}
+	// UIの描画
+	uiManager_->Draw();
+}
+
+void GameScene::DrawGame3D() {
+	//Object3dの描画
+	//ステージ
+	stageManager_->Draw();
+	bulletManager_->Draw();
+
+	//当たり判定の表示
+	collisionManager_->Draw();
+
+	//ラインの描画
+	Line3dManager::GetInstance()->Draw();
+
+	//Particleの描画
+	particleSystem_->Draw();
 }
 
 

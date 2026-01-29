@@ -7,14 +7,18 @@
 #include <fstream>
 #include <set>
 
+std::unique_ptr<GlobalVariables> GlobalVariables::instance = nullptr;
+
 GlobalVariables* GlobalVariables::GetInstance() { 
-	static GlobalVariables instance;
-	return &instance;
+	if (instance == nullptr) {
+		instance.reset(new GlobalVariables);
+	}
+	return instance.get();
 }
 
 void GlobalVariables::CreateGroup(const std::string& groupName) {
 	//指定名のオブジェクトがなければ追加する
-	datas_[groupName];
+	data_[groupName];
 }
 
 void GlobalVariables::Update() {
@@ -24,7 +28,7 @@ void GlobalVariables::Update() {
 	}
 	if (!ImGui::BeginMenuBar()) {return;}
 	//各グループについて
-	for (std::map<std::string, Group>::iterator itGroup = datas_.begin(); itGroup != datas_.end();++itGroup) {
+	for (std::map<std::string, Group>::iterator itGroup = data_.begin(); itGroup != data_.end();++itGroup) {
 		const std::string& groupName = itGroup->first;
 		Group& group = itGroup->second;
 
@@ -165,10 +169,10 @@ void GlobalVariables::ShowCombo(const std::string& label, const std::vector<std:
 }
 void GlobalVariables::SaveFile(const std::string& groupName) {
 	//グループを検索
-	std::map<std::string, Group>::iterator itGroup = datas_.find(groupName);
+	std::map<std::string, Group>::iterator itGroup = data_.find(groupName);
 
 	//未登録チェック
-	assert(itGroup != datas_.end());
+	assert(itGroup != data_.end());
 
 	json root;
 
@@ -402,7 +406,7 @@ void GlobalVariables::LoadFile(const std::string& groupName) {
 template<typename T>
 void GlobalVariables::SetValue(const std::string& groupName, const std::string& key, T value) {
 	//グループの参照を取得
-	Group& group = datas_[groupName];
+	Group& group = data_[groupName];
 	
 	// 設定した項目を追加
 	group[key] = value;
@@ -420,10 +424,10 @@ template void GlobalVariables::SetValue<Transform>(const std::string&, const std
 template<typename T>
 void GlobalVariables::AddItem(const std::string& groupName, const std::string& key, T value) {
 	// グループを検索
-	std::map<std::string, Group>::iterator itGroup = datas_.find(groupName);
+	std::map<std::string, Group>::iterator itGroup = data_.find(groupName);
 
 	// 未登録チェック
-	assert(itGroup != datas_.end());
+	assert(itGroup != data_.end());
 	
 	// 既に存在しなければ追加
 	if (!itGroup->second.contains(key)) {
@@ -452,10 +456,10 @@ template void GlobalVariables::AddItem<Transform>(const std::string&, const std:
 
 template<typename T>
 T GlobalVariables::GetValue(const std::string& groupName, const std::string& key) const{
-	assert(datas_.contains(groupName));
+	assert(data_.contains(groupName));
 
 	// グループの参照を取得
-	const Group& group = datas_.at(groupName);
+	const Group& group = data_.at(groupName);
 
 	if (group.find(key) == group.end()) {
 		return T();

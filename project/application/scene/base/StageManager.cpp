@@ -37,78 +37,20 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 	LevelDataManager::LevelData* levelData = levelDataManager_->GetObjectData("level1");
 
 	for (const std::unique_ptr<ObjectData>& objectData : *levelData) {
-		if (objectData->typeName == "MESH") {
-			std::unique_ptr<Object3d> object3d(new Object3d);
-			object3d->Initialize();
-			object3d->SetScale(objectData->scaling);
-			object3d->SetRotate(objectData->rotation);
-			object3d->SetTranslate(objectData->translation);
-			if (!objectData->fileName.empty()) {
-				object3d->SetModel(objectData->fileName);
-			}
-			object3ds_.push_back(std::move(object3d));
-		}
-		else if (objectData->typeName == "ARMATURE") {
-			for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
-				if (childData->typeName == "MESH") {
-					std::unique_ptr<Object3d> object3d(new Object3d);
-					object3d->Initialize();
-					object3d->SetTranslate(objectData->translation);
-					if (!childData->fileName.empty()) {
-						object3d->SetModel(childData->fileName);
-						object3d->SetAnimation(childData->fileName, true);
-					}
-					object3ds_.push_back(std::move(object3d));
-				}
-			}
+		if (objectData->typeName == "MESH" || objectData->typeName == "ARMATURE") {
+			LoadBackgroundObject(objectData);
 		}
 		// エネミー
 		else if (objectData->typeName == "EnemySpawn") {
-			std::unique_ptr<BaseEnemy> enemy = std::make_unique<SmallDrone>();
-			enemy->SetBulletManager(bulletManager);
-			enemy->SetParticleSystem(particleSystem);
-			enemy->SetPlayer(player_.get());
-			enemy->Initialize();
-			enemy->SetPosition(objectData->translation);
-			enemies_.push_back(std::move(enemy));
+			LoadEnemyObject(objectData);
 		}
 		// 敵出現イベント
 		else if (objectData->typeName == "EnemyPopEvent") {
-			std::unique_ptr<EnemyPopEvent> event = std::make_unique<EnemyPopEvent>();
-			event->Initialize();
-			event->SetPosition(objectData->translation);
-			event->GetObject3d()->SetRotate(objectData->rotation);
-			event->GetObject3d()->SetScale(objectData->scaling);
-			event->SetStageManager(this);
-
-			// 子供のデータを解析してスポーンデータを追加
-			for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
-				if (childData->typeName == "EnemySpawn") {
-					EnemySpawnData data;
-					// 親からの相対位置
-					// Blenderの構造上、子供のtranslationは親からの相対位置になっているはず
-					data.translation = childData->translation;
-					data.rotation = childData->rotation.ToQuaternion();
-					event->AddEnemySpawnData(data);
-				}
-			}
-
-			AddEventObject(std::move(event));
+			LoadEventObject(objectData);
 		}
-
 		// カメラ
 		else if (objectData->typeName == "CAMERA") {
-			for (const std::unique_ptr<ObjectData>& child : objectData->children) {
-				if (child->typeName == "Rail") {
-					for (const std::unique_ptr<ObjectData>& grandChild : child->children) {
-						if (grandChild->typeName == "ControlPointSpawn") {
-							// 階層構造の座標を合算してワールド座標を計算 (簡易実装: 回転・スケール無視で座標加算)
-							Vector3 worldPos = objectData->translation + child->translation + grandChild->translation;
-							railCameraPoints.push_back(worldPos);
-						}
-					}
-				}
-			}
+			LoadCameraObject(objectData, railCameraPoints);
 		}
 	}
 
@@ -143,20 +85,6 @@ void StageManager::SetStageCollisions(CollisionManager* collisionManager) {
 	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
 		collisionManager->AddCollider(eventObject.get());
 	}
-}
-
-void StageManager::Finalize() {
-	player_.reset();
-	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
-		enemy.reset();
-	}
-	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
-		eventObject.reset();
-	}
-	skydome_.reset();
-	ground_.reset();
-	railCamera_.reset();
-	object3ds_.clear();
 }
 
 void StageManager::Update() {
@@ -233,5 +161,80 @@ void StageManager::Draw() {
 	// イベントオブジェクト
 	for (std::unique_ptr<BaseEventObject>& eventObject : eventObjects_) {
 		eventObject->Draw();
+	}
+}
+
+void StageManager::LoadBackgroundObject(const std::unique_ptr<ObjectData>& objectData) {
+	if (objectData->typeName == "MESH") {
+		std::unique_ptr<Object3d> object3d(new Object3d);
+		object3d->Initialize();
+		object3d->SetScale(objectData->scaling);
+		object3d->SetRotate(objectData->rotation);
+		object3d->SetTranslate(objectData->translation);
+		if (!objectData->fileName.empty()) {
+			object3d->SetModel(objectData->fileName);
+		}
+		object3ds_.push_back(std::move(object3d));
+	}
+	else if (objectData->typeName == "ARMATURE") {
+		for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
+			if (childData->typeName == "MESH") {
+				std::unique_ptr<Object3d> object3d(new Object3d);
+				object3d->Initialize();
+				object3d->SetTranslate(objectData->translation);
+				if (!childData->fileName.empty()) {
+					object3d->SetModel(childData->fileName);
+					object3d->SetAnimation(childData->fileName, true);
+				}
+				object3ds_.push_back(std::move(object3d));
+			}
+		}
+	}
+}
+
+void StageManager::LoadEnemyObject(const std::unique_ptr<ObjectData>& objectData) {
+	std::unique_ptr<BaseEnemy> enemy = std::make_unique<SmallDrone>();
+	enemy->SetBulletManager(bulletManager_);
+	enemy->SetParticleSystem(particleSystem_);
+	enemy->SetPlayer(player_.get());
+	enemy->Initialize();
+	enemy->SetPosition(objectData->translation);
+	enemies_.push_back(std::move(enemy));
+}
+
+void StageManager::LoadEventObject(const std::unique_ptr<ObjectData>& objectData) {
+	std::unique_ptr<EnemyPopEvent> event = std::make_unique<EnemyPopEvent>();
+	event->Initialize();
+	event->SetPosition(objectData->translation);
+	event->GetObject3d()->SetRotate(objectData->rotation);
+	event->GetObject3d()->SetScale(objectData->scaling);
+	event->SetStageManager(this);
+
+	// 子供のデータを解析してスポーンデータを追加
+	for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
+		if (childData->typeName == "EnemySpawn") {
+			EnemySpawnData data;
+			// 親からの相対位置
+			// Blenderの構造上、子供のtranslationは親からの相対位置になっているはず
+			data.translation = childData->translation;
+			data.rotation = childData->rotation.ToQuaternion();
+			event->AddEnemySpawnData(data);
+		}
+	}
+
+	AddEventObject(std::move(event));
+}
+
+void StageManager::LoadCameraObject(const std::unique_ptr<ObjectData>& objectData, std::vector<Vector3>& railCameraPoints) {
+	for (const std::unique_ptr<ObjectData>& child : objectData->children) {
+		if (child->typeName == "Rail") {
+			for (const std::unique_ptr<ObjectData>& grandChild : child->children) {
+				if (grandChild->typeName == "ControlPointSpawn") {
+					// 階層構造の座標を合算してワールド座標を計算 (簡易実装: 回転・スケール無視で座標加算)
+					Vector3 worldPos = objectData->translation + child->translation + grandChild->translation;
+					railCameraPoints.push_back(worldPos);
+				}
+			}
+		}
 	}
 }

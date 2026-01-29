@@ -5,13 +5,13 @@
 
 #include <GlobalVariables.h>
 
-CameraManager* CameraManager::instance = nullptr;
+std::unique_ptr<CameraManager> CameraManager::instance = nullptr;
 
 CameraManager* CameraManager::GetInstance(){
 	if (instance == nullptr) {
-		instance = new CameraManager;
+		instance.reset(new CameraManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void CameraManager::Initialize(){
@@ -19,8 +19,7 @@ void CameraManager::Initialize(){
 }
 
 void CameraManager::Finalize(){
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void CameraManager::ImGuiUpdate(){

@@ -29,10 +29,6 @@ void ReticleUI::Draw() {
 	}
 }
 
-void ReticleUI::Finalize() {
-	sprite_.reset();
-}
-
 void ReticleUI::ImGuiUpdate() {
 #ifdef USE_IMGUI
 	if (sprite_) {

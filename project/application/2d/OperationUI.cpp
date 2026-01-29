@@ -12,8 +12,8 @@
 void OperationUI::Initialize(Player* player) {
 	player_ = player;
 
-	// UI Sprites (LST, RST, RB, Hold)
-	std::string uiTextures[] = { "LST.png", "RST.png", "RB.png", "Hold.png" };
+	// UI Sprites (LST, RST, RB, Hold, Pause)
+	std::string uiTextures[] = { "LST.png", "RST.png", "RB.png", "Hold.png", "pauseButton.png" };
 	// 画像サイズを取得して総幅を計算
 	float totalWidth = 0.0f;
 	float padding = 20.0f;
@@ -59,18 +59,17 @@ void OperationUI::Update() {
 
 	// Sprite Input Feedback (Alpha Change)
 	// Indices: 0:LST, 1:RST, 2:RB, 3:Hold (Based on initialization order)
+	Input* input = Input::GetInstance();
+	Vector4 defaultIsColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+	Vector4 activeColor = { 1.0f, 1.0f, 1.0f, 0.5f };
 	if (sprites_.size() >= 4) {
-		Input* input = Input::GetInstance();
-		Vector4 defaultIsColor = { 1.0f, 1.0f, 1.0f, 1.0f };
-		Vector4 activeColor = { 1.0f, 1.0f, 1.0f, 0.5f };
 
 		// 0: LST (Left Stick)
 		float lx = input->GetControllerStickLX();
 		float ly = input->GetControllerStickLY();
 		if (lx != 0.0f || ly != 0.0f) {
 			sprites_[0]->SetColor(activeColor);
-		}
-		else {
+		} else {
 			sprites_[0]->SetColor(defaultIsColor);
 		}
 
@@ -79,8 +78,7 @@ void OperationUI::Update() {
 		float ry = input->GetControllerStickRY();
 		if (rx != 0.0f || ry != 0.0f) {
 			sprites_[1]->SetColor(activeColor);
-		}
-		else {
+		} else {
 			sprites_[1]->SetColor(defaultIsColor);
 		}
 
@@ -97,17 +95,24 @@ void OperationUI::Update() {
 				// Charge Complete -> Trigger Hold UI
 				sprites_[2]->SetColor(defaultIsColor);
 				sprites_[3]->SetColor(activeColor);
-			}
-			else {
+			} else {
 				// Charging -> Trigger RB UI
 				sprites_[2]->SetColor(activeColor);
 				sprites_[3]->SetColor(defaultIsColor);
 			}
-		}
-		else {
+		} else {
 			// Not Pressed
 			sprites_[2]->SetColor(defaultIsColor);
 			sprites_[3]->SetColor(defaultIsColor);
+		}
+	}
+
+	// 4: Pause (pauseButton.png)
+	if (sprites_.size() >= 5) {
+		if (input->PushKey(DIK_P) || input->PushControllerButton(XINPUT_GAMEPAD_START)) {
+			sprites_[4]->SetColor(activeColor);
+		} else {
+			sprites_[4]->SetColor(defaultIsColor);
 		}
 	}
 }
@@ -116,10 +121,6 @@ void OperationUI::Draw() {
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Draw();
 	}
-}
-
-void OperationUI::Finalize() {
-	sprites_.clear();
 }
 
 void OperationUI::ImGuiUpdate() {

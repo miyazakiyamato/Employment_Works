@@ -1,10 +1,9 @@
 #pragma once
 
-class GameScene;
-
 /// <summary>
-/// ゲームシーンの状態基底クラス
+/// シーン状態基底クラス
 /// </summary>
+template <typename T>
 class BaseSceneState {
 public:
 	virtual ~BaseSceneState() = default;
@@ -12,7 +11,9 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	virtual void Initialize(GameScene* gameScene);
+	virtual void Initialize(T* scene) {
+		scene_ = scene;
+	}
 
 	/// <summary>
 	/// 更新
@@ -25,5 +26,5 @@ public:
 	virtual void Draw() = 0;
 
 protected:
-	GameScene* gameScene_ = nullptr;
+	T* scene_ = nullptr;
 };

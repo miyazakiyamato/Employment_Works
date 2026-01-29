@@ -72,7 +72,7 @@ protected:
 	//攻撃データ
 	float kChargeTime_ = 0.3f;
 	float chargeCount_ = 0.0f;
-	std::vector<AttackData> attackDatas_;
+	std::vector<AttackData> attackData_;
 	//生存フラグ
 	bool isAlive_ = true;
 public:
@@ -83,7 +83,7 @@ public:
 	Object3d* GetGunBarrel() const { return gunBarrel_.get(); }
 	float GetKChargeTime() const { return kChargeTime_; }
 	float GetChargeCount() const { return chargeCount_; }
-	const AttackData& GetAttackData(AttackType attackType) const {return attackDatas_[static_cast<size_t>(attackType)];}
+	const AttackData& GetAttackData(AttackType attackType) const {return attackData_[static_cast<size_t>(attackType)];}
 	
 	// セッター
 	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }

@@ -12,18 +12,21 @@
 #include "PlayerStateLeave.h"
 #include "TextureManager.h"
 
+#include "PauseScene.h"
+#include "Input.h"
+
 void GameSceneStateBattle::Initialize(GameScene* gameScene) {
-	BaseSceneState::Initialize(gameScene);
+	BaseSceneState<GameScene>::Initialize(gameScene);
 }
 
 void GameSceneStateBattle::Update() {
-	auto stageManager = gameScene_->GetStageManager();
-	auto bulletManager = gameScene_->GetBulletManager();
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto collisionManager = gameScene_->GetCollisionManager();
-	auto& uiList = gameScene_->GetUIList();
+	auto stageManager = scene_->GetStageManager();
+	auto bulletManager = scene_->GetBulletManager();
+	auto particleSystem = scene_->GetParticleSystem();
+	auto collisionManager = scene_->GetCollisionManager();
 	auto player = stageManager->GetPlayer();
 	auto sceneManager = SceneManager::GetInstance();
+
 
 	//ステージ
 	stageManager->Update();
@@ -43,45 +46,18 @@ void GameSceneStateBattle::Update() {
 
 	particleSystem->Update();
 
-	for (auto& ui : uiList) {
-		ui->Update();
-	}
-
 	//クリアチェック
 	if (!player->GetIsAlive()) {
 		// GAMEOVER遷移 -> StateDeath
-		gameScene_->ChangeState(std::make_unique<GameSceneStateDeath>());
+		scene_->ChangeState(std::make_unique<GameSceneStateDeath>());
 	}
 	else if (stageManager->GetRailCamera()->GetIsFinished()) {
 		// CLEAR遷移 -> StateWin
 		player->ChangeState(std::make_unique<PlayerStateLeave>(player));
-		gameScene_->ChangeState(std::make_unique<GameSceneStateWin>());
+		scene_->ChangeState(std::make_unique<GameSceneStateWin>());
 	}
 }
 
 void GameSceneStateBattle::Draw() {
-	auto stageManager = gameScene_->GetStageManager();
-	auto bulletManager = gameScene_->GetBulletManager();
-	auto particleSystem = gameScene_->GetParticleSystem();
-	auto collisionManager = gameScene_->GetCollisionManager();
-	auto& uiList = gameScene_->GetUIList();
-
-	//Object3dの描画
-	//ステージ
-	stageManager->Draw();
-	bulletManager->Draw();
-
-	//当たり判定の表示
-	collisionManager->Draw();
-
-	//ラインの描画
-	Line3dManager::GetInstance()->Draw();
-
-	//Particleの描画
-	particleSystem->Draw();
-
-	//UIの描画
-	for (auto& ui : uiList) {
-		ui->Draw();
-	}
+	scene_->DrawGame3D();
 }

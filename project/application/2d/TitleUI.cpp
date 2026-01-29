@@ -36,10 +36,6 @@ void TitleUI::Draw() {
 	}
 }
 
-void TitleUI::Finalize() {
-	sprites_.clear();
-}
-
 void TitleUI::ImGuiUpdate() {
 #ifdef USE_IMGUI
 	if (ImGui::TreeNode("TitleUI")) {

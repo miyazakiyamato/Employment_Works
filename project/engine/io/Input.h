@@ -5,6 +5,7 @@
 #include <XInput.h>
 #include <wrl.h>
 #include <array>
+#include <memory>
 #include "Vector2.h"
 
 #pragma comment(lib, "dinput8.lib")
@@ -126,7 +127,8 @@ public:
 
 private:
 	    // --- シングルトン ---
-    static Input* instance;
+    static std::unique_ptr<Input> instance;
+    friend struct std::default_delete<Input>;
 
     Input() = default;
     ~Input() = default;

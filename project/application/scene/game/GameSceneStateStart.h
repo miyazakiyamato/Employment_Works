@@ -1,14 +1,16 @@
 #pragma once
 #include "BaseSceneState.h"
-#include "PlayerWinUI.h"
+#include "GameStartUI.h"
 #include <memory>
 
-class GameSceneStateWin : public BaseSceneState {
+class GameScene;
+
+class GameSceneStateStart : public BaseSceneState<GameScene> {
 public:
 	/// <summary>
 	/// デストラクタ
 	/// </summary>
-	~GameSceneStateWin() override;
+	~GameSceneStateStart() override;
 
 	/// <summary>
 	/// 初期化
@@ -26,10 +28,7 @@ public:
 	void Draw() override;
 
 private:
-	PlayerWinUI* playerWinUI_ = nullptr;
-
+	GameStartUI* gameStartUI_ = nullptr;
 	//フェードの持続時間
 	float duration_ = 1.0f;
-	//経過時間カウンター
-	float counter_ = 0.0f;
 };

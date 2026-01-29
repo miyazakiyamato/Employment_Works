@@ -19,11 +19,6 @@ public:
 	virtual void Draw() = 0;
 
 	/// <summary>
-	/// 終了処理
-	/// </summary>
-	virtual void Finalize() = 0;
-
-	/// <summary>
 	/// ImGui更新
 	/// </summary>
 	virtual void ImGuiUpdate() {}

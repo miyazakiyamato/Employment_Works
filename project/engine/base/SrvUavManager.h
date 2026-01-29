@@ -51,12 +51,12 @@ public:
 	/// <summary>
 	/// StructuredBuffer用SRVの生成
 	/// </summary>
-	void CreateSRVforStructuredBuffer(uint32_t srvIndex, ID3D12Resource* pResource, UINT numElements, UINT structureByStride);
+	void CreateSRVforStructuredBuffer(uint32_t srvIndex, ID3D12Resource* pResource, UINT numElements, UINT structureByteStride);
 
 	/// <summary>
 	/// StructuredBuffer用UAVの生成
 	/// </summary>
-	void CreateUAVforStructuredBuffer(uint32_t uavIndex, ID3D12Resource* pResource, UINT numElements, UINT structureByStride);
+	void CreateUAVforStructuredBuffer(uint32_t uavIndex, ID3D12Resource* pResource, UINT numElements, UINT structureByteStride);
 
 	/// <summary>
 	/// 描画前処理
@@ -67,12 +67,12 @@ public:
 	/// <summary>
 	/// グラフィックスルートディスクリプタテーブルの設定
 	/// </summary>
-	void SetGraphicsRootDescriptorTable(UINT RootParaneterIndex, uint32_t srvIndex);
+	void SetGraphicsRootDescriptorTable(UINT RootParameterIndex, uint32_t srvIndex);
 
 	/// <summary>
 	/// コンピュートルートディスクリプタテーブルの設定
 	/// </summary>
-	void SetComputeRootDescriptorTable(UINT RootParaneterIndex, uint32_t srvIndex);
+	void SetComputeRootDescriptorTable(UINT RootParameterIndex, uint32_t srvIndex);
 
 	/// <summary>
 	/// 空き状況のチェック

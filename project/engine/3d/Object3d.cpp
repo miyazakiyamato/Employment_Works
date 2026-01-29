@@ -11,11 +11,15 @@
 #endif // USE_IMGUI
 
 Object3d::~Object3d(){
-	wvpResource.Get()->Unmap(0, nullptr);
-	cameraResource.Get()->Unmap(0, nullptr);
-	for (MaterialData& materialData : materialDates_) {
+	if (wvpResource) {
+		wvpResource->Unmap(0, nullptr);
+	}
+	if (cameraResource) {
+		cameraResource->Unmap(0, nullptr);
+	}
+	for (MaterialData& materialData : materialData_) {
 		if (materialData.materialResource) {
-			materialData.materialResource.Get()->Unmap(0, nullptr);
+			materialData.materialResource->Unmap(0, nullptr);
 		}
 	}
 	if (skinClusterData_) {
@@ -106,7 +110,7 @@ void Object3d::Update(){
 	skeletonData_->Update();
 	//スキンクラスタの更新
 	skinClusterData_->Update(skeletonData_.get());
-	for (MaterialData materialData : materialDates_) {
+	for (MaterialData materialData : materialData_) {
 		materialData.material->uvTransform = Matrix4x4::MakeAffineMatrix(
 			materialData.uvTransform.scale,
 			materialData.uvTransform.rotate,
@@ -130,9 +134,9 @@ void Object3d::Draw(){
 		//wvp用のCBufferの場所を設定
 		commandList->SetGraphicsRootConstantBufferView(1, wvpResource.Get()->GetGPUVirtualAddress());
 		//マテリアルCBufferの場所を設定
-		commandList->SetGraphicsRootConstantBufferView(0, materialDates_[meshIndex].materialResource.Get()->GetGPUVirtualAddress());
+		commandList->SetGraphicsRootConstantBufferView(0, materialData_[meshIndex].materialResource.Get()->GetGPUVirtualAddress());
 		//テクスチャを設定
-		commandList->SetGraphicsRootDescriptorTable(2, TextureManager::GetInstance()->GetSrvHandleGPU(materialDates_[meshIndex].textureFilePath_));
+		commandList->SetGraphicsRootDescriptorTable(2, TextureManager::GetInstance()->GetSrvHandleGPU(materialData_[meshIndex].textureFilePath_));
 		if (!isSkybox_) {
 			//カメラCBufferの場所を設定
 			commandList->SetGraphicsRootConstantBufferView(4, cameraResource.Get()->GetGPUVirtualAddress());
@@ -193,7 +197,7 @@ void Object3d::ImGuiUpdate(const std::string& name){
 			std::vector<std::string> textureState = TextureManager::GetInstance()->GetKeys();
 			uint32_t idIndex = 0;
 			ImGui::Indent();
-			for (MaterialData& materialData : materialDates_) {
+			for (MaterialData& materialData : materialData_) {
 				ImGui::PushID(idIndex);
 				if (ImGui::CollapsingHeader((name + "Material").c_str())) {
 					//テクスチャ選択
@@ -264,7 +268,7 @@ void Object3d::SetWorldMatrix(const Matrix4x4& worldMatrix){
 
 void Object3d::SetEnvironmentTexture(const std::string& cubeTextureFilePath) {
 	environmentTextureFilePath_ = cubeTextureFilePath;
-	for (MaterialData materialData : materialDates_) {
+	for (MaterialData materialData : materialData_) {
 		materialData.material->enableEnvironmentMap = true; // 環境マップを有効にする
 	}
 }
@@ -290,24 +294,24 @@ void Object3d::SetModel(const std::string& filePath){
 	skinClusterData_ = std::make_unique<SkinCluster>();
 	skinClusterData_->CreateSkinCluster(skeletonData_.get(), model_->GetMeshData());
 	//マテリアルデータの初期化
-	materialDates_.resize(model_->GetMeshData().size());
+	materialData_.resize(model_->GetMeshData().size());
 	for (uint32_t meshIndex = 0; meshIndex < model_->GetMeshData().size();meshIndex++) {
 		//マテリアル用のリソースを作る。今回はcolor1つ分のサイズを用意する
-		materialDates_[meshIndex].materialResource = dxCommon_->CreateBufferResource(sizeof(Material));
+		materialData_[meshIndex].materialResource = dxCommon_->CreateBufferResource(sizeof(Material));
 		// マップしてポインタ取得
 		void* mappedPtr = nullptr;
-		materialDates_[meshIndex].materialResource->Map(0, nullptr, &mappedPtr);
-		materialDates_[meshIndex].material = reinterpret_cast<Material*>(mappedPtr);
+		materialData_[meshIndex].materialResource->Map(0, nullptr, &mappedPtr);
+		materialData_[meshIndex].material = reinterpret_cast<Material*>(mappedPtr);
 
-		materialDates_[meshIndex].textureFilePath_ = model_->GetMeshData()[meshIndex].material.textureFilePath;
+		materialData_[meshIndex].textureFilePath_ = model_->GetMeshData()[meshIndex].material.textureFilePath;
 		//マテリアルデータの初期値を書き込む
-		materialDates_[meshIndex].material->color = model_->GetMeshData()[meshIndex].material.color;//色を書き込む
-		materialDates_[meshIndex].material->enableLighting = true;//Lightingを有効にする
-		materialDates_[meshIndex].material->uvTransform = Matrix4x4::MakeIdentity4x4();//UVTransform単位行列で初期化
-		materialDates_[meshIndex].material->shininess = 40.0f;
-		materialDates_[meshIndex].material->highLightColor = { 1.0f,1.0f,1.0f,1.0f };
-		materialDates_[meshIndex].material->enableEnvironmentMap = false; // 環境マップを無効にする
-		materialDates_[meshIndex].material->environmentCoefficient = 1.0f; // 環境マップの寄与度を初期化
+		materialData_[meshIndex].material->color = model_->GetMeshData()[meshIndex].material.color;//色を書き込む
+		materialData_[meshIndex].material->enableLighting = true;//Lightingを有効にする
+		materialData_[meshIndex].material->uvTransform = Matrix4x4::MakeIdentity4x4();//UVTransform単位行列で初期化
+		materialData_[meshIndex].material->shininess = 40.0f;
+		materialData_[meshIndex].material->highLightColor = { 1.0f,1.0f,1.0f,1.0f };
+		materialData_[meshIndex].material->enableEnvironmentMap = false; // 環境マップを無効にする
+		materialData_[meshIndex].material->environmentCoefficient = 1.0f; // 環境マップの寄与度を初期化
 	}
 }
 

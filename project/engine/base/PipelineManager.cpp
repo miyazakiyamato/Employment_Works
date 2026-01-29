@@ -7,13 +7,13 @@ using namespace Microsoft::WRL;
 using namespace Logger;
 using namespace StringUtility;
 
-PipelineManager* PipelineManager::instance = nullptr;
+std::unique_ptr<PipelineManager> PipelineManager::instance = nullptr;
 
 PipelineManager* PipelineManager::GetInstance(){
 	if (instance == nullptr) {
-		instance = new PipelineManager;
+		instance.reset(new PipelineManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void PipelineManager::Initialize(DirectXCommon* dxCommon) {
@@ -21,8 +21,7 @@ void PipelineManager::Initialize(DirectXCommon* dxCommon) {
 }
 
 void PipelineManager::Finalize(){
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void PipelineManager::DrawSetting(const std::string& stateName){

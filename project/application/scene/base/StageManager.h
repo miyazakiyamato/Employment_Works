@@ -46,11 +46,6 @@ public:
 	void SetStageCollisions(CollisionManager* collisionManager);
 
 	/// <summary>
-	/// 終了処理
-	/// </summary>
-	void Finalize();
-
-	/// <summary>
 	/// レールカメラ取得
 	/// </summary>
 	RailCamera* GetRailCamera() const { return railCamera_.get(); }
@@ -75,9 +70,13 @@ public:
 	void AddEventObject(std::unique_ptr<BaseEventObject> eventObject);
 
 private:
+	void LoadBackgroundObject(const std::unique_ptr<ObjectData>& objectData);
+	void LoadEnemyObject(const std::unique_ptr<ObjectData>& objectData);
+	void LoadEventObject(const std::unique_ptr<ObjectData>& objectData);
+	void LoadCameraObject(const std::unique_ptr<ObjectData>& objectData, std::vector<Vector3>& railCameraPoints);
+
 	// 天球
 	std::unique_ptr<Skydome> skydome_;
-
 	// 地面
 	std::unique_ptr<Ground> ground_;
 	// 3Dオブジェクト(背景など)

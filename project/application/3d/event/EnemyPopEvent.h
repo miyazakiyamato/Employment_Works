@@ -36,9 +36,9 @@ public:
 	/// エネミー出現データの追加
 	/// </summary>
 	/// <param name="data"></param>
-	void AddEnemySpawnData(const EnemySpawnData& data) { enemySpawnDatas_.push_back(data); }
+	void AddEnemySpawnData(const EnemySpawnData& data) { enemySpawnData_.push_back(data); }
 
 private:
 	StageManager* stageManager_ = nullptr;
-	std::vector<EnemySpawnData> enemySpawnDatas_;
+	std::vector<EnemySpawnData> enemySpawnData_;
 };

@@ -11,7 +11,7 @@ void Model::Initialize(DirectXCommon* dxCommon, const std::string& directoryPath
 		//モデルの読み込み
 		LoadFile(directoryPath, "model/" + filename);
 	}
-	for (Mesh& meshData : meshDates_) {
+	for (Mesh& meshData : meshData_) {
 		//頂点リソースを作る
 		meshData.vertexResource = dxCommon_->CreateBufferResource(sizeof(VertexData) * meshData.vertices.size());
 		//頂点バッファビューを作成する
@@ -54,10 +54,10 @@ void Model::Draw(size_t meshIndex){
 	// コマンドリストの取得
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
-	commandList->IASetVertexBuffers(0, 1, &meshDates_[meshIndex].vertexBufferView); //VBVを設定
-	commandList->IASetIndexBuffer(&meshDates_[meshIndex].indexBufferView);//IBVを設定
+	commandList->IASetVertexBuffers(0, 1, &meshData_[meshIndex].vertexBufferView); //VBVを設定
+	commandList->IASetIndexBuffer(&meshData_[meshIndex].indexBufferView);//IBVを設定
 	//描画！(DrawCall/ドローコール)3頂点で1つのインスタンス。インスタンスについては
-	commandList->DrawIndexedInstanced(UINT(meshDates_[meshIndex].indices.size()), 1, 0, 0, 0);
+	commandList->DrawIndexedInstanced(UINT(meshData_[meshIndex].indices.size()), 1, 0, 0, 0);
 }
 
 void Model::Draw(size_t meshIndex, const D3D12_VERTEX_BUFFER_VIEW* vertexBufferView){
@@ -65,9 +65,9 @@ void Model::Draw(size_t meshIndex, const D3D12_VERTEX_BUFFER_VIEW* vertexBufferV
 	ID3D12GraphicsCommandList* commandList = dxCommon_->GetCommandList();
 
 	commandList->IASetVertexBuffers(0, 1, vertexBufferView); //VBVを設定
-	commandList->IASetIndexBuffer(&meshDates_[meshIndex].indexBufferView);//IBVを設定
+	commandList->IASetIndexBuffer(&meshData_[meshIndex].indexBufferView);//IBVを設定
 	//描画！(DrawCall/ドローコール)3頂点で1つのインスタンス。インスタンスについては
-	commandList->DrawIndexedInstanced(UINT(meshDates_[meshIndex].indices.size()), 1, 0, 0, 0);
+	commandList->DrawIndexedInstanced(UINT(meshData_[meshIndex].indices.size()), 1, 0, 0, 0);
 }
 
 void Model::LoadFile(const std::string& directoryPath, const std::string& filename) {
@@ -76,10 +76,10 @@ void Model::LoadFile(const std::string& directoryPath, const std::string& filena
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
 	assert(scene->HasMeshes());//メッシュがないのは対応しない
 	meshCount_ = (size_t)scene->mNumMeshes;//メッシュの数を取得
-	meshDates_.resize(meshCount_);//読み込み前に初期化
+	meshData_.resize(meshCount_);//読み込み前に初期化
 	for (uint32_t meshIndex = 0; meshIndex < scene->mNumMeshes; ++meshIndex) {
 		aiMesh* mesh = scene->mMeshes[meshIndex];
-		meshDates_[meshIndex].vertices.resize(mesh->mNumVertices);//頂点数のメモリだけ確保
+		meshData_[meshIndex].vertices.resize(mesh->mNumVertices);//頂点数のメモリだけ確保
 		for (uint32_t vertexIndex = 0; vertexIndex < mesh->mNumVertices;++vertexIndex) {
 			aiVector3D& position = mesh->mVertices[vertexIndex];
 			Vector3 normal = { 0.0f, 0.0f, -1.0f }; // 法線のデフォルト
@@ -92,9 +92,9 @@ void Model::LoadFile(const std::string& directoryPath, const std::string& filena
 				aiVector3D& tex = mesh->mTextureCoords[0][vertexIndex];
 				texcoord = { tex.x, tex.y };
 			}
-			meshDates_[meshIndex].vertices[vertexIndex].position = { -position.x,position.y,position.z,1.0f };
-			meshDates_[meshIndex].vertices[vertexIndex].normal = { -normal.x,normal.y,normal.z };
-			meshDates_[meshIndex].vertices[vertexIndex].texcoord = { texcoord.x,texcoord.y };
+			meshData_[meshIndex].vertices[vertexIndex].position = { -position.x,position.y,position.z,1.0f };
+			meshData_[meshIndex].vertices[vertexIndex].normal = { -normal.x,normal.y,normal.z };
+			meshData_[meshIndex].vertices[vertexIndex].texcoord = { texcoord.x,texcoord.y };
 		}
 
 		for (uint32_t faceIndex = 0; faceIndex < mesh->mNumFaces; ++faceIndex) {
@@ -103,7 +103,7 @@ void Model::LoadFile(const std::string& directoryPath, const std::string& filena
 
 			for (uint32_t element = 0; element < face.mNumIndices; ++element) {
 				uint32_t vertexIndex = face.mIndices[element];
-				meshDates_[meshIndex].indices.push_back(vertexIndex);
+				meshData_[meshIndex].indices.push_back(vertexIndex);
 			}
 		}
 		//SkinClusterの情報を取得
@@ -111,7 +111,7 @@ void Model::LoadFile(const std::string& directoryPath, const std::string& filena
 			//Jointごとの格納領域をつくる
 			aiBone* bone = mesh->mBones[boneIndex];
 			std::string jointName = bone->mName.C_Str();
-			JointWeightData& jointWeightData = meshDates_[meshIndex].skinClusterData[jointName];
+			JointWeightData& jointWeightData = meshData_[meshIndex].skinClusterData[jointName];
 			//InverseBindPoseMatrixを格納
 			aiMatrix4x4 bindPoseMatrixAssimp = bone->mOffsetMatrix.Inverse();
 			aiVector3D scale, translate;
@@ -128,7 +128,7 @@ void Model::LoadFile(const std::string& directoryPath, const std::string& filena
 			}
 		}
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		LoadColor(meshDates_[meshIndex], material);
+		LoadColor(meshData_[meshIndex], material);
 	}
 	rootNode_ = ReadNode(scene->mRootNode);
 }
@@ -187,7 +187,7 @@ bool Model::IsPrimitive(const std::string& filename){
 }
 
 void Model::ModelDataSkybox(){
-	meshDates_.resize(1);
+	meshData_.resize(1);
 	Vector3 points[8]{};
 	Vector3 min = { -1.0f,-1.0f,-1.0f };
 	Vector3 max = { 1.0f,1.0f,1.0f };
@@ -201,13 +201,13 @@ void Model::ModelDataSkybox(){
 	points[6] = { min.x,min.y,max.z };
 	points[7] = min;
 	for (int32_t index = 0; index < 8; ++index) {
-		meshDates_[0].vertices.push_back({
+		meshData_[0].vertices.push_back({
 			{ points[index].x,points[index].y,points[index].z,1.0f }, // position
 			{ 0.0f,0.0f }, // texcoord
 			{ 0.0f,0.0f,-1.0f } // normal
 			});
 	}
-	meshDates_[0].indices = {
+	meshData_[0].indices = {
 		0, 1, 2, 2, 1, 3,
 		4, 5, 7, 7, 5, 6,
 		5, 0, 6, 6, 0, 2,
@@ -215,7 +215,7 @@ void Model::ModelDataSkybox(){
 		0, 5, 1, 1, 5, 4,
 		2, 3, 6, 6, 3, 7,
 	};
-	meshDates_[0].material.color = { 1.0f,1.0f,1.0f,1.0f };
+	meshData_[0].material.color = { 1.0f,1.0f,1.0f,1.0f };
 	rootNode_ = Node{
 		{ { 1.0f,1.0f,1.0f },{0.0f,0.0f,0.0f,1.0f},{0.0f,0.0f,0.0f}},
 		Matrix4x4::MakeIdentity4x4(),

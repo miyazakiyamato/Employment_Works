@@ -3,6 +3,7 @@
 #include <map>
 #include <string>
 #include <json.hpp>
+#include <memory>
 #include "Matrix4x4.h"
 
 /// <summary>
@@ -123,6 +124,9 @@ public:
 
 private:
 		// --- シングルトン ---
+	static std::unique_ptr<GlobalVariables> instance;
+	friend struct std::default_delete<GlobalVariables>;
+
 	GlobalVariables() = default;
 	~GlobalVariables() = default;
 	GlobalVariables(const GlobalVariables& obj) = delete;
@@ -136,7 +140,7 @@ private:
 	using Group = std::map<std::string, Item>;
 
 	// 全データ (グループ名 -> グループデータ)
-	std::map<std::string, Group> datas_;
+	std::map<std::string, Group> data_;
 
 	// 表示順序: groupName -> vector of item keys
 	std::map<std::string, std::vector<std::string>> displayOrders_;

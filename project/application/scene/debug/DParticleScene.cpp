@@ -96,18 +96,7 @@ void DParticleScene::Initialize(){
 	sprites_[3]->SetIsFlipY(true);*/
 }
 
-void DParticleScene::Finalize(){
-	particleSystem_->Finalize();
-	//解放
-	for (std::unique_ptr<Object3d>& object3d : object3ds_) {
-		object3d.reset();  // メモリを解放する
-	}
 
-	for (std::unique_ptr<Sprite>& sprite : sprites_) {
-		sprite.reset();  // メモリを解放する
-	}
-	BaseScene::Finalize();
-}
 
 void DParticleScene::Update(){
 	BaseScene::Update();

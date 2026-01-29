@@ -1,13 +1,13 @@
 #include "ModelManager.h"
 
-ModelManager* ModelManager::instance = nullptr;
+std::unique_ptr<ModelManager> ModelManager::instance = nullptr;
 
 ModelManager* ModelManager::GetInstance()
 {
 	if (instance == nullptr) {
-		instance = new ModelManager;
+		instance.reset(new ModelManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void ModelManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager){
@@ -16,8 +16,7 @@ void ModelManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavMana
 }
 
 void ModelManager::Finalize(){
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void ModelManager::LoadModel(const std::string& filePath){

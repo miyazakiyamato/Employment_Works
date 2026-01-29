@@ -16,10 +16,7 @@ public:
 	/// </summary>
 	/// <param name="player">プレイヤー</param>
 	void Initialize(Player* player);
-	/// <summary>
-	/// 終了
-	/// </summary>
-	void Finalize() override;
+
 	/// <summary>
 	/// 更新
 	/// </summary>

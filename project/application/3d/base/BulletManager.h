@@ -10,10 +10,7 @@ class BulletManager{
 public:
 	BulletManager() = default;
 	~BulletManager() = default;
-	/// <summary>
-	/// 終了
-	/// </summary>
-	void Finalize();
+
 	/// <summary>
 	/// 更新
 	/// </summary>

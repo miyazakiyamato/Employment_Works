@@ -24,7 +24,3 @@ void GameOverUI::Draw() {
 		sprite->Draw();
 	}
 }
-
-void GameOverUI::Finalize() {
-	sprites_.clear();
-}

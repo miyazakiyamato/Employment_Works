@@ -7,13 +7,20 @@
 #include <imgui.h>
 #endif // USE_IMGUI
 
-PostEffectManager* PostEffectManager::instance = nullptr;
+std::unique_ptr<PostEffectManager> PostEffectManager::instance = nullptr;
 
 PostEffectManager* PostEffectManager::GetInstance(){
 	if (instance == nullptr) {
-		instance = new PostEffectManager;
+		instance.reset(new PostEffectManager);
 	}
-	return instance;
+	return instance.get();
+}
+
+PostEffectManager::~PostEffectManager() {
+	if (materialResource) {
+		materialResource->Unmap(0, nullptr);
+		materialResource.Reset();
+	}
 }
 
 void PostEffectManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUavManager){
@@ -44,12 +51,7 @@ void PostEffectManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUa
 }
 
 void PostEffectManager::Finalize() {
-	if (materialResource) {
-		materialResource->Unmap(0, nullptr);
-		materialResource.Reset();
-	}
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void PostEffectManager::Update(){

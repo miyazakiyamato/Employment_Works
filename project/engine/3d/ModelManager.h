@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <memory>
 #include "Model.h"
 #include "Animation.h"
 
@@ -52,8 +53,9 @@ public:
 	Animation* FindAnimation(const std::string& filePath);
 
 private:
-		// --- シングルインスタンス ---
-	static ModelManager* instance;
+		// --- シングルトン ---
+	static std::unique_ptr<ModelManager> instance;
+	friend struct std::default_delete<ModelManager>;
 
 	ModelManager() = default;
 	~ModelManager() = default;
