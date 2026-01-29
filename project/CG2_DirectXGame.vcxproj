@@ -141,7 +141,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\3d\player\PlayerStateRoot.cpp" />
     <ClCompile Include="application\3d\player\PlayerStateShoot.cpp" />
     <ClCompile Include="application\3d\weapon\ChargeGun.cpp" />
-    <ClCompile Include="application\scene\base\BaseSceneState.cpp" />
+    <ClCompile Include="engine\scene\BaseSceneState.cpp" />
     <ClCompile Include="application\scene\clear\ClearScene.cpp" />
     <ClCompile Include="application\scene\clear\ClearSceneStateMain.cpp" />
     <ClCompile Include="application\scene\gameOver\GameOverScene.cpp" />
@@ -186,7 +186,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="engine\particle\InitializeParticlePipeline.cpp" />
     <ClCompile Include="engine\particle\UpdateParticlePipeline.cpp" />
     <ClCompile Include="engine\scene\AbstractSceneFactory.cpp" />
-    <ClCompile Include="application\scene\base\BaseScene.cpp" />
+    <ClCompile Include="engine\scene\BaseScene.cpp" />
     <ClCompile Include="engine\audio\AudioManager.cpp" />
     <ClCompile Include="engine\3d\CameraManager.cpp" />
     <ClCompile Include="engine\3d\Camera.cpp" />
@@ -261,7 +261,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\3d\player\PlayerStateRoot.h" />
     <ClInclude Include="application\3d\player\PlayerStateShoot.h" />
     <ClInclude Include="application\3d\weapon\ChargeGun.h" />
-    <ClInclude Include="application\scene\base\BaseSceneState.h" />
+    <ClInclude Include="engine\scene\BaseSceneState.h" />
     <ClInclude Include="application\scene\clear\ClearScene.h" />
     <ClInclude Include="application\scene\clear\ClearSceneStateMain.h" />
     <ClInclude Include="application\scene\gameOver\GameOverScene.h" />
@@ -309,7 +309,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="engine\particle\InitializeParticlePipeline.h" />
     <ClInclude Include="engine\particle\UpdateParticlePipeline.h" />
     <ClInclude Include="engine\scene\AbstractSceneFactory.h" />
-    <ClInclude Include="application\scene\base\BaseScene.h" />
+    <ClInclude Include="engine\scene\BaseScene.h" />
     <ClInclude Include="engine\audio\AudioManager.h" />
     <ClInclude Include="engine\3d\CameraManager.h" />
     <ClInclude Include="engine\3d\Camera.h" />

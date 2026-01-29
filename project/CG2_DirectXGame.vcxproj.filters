@@ -489,9 +489,6 @@
     <ClCompile Include="application\scene\transition\TransitionFactory.cpp">
       <Filter>ソース ファイル\application\scene\transition</Filter>
     </ClCompile>
-    <ClCompile Include="application\scene\base\BaseScene.cpp">
-      <Filter>ソース ファイル\application\scene\base</Filter>
-    </ClCompile>
     <ClCompile Include="application\scene\base\MyGame.cpp">
       <Filter>ソース ファイル\application\scene\base</Filter>
     </ClCompile>
@@ -503,9 +500,6 @@
     </ClCompile>
     <ClCompile Include="application\scene\game\GameScene.cpp">
       <Filter>ソース ファイル\application\scene\game</Filter>
-    </ClCompile>
-    <ClCompile Include="application\scene\base\BaseSceneState.cpp">
-      <Filter>ソース ファイル\application\scene\base</Filter>
     </ClCompile>
     <ClCompile Include="application\scene\game\GameSceneStateWin.cpp">
       <Filter>ソース ファイル\application\scene\game</Filter>
@@ -557,6 +551,12 @@
     </ClCompile>
     <ClCompile Include="application\scene\pause\PauseStateStart.cpp">
       <Filter>ソース ファイル\application\scene\pause</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\scene\BaseScene.cpp">
+      <Filter>ソース ファイル\engine\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\scene\BaseSceneState.cpp">
+      <Filter>ソース ファイル\engine\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -857,9 +857,6 @@
     <ClInclude Include="application\scene\game\GameScene.h">
       <Filter>ヘッダー ファイル\application\scene\game</Filter>
     </ClInclude>
-    <ClInclude Include="application\scene\base\BaseScene.h">
-      <Filter>ヘッダー ファイル\application\scene\base</Filter>
-    </ClInclude>
     <ClInclude Include="application\scene\base\MyGame.h">
       <Filter>ヘッダー ファイル\application\scene\base</Filter>
     </ClInclude>
@@ -867,9 +864,6 @@
       <Filter>ヘッダー ファイル\application\scene\base</Filter>
     </ClInclude>
     <ClInclude Include="application\scene\base\StageManager.h">
-      <Filter>ヘッダー ファイル\application\scene\base</Filter>
-    </ClInclude>
-    <ClInclude Include="application\scene\base\BaseSceneState.h">
       <Filter>ヘッダー ファイル\application\scene\base</Filter>
     </ClInclude>
     <ClInclude Include="application\scene\game\GameSceneStateBattle.h">
@@ -922,6 +916,12 @@
     </ClInclude>
     <ClInclude Include="application\scene\pause\PauseStateStart.h">
       <Filter>ヘッダー ファイル\application\scene\pause</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene\BaseScene.h">
+      <Filter>ヘッダー ファイル\engine\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\scene\BaseSceneState.h">
+      <Filter>ヘッダー ファイル\engine\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
