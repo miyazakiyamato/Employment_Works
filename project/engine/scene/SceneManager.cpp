@@ -1,5 +1,9 @@
 #include "SceneManager.h"
 #include <cassert>
+#include "GlobalVariables.h"
+#ifdef USE_IMGUI
+#include <imgui.h>
+#endif
 
 std::unique_ptr<SceneManager> SceneManager::instance = nullptr;
 
@@ -152,3 +156,5 @@ void SceneManager::SceneTransition(){
 		}
 	}
 }
+
+

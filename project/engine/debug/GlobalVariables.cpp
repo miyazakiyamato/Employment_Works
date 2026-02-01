@@ -23,106 +23,108 @@ void GlobalVariables::CreateGroup(const std::string& groupName) {
 
 void GlobalVariables::Update() {
 #ifdef USE_IMGUI
-	if (!ImGui::Begin("Global Variables",nullptr,ImGuiWindowFlags_MenuBar)) {
+	if (!ImGui::Begin("Global Variables", nullptr, 0)) {
 		ImGui::End();
+		return;
 	}
-	if (!ImGui::BeginMenuBar()) {return;}
-	//各グループについて
-	for (std::map<std::string, Group>::iterator itGroup = data_.begin(); itGroup != data_.end();++itGroup) {
-		const std::string& groupName = itGroup->first;
-		Group& group = itGroup->second;
 
-		if (!ImGui::BeginMenu(groupName.c_str())) {continue;}
+	// タブバーの開始
+	if (ImGui::BeginTabBar("GlobalVariablesTabs")) {
+		//各グループについて
+		for (std::map<std::string, Group>::iterator itGroup = data_.begin(); itGroup != data_.end(); ++itGroup) {
+			const std::string& groupName = itGroup->first;
+			Group& group = itGroup->second;
 
-		// --- CollapsingHeaderグループ分け ---
-		// 1. ヘッダーごとにアイテムをまとめる
-		std::map<std::string, std::vector<std::string>> headerToItems;
-		const std::vector<std::string>& order = GetDisplayOrder(groupName);
-		for (const std::string& itemName : order) {
-			std::string header = GetHeaderGroup(groupName, itemName);
-			headerToItems[header].push_back(itemName);
-		}
-		// 2. 描画済み管理
-		std::set<std::string> drawn;
-		// 3. 各ヘッダーで描画
-		static std::map<std::string, bool> headerOpenStates;
-		for (auto& [header, items] : headerToItems) {
-			// 空文字列ヘッダーはグループ化しない
-			bool useHeader = !header.empty();
-			bool open = true;
-			std::string headerKey = groupName + "/" + header;
-			if (useHeader) {
-				// ImGui::CollapsingHeaderの戻り値で開閉状態を管理
-				open = ImGui::CollapsingHeader(header.c_str());
-				headerOpenStates[headerKey] = open;
-			}
-			if (open) {
-				for (const std::string& itemName : items) {
-					auto itItem = group.find(itemName);
-					if (itItem == group.end()) continue;
-					drawn.insert(itemName);
-					Item& item = itItem->second;
+			// タブとしてグループを表示
+			if (ImGui::BeginTabItem(groupName.c_str())) {
 
-					std::string displayName = itemName;
-					displayName.erase(std::remove_if(displayName.begin(), displayName.end(),
-						[](unsigned char c) { return std::iscntrl(c); }),
-						displayName.end());
+				// --- CollapsingHeaderグループ分け ---
+				std::map<std::string, std::vector<std::string>> headerToItems;
+				const std::vector<std::string>& order = GetDisplayOrder(groupName);
+				for (const std::string& itemName : order) {
+					std::string header = GetHeaderGroup(groupName, itemName);
+					headerToItems[header].push_back(itemName);
+				}
+				std::set<std::string> drawn;
+				static std::map<std::string, bool> headerOpenStates;
 
-					if (std::holds_alternative<bool>(item)) {
-						bool* ptr = std::get_if<bool>(&item);
-						ImGui::Checkbox(displayName.c_str(), ptr);
+				for (auto& [header, items] : headerToItems) {
+					bool useHeader = !header.empty();
+					bool open = true;
+					std::string headerKey = groupName + "/" + header;
+					if (useHeader) {
+						open = ImGui::CollapsingHeader(header.c_str(), ImGuiTreeNodeFlags_DefaultOpen);
+						headerOpenStates[headerKey] = open;
 					}
-					if (std::holds_alternative<int32_t>(item)) {
-						int32_t* ptr = std::get_if<int32_t>(&item);
-						ImGui::DragInt(displayName.c_str(), ptr, 1.0f);
-					}
-					else if (std::holds_alternative<float>(item)) {
-						float* ptr = std::get_if<float>(&item);
-						ImGui::DragFloat(displayName.c_str(), ptr,0.01f);
-					}
-					else if (std::holds_alternative<Vector2>(item)) {
-						Vector2* ptr = std::get_if<Vector2>(&item);
-						ImGui::DragFloat2(displayName.c_str(), reinterpret_cast<float*>(ptr),0.01f);
-					}
-					else if (std::holds_alternative<Vector3>(item)) {
-						Vector3* ptr = std::get_if<Vector3>(&item);
-						ImGui::DragFloat3(displayName.c_str(), reinterpret_cast<float*>(ptr),0.01f);
-					}
-					else if (std::holds_alternative<Vector4>(item)) {
-						Vector4* ptr = std::get_if<Vector4>(&item);
-						ImGui::ColorEdit4(displayName.c_str(), reinterpret_cast<float*>(ptr));
-					}
-					else if (std::holds_alternative<std::string>(item)) {
-						std::string* ptr = std::get_if<std::string>(&item);
-						ImGui::Text((displayName + " " + *ptr).c_str());
-					} 
-					else if (std::holds_alternative<Transform>(item)) {
-						Transform* ptr = std::get_if<Transform>(&item);
-						if (ptr) {
-							ImGui::DragFloat3((displayName + ".Scale").c_str(), &ptr->scale.x, 0.01f);
-							ImGui::SliderAngle((displayName + ".Rotate.x").c_str(), &ptr->rotate.x);
-							ImGui::SliderAngle((displayName + ".Rotate.y").c_str(), &ptr->rotate.y);
-							ImGui::SliderAngle((displayName + ".Rotate.z").c_str(), &ptr->rotate.z);
-							ImGui::DragFloat3((displayName + ".Translate").c_str(), &ptr->translate.x, 0.01f);
+					if (open) {
+						for (const std::string& itemName : items) {
+							auto itItem = group.find(itemName);
+							if (itItem == group.end()) continue;
+							drawn.insert(itemName);
+							Item& item = itItem->second;
+
+							std::string displayName = itemName;
+							// 制御文字削除などはそのまま
+							/*displayName.erase(std::remove_if(displayName.begin(), displayName.end(),
+								[](unsigned char c) { return std::iscntrl(c); }),
+								displayName.end());*/
+
+							if (std::holds_alternative<bool>(item)) {
+								bool* ptr = std::get_if<bool>(&item);
+								ImGui::Checkbox(displayName.c_str(), ptr);
+							}
+							else if (std::holds_alternative<int32_t>(item)) {
+								int32_t* ptr = std::get_if<int32_t>(&item);
+								ImGui::DragInt(displayName.c_str(), ptr, 1.0f);
+							}
+							else if (std::holds_alternative<float>(item)) {
+								float* ptr = std::get_if<float>(&item);
+								ImGui::DragFloat(displayName.c_str(), ptr, 0.01f);
+							}
+							else if (std::holds_alternative<Vector2>(item)) {
+								Vector2* ptr = std::get_if<Vector2>(&item);
+								ImGui::DragFloat2(displayName.c_str(), reinterpret_cast<float*>(ptr), 0.01f);
+							}
+							else if (std::holds_alternative<Vector3>(item)) {
+								Vector3* ptr = std::get_if<Vector3>(&item);
+								ImGui::DragFloat3(displayName.c_str(), reinterpret_cast<float*>(ptr), 0.01f);
+							}
+							else if (std::holds_alternative<Vector4>(item)) {
+								Vector4* ptr = std::get_if<Vector4>(&item);
+								ImGui::ColorEdit4(displayName.c_str(), reinterpret_cast<float*>(ptr));
+							}
+							else if (std::holds_alternative<std::string>(item)) {
+								std::string* ptr = std::get_if<std::string>(&item);
+								ImGui::Text((displayName + " " + *ptr).c_str());
+							}
+							else if (std::holds_alternative<Transform>(item)) {
+								Transform* ptr = std::get_if<Transform>(&item);
+								if (ptr) {
+									ImGui::DragFloat3((displayName + ".Scale").c_str(), &ptr->scale.x, 0.01f);
+									ImGui::SliderAngle((displayName + ".Rotate.x").c_str(), &ptr->rotate.x);
+									ImGui::SliderAngle((displayName + ".Rotate.y").c_str(), &ptr->rotate.y);
+									ImGui::SliderAngle((displayName + ".Rotate.z").c_str(), &ptr->rotate.z);
+									ImGui::DragFloat3((displayName + ".Translate").c_str(), &ptr->translate.x, 0.01f);
+								}
+							}
 						}
 					}
 				}
+
+				ImGui::Text("\n");
+
+				if (ImGui::Button("Save")) {
+					SaveFile(groupName);
+					std::string message = std::format("{}.json saved.", groupName);
+					MessageBoxA(nullptr, message.c_str(), "GlobalVariables", 0);
+				}
+
+				ImGui::EndTabItem();
 			}
 		}
-		// --- CollapsingHeaderグループ分けここまで ---
-
-		ImGui::Text("\n");
-
-		if (ImGui::Button("Save")) {
-			SaveFile(groupName);
-			std::string message = std::format("{}.json saved.", groupName);
-			MessageBoxA(nullptr, message.c_str(), "GlobalVariables", 0);
-		}
-
-		ImGui::EndMenu();
+		ImGui::EndTabBar();
 	}
 
-	ImGui::EndMenuBar();
 	ImGui::End();
 #endif // USE_IMGUI
 }

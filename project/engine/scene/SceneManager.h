@@ -98,6 +98,7 @@ private:
 
 	// トランジション中にシーン更新を止めるか
 	bool isScenePausedOnTransition_ = false;
+
 public:
 		// --- ゲッター ---
 	/// シーン遷移エフェクトの取得

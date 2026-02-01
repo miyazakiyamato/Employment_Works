@@ -10,6 +10,16 @@ class SrvUavManager;
 /// </summary>
 class ImGuiManager {
 public:
+	/// <summary>
+		// --- 列挙型 ---
+	/// <summary>
+	/// 表示モード
+	/// </summary>
+	enum class ViewMode {
+		kEditor,       //!< エディタモード (全て表示)
+		kDebugOverlay, //!< デバッグオーバーレイ (シーンビューなし、デバッグUIのみ)
+		kGameOnly      //!< ゲームのみ (メニューバーのみ)
+	};
 		// --- メンバ関数 ---
 	/// <summary>
 	/// 初期化処理
@@ -32,6 +42,8 @@ public:
 	/// </summary>
 	void Begin();
 
+	void DrawStatusOverlayContent();
+
 	/// <summary>
 	/// ImGui受付終了
 	/// フレームの描画データを生成する
@@ -45,6 +57,10 @@ public:
 	void Draw();
 
 private:
+	/// <summary>
+	/// メニューバーの描画
+	/// </summary>
+	void DrawMenuBar();
 		// --- メンバ変数 ---
 	// WindowsAPI
 	WinApp* winApp_ = nullptr;
@@ -52,4 +68,12 @@ private:
 	DirectXCommon* dxCommon_ = nullptr;
 	// SRV
 	SrvUavManager* srvUavManager_ = nullptr;
+	// 現在の表示モード
+	ViewMode currentViewMode_ = ViewMode::kEditor;
+
+public:
+	/// <summary>
+	/// 表示モードの取得
+	/// </summary>
+	ViewMode GetViewMode() const { return currentViewMode_; }
 };

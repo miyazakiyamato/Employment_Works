@@ -121,38 +121,7 @@ void GameScene::Initialize(){
 
 void GameScene::Update() {
 	BaseScene::Update();
-#ifdef _DEBUG
-	//// ウインドウフラグに NoResize を指定
-	//ImGui::Begin("Settings", NULL, ImGuiWindowFlags_NoResize);
-	//ImGui::ShowDemoWindow();
-	GlobalVariables* globalVariables = GlobalVariables::GetInstance();
-	globalVariables->Update();
-	std::string groupName = "";
-	if (ImGui::Begin("Global Variables", nullptr, ImGuiWindowFlags_MenuBar)) {
-		if (ImGui::BeginMenuBar()) {
-			input_->ImGuiUpdate();
-			CameraManager::GetInstance()->ImGuiUpdate();
 
-			LightManager::GetInstance()->ImGuiUpdate();
-			
-			/*size_t object3dCount = 0;
-			for (std::unique_ptr<Object3d>& object3d : object3ds_) {
-				std::string objectName = ("Object3d" + std::to_string(object3dCount)).c_str();
-				object3d->ImGuiUpdate(objectName);
-
-				object3dCount++;
-			}*/
-
-			particleSystem_->ImGuiUpdate();
-			
-			uiManager_->ImGuiUpdate();
-			PostEffectManager::GetInstance()->ImGuiUpdate();
-			ImGui::EndMenuBar();
-		}
-		ImGui::End();
-	}
-#endif //_DEBUG
-	
 	// UIの更新 (死活監視含む)
 	uiManager_->Update();
 

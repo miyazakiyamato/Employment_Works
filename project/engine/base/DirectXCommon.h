@@ -259,4 +259,6 @@ public:
 	size_t GetBackBufferCount() const { return swapChainDesc.BufferCount; }
 	IDXGISwapChain4* GetSwapChain() { return swapChain.Get(); }
 	ID3D12DescriptorHeap* GetDsvDescriptorHeap() { return dsvDescriptorHeap.Get(); }
+	ID3D12CommandQueue* GetCommandQueue() { return commandQueue.Get(); }
+	uint32_t GetOffScreenSRVIndex() const { return offScreenSRVIndex; }
 };

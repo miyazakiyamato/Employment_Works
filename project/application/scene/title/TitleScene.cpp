@@ -42,26 +42,7 @@ void TitleScene::Initialize(){
 
 
 void TitleScene::Update(){
-#ifdef _DEBUG
-	//// ウインドウフラグに NoResize を指定
-	//ImGui::Begin("Settings", NULL, ImGuiWindowFlags_NoResize);
-	//ImGui::ShowDemoWindow();
-	GlobalVariables* globalVariables = GlobalVariables::GetInstance();
-	globalVariables->Update();
-	std::string groupName = "";
-	if (ImGui::Begin("Global Variables", nullptr, ImGuiWindowFlags_MenuBar)) {
-		if (ImGui::BeginMenuBar()) {
-			input_->ImGuiUpdate();
-			CameraManager::GetInstance()->ImGuiUpdate();
 
-			LightManager::GetInstance()->ImGuiUpdate();
-
-			PostEffectManager::GetInstance()->ImGuiUpdate();
-			ImGui::EndMenuBar();
-		}
-		ImGui::End();
-	}
-#endif //_DEBUG
 	BaseScene::Update();
 
 	if (state_) {
