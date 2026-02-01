@@ -7,7 +7,7 @@
 #include "EnemyBullet.h"
 
 SmallDroneStateDeath::SmallDroneStateDeath(BaseEnemy* smallDrone)
-	: BaseEnemyState("SmallDrone State Death", smallDrone){}
+	: BaseEnemyState("SmallDroneStateDeath", smallDrone){}
 
 void SmallDroneStateDeath::Initialize(){
 	smallDrone_ = static_cast<SmallDrone*>(enemy_);

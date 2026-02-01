@@ -558,6 +558,9 @@
     <ClCompile Include="engine\scene\BaseSceneState.cpp">
       <Filter>ソース ファイル\engine\scene</Filter>
     </ClCompile>
+    <ClCompile Include="application\3d\background\SplineRail.cpp">
+      <Filter>ソース ファイル\application\3d\background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\2d\Sprite.h">
@@ -922,6 +925,9 @@
     </ClInclude>
     <ClInclude Include="engine\scene\BaseSceneState.h">
       <Filter>ヘッダー ファイル\engine\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="application\3d\background\SplineRail.h">
+      <Filter>ヘッダー ファイル\application\3d\background</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

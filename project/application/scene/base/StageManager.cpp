@@ -1,8 +1,8 @@
 #include "StageManager.h"
 #include "SmallDrone.h"
-
 #include "ChargeGun.h"
 #include "EnemyPopEvent.h"
+#include "SplineRail.h"
 
 void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* particleSystem) {
 	bulletManager_ = bulletManager;
@@ -197,9 +197,41 @@ void StageManager::LoadEnemyObject(const std::unique_ptr<ObjectData>& objectData
 	enemy->SetBulletManager(bulletManager_);
 	enemy->SetParticleSystem(particleSystem_);
 	enemy->SetPlayer(player_.get());
-	enemy->Initialize();
-	enemy->SetPosition(objectData->translation);
-	enemies_.push_back(std::move(enemy));
+
+	// レールの解析 (Initializeの前にレールを追加しておく必要がある)
+	for (const std::unique_ptr<ObjectData>& child : objectData->children) {
+
+		if (child->typeName == "Rail") {
+			// レール生成
+			std::unique_ptr<SplineRail> rail = std::make_unique<SplineRail>();
+			std::vector<Vector3> points;
+			for (const std::unique_ptr<ObjectData>& grandChild : child->children) {
+				if (grandChild->typeName == "ControlPointSpawn") {
+					// 座標計算(親enemy -> rail -> controlPoint)
+					Vector3 worldPos = objectData->translation + child->translation + grandChild->translation;
+					points.push_back(worldPos);
+				}
+
+				rail->Initialize(points);
+
+				// Blenderのサフィックス（.001など）を除去して登録
+				std::string railName = child->name;
+				size_t dotPos = railName.rfind('.');
+				if (dotPos != std::string::npos) {
+					// ドット以降が数字のみか確認（簡易チェック）
+					// 必要であれば isdigit チェックを入れるが、Blenderの命名規則的に末尾ドット以降は除去で良さそう
+					railName = railName.substr(0, dotPos);
+				}
+
+				// 名前をキーにして追加
+				enemy->AddRail(railName, std::move(rail));
+			}
+		}
+		enemy->Initialize();
+		enemy->SetPosition(objectData->translation);
+
+		enemies_.push_back(std::move(enemy));
+	}
 }
 
 void StageManager::LoadEventObject(const std::unique_ptr<ObjectData>& objectData) {
@@ -217,7 +249,26 @@ void StageManager::LoadEventObject(const std::unique_ptr<ObjectData>& objectData
 			// 親からの相対位置
 			// Blenderの構造上、子供のtranslationは親からの相対位置になっているはず
 			data.translation = childData->translation;
+			data.translation = childData->translation;
 			data.rotation = childData->rotation.ToQuaternion();
+			
+			// 子供のレールデータを解析
+			for (const std::unique_ptr<ObjectData>& grandChild : childData->children) {
+				if (grandChild->typeName == "Rail") {
+					RailData railData;
+					railData.name = grandChild->name;
+					
+					for (const std::unique_ptr<ObjectData>& greatGrandChild : grandChild->children) {
+						if (greatGrandChild->typeName == "ControlPointSpawn") {
+							// 階層構造の座標を合算してワールド座標を計算
+							Vector3 relativePos = grandChild->translation + greatGrandChild->translation;
+							railData.points.push_back(relativePos);
+						}
+					}
+					data.rails.push_back(railData);
+				}
+			}
+
 			event->AddEnemySpawnData(data);
 		}
 	}

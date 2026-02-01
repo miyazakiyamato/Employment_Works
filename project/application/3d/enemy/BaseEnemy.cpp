@@ -9,6 +9,7 @@
 #include "EmitterSphere.h"
 #include "TimeManager.h"
 #include "SmallDroneStateShoot.h"
+#include "SplineRail.h"
 
 void BaseEnemy::Initialize(){
 	BaseCharacter::Initialize();
@@ -19,7 +20,9 @@ void BaseEnemy::Initialize(){
 }
 
 void BaseEnemy::Update() {
-	state_->Update();
+	if (state_) {
+		state_->Update();
+	}
 	BaseCharacter::Update();
 }
 
@@ -33,6 +36,7 @@ void BaseEnemy::OnCollision(Collider* other){
 		Damage(int(playerBullet->GetObject3d()->GetScale().x * 4.0f), distance.Normalize());
 	}
 }
+
 void BaseEnemy::ChangeState(std::unique_ptr<BaseEnemyState> state){
 	state_ = std::move(state);
 	state_->Initialize();
@@ -50,7 +54,15 @@ void BaseEnemy::Damage(int damage, const Vector3& hitDirection) {
 	if (hp_ <= 0) {
 		hp_ = 0;
 	}
-	if (hp_ <= 0) {
-		hp_ = 0;
+}
+
+void BaseEnemy::AddRail(const std::string& name, std::unique_ptr<SplineRail> rail){
+	rails_[name] = std::move(rail);
+}
+
+const SplineRail* BaseEnemy::GetRail(const std::string& name) const{
+	if (rails_.contains(name)) {
+		return rails_.at(name).get();
 	}
+	return nullptr;
 }

@@ -1,8 +1,11 @@
 #pragma once
 #include <memory>
+#include <map>
+#include <string>
 #include "BaseCharacter.h"
 #include "TimedCall.h"
 #include "BaseEnemyState.h"
+#include "SplineRail.h"
 
 class BulletManager;
 class ParticleSystem;
@@ -38,8 +41,20 @@ public:
 	/// </summary>
 	/// <param name="state">新しいステート</param>
 	void ChangeState(std::unique_ptr<BaseEnemyState> state);
-	
-	
+
+	/// <summary>
+	/// レールの追加
+	/// </summary>
+	/// <param name="name">レール名</param>
+	/// <param name="rail">レール</param>
+	void AddRail(const std::string& name, std::unique_ptr<SplineRail> rail);
+
+	/// <summary>
+	/// レールの取得
+	/// </summary>
+	/// <param name="name">レール名</param>
+	/// <returns>レール</returns>
+	const SplineRail* GetRail(const std::string& name) const;
 protected:
 	void Damage(int damage, const Vector3& hitDirection);
 
@@ -55,6 +70,9 @@ protected:
 
 	// ステート
 	std::unique_ptr<BaseEnemyState> state_;
+
+	// レール
+	std::map<std::string, std::unique_ptr<SplineRail>> rails_;
 
 public:
 	/// <summary>

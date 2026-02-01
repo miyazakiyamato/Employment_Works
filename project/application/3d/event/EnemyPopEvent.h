@@ -1,7 +1,21 @@
 #pragma once
 #include "BaseEventObject.h"
+#include <vector>
+#include <string>
+#include "Vector3.h"
 
 class StageManager;
+
+/// <summary>
+/// エネミー出現データ
+/// </summary>
+/// <summary>
+/// レールデータ
+/// </summary>
+struct RailData {
+	std::string name;
+	std::vector<Vector3> points;
+};
 
 /// <summary>
 /// エネミー出現データ
@@ -9,6 +23,7 @@ class StageManager;
 struct EnemySpawnData {
 	Vector3 translation; // イベント発生地点からの相対座標
 	Quaternion rotation; // 回転
+	std::vector<RailData> rails; // レールデータ
 };
 /// <summary>
 /// 敵出現イベント

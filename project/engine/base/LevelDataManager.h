@@ -13,6 +13,7 @@ struct ObjectData {
 	Vector3 scaling{ 1.0f,1.0f,1.0f }; // スケーリング
 	std::string fileName = ""; // ファイル名
 	std::string typeName = ""; // オブジェクト種別名
+	std::string name = ""; // オブジェクト名
 	std::vector<std::unique_ptr<ObjectData>> children; // 子オブジェクト
 };
 

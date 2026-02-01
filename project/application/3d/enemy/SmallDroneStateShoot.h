@@ -3,6 +3,8 @@
 
 class BulletManager;
 class TimeManager;
+class SplineRail;
+
 /// <summary>
 /// 小型ドローンの状態：射撃
 /// </summary>
@@ -30,5 +32,9 @@ private:
 	TimeManager* timeManager_ = nullptr;
 	// 時限発射のリスト
 	std::list<TimedCall*> timedCalls_;
-};
 
+	// レール移動用
+	const SplineRail* rail_ = nullptr;
+	float param_ = 0.0f;
+	float speed_ = 5.0f; // 0.1fだと遅すぎるので修正
+};

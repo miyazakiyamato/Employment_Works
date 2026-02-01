@@ -1,4 +1,6 @@
 #include "SmallDroneStateShoot.h"
+#include <sstream>
+#include <Windows.h>
 #include "SmallDrone.h"
 #include "Player.h"
 #include "BulletManager.h"
@@ -6,15 +8,19 @@
 #include "Easing.h"
 #include "EnemyBullet.h"
 #include "SmallDroneStateDeath.h"
+#include "SplineRail.h"
 
 SmallDroneStateShoot::SmallDroneStateShoot(BaseEnemy* smallDrone)
-	: BaseEnemyState("SmallDrone State Shoot", smallDrone){}
+	: BaseEnemyState("SmallDroneStateShoot", smallDrone){}
 
 void SmallDroneStateShoot::Initialize(){
 	smallDrone_ = static_cast<SmallDrone*>(enemy_);
 	player_ = enemy_->GetPlayer();
 	bulletManager_ = enemy_->GetBulletManager();
 	timeManager_ = TimeManager::GetInstance();
+	// レール取得
+	rail_ = enemy_->GetRail(name_);
+	
 	// 発射開始
 	timedCalls_.push_back(new TimedCall(std::bind_front(&SmallDroneStateShoot::FireTimed, this), smallDrone_->GetFireInterval()));
 }
@@ -26,6 +32,25 @@ void SmallDroneStateShoot::Update(){
 		enemy_->ChangeState(std::make_unique<SmallDroneStateDeath>(enemy_));
 		return;
 	}
+
+	// レール移動
+	if (rail_) {
+		float length = rail_->GetLength();
+		// 速度調整 (全長に対する割合で進む必要があるため、速度/全長を加算)
+		if (length > 0.0f) {
+			param_ += (speed_ * TimeManager::deltaTime_) / length; // lengthで割ることで一定速度にする
+			if (param_ >= 1.0f) {
+				param_ = 1.0f;
+				// レール終了時に消滅（死亡ステートへ移行）
+				FireCancel();
+				enemy_->ChangeState(std::make_unique<SmallDroneStateDeath>(enemy_));
+				return;
+			}
+		}
+		Vector3 pos = rail_->GetPosition(param_);
+		smallDrone_->SetPosition(pos);
+	}
+
 	// 時間経過
 	timedCalls_.remove_if([](TimedCall* timedCalls) {
 		if (timedCalls->IsFinished()) {

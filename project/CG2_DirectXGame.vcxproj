@@ -122,6 +122,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClCompile Include="application\2d\ReticleUI.cpp" />
     <ClCompile Include="application\2d\TitleUI.cpp" />
     <ClCompile Include="application\2d\UIManager.cpp" />
+    <ClCompile Include="application\3d\background\SplineRail.cpp" />
     <ClCompile Include="application\3d\base\BaseCharacterState.cpp" />
     <ClCompile Include="application\3d\base\BaseWeapon.cpp" />
     <ClCompile Include="application\3d\base\FollowCamera.cpp" />
@@ -242,6 +243,7 @@ copy "$(WindowsSdkDir)bin\$(TargetPlatformVersion)\x64\dxil.dll" "$(TargetDir)dx
     <ClInclude Include="application\2d\ReticleUI.h" />
     <ClInclude Include="application\2d\TitleUI.h" />
     <ClInclude Include="application\2d\UIManager.h" />
+    <ClInclude Include="application\3d\background\SplineRail.h" />
     <ClInclude Include="application\3d\base\BaseCharacterState.h" />
     <ClInclude Include="application\3d\base\BaseWeapon.h" />
     <ClInclude Include="application\3d\base\FollowCamera.h" />

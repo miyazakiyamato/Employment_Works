@@ -50,6 +50,9 @@ std::unique_ptr<ObjectData> LevelDataManager::LoadObjectData(const nlohmann::jso
 	std::unique_ptr<ObjectData> objectData = std::make_unique<ObjectData>();
 
 	objectData->typeName = type;
+	if (object.contains("name")) {
+		objectData->name = object["name"];
+	}
 	if (object.contains("transform")) {
 		const nlohmann::json& transform = object["transform"];
 		//位置
