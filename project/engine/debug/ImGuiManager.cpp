@@ -6,10 +6,7 @@
 #include "WinApp.h"
 #include "DirectXCommon.h"
 #include "SrvUavManager.h"
-#include "externals/imgui/imgui.h"
-#include "externals/imgui/imgui_internal.h"
 #include "GlobalVariables.h"
-#include <filesystem>
 #include "SceneManager.h"
 
 void ImGuiManager::Initialize(WinApp* winApp, DirectXCommon* dxCommon, SrvUavManager* srvUavManager){
@@ -151,8 +148,10 @@ void ImGuiManager::Begin(){
 }
 
 void ImGuiManager::DrawStatusOverlayContent() {
+#ifdef USE_IMGUI
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), "FPS: %.1f", io.Framerate);
+#endif // USE_IMGUI
 }
 
 void ImGuiManager::DrawMenuBar() {
