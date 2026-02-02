@@ -73,6 +73,13 @@ void Model::Draw(size_t meshIndex, const D3D12_VERTEX_BUFFER_VIEW* vertexBufferV
 void Model::LoadFile(const std::string& directoryPath, const std::string& filename) {
 	Assimp::Importer importer;
 	std::string filePath = directoryPath + filename;
+	//.objと同じ名前の.mtlを読み込む
+	std::string mtlFilename = filename;
+	size_t diff = mtlFilename.rfind(".obj");
+	if (diff != std::string::npos) {
+		mtlFilename.replace(diff, 4, ".mtl");
+		LoadMaterialTemplateFile(directoryPath, mtlFilename);
+	}
 	const aiScene* scene = importer.ReadFile(filePath.c_str(), aiProcess_FlipWindingOrder | aiProcess_FlipUVs);
 	assert(scene->HasMeshes());//メッシュがないのは対応しない
 	meshCount_ = (size_t)scene->mNumMeshes;//メッシュの数を取得
@@ -175,6 +182,20 @@ void Model::LoadColor(Mesh& mesh,aiMaterial* material){
 		aiString textureFilePath;
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &textureFilePath);
 		mesh.material.textureFilePath = textureFilePath.C_Str();
+		//UVTransform
+		aiUVTransform uvTransform;
+		if (material->Get(AI_MATKEY_UVTRANSFORM(aiTextureType_DIFFUSE, 0), uvTransform) == AI_SUCCESS) {
+			mesh.material.uvScale = { uvTransform.mScaling.x, uvTransform.mScaling.y, 1.0f };
+		}
+		std::string materialName;
+		aiString name;
+		if (material->Get(AI_MATKEY_NAME, name) == AI_SUCCESS) {
+			materialName = name.C_Str();
+			if (userMtls_.find(materialName) != userMtls_.end()) {
+				mesh.material.uvScale = userMtls_[materialName];
+			}
+		}
+
 	}
 }
 
@@ -222,4 +243,33 @@ void Model::ModelDataSkybox(){
 		"skybox",
 		{}
 	};
+}
+
+void Model::LoadMaterialTemplateFile(const std::string& directoryPath, const std::string& filename) {
+	std::string filePath = directoryPath + filename;
+	std::ifstream file(filePath);
+	if (!file.is_open()) {
+		return;
+	}
+	std::string line;
+	std::string materialName;
+	while (std::getline(file, line)) {
+		std::istringstream s(line);
+		std::string key;
+		s >> key;
+		if (key == "newmtl") {
+			s >> materialName;
+		}
+		if (key == "map_Kd") {
+			std::string option;
+			while (s >> option) {
+				if (option == "-s") {
+					float x, y, z;
+					s >> x >> y >> z;
+					userMtls_[materialName] = { x, y, z };
+					break;
+				}
+			}
+		}
+	}
 }

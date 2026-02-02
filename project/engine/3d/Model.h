@@ -43,6 +43,7 @@ public:
 		// EulerTransform uvTransform;
 		Vector4 color;
 		std::string textureFilePath;
+		Vector3 uvScale = { 1.0f,1.0f,1.0f };
 	};
 	struct VertexWeightData {
 		float weight;
@@ -127,6 +128,8 @@ private:
 	std::vector<Mesh> meshData_;
 	size_t meshCount_ = 0;
 	Node rootNode_;
+	std::map<std::string, Vector3> userMtls_;
+	void LoadMaterialTemplateFile(const std::string& directoryPath, const std::string& filename);
 
 public:
 		// --- ゲッター ---

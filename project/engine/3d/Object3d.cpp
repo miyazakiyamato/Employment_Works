@@ -110,7 +110,7 @@ void Object3d::Update(){
 	skeletonData_->Update();
 	//スキンクラスタの更新
 	skinClusterData_->Update(skeletonData_.get());
-	for (MaterialData materialData : materialData_) {
+	for (MaterialData& materialData : materialData_) {
 		materialData.material->uvTransform = Matrix4x4::MakeAffineMatrix(
 			materialData.uvTransform.scale,
 			materialData.uvTransform.rotate,
@@ -307,7 +307,8 @@ void Object3d::SetModel(const std::string& filePath){
 		//マテリアルデータの初期値を書き込む
 		materialData_[meshIndex].material->color = model_->GetMeshData()[meshIndex].material.color;//色を書き込む
 		materialData_[meshIndex].material->enableLighting = true;//Lightingを有効にする
-		materialData_[meshIndex].material->uvTransform = Matrix4x4::MakeIdentity4x4();//UVTransform単位行列で初期化
+		materialData_[meshIndex].uvTransform.scale = model_->GetMeshData()[meshIndex].material.uvScale;
+		materialData_[meshIndex].material->uvTransform = Matrix4x4::MakeScaleMatrix(materialData_[meshIndex].uvTransform.scale);//UVTransform初期化
 		materialData_[meshIndex].material->shininess = 40.0f;
 		materialData_[meshIndex].material->highLightColor = { 1.0f,1.0f,1.0f,1.0f };
 		materialData_[meshIndex].material->enableEnvironmentMap = false; // 環境マップを無効にする
