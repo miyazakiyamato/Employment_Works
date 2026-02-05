@@ -92,7 +92,7 @@ void GameScene::Initialize(){
 
 	//ステージマネージャ
 	stageManager_ = std::make_unique<StageManager>();
-	stageManager_->Initialize(bulletManager_.get(), particleSystem_.get());
+	stageManager_->Initialize("level1", bulletManager_.get(), particleSystem_.get(), true);
 	player_ = stageManager_->GetPlayer();
 
 	// UIマネージャの初期化

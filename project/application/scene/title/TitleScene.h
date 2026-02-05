@@ -5,7 +5,8 @@
 #include "Skydome.h"
 #include "Ground.h"
 #include <vector>
-#include "TitleUI.h"
+#include "StageManager.h"
+#include "ParticleSystem.h"
 
 /// <summary>
 /// タイトルシーン
@@ -31,17 +32,18 @@ public://メンバ関数
 	void ChangeState(std::unique_ptr<BaseSceneState<TitleScene>> newState);
 
 private://メンバ変数
-	//天球
-	std::unique_ptr<Skydome> skydome_ = nullptr;
-	//地面
-	std::unique_ptr<Ground> ground_ = nullptr;
+	//ステージマネージャ
+	std::unique_ptr<StageManager> stageManager_;
+	//パーティクルシステム
+	std::unique_ptr<ParticleSystem> particleSystem_;
 	//カメラ
 	Camera* camera_ = nullptr;
 
 	//ステート
 	std::unique_ptr<BaseSceneState<TitleScene>> state_;
 public: // ゲッター
-	Skydome* GetSkydome() { return skydome_.get(); }
-	Ground* GetGround() { return ground_.get(); }
+	Skydome* GetSkydome() { return stageManager_->GetSkydome(); }
+	Ground* GetGround() { return stageManager_->GetGround(); }
+	StageManager* GetStageManager() { return stageManager_.get(); }
 
 };

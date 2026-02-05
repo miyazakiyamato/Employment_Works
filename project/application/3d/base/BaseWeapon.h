@@ -10,6 +10,7 @@ enum class AttackType {
 };
 
 class BulletManager;
+class Player;
 /// <summary>
 /// 武器基底クラス
 /// </summary>
@@ -89,4 +90,8 @@ public:
 	void SetBulletManager(BulletManager* bulletManager) { bulletManager_ = bulletManager; }
 	void SetTarget(Object3d* target) { target_ = target; }
 	void SetChargeCount(float chargeCount) { chargeCount_ = chargeCount; }
+	void SetPlayer(Player* player) { player_ = player; }
+
+protected:
+	Player* player_ = nullptr;
 };

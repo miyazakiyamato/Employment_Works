@@ -9,14 +9,6 @@
 /// </summary>
 class RailCamera {
 public:
-	//構造体
-	struct Shake {
-		Vector2 move;
-		Vector2 preMove;
-		float kTime;
-		float time;
-		bool isShake = false;
-	};
 	//メンバ関数
 	/// <summary>
 	/// 初期化
@@ -30,13 +22,8 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
-	/// <summary>
-	/// カメラ振動開始
-	/// </summary>
-	void ShakeStart(Vector2 move, float kTime);
+
 private:
-	//カメラ振動
-	void Shaking();
 	//メンバ変数
 	Camera* camera_ = nullptr;
 	std::unique_ptr<Object3d> object3d_;
@@ -55,11 +42,11 @@ private:
 	float segmentPosition = 0.0f; // セグメントの位置
 	float targetTimeDistance = 0.5f; // ターゲットまでの時間間隔
 
-	Shake shake_{};
+
 
 	bool isFinished = false;
 public:
-	const Camera* GetCamera() const { return camera_; }
+	Camera* GetCamera() const { return camera_; }
 	Object3d* GetObject3d() { return object3d_.get(); }
 	bool GetIsFinished() const { return isFinished; }
 	std::vector<Vector3> GetControlPoints() const { return controlPoints_; }
@@ -68,4 +55,8 @@ public:
 	void AddControlPoint(const Vector3& point) { controlPoints_.push_back(point); }
 	void SetVelocity(float v) { velocity = v; }
 	void SetSegmentCount(size_t count) { segmentCount = count;}
+	void SetIsLoop(bool isLoop) { isLoop_ = isLoop; }
+
+private:
+	bool isLoop_ = false;
 };

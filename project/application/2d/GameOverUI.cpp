@@ -1,19 +1,38 @@
 #include "GameOverUI.h"
 #include "TextureManager.h"
+#include "TimeManager.h"
+#include <cmath>
 
 void GameOverUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("gameOver.png");
+	TextureManager::GetInstance()->LoadTexture("ATitle.png");
 
 	//スプライトの初期化
+	// game over sprite
 	std::unique_ptr<Sprite> sprite(new Sprite);
 	sprite->Initialize("gameOver.png");
 	sprite->SetPosition({ 640, 260 });
 	sprite->SetSize({ 720.0f, 140.0f });
 	sprite->SetAnchorPoint({ 0.5f, 0.5f });
 	sprites_.push_back(std::move(sprite));
+
+	// ATitle sprite
+	std::unique_ptr<Sprite> spriteTitle(new Sprite);
+	spriteTitle->Initialize("ATitle.png");
+	spriteTitle->SetPosition({ 640, 460 });
+	spriteTitle->SetSize({ 160.0f, 50.0f });
+	spriteTitle->SetAnchorPoint({ 0.5f, 0.5f });
+	sprites_.push_back(std::move(spriteTitle));
 }
 
 void GameOverUI::Update() {
+	animationTime_ += TimeManager::GetInstance()->deltaTime_;
+	float alpha = (std::sin(animationTime_ * 2.0f) + 1.0f) / 2.0f;
+	
+	if (sprites_.size() > 1) {
+		sprites_[1]->SetColor({ 1.0f,1.0f,1.0f, alpha });
+	}
+
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Update();
 	}

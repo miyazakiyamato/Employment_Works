@@ -22,4 +22,5 @@ public:
 
 private:
 	std::vector<std::unique_ptr<Sprite>> sprites_;
+	float animationTime_ = 0.0f;
 };

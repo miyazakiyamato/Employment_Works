@@ -2,9 +2,11 @@
 #include "TextureManager.h"
 #include "TimeManager.h"
 #include "Easing.h"
+#include <cmath>
 
 void ClearUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("clear.png");
+	TextureManager::GetInstance()->LoadTexture("ATitle.png");
 
 	std::unique_ptr<Sprite> sprite(new Sprite);
 	sprite->Initialize("clear.png");
@@ -12,9 +14,25 @@ void ClearUI::Initialize() {
 	sprite->SetSize({ 360.0f, 140.0f });
 	sprite->SetAnchorPoint({ 0.5f, 0.5f });
 	sprites_.push_back(std::move(sprite));
+
+	// ATitle sprite
+	std::unique_ptr<Sprite> spriteTitle(new Sprite);
+	spriteTitle->Initialize("ATitle.png");
+	spriteTitle->SetPosition({ 640, 460 });
+	spriteTitle->SetSize({ 160.0f, 50.0f });
+	spriteTitle->SetAnchorPoint({ 0.5f, 0.5f });
+	sprites_.push_back(std::move(spriteTitle));
 }
 
 void ClearUI::Update() {
+	animationTime_ += TimeManager::GetInstance()->deltaTime_;
+	float alpha = (std::sin(animationTime_ * 2.0f) + 1.0f) / 2.0f;
+
+	if (sprites_.size() > 1) {
+		sprites_[1]->SetColor({ 1.0f,1.0f,1.0f, alpha });
+		sprites_[1]->Update();
+	}
+
 	scaleCount_ += TimeManager::GetInstance()->deltaTime_;
 	if (scaleCount_ > 1.0f) {
 		scaleCount_ = 0.0f;

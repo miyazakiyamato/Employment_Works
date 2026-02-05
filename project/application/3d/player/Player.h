@@ -53,9 +53,9 @@ public://メンバ関数
 	/// </summary>
 	void StopCameraFollow();
 
-private:
 	void Damage(int damage, const Vector3& hitDirection);
 
+private:
 	//メンバ変数
 	Input* input_ = nullptr;
 	const Camera* camera_ = nullptr;
@@ -95,7 +95,12 @@ public://ゲッターセッター
 	void SetParent(Object3d* object3d);
 	void SetCamera(const Camera* camera) { camera_ = camera; }
 	void SetParticleSystem(ParticleSystem* particleSystem) { particleSystem_ = particleSystem; }
-	void SetRailCamera(RailCamera* railCamera) { railCamera_ = railCamera; }
+	void SetRailCamera(RailCamera* railCamera);
 	void SetWeapon(std::unique_ptr<BaseWeapon> weapon);
+	void SetIsCpuMode(bool isCpuMode) { isCpuMode_ = isCpuMode; }
+	bool GetIsCpuMode() const { return isCpuMode_; }
+
+private:
+	bool isCpuMode_ = false;
 };
 
