@@ -24,7 +24,7 @@ void ClearScene::Initialize(){
 	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
 	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
 	ModelManager::GetInstance()->LoadModel("airship/airship.obj");
-	TextureManager::GetInstance()->LoadTexture("clear.png");
+	TextureManager::GetInstance()->LoadTexture("clear.dds");
 
 	//天球
 	skydome_ = std::make_unique<Skydome>();

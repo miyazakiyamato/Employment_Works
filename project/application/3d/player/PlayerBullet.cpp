@@ -7,8 +7,8 @@ void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayerBullet));
 	BaseBullet::Initialize(position, velocity);
 	object3d_->SetModel("sphere/sphere.obj");
-	TextureManager::GetInstance()->LoadTexture("white.png");
-	object3d_->SetTexture("white.png");
+	TextureManager::GetInstance()->LoadTexture("white.dds");
+	object3d_->SetTexture("white.dds");
 	object3d_->SetEnableLighting(false,0);
 	object3d_->SetBlendMode(BlendMode::kAdd);
 	Collider::SetRadius(0.5f);

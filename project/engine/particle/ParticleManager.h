@@ -32,7 +32,7 @@ public:
 	/// マテリアルデータ
 	/// </summary>
 	struct MaterialData {
-		std::string textureFilePath = "circle.png"; // テクスチャパス
+		std::string textureFilePath = "circle.dds"; // テクスチャパス
 		uint32_t srvIndex; // SRVインデックス
 	};
 

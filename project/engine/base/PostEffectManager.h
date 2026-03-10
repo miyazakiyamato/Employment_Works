@@ -86,7 +86,7 @@ private:
 
 	std::string offScreenName_;         //!< オフスクリーンのパイプライン名
 	std::string postEffectName_ = "Fullscreen"; //!< ポストエフェクト描画用パイプライン名
-	std::string maskTextureName_ = "noise0.png"; //!< マスクテクスチャの名前
+	std::string maskTextureName_ = "noise0.dds"; //!< マスクテクスチャの名前
 
 	ComPtr<ID3D12Resource> materialResource;
 	ComPtr<ID3D12Resource> effectOrderResource; //!< エフェクト順序のリソース

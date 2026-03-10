@@ -5,11 +5,11 @@
 #include <cmath>
 
 void ClearUI::Initialize() {
-	TextureManager::GetInstance()->LoadTexture("clear.png");
-	TextureManager::GetInstance()->LoadTexture("ATitle.png");
+	TextureManager::GetInstance()->LoadTexture("clear.dds");
+	TextureManager::GetInstance()->LoadTexture("ATitle.dds");
 
 	std::unique_ptr<Sprite> sprite(new Sprite);
-	sprite->Initialize("clear.png");
+	sprite->Initialize("clear.dds");
 	sprite->SetPosition({ 640, 260 });
 	sprite->SetSize({ 360.0f, 140.0f });
 	sprite->SetAnchorPoint({ 0.5f, 0.5f });
@@ -17,7 +17,7 @@ void ClearUI::Initialize() {
 
 	// ATitle sprite
 	std::unique_ptr<Sprite> spriteTitle(new Sprite);
-	spriteTitle->Initialize("ATitle.png");
+	spriteTitle->Initialize("ATitle.dds");
 	spriteTitle->SetPosition({ 640, 460 });
 	spriteTitle->SetSize({ 160.0f, 50.0f });
 	spriteTitle->SetAnchorPoint({ 0.5f, 0.5f });

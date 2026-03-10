@@ -8,8 +8,8 @@
 #include "TimeManager.h"
 
 void TitleUI::Initialize() {
-	TextureManager::GetInstance()->LoadTexture("title.png");
-	TextureManager::GetInstance()->LoadTexture("AStart.png");
+	TextureManager::GetInstance()->LoadTexture("title.dds");
+	TextureManager::GetInstance()->LoadTexture("AStart.dds");
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 2; ++i) {
@@ -17,11 +17,11 @@ void TitleUI::Initialize() {
 		sprite->SetAnchorPoint({ 0.5f, 0.5f });
 		sprites_.push_back(std::move(sprite));
 	}
-	sprites_[0]->Initialize("title.png");
+	sprites_[0]->Initialize("title.dds");
 	sprites_[0]->SetPosition({ 640, 260 });
 	sprites_[0]->SetSize({ 800.0f, 300.0f });
 	
-	sprites_[1]->Initialize("AStart.png");
+	sprites_[1]->Initialize("AStart.dds");
 	sprites_[1]->SetPosition({ 640, 460 });
 	sprites_[1]->SetSize({ 144.0f, 50.0f });
 }

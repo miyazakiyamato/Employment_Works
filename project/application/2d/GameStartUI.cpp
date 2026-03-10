@@ -7,11 +7,11 @@ void GameStartUI::Initialize(float duration) {
 	duration_ = duration;
 	spriteSize_ = { 180.0f, 144.0f }; 
 	
-	TextureManager::GetInstance()->LoadTexture("num.png");
-	TextureManager::GetInstance()->LoadTexture("go.png");
+	TextureManager::GetInstance()->LoadTexture("num.dds");
+	TextureManager::GetInstance()->LoadTexture("go.dds");
 
 	std::unique_ptr<Sprite> sprite(new Sprite);
-	sprite->Initialize("num.png");
+	sprite->Initialize("num.dds");
 	sprite->SetPosition({ 640, 360 });
 	sprite->SetSize(spriteSize_);
 	sprite->SetAnchorPoint({ 0.5f, 0.5f });
@@ -39,7 +39,7 @@ void GameStartUI::Update() {
 				sprites_[0]->SetUVTranslate({ sprites_[0]->GetUVTranslate().x - 0.1f, 0.0f });
 			}
 			else if (sprites_[0]->GetUVTranslate().x - 0.1f >= 0.0f) {
-				sprites_[0]->SetTexture("go.png");
+				sprites_[0]->SetTexture("go.dds");
 				sprites_[0]->SetUVTranslate({ 0.0f, 0.0f });
 				spriteSize_ = { 180.0f, 144.0f };
 				sprites_[0]->SetUVScale({ 1.0f, 1.0f });

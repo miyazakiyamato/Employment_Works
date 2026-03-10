@@ -21,10 +21,10 @@ void TitleScene::ChangeState(std::unique_ptr<BaseSceneState<TitleScene>> newStat
 void TitleScene::Initialize(){
 	BaseScene::Initialize();
 
-	TextureManager::GetInstance()->LoadTexture("AStart.png");
-	TextureManager::GetInstance()->LoadTexture("circle2.png");
-	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
-	TextureManager::GetInstance()->LoadTexture("flash.png");
+	TextureManager::GetInstance()->LoadTexture("AStart.dds");
+	TextureManager::GetInstance()->LoadTexture("circle2.dds");
+	TextureManager::GetInstance()->LoadTexture("gradationLine.dds");
+	TextureManager::GetInstance()->LoadTexture("flash.dds");
 
 	//パーティクルシステムの生成
 	particleSystem_.reset(new ParticleSystem);
@@ -32,25 +32,25 @@ void TitleScene::Initialize(){
 	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
 	emitterHit->Initialize("emitterHit", 100);
 	emitterHit->SetTranslate({ 1.0f,1.0f,0.0f });
-	emitterHit->SetTexture("flash.png");
+	emitterHit->SetTexture("flash.dds");
 	particleSystem_->SetParticleEmitter(std::move(emitterHit));
 	
 	std::unique_ptr<BaseParticleEmitter> hitEffect = std::make_unique<EmitterSphere>();
 	hitEffect->Initialize("hitEffect", 100);
 	hitEffect->SetPosition({ 1.0f,1.0f,0.0f });
-	hitEffect->SetTexture("circle2.png");
+	hitEffect->SetTexture("circle2.dds");
 	particleSystem_->SetParticleEmitter(std::move(hitEffect));
 	
 	std::unique_ptr<EmitterSphere> airEffect = std::make_unique<EmitterSphere>();
 	airEffect->Initialize("airEffect", 1000);
 	airEffect->SetTranslate({ 0.0f,0.0f,0.0f });
-	airEffect->SetTexture("circle2.png");
+	airEffect->SetTexture("circle2.dds");
 	particleSystem_->SetParticleEmitter(std::move(airEffect));
 	
 	std::unique_ptr<EmitterSphere> chargeEffect = std::make_unique<EmitterSphere>();
 	chargeEffect->Initialize("chargeEffect", 100);
 	chargeEffect->SetTranslate({ 0.0f,0.0f,0.0f });
-	chargeEffect->SetTexture("gradationLine.png");
+	chargeEffect->SetTexture("gradationLine.dds");
 	chargeEffect->SetRing(16, 0.5f, 0.0f);
 	particleSystem_->SetParticleEmitter(std::move(chargeEffect));
 

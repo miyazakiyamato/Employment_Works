@@ -27,7 +27,7 @@ void PostEffectManager::Initialize(DirectXCommon* dxCommon, SrvUavManager* srvUa
 	dxCommon_ = dxCommon;
 	srvUavManager_ = srvUavManager;
 
-	TextureManager::GetInstance()->LoadTexture("noise0.png"); // マスクテクスチャの読み込み
+	TextureManager::GetInstance()->LoadTexture("noise0.dds"); // マスクテクスチャの読み込み
 
 	// PostEffectManagerの初期化処理
 	PipelineState pipelineState_{};

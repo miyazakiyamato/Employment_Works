@@ -2,10 +2,10 @@
 #include "TextureManager.h"
 
 void PlayerDeathUI::Initialize() {
-	TextureManager::GetInstance()->LoadTexture("num.png");
+	TextureManager::GetInstance()->LoadTexture("num.dds");
 
 	std::unique_ptr<Sprite> sprite(new Sprite);
-	sprite->Initialize("num.png");
+	sprite->Initialize("num.dds");
 	sprite->SetPosition({ 640, 360 });
 	sprite->SetSize({ 90.0f, 144.0f });
 	sprite->SetAnchorPoint({ 0.5f, 0.5f });

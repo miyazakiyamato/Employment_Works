@@ -4,13 +4,13 @@
 #include <cmath>
 
 void GameOverUI::Initialize() {
-	TextureManager::GetInstance()->LoadTexture("gameOver.png");
-	TextureManager::GetInstance()->LoadTexture("ATitle.png");
+	TextureManager::GetInstance()->LoadTexture("gameOver.dds");
+	TextureManager::GetInstance()->LoadTexture("ATitle.dds");
 
 	//スプライトの初期化
 	// game over sprite
 	std::unique_ptr<Sprite> sprite(new Sprite);
-	sprite->Initialize("gameOver.png");
+	sprite->Initialize("gameOver.dds");
 	sprite->SetPosition({ 640, 260 });
 	sprite->SetSize({ 720.0f, 140.0f });
 	sprite->SetAnchorPoint({ 0.5f, 0.5f });
@@ -18,7 +18,7 @@ void GameOverUI::Initialize() {
 
 	// ATitle sprite
 	std::unique_ptr<Sprite> spriteTitle(new Sprite);
-	spriteTitle->Initialize("ATitle.png");
+	spriteTitle->Initialize("ATitle.dds");
 	spriteTitle->SetPosition({ 640, 460 });
 	spriteTitle->SetSize({ 160.0f, 50.0f });
 	spriteTitle->SetAnchorPoint({ 0.5f, 0.5f });

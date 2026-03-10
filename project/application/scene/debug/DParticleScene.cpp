@@ -38,8 +38,8 @@ void DParticleScene::Initialize(){
 
 	ModelManager::GetInstance()->LoadModel("terrain/terrain.obj");
 
-	TextureManager::GetInstance()->LoadTexture("circle2.png");
-	TextureManager::GetInstance()->LoadTexture("gradationLine.png");
+	TextureManager::GetInstance()->LoadTexture("circle2.dds");
+	TextureManager::GetInstance()->LoadTexture("gradationLine.dds");
 	TextureManager::GetInstance()->LoadTexture("rostock_laage_airport_4k.dds");
 
 	//衝突マネージャの生成
@@ -59,37 +59,37 @@ void DParticleScene::Initialize(){
 	particleSystem_->Initialize();
 	std::unique_ptr<EmitterSphere> emitterSphere = std::make_unique<EmitterSphere>();
 	emitterSphere->Initialize("emitterSphere",10000);
-	emitterSphere->SetTexture("gradationLine.png");
+	emitterSphere->SetTexture("gradationLine.dds");
 	emitterSphere->SetRing(16, 0.5f, 0.0f);
 	particleSystem_->SetParticleEmitter(std::move(emitterSphere));
 
 	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
 	emitterHit->Initialize("emitterHit",100);
 	emitterHit->SetTranslate({ 1.0f,1.0f,0.0f });
-	emitterHit->SetTexture("circle2.png");
+	emitterHit->SetTexture("circle2.dds");
 	particleSystem_->SetParticleEmitter(std::move(emitterHit));
 
 	std::unique_ptr<EmitterSphere> hitEffect = std::make_unique<EmitterSphere>();
 	hitEffect->Initialize("hitEffect", 100);
 	hitEffect->SetTranslate({ 1.0f,1.0f,0.0f });
-	hitEffect->SetTexture("circle2.png");
+	hitEffect->SetTexture("circle2.dds");
 	particleSystem_->SetParticleEmitter(std::move(hitEffect));
 
 	std::unique_ptr<EmitterSphere> airEffect = std::make_unique<EmitterSphere>();
 	airEffect->Initialize("airEffect", 100);
 	airEffect->SetTranslate({ 0.0f,0.0f,0.0f });
-	airEffect->SetTexture("circle2.png");
+	airEffect->SetTexture("circle2.dds");
 	particleSystem_->SetParticleEmitter(std::move(airEffect));
 	//スプライトの初期化
 	/*for (uint32_t i = 0; i < 5; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
-		sprite->Initialize("uvChecker.png");
+		sprite->Initialize("uvChecker.dds");
 		sprite->SetPosition({ 100 + 200.0f * float(i), 100 });
 		sprite->SetSize({ 100.0f,100.0f });
 		sprites_.push_back(std::move(sprite));
 	}
 	sprites_[0]->SetTextureSize({ 64.0f,64.0f });
-	sprites_[1]->SetTexture("monsterBall.png");
+	sprites_[1]->SetTexture("monsterBall.dds");
 	sprites_[1]->SetIsFlipX(true);
 	sprites_[2]->SetIsFlipY(true);
 	sprites_[3]->SetIsFlipX(true);

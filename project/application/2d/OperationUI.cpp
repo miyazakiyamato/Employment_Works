@@ -13,7 +13,7 @@ void OperationUI::Initialize(Player* player) {
 	player_ = player;
 
 	// UI Sprites (LST, RST, RB, Hold, Pause)
-	std::string uiTextures[] = { "LST.png", "RST.png", "RB.png", "Hold.png", "pauseButton.png" };
+	std::string uiTextures[] = { "LST.dds", "RST.dds", "RB.dds", "Hold.dds", "pauseButton.dds" };
 	// 画像サイズを取得して総幅を計算
 	float totalWidth = 0.0f;
 	float padding = 20.0f;
@@ -107,7 +107,7 @@ void OperationUI::Update() {
 		}
 	}
 
-	// 4: Pause (pauseButton.png)
+	// 4: Pause (pauseButton.dds)
 	if (sprites_.size() >= 5) {
 		if (input->PushKey(DIK_P) || input->PushControllerButton(XINPUT_GAMEPAD_START)) {
 			sprites_[4]->SetColor(activeColor);
