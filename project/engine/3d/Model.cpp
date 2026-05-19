@@ -43,7 +43,7 @@ void Model::Initialize(DirectXCommon* dxCommon, const std::string& directoryPath
 		//.objの参照しているテクスチャファイル読み込み
 		if (meshData.material.textureFilePath.empty()) {
 			//mtlファイルがない場合は、白いテクスチャを設定
-			meshData.material.textureFilePath = "white.png";
+			meshData.material.textureFilePath = "white.dds";
 		}
 		//テクスチャマネージャーに読み込みを依頼
 		TextureManager::GetInstance()->LoadTexture(meshData.material.textureFilePath);

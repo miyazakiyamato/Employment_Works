@@ -4,10 +4,12 @@
 #include <imgui.h>
 #endif
 #include <string>
+#include <cmath>
+#include "TimeManager.h"
 
 void TitleUI::Initialize() {
-	TextureManager::GetInstance()->LoadTexture("title.png");
-	TextureManager::GetInstance()->LoadTexture("AStart.png");
+	TextureManager::GetInstance()->LoadTexture("title.dds");
+	TextureManager::GetInstance()->LoadTexture("AStart.dds");
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 2; ++i) {
@@ -15,16 +17,24 @@ void TitleUI::Initialize() {
 		sprite->SetAnchorPoint({ 0.5f, 0.5f });
 		sprites_.push_back(std::move(sprite));
 	}
-	sprites_[0]->Initialize("title.png");
+	sprites_[0]->Initialize("title.dds");
 	sprites_[0]->SetPosition({ 640, 260 });
 	sprites_[0]->SetSize({ 800.0f, 300.0f });
 	
-	sprites_[1]->Initialize("AStart.png");
+	sprites_[1]->Initialize("AStart.dds");
 	sprites_[1]->SetPosition({ 640, 460 });
-	sprites_[1]->SetSize({ 250.0f, 100.0f });
+	sprites_[1]->SetSize({ 144.0f, 50.0f });
 }
 
 void TitleUI::Update() {
+	animationTime_ += TimeManager::GetInstance()->deltaTime_;
+	float alpha = (std::sin(animationTime_ * 2.0f) + 1.0f) / 2.0f; // 0.0 to 1.0 sine wave
+	
+	// ゆっくり点滅させるため、範囲を調整 (例: 0.2 ~ 1.0)
+	//alpha = 0.2f + (alpha * 0.8f);
+
+	sprites_[1]->SetColor({ 1.0f,1.0f,1.0f, alpha });
+
 	for (std::unique_ptr<Sprite>& sprite : sprites_) {
 		sprite->Update();
 	}

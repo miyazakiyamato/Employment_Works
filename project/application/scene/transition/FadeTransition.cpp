@@ -6,7 +6,7 @@ void FadeTransition::Initialize() {
     // スプライトの初期化
     for (uint32_t i = 0; i < 1; ++i) {
         std::unique_ptr<Sprite> sprite(new Sprite);
-        sprite->Initialize("white.png");
+        sprite->Initialize("white.dds");
         sprite->SetPosition({0, 0});
         sprite->SetSize({1280.0f, 720.0f});
         sprite->SetColor({0.0f, 0.0f, 0.0f, 1.0f});

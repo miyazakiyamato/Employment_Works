@@ -46,7 +46,12 @@ void FollowCamera::Update() {
 		interTarget_ = Vector3::Lerp(interTarget_, targetWorldPos, positionLerpFactor);
 
 		// ターゲットのワールド回転を取得
-		Quaternion targetRotation = worldMat.ToQuaternion();
+		Quaternion targetRotation; 
+		if (rotationTarget_) {
+			targetRotation = rotationTarget_->GetWorldMatrix().ToQuaternion();
+		} else {
+			targetRotation = worldMat.ToQuaternion();
+		}
 		
 		float rotationLerpFactor = 0.1f;
 		interRotation_ = Quaternion::Slerp(interRotation_, targetRotation, rotationLerpFactor);
@@ -84,7 +89,12 @@ void FollowCamera::Reset() {
 		Matrix4x4 worldMat = target_->GetWorldMatrix();
 		interTarget_ = { worldMat.m[3][0], worldMat.m[3][1], worldMat.m[3][2] };
 		// 回転も初期化
-		Quaternion targetRotation = worldMat.ToQuaternion();
+		Quaternion targetRotation;
+		if (rotationTarget_) {
+			targetRotation = rotationTarget_->GetWorldMatrix().ToQuaternion();
+		} else {
+			targetRotation = worldMat.ToQuaternion();
+		}
 		interRotation_ = targetRotation;
 	}
 	

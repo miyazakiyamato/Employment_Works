@@ -37,6 +37,7 @@ void Player::Initialize(){
 	hand_->Initialize();
 	hand_->SetTranslate(handOffset_);
 	hand_->SetParent(object3d_.get());
+	hand_->Update();
 
 	//プレイヤーの初期行動ステート
 	followCamera_ = std::make_unique<FollowCamera>();
@@ -48,13 +49,14 @@ void Player::Initialize(){
 void Player::Update(){
 	// 親（レールカメラ）の更新を反映させるために行列のみ更新
 	object3d_->Update();
-	followCamera_->Update();
-	state_->Update();
-	BaseCharacter::Update();
 	hand_->Update();
 	if (weapon_) {
 		weapon_->Update();
 	}
+
+	followCamera_->Update();
+	state_->Update();
+	BaseCharacter::Update();
 }
 
 void Player::Draw(){
@@ -82,6 +84,7 @@ void Player::Move(){// 移動量
 
 	direction.x += input_->GetControllerStickLX();
 	direction.y += input_->GetControllerStickLY();
+
 	if (direction.Length() == 0) {
 		if (input_->PushKey(DIK_A)) {
 			direction.x -= 1.0f;
@@ -96,8 +99,14 @@ void Player::Move(){// 移動量
 			direction.y -= 1.0f;
 		}
 	}
+
+	if (isCpuMode_) {
+		direction = {};
+	}
 	if (input_->PushKey(DIK_LSHIFT) || input_->PushControllerButton(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
-		railCamera_->SetVelocity(30.0f);
+		if (!isCpuMode_) {
+			railCamera_->SetVelocity(30.0f);
+		}
 	} else {
 		railCamera_->SetVelocity(15.0f);
 	}
@@ -124,9 +133,16 @@ void Player::Move(){// 移動量
 	objectPosition = Vector3::Clamp(objectPosition, -moveLimit_, moveLimit_);
 
 	object3d_->SetTranslate(objectPosition);
+	object3d_->SetTranslate(objectPosition);
 	// 地面での跳ね返り処理
 	float jumpPower = 40.0f;
-	if (object3d_->GetCenterPosition().y < 0.0f) {
+	bool isHitGround = object3d_->GetCenterPosition().y < GetRadius();
+	if (weapon_) {
+		if (weapon_->GetCenterPosition().y < weapon_->GetRadius()) {
+			isHitGround = true;
+		}
+	}
+	if (isHitGround) {
 		velocity_.y = jumpPower;
 		Damage(1, Vector3(1.0f, 0.0f, 1.0f).Normalize());
 	}
@@ -140,6 +156,7 @@ void Player::ReticleUpdate(){
 
 	move.x += input_->GetControllerStickRX();
 	move.y -= input_->GetControllerStickRY();
+
 	if (move.Length() == 0) {
 		if (Input::GetInstance()->PushKey(DIK_LEFT)) {
 			move += { -1.0f, 0.0f};
@@ -153,6 +170,10 @@ void Player::ReticleUpdate(){
 		if (Input::GetInstance()->PushKey(DIK_DOWN)) {
 			move += { 0.0f, 1.0f};
 		}
+	}
+
+	if (isCpuMode_) {
+		move = {};
 	}
 	if (move.Length() != 0) {
 		move.Normalize();
@@ -190,12 +211,14 @@ void Player::StopCameraFollow() {
 void Player::Damage(int damage, const Vector3& hitDirection){
 	static_cast<EmitterSphere*>(particleSystem_->FindEmitter("hitEffect"))->SetTranslate(object3d_->GetCenterPosition() + hitDirection * GetRadius());
 	particleSystem_->Emit("hitEffect");
-	railCamera_->ShakeStart({ 5.0f + velocity_.Length() / 10.0f,5.0f + velocity_.Length() / 10.0f }, 0.3f);
+	//railCamera_->ShakeStart({ 5.0f + velocity_.Length() / 10.0f,5.0f + velocity_.Length() / 10.0f }, 0.3f);
+	followCamera_->ShakeStart({ 5.0f + velocity_.Length() / 10.0f,5.0f + velocity_.Length() / 10.0f }, 0.3f);
 	DamageKnockbackStart(
 		hitDirection,     // ダメージ方向
 		30.0f,      // どれくらい倒すか（度数）
 		0.3f       // 戻るまでの時間
 	);
+
 	hp_ -= damage;
 	if (hp_ <= 0) {
 		isAlive_ = false;
@@ -213,6 +236,15 @@ void Player::SetParent(Object3d* object3d){
 
 void Player::SetWeapon(std::unique_ptr<BaseWeapon> weapon){
 	weapon_ = std::move(weapon);
+	weapon_->SetPlayer(this);
 	weapon_->GetObject3d()->SetParent(hand_.get());
 	weapon_->SetTarget(reticle3d_.get());
+	weapon_->Update();
+}
+
+void Player::SetRailCamera(RailCamera* railCamera) {
+	railCamera_ = railCamera;
+	if (followCamera_) {
+		followCamera_->SetRotationTarget(railCamera_->GetObject3d());
+	}
 }

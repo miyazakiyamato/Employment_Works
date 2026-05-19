@@ -8,6 +8,7 @@ void RailCamera::Initialize(const Vector3& position, const Vector3& rotate){
 	object3d_ = std::make_unique<Object3d>();
 	object3d_->Initialize();
 	offset = position;
+	object3d_->SetTranslate(offset);
 	object3d_->SetRotate(rotate);
 	//object3d_->SetModel("sphere/sphere.obj");
 	object3d_->Update();
@@ -41,6 +42,13 @@ void RailCamera::Update() {
 	//	segmentPosition = 0.0f;
 	//}
 	float t = segmentPosition / segmentLength;
+	
+	if (t > 1.0f && isLoop_) {
+		segmentPosition = 0.0f;
+		t = 0.0f;
+		isFinished = false;
+	}
+
 	if (t <= 1.0f) {
 		linePosition = Vector3::CatmullRomPosition(controlPoints_, t);
 		t = (segmentPosition + targetTimeDistance) / segmentLength;
@@ -61,7 +69,7 @@ void RailCamera::Update() {
 	object3d_->SetTranslate(linePosition + Matrix4x4::Transform(offset, Matrix4x4::MakeAffineMatrix({1,1,1},rotate,{})));
 
 	// カメラ振動
-	Shaking();
+	//Shaking();
 	camera_->SetTranslate(object3d_->GetTranslate());
 	camera_->SetRotate(object3d_->GetRotate());
 	camera_->Update();
@@ -80,37 +88,5 @@ void RailCamera::Draw() {
 #endif // _DEBUG
 }
 
-void RailCamera::ShakeStart(Vector2 move, float kTime){
-	shake_.move = move;
-	shake_.preMove = {};
-	shake_.kTime = kTime;
-	shake_.time = 0.0f;
-	shake_.isShake = true;
-}
 
-void RailCamera::Shaking(){
-	if (!shake_.isShake) {
-		return;
-	}
-	shake_.time += TimeManager::deltaTime_;
-	object3d_->SetTranslate(object3d_->GetTranslate() - Vector3(shake_.preMove.x, shake_.preMove.y, 0));
-	float timeCount = shake_.time / shake_.kTime;
-	if (timeCount > 1.0f) {
-		shake_.isShake = false;
-		return;
-	}
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
-	float shakeSize = 0;
-	if (timeCount <= 0.5f) {
-		shakeSize = timeCount * 2.0f;
-	} else {
-		shakeSize = 1.0f - (timeCount * 2.0f - 0.5f);
-	}
-	static std::uniform_real_distribution<float> distX(-shake_.move.x * shakeSize, shake_.move.x * shakeSize);
-	static std::uniform_real_distribution<float> distY(-shake_.move.y * shakeSize, shake_.move.y * shakeSize);
-
-	shake_.preMove = { distX(gen), distY(gen) };
-	object3d_->SetTranslate(object3d_->GetTranslate() + Vector3(shake_.preMove.x, shake_.preMove.y, 0));
-}
 

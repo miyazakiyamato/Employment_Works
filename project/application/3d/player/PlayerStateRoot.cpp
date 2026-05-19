@@ -17,6 +17,8 @@ void PlayerStateRoot::Update(){
 	player_->Move();
 	player_->ReticleUpdate();
 
+	if (player_->GetIsCpuMode()) { return; }
+
 	if (input_->PushKey(DIK_SPACE) || input_->PushControllerButton(XINPUT_GAMEPAD_RIGHT_SHOULDER)) {
 		player_->GetWeapon()->Charge();
 		if (player_->GetWeapon()->GetChargeCount() >= player_->GetWeapon()->GetKChargeTime()) {

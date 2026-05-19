@@ -9,29 +9,29 @@ void PauseScene::Initialize() {
 	BaseScene::Initialize();
 
 	// テクスチャロード
-	TextureManager::GetInstance()->LoadTexture("white.png");
-	TextureManager::GetInstance()->LoadTexture("keepPlaying.png");
-	TextureManager::GetInstance()->LoadTexture("backToTitle.png");
-	TextureManager::GetInstance()->LoadTexture("pause.png");
+	TextureManager::GetInstance()->LoadTexture("white.dds");
+	TextureManager::GetInstance()->LoadTexture("keepPlaying.dds");
+	TextureManager::GetInstance()->LoadTexture("backToTitle.dds");
+	TextureManager::GetInstance()->LoadTexture("pause.dds");
 
 	// 背景スプライト作成 (黒、透過)
 	bgSprite_ = std::make_unique<Sprite>();
-	bgSprite_->Initialize("white.png");
+	bgSprite_->Initialize("white.dds");
 	bgSprite_->SetSize({ 0.0f, 0.0f }); // 初期サイズ0
 	bgSprite_->SetColor({ 0.0f, 0.0f, 0.0f, 0.5f });
 	bgSprite_->SetPosition({ 0.0f, 0.0f });
 	bgSprite_->Update();
 
-	// タイトルスプライト ("pause.png")
+	// タイトルスプライト ("pause.dds")
 	pauseTitleSprite_ = std::make_unique<Sprite>();
-	pauseTitleSprite_->Initialize("pause.png");
+	pauseTitleSprite_->Initialize("pause.dds");
 	pauseTitleSprite_->SetSize({ 0.0f, 0.0f }); // 初期サイズ0
 	pauseTitleSprite_->SetAnchorPoint({ 0.5f, 0.5f });
 	pauseTitleSprite_->SetPosition({ 640.0f, 200.0f }); // 真ん中の少し上
 	pauseTitleSprite_->Update();
 
 	// ボタンボックス作成 (2つ)
-	std::vector<std::string> buttonTextures = { "keepPlaying.png", "backToTitle.png" };
+	std::vector<std::string> buttonTextures = { "keepPlaying.dds", "backToTitle.dds" };
 	for (int i = 0; i < 2; ++i) {
 		std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 		sprite->Initialize(buttonTextures[i]);

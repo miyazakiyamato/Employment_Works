@@ -4,7 +4,7 @@
 #include "EnemyPopEvent.h"
 #include "SplineRail.h"
 
-void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* particleSystem) {
+void StageManager::Initialize(const std::string& levelName, BulletManager* bulletManager, ParticleSystem* particleSystem, bool createPlayer, bool isDemoPlay) {
 	bulletManager_ = bulletManager;
 	particleSystem_ = particleSystem;
 
@@ -17,24 +17,36 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 	ground_->Initialize();
 
 	// レールカメラ
-	railCamera_ = std::make_unique<RailCamera>();
-	railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
+	if (createPlayer || isDemoPlay) {
+		railCamera_ = std::make_unique<RailCamera>();
+		railCamera_->Initialize({ 0.0f, 5.0f, -10.0f }, { 0.0f, 0.0f, 0.0f });
+		if (isDemoPlay) {
+			railCamera_->SetIsLoop(true);
+		}
+	}
 	std::vector<Vector3> railCameraPoints = {};
 
 	// プレイヤー
-	player_ = std::make_unique<Player>();
-	player_->Initialize();
-	player_->SetParticleSystem(particleSystem);
-	auto weapon = std::make_unique<ChargeGun>();
-	weapon->Initialize();
-	weapon->SetBulletManager(bulletManager);
-	player_->SetWeapon(std::move(weapon));
+	if (createPlayer || isDemoPlay) {
+		player_ = std::make_unique<Player>();
+		player_->Initialize();
+		// デモプレイならCPUモード
+		if (isDemoPlay) {
+			player_->SetIsCpuMode(true);
+		}
+
+		player_->SetParticleSystem(particleSystem);
+		auto weapon = std::make_unique<ChargeGun>();
+		weapon->Initialize();
+		weapon->SetBulletManager(bulletManager);
+		player_->SetWeapon(std::move(weapon));
+	}
 
 	// レベルデータマネージャの生成
 	levelDataManager_ = std::make_unique<LevelDataManager>();
 	// レベルデータの読み込み取得
-	levelDataManager_->LoadJsonFile("level1");
-	LevelDataManager::LevelData* levelData = levelDataManager_->GetObjectData("level1");
+	levelDataManager_->LoadJsonFile(levelName);
+	LevelDataManager::LevelData* levelData = levelDataManager_->GetObjectData(levelName);
 
 	for (const std::unique_ptr<ObjectData>& objectData : *levelData) {
 		if (objectData->typeName == "MESH" || objectData->typeName == "ARMATURE") {
@@ -42,11 +54,15 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 		}
 		// エネミー
 		else if (objectData->typeName == "EnemySpawn") {
-			LoadEnemyObject(objectData);
+			if (createPlayer) { // Player不在時は敵も生成しない (必要に応じて変更)
+				LoadEnemyObject(objectData);
+			}
 		}
 		// 敵出現イベント
 		else if (objectData->typeName == "EnemyPopEvent") {
-			LoadEventObject(objectData);
+			if (createPlayer) {
+				LoadEventObject(objectData);
+			}
 		}
 		// カメラ
 		else if (objectData->typeName == "CAMERA") {
@@ -54,13 +70,16 @@ void StageManager::Initialize(BulletManager* bulletManager, ParticleSystem* part
 		}
 	}
 
-	railCamera_->SetControlPoints(railCameraPoints);
-	
-	//プレイヤーにレールカメラ情報をセット
-	player_->SetRailCamera(railCamera_.get());
-	player_->SetParent(railCamera_->GetObject3d());
-	player_->SetCamera(railCamera_->GetCamera());
+	if ((createPlayer || isDemoPlay) && railCamera_) {
+		railCamera_->SetControlPoints(railCameraPoints);
 
+		//プレイヤーにレールカメラ情報をセット
+		if (player_) {
+			player_->SetRailCamera(railCamera_.get());
+			player_->SetParent(railCamera_->GetObject3d());
+			player_->SetCamera(railCamera_->GetCamera());
+		}
+	}
 }
 
 void StageManager::AddEnemy(std::unique_ptr<BaseEnemy> enemy, const Vector3& position) {
@@ -78,7 +97,12 @@ void StageManager::AddEventObject(std::unique_ptr<BaseEventObject> eventObject) 
 
 void StageManager::SetStageCollisions(CollisionManager* collisionManager) {
 	//全てのコライダーを衝突マネージャのリストに登録する
-	collisionManager->AddCollider(player_.get());
+	if (player_) {
+		collisionManager->AddCollider(player_.get());
+		if (player_->GetWeapon()) {
+			collisionManager->AddCollider(player_->GetWeapon());
+		}
+	}
 	for (std::unique_ptr<BaseEnemy>& enemy : enemies_) {
 		collisionManager->AddCollider(enemy.get());
 	}
@@ -94,7 +118,9 @@ void StageManager::Update() {
 	ground_->Update();
 	
 	// レールカメラ
-	railCamera_->Update();
+	if (railCamera_) {
+		railCamera_->Update();
+	}
 
 	// プレイヤー
 	if (player_) {
@@ -146,7 +172,9 @@ void StageManager::Draw() {
 	}
 
 	// レールカメラ
-	railCamera_->Draw();
+	if (railCamera_) {
+		railCamera_->Draw();
+	}
 
 	// プレイヤー
 	if (player_) {

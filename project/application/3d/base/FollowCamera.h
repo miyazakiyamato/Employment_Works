@@ -44,6 +44,7 @@ private:
 
 	// 追従対象
 	const Object3d* target_ = nullptr;
+	const Object3d* rotationTarget_ = nullptr;
 	// 追従対象の残像座標（補間用）
 	Vector3 interTarget_{};
 	// 追従対象の残像回転（補間用）
@@ -61,5 +62,6 @@ public:
 		// --- ゲッター・セッター ---
 	const Camera* GetCamera() const { return camera_; }
 	void SetTarget(const Object3d* target);
+	void SetRotationTarget(const Object3d* target) { rotationTarget_ = target; }
 	void SetLockOn(const LockOn* lockOn) { lockOn_ = lockOn; }
 };

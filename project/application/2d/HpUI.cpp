@@ -10,7 +10,7 @@ void HpUI::Initialize(Player* player){
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 3; ++i) {
 		std::unique_ptr<Sprite> sprite(new Sprite);
-		sprite->Initialize("HPBar.png");
+		sprite->Initialize("HPBar.dds");
 		sprite->SetPosition({ 30 , 30 });
 		sprite->SetSize(hpSize_);
 		sprites_.push_back(std::move(sprite));

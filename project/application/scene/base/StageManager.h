@@ -25,9 +25,12 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
+	/// <param name="levelName">レベル名</param>
 	/// <param name="bulletManager">弾マネージャ(エネミー用)</param>
 	/// <param name="particleSystem">パーティクル(エネミー用)</param>
-	void Initialize(BulletManager* bulletManager, ParticleSystem* particleSystem);
+	/// <param name="createPlayer">プレイヤーを生成するか</param>
+	/// <param name="isDemoPlay">デモプレイか(CPU操作、ループ)</param>
+	void Initialize(const std::string& levelName, BulletManager* bulletManager = nullptr, ParticleSystem* particleSystem = nullptr, bool createPlayer = true, bool isDemoPlay = false);
 
 	/// <summary>
 	/// 更新
@@ -49,6 +52,16 @@ public:
 	/// レールカメラ取得
 	/// </summary>
 	RailCamera* GetRailCamera() const { return railCamera_.get(); }
+
+	/// <summary>
+	/// 天球取得
+	/// </summary>
+	Skydome* GetSkydome() const { return skydome_.get(); }
+
+	/// <summary>
+	/// 地面取得
+	/// </summary>
+	Ground* GetGround() const { return ground_.get(); }
 
 	/// <summary>
 	/// プレイヤーの取得

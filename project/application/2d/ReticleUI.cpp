@@ -7,8 +7,8 @@
 
 void ReticleUI::Initialize() {
 	sprite_ = std::make_unique<Sprite>();
-	TextureManager::GetInstance()->LoadTexture("reticle.png");
-	sprite_->Initialize("reticle.png");
+	TextureManager::GetInstance()->LoadTexture("reticle.dds");
+	sprite_->Initialize("reticle.dds");
 	
 	// 初期場所設定　中央
 	sprite_->SetPosition({ WinApp::kClientWidth / 2.0f, WinApp::kClientHeight / 2.0f });

@@ -20,7 +20,7 @@ void GameOverScene::Initialize(){
 
 	ModelManager::GetInstance()->LoadModel("skydome/skydome.obj");
 	ModelManager::GetInstance()->LoadModel("ground/ground.obj");
-	TextureManager::GetInstance()->LoadTexture("gameOver.png");
+	TextureManager::GetInstance()->LoadTexture("gameOver.dds");
 
 	//天球
 	skydome_ = std::make_unique<Skydome>();
