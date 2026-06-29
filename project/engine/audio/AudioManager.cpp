@@ -27,9 +27,6 @@ AudioManager::~AudioManager() {
 	//xAudio2解放
 	xAudio2.Reset();
 	//音声データ解放
-	for (auto& pair : soundData) {
-		delete[] pair.second.pBuffer;
-	}
 	soundData.clear();
 }
 
@@ -111,19 +108,17 @@ void AudioManager::LoadWave(const std::string& filePath)
 		}
 	}
 
-	//Dataチャンクのデータ部(波型データ)の読み込み
-	char* pBuffer = new char[data.size];
-	file.read(pBuffer, data.size);
-
-	//Waveファイルを閉じる
-	file.close();
-
 	//追加した音声データの参照を取得
 	SoundData& waveData = soundData[filePath];
 
 	waveData.wfex = format.fmt;
-	waveData.pBuffer = reinterpret_cast<BYTE*>(pBuffer);
-	waveData.bufferSize = data.size;
+	waveData.buffer.resize(data.size);
+
+	//Dataチャンクのデータ部(波型データ)の読み込み
+	file.read(reinterpret_cast<char*>(waveData.buffer.data()), data.size);
+
+	//Waveファイルを閉じる
+	file.close();
 }
 
 void AudioManager::PlayWave(const std::string& filePath, float volume, bool loop){
@@ -139,8 +134,8 @@ void AudioManager::PlayWave(const std::string& filePath, float volume, bool loop
 
 	//生成する波型データの設定
 	XAUDIO2_BUFFER buf{};
-	buf.pAudioData = waveData.pBuffer;
-	buf.AudioBytes = waveData.bufferSize;
+	buf.pAudioData = waveData.buffer.data();
+	buf.AudioBytes = static_cast<UINT32>(waveData.buffer.size());
 	buf.Flags = XAUDIO2_END_OF_STREAM;
 
 	// ループの設定

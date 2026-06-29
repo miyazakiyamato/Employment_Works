@@ -2,6 +2,7 @@
 #include <xaudio2.h>
 #include <fstream>
 #include <wrl.h>
+#include <vector>
 #include <unordered_map>
 #include <memory>
 
@@ -51,8 +52,7 @@ public:
 	/// </summary>
 	struct SoundData {
 		WAVEFORMATEX wfex;       // 波形フォーマット
-		BYTE* pBuffer;           // バッファの先頭アドレス
-		unsigned int bufferSize; // バッファのサイズ
+		std::vector<uint8_t> buffer; // バッファデータ
 	};
 
 		// --- メンバ関数 ---
