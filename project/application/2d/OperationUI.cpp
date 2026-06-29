@@ -34,7 +34,7 @@ void OperationUI::Initialize(Player* player) {
 	float centerY = 650.0f;
 
 	for (size_t i = 0; i < std::size(uiTextures); ++i) {
-		std::unique_ptr<Sprite> sprite(new Sprite);
+		std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 		sprite->Initialize(uiTextures[i]);
 
 		// 画像サイズに合わせる

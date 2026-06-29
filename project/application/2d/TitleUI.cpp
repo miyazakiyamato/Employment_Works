@@ -13,7 +13,7 @@ void TitleUI::Initialize() {
 
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 2; ++i) {
-		std::unique_ptr<Sprite> sprite(new Sprite);
+		std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 		sprite->SetAnchorPoint({ 0.5f, 0.5f });
 		sprites_.push_back(std::move(sprite));
 	}

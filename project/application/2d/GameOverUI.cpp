@@ -9,7 +9,7 @@ void GameOverUI::Initialize() {
 
 	//スプライトの初期化
 	// game over sprite
-	std::unique_ptr<Sprite> sprite(new Sprite);
+	std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 	sprite->Initialize("gameOver.dds");
 	sprite->SetPosition({ 640, 260 });
 	sprite->SetSize({ 720.0f, 140.0f });
@@ -17,7 +17,7 @@ void GameOverUI::Initialize() {
 	sprites_.push_back(std::move(sprite));
 
 	// ATitle sprite
-	std::unique_ptr<Sprite> spriteTitle(new Sprite);
+	std::unique_ptr<Sprite> spriteTitle = std::make_unique<Sprite>();
 	spriteTitle->Initialize("ATitle.dds");
 	spriteTitle->SetPosition({ 640, 460 });
 	spriteTitle->SetSize({ 160.0f, 50.0f });

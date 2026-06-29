@@ -8,7 +8,7 @@ void ClearUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("clear.dds");
 	TextureManager::GetInstance()->LoadTexture("ATitle.dds");
 
-	std::unique_ptr<Sprite> sprite(new Sprite);
+	std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 	sprite->Initialize("clear.dds");
 	sprite->SetPosition({ 640, 260 });
 	sprite->SetSize({ 360.0f, 140.0f });
@@ -16,7 +16,7 @@ void ClearUI::Initialize() {
 	sprites_.push_back(std::move(sprite));
 
 	// ATitle sprite
-	std::unique_ptr<Sprite> spriteTitle(new Sprite);
+	std::unique_ptr<Sprite> spriteTitle = std::make_unique<Sprite>();
 	spriteTitle->Initialize("ATitle.dds");
 	spriteTitle->SetPosition({ 640, 460 });
 	spriteTitle->SetSize({ 160.0f, 50.0f });

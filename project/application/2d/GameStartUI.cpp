@@ -10,7 +10,7 @@ void GameStartUI::Initialize(float duration) {
 	TextureManager::GetInstance()->LoadTexture("num.dds");
 	TextureManager::GetInstance()->LoadTexture("go.dds");
 
-	std::unique_ptr<Sprite> sprite(new Sprite);
+	std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 	sprite->Initialize("num.dds");
 	sprite->SetPosition({ 640, 360 });
 	sprite->SetSize(spriteSize_);

@@ -4,7 +4,7 @@
 void PlayerDeathUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("num.dds");
 
-	std::unique_ptr<Sprite> sprite(new Sprite);
+	std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 	sprite->Initialize("num.dds");
 	sprite->SetPosition({ 640, 360 });
 	sprite->SetSize({ 90.0f, 144.0f });

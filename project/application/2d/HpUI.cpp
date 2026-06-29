@@ -9,7 +9,7 @@ void HpUI::Initialize(Player* player){
 	preHp_ = maxHp_;
 	//スプライトの初期化
 	for (uint32_t i = 0; i < 3; ++i) {
-		std::unique_ptr<Sprite> sprite(new Sprite);
+		std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 		sprite->Initialize("HPBar.dds");
 		sprite->SetPosition({ 30 , 30 });
 		sprite->SetSize(hpSize_);
