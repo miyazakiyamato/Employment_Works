@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <memory>
 
+namespace Engine {
+
 #pragma comment(lib, "xaudio2.lib")    // XAudio2のライブラリ
 
 /// <summary>
@@ -119,3 +121,5 @@ private:
 	// 再生中データ格納コンテナ (ソースボイス)
 	std::unordered_map<std::string, IXAudio2SourceVoice*> playSoundData;
 };
+
+} // namespace Engine

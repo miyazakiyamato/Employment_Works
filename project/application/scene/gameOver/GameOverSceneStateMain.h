@@ -4,6 +4,8 @@
 #include "UIManager.h"
 #include <memory>
 
+namespace Engine {
+
 class GameOverScene;
 
 class GameOverSceneStateMain : public BaseSceneState<GameOverScene> {
@@ -26,3 +28,5 @@ public:
 private:
 	std::unique_ptr<UIManager> uiManager_;
 };
+
+} // namespace Engine

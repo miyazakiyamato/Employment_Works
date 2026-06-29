@@ -5,6 +5,8 @@
 #include "Quaternion.h"
 #include "Collision.h"
 
+namespace Engine {
+
 float Vector3::Length() const {
     return Length(*this);
 }
@@ -281,3 +283,5 @@ Vector3& Vector3::operator/=(float v2){
     z /= v2;
     return *this;
 }
+
+} // namespace Engine

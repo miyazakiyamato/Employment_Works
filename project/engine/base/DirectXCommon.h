@@ -12,6 +12,8 @@
 #include "externals/DirectXTex/DirectXTex.h"
 #include "Vector4.h"
 
+namespace Engine {
+
 #pragma comment(lib,"dxguid.lib")
 #pragma comment(lib,"dxcompiler.lib")
 
@@ -262,3 +264,5 @@ public:
 	ID3D12CommandQueue* GetCommandQueue() { return commandQueue.Get(); }
 	uint32_t GetOffScreenSRVIndex() const { return offScreenSRVIndex; }
 };
+
+} // namespace Engine

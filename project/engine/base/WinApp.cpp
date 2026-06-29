@@ -1,11 +1,13 @@
 #include "WinApp.h"
 
-#pragma comment(lib,"winmm.lib")
 #ifdef USE_IMGUI
 #include <imgui.h>
-
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 #endif // USE_IMGUI
+
+namespace Engine {
+
+#pragma comment(lib,"winmm.lib")
 
 LRESULT WinApp::WindowProc(HWND hwnd_, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -103,3 +105,5 @@ POINT WinApp::GetWindowStartPosition() const
 	}
 	return start;
 }
+
+} // namespace Engine

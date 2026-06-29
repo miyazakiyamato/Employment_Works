@@ -5,6 +5,8 @@
 #include <wrl.h>
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 class DirectXCommon;
 class SrvUavManager;
 
@@ -151,3 +153,5 @@ public:
 	/// </summary>
 	void SetSpotLight(uint32_t index, const SpotLight& spotLight);
 };
+
+} // namespace Engine

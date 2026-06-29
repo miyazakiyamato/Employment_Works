@@ -6,6 +6,8 @@
 #include "Ground.h"
 #include "GameOverUI.h"
 
+namespace Engine {
+
 /// <summary>
 /// ゲームオーバーシーン
 /// </summary>
@@ -44,3 +46,5 @@ public:
 
 };
 
+
+} // namespace Engine

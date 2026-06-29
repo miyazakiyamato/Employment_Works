@@ -1,6 +1,8 @@
 #include "SceneManager.h"
 #include <cassert>
 #include "GlobalVariables.h"
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
@@ -158,3 +160,5 @@ void SceneManager::SceneTransition(){
 }
 
 
+
+} // namespace Engine

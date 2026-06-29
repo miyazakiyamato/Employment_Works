@@ -5,6 +5,8 @@
 #include "SrvUavManager.h"
 #include "numbers"
 
+namespace Engine {
+
 Line3dManager* Line3dManager::instance = nullptr;
 
 Line3dManager* Line3dManager::GetInstance() {
@@ -303,3 +305,5 @@ void  Line3dManager::DrawCotmullRom(const Vector3& controlPoint0, const Vector3&
 		}
 	}
 }
+
+} // namespace Engine

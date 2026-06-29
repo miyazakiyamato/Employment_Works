@@ -6,6 +6,8 @@
 #include <memory>
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 /// <summary>
 /// グローバル変数管理クラス
 /// ImGuiを使ってアプリケーション実行中にパラメータを調整し、JSONファイルとして保存・読み込みを行うシングルトン
@@ -153,3 +155,5 @@ private:
 	// グローバル変数の保存先ファイルパス
 	const std::string kDirectoryPath = "resources/GlobalVariables/";
 };
+
+} // namespace Engine

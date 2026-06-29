@@ -5,6 +5,8 @@
 #include "UIManager.h"
 #include <memory>
 
+namespace Engine {
+
 class ClearScene;
 
 class ClearSceneStateMain : public BaseSceneState<ClearScene> {
@@ -28,3 +30,5 @@ private:
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<UIManager> uiManager_;
 };
+
+} // namespace Engine

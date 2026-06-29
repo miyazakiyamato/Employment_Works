@@ -5,6 +5,8 @@
 #include <map>
 #include <memory>
 
+namespace Engine {
+
 	// --- 列挙型定義 ---
 /// <summary>
 /// カリングモード
@@ -171,3 +173,5 @@ public:
 		// --- ゲッター ---
 	DirectXCommon* GetDxCommon() { return dxCommon_; }
 };
+
+} // namespace Engine

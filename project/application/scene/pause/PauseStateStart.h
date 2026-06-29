@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseSceneState.h"
 
+namespace Engine {
+
 class PauseScene;
 
 class PauseStateStart : public BaseSceneState<PauseScene> {
@@ -24,3 +26,5 @@ private:
 	float animationTimer_ = 0.0f;
 	const float kAnimationDuration_ = 30.0f;
 };
+
+} // namespace Engine

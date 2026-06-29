@@ -2,6 +2,8 @@
 #include "TimeManager.h"
 #include <CollisionTypeIdDef.h>
 
+namespace Engine {
+
 void EnemyBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kEnemyBullet));
 	BaseBullet::Initialize(position, velocity);
@@ -29,3 +31,5 @@ void EnemyBullet::OnCollision(Collider* other){
 		isAlive_ = false;
 	}
 }
+
+} // namespace Engine

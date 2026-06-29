@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include "Camera.h"
 
+namespace Engine {
+
 /// <summary>
 /// カメラマネージャクラス（シングルトン）
 /// 複数のカメラインスタンスを管理し、アクティブなカメラを切り替える
@@ -67,3 +69,5 @@ public:
 	/// </summary>
 	Camera* GetCamera() const { return camera_; }
 };
+
+} // namespace Engine

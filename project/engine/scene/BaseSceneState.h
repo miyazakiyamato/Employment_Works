@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Engine {
+
 /// <summary>
 /// シーン状態基底クラス
 /// </summary>
@@ -28,3 +30,5 @@ public:
 protected:
 	T* scene_ = nullptr;
 };
+
+} // namespace Engine

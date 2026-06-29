@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// 3Dライン描画用パイプラインクラス
 /// BasePipelineを継承し、ワイヤーフレーム描画に適したパイプライン設定を定義する
@@ -32,3 +34,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_INPUT_ELEMENT_DESC> InputElementDesc();
 };
+
+} // namespace Engine

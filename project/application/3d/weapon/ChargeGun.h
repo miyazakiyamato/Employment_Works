@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseWeapon.h"
 
+namespace Engine {
+
 class Input;
 class TimeManager;
 /// <summary>
@@ -42,3 +44,5 @@ private:
 	TimeManager* timeManager_ = nullptr;
 };
 
+
+} // namespace Engine

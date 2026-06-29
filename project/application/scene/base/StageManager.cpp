@@ -4,6 +4,8 @@
 #include "EnemyPopEvent.h"
 #include "SplineRail.h"
 
+namespace Engine {
+
 void StageManager::Initialize(const std::string& levelName, BulletManager* bulletManager, ParticleSystem* particleSystem, bool createPlayer, bool isDemoPlay) {
 	bulletManager_ = bulletManager;
 	particleSystem_ = particleSystem;
@@ -317,3 +319,5 @@ void StageManager::LoadCameraObject(const std::unique_ptr<ObjectData>& objectDat
 		}
 	}
 }
+
+} // namespace Engine

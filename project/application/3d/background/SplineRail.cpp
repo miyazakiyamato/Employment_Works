@@ -1,6 +1,8 @@
 #include "SplineRail.h"
 #include <cmath>
 
+namespace Engine {
+
 void SplineRail::Initialize(const std::vector<Vector3>& points) {
 	controlPoints_ = points;
 	
@@ -26,3 +28,5 @@ Vector3 SplineRail::GetPosition(float t) const {
 
 	return Vector3::CatmullRomPosition(controlPoints_, t);
 }
+
+} // namespace Engine

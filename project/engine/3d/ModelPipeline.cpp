@@ -1,6 +1,8 @@
 #include "ModelPipeline.h"
 #include "Logger.h"
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 using namespace Logger;
 
@@ -64,3 +66,5 @@ std::vector<D3D12_ROOT_PARAMETER> ModelPipeline::ComputeRootParameters(const std
 	rootParameters[4] = CreateRootParameterTable(D3D12_SHADER_VISIBILITY_ALL, descriptorRanges[3], 1);
 	return rootParameters;
 }
+
+} // namespace Engine

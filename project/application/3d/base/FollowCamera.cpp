@@ -6,6 +6,8 @@
 #include "Quaternion.h"
 #include "Vector3.h"
 
+namespace Engine {
+
 void FollowCamera::Initialize() {
 	// Object3d作成 (RailCameraと同様)
 	object3d_ = std::make_unique<Object3d>();
@@ -174,3 +176,5 @@ void FollowCamera::SetTarget(const Object3d* target){
 		Reset();
 	}
 }
+
+} // namespace Engine

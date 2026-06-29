@@ -2,6 +2,8 @@
 #include "Vector3.h"
 #include <Object3d.h>
 
+namespace Engine {
+
 /// <summary>
 /// コライダー基底クラス
 /// 衝突判定を持つオブジェクトが継承するクラス
@@ -61,3 +63,5 @@ public:
 	// 識別IDを設定
 	void SetTypeID(uint32_t typeID) { typeID_ = typeID; }
 };
+
+} // namespace Engine

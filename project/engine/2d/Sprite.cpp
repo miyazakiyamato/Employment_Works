@@ -1,6 +1,8 @@
 #include "Sprite.h"
 #include "PipelineManager.h"
 #include "TextureManager.h"
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
@@ -260,3 +262,5 @@ void Sprite::SetTexture(std::string textureFilePath){
 	vertexData[2].texcoord = { tex_right,tex_bottom };//右下
 	vertexData[3].texcoord = { tex_right,tex_top };//右上
 }
+
+} // namespace Engine

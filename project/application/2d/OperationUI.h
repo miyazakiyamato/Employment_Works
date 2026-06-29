@@ -4,6 +4,8 @@
 #include <memory>
 #include "Sprite.h"
 
+namespace Engine {
+
 class Player;
 /// <summary>
 /// 操作説明UIクラス
@@ -35,3 +37,5 @@ private:
 	Player* player_ = nullptr;
 	std::vector<std::unique_ptr<Sprite>> sprites_;
 };
+
+} // namespace Engine

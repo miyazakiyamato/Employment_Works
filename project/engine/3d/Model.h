@@ -8,6 +8,8 @@
 #include "BlendMode.h"
 #include "Quaternion.h"
 
+namespace Engine {
+
 /// <summary>
 /// 3Dモデルリソースクラス
 /// メッシュデータ、階層構造(Node)、マテリアル情報などを保持する
@@ -136,3 +138,5 @@ public:
 	const std::vector<Mesh>& GetMeshData() { return meshData_; }
 	const Node& GetNode() { return rootNode_; }
 };
+
+} // namespace Engine

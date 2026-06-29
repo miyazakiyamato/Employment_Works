@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 
+namespace Engine {
+
 /// <summary>
 /// 接触記録クラス
 /// オブジェクトが接触した履歴を管理し、重複ヒット防止などに利用する
@@ -33,3 +35,5 @@ private:
 	// 履歴データ
 	std::vector<uint32_t> history_;
 };
+
+} // namespace Engine

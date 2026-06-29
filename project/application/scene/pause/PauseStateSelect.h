@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseSceneState.h"
 
+namespace Engine {
+
 class PauseScene;
 
 class PauseStateSelect : public BaseSceneState<PauseScene> {
@@ -11,3 +13,5 @@ public:
 private:
 	float inputCooldown_ = 0.0f;
 };
+
+} // namespace Engine

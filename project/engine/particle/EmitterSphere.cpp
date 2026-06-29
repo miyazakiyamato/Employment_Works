@@ -5,6 +5,8 @@
 #include "SrvUavManager.h"
 #include "GlobalVariables.h"
 
+namespace Engine {
+
 void EmitterSphere::Initialize(const std::string& emitterName, uint32_t kMaxParticles) {
 	BaseParticleEmitter::Initialize(emitterName,kMaxParticles);
 	computeShaderPipelineName_ = PipelineManager::GetInstance()->CreateComputePipelineState("EmitParticle");
@@ -114,3 +116,5 @@ void EmitterSphere::SetIsEmitUpdate(bool isEmitUpdate) {
 	emitterData_->isEmitUpdate = isEmitUpdate;
 	globalVariables_->SetValue(name_, "IsEmitUpdate", (bool)emitterData_->isEmitUpdate);
 }
+
+} // namespace Engine

@@ -4,6 +4,8 @@
 #include <map>
 #include <functional>
 
+namespace Engine {
+
 /// <summary>
 /// シーン工場
 /// </summary>
@@ -26,3 +28,5 @@ private:
 	std::map<std::string, std::function<std::unique_ptr<BaseScene>()>> sceneGenerators_;
 };
 
+
+} // namespace Engine

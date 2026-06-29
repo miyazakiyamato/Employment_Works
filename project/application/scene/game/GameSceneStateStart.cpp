@@ -5,6 +5,8 @@
 #include "CameraManager.h"
 #include "GameSceneStateBattle.h" 
 
+namespace Engine {
+
 GameSceneStateStart::~GameSceneStateStart() {
 	if (gameStartUI_) {
 		gameStartUI_->SetIsDead(true);
@@ -74,3 +76,5 @@ void GameSceneStateStart::Draw() {
 	//Particleの描画
 	particleSystem->Draw();
 }
+
+} // namespace Engine

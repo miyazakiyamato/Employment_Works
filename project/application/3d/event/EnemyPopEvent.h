@@ -4,6 +4,8 @@
 #include <string>
 #include "Vector3.h"
 
+namespace Engine {
+
 class StageManager;
 
 /// <summary>
@@ -57,3 +59,5 @@ private:
 	StageManager* stageManager_ = nullptr;
 	std::vector<EnemySpawnData> enemySpawnData_;
 };
+
+} // namespace Engine

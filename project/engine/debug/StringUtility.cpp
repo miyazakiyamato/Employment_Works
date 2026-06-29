@@ -1,6 +1,8 @@
 ﻿#include "stringUtility.h"
 #include <Windows.h>
 
+namespace Engine {
+
 namespace StringUtility {
 	std::wstring ConvertString(const std::string& str) {
 		if (str.empty()) {
@@ -30,3 +32,5 @@ namespace StringUtility {
 		return result;
 	}
 }
+
+} // namespace Engine

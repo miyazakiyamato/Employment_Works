@@ -10,6 +10,8 @@
 #include "SmallDroneStateDeath.h"
 #include "SplineRail.h"
 
+namespace Engine {
+
 SmallDroneStateShoot::SmallDroneStateShoot(BaseEnemy* smallDrone)
 	: BaseEnemyState("SmallDroneStateShoot", smallDrone){}
 
@@ -88,3 +90,5 @@ void SmallDroneStateShoot::FireCancel() {
 		return true;
 		});
 }
+
+} // namespace Engine

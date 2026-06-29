@@ -3,6 +3,8 @@
 #include <json.hpp>
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 /// <summary>
 /// オブジェクトデータ構造体
 /// レベルデータに含まれる個々のオブジェクト情報
@@ -61,3 +63,5 @@ private:
 	const std::string kExtension = ".json";
 	std::unordered_map<std::string, std::unique_ptr<LevelData>> levelData_;
 };
+
+} // namespace Engine

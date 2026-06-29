@@ -7,6 +7,8 @@
 #include "TimeManager.h"
 #include "ParticleManager.h"
 
+namespace Engine {
+
 void BaseParticleEmitter::Initialize(const std::string& emitterName, uint32_t kMaxParticles){
 	name_ = emitterName;
 	particleManager_ = ParticleManager::GetInstance();
@@ -36,3 +38,5 @@ void BaseParticleEmitter::SetRing(const uint32_t& kDivide,
 void BaseParticleEmitter::SetCylinder(const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight) {
 	particleManager_->SetCylinder(name_, kDivide, kTopRadius, kBottomRadius, kHeight);
 }
+
+} // namespace Engine

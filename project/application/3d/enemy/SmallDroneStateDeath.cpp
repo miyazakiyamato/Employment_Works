@@ -6,6 +6,8 @@
 #include "Easing.h"
 #include "EnemyBullet.h"
 
+namespace Engine {
+
 SmallDroneStateDeath::SmallDroneStateDeath(BaseEnemy* smallDrone)
 	: BaseEnemyState("SmallDroneStateDeath", smallDrone){}
 
@@ -21,3 +23,5 @@ void SmallDroneStateDeath::Update(){
 		smallDrone_->SetIsAlive(false);
 	}
 }
+
+} // namespace Engine

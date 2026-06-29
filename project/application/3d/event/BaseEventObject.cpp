@@ -1,5 +1,7 @@
 #include "BaseEventObject.h"
 
+namespace Engine {
+
 void BaseEventObject::Initialize() {
 	Collider::Initialize();
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kEvent));
@@ -27,3 +29,5 @@ void BaseEventObject::OnCollision([[maybe_unused]] Collider* other) {
 Vector3 BaseEventObject::GetCenterPosition() const {
 	return object3d_->GetCenterPosition();
 }
+
+} // namespace Engine

@@ -3,6 +3,8 @@
 #include <memory>
 #include "BaseTransition.h"
 
+namespace Engine {
+
 /// <summary>
 /// トランジションシーン工場基底クラス
 /// </summary>
@@ -20,3 +22,5 @@ public:
 	/// <returns>生成したシーン遷移エフェクト</returns>
 	virtual std::unique_ptr<BaseTransition> CreateTransition(const std::string& transitionName) = 0;
 };
+
+} // namespace Engine

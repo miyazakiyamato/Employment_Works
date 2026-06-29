@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+namespace Engine {
+
 /// <summary>
 /// 文字列ユーティリティ名前空間
 /// 文字コード変換などのヘルパー関数を提供する
@@ -20,3 +22,5 @@ namespace StringUtility {
 	/// <returns>変換後のstd::string</returns>
 	std::string ConvertString(const std::wstring& str);
 }
+
+} // namespace Engine

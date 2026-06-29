@@ -2,6 +2,8 @@
 #include <Vector3.h>
 #include "Collision.h"
 
+namespace Engine {
+
 /// <summary>
 /// 加速フィールド
 /// </summary>
@@ -16,3 +18,5 @@ public:
 	AABB GetAABB() { return area_; }
 };
 
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #pragma once
 #include "SmallDrone.h"
 
+namespace Engine {
+
 class BulletManager;
 class TimeManager;
 /// <summary>
@@ -27,3 +29,5 @@ private:
 	float dethTimer_ = 0.0f;
 };
 
+
+} // namespace Engine

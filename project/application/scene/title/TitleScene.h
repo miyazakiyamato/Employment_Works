@@ -8,6 +8,8 @@
 #include "StageManager.h"
 #include "ParticleSystem.h"
 
+namespace Engine {
+
 /// <summary>
 /// タイトルシーン
 /// </summary>
@@ -47,3 +49,5 @@ public: // ゲッター
 	StageManager* GetStageManager() { return stageManager_.get(); }
 
 };
+
+} // namespace Engine

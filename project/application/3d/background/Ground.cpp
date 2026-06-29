@@ -1,6 +1,8 @@
 #include "Ground.h"
 #include "TextureManager.h"
 
+namespace Engine {
+
 void Ground::Initialize() {
 	object3d = std::make_unique<Object3d>();
 	object3d->Initialize();
@@ -20,3 +22,5 @@ void Ground::Update() {
 void Ground::Draw() {
 	object3d->Draw();
 }
+
+} // namespace Engine

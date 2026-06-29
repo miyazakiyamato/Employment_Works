@@ -4,6 +4,8 @@
 #include <dxgi1_6.h>
 #include <wrl.h>
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 
 D3DResourceLeakChecker::~D3DResourceLeakChecker() {
@@ -17,3 +19,5 @@ D3DResourceLeakChecker::~D3DResourceLeakChecker() {
 	}
 #endif // DEBUG
 }
+
+} // namespace Engine

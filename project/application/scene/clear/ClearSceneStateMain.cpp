@@ -7,6 +7,8 @@
 #include "PlayerStateClear.h"
 #include "ClearUI.h"
 
+namespace Engine {
+
 void ClearSceneStateMain::Initialize(ClearScene* scene) {
 	BaseSceneState<ClearScene>::Initialize(scene);
 
@@ -52,3 +54,5 @@ void ClearSceneStateMain::Draw() {
 	
 	uiManager_->Draw();
 }
+
+} // namespace Engine

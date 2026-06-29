@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+namespace Engine {
+
 //コリジョン種別ID定義
 /// <summary>
 /// コリジョン種別ID定義
@@ -16,3 +18,5 @@ enum class CollisionTypeIdDef : uint32_t {
 	kEnemyWeapon,
 	kEvent,
 };
+
+} // namespace Engine

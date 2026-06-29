@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// オフスクリーンパイプラインクラス
 /// オフスクリーン描画用の設定を行う
@@ -32,3 +34,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_INPUT_ELEMENT_DESC> InputElementDesc() override;
 };
+
+} // namespace Engine

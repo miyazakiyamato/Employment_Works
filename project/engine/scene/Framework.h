@@ -35,6 +35,8 @@
 #include "Line3D.h"
 #include "PostEffectManager.h"
 
+namespace Engine {
+
 /// <summary>
 /// ゲームフレームワーク基底クラス
 /// アプリケーションのライフサイクル（初期化、メインループ、終了）と
@@ -118,3 +120,5 @@ protected:
 	// ポストエフェクトマネージャ
 	PostEffectManager* postEffectManager_ = nullptr;
 };
+
+} // namespace Engine

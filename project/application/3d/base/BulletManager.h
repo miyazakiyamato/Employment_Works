@@ -2,6 +2,8 @@
 #include "BaseBullet.h"
 #include <memory>
 
+namespace Engine {
+
 class CollisionManager;
 /// <summary>
 /// 弾丸マネージャ
@@ -33,3 +35,5 @@ private:
 	std::list<std::unique_ptr<BaseBullet>> bullets_; // 弾のリスト
 };
 
+
+} // namespace Engine

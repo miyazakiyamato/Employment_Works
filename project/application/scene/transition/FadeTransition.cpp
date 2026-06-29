@@ -2,6 +2,8 @@
 #include "SceneManager.h"
 #include "TimeManager.h"
 
+namespace Engine {
+
 void FadeTransition::Initialize() {
     // スプライトの初期化
     for (uint32_t i = 0; i < 1; ++i) {
@@ -54,3 +56,5 @@ void FadeTransition::Draw() {
         sprite->Draw();
     }
 }
+
+} // namespace Engine

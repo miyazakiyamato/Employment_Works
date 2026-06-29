@@ -3,6 +3,8 @@
 #include "CameraManager.h"
 #include "TimeManager.h"
 #include "TextureManager.h"
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
@@ -142,3 +144,5 @@ void PostEffectManager::AddPostEffect(const std::string& name){
 void PostEffectManager::RemovePostEffect(const std::string& name){
 	
 }
+
+} // namespace Engine

@@ -2,6 +2,8 @@
 #include "Vector3.h"
 #include <vector>
 
+namespace Engine {
+
 /// <summary>
 /// スプライン曲線(レール)
 /// </summary>
@@ -36,3 +38,5 @@ private:
 	// セグメント数(精度)
 	size_t segmentCount_ = 100;
 };
+
+} // namespace Engine

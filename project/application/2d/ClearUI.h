@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 
+namespace Engine {
+
 class ClearUI : public BaseUI {
 public:
 	/// <summary>
@@ -25,3 +27,5 @@ private:
 	float scaleCount_ = 0.0f;
 	float animationTime_ = 0.0f;
 };
+
+} // namespace Engine

@@ -4,6 +4,8 @@
 #include "TextureManager.h"
 #include "PauseStateStart.h"
 
+namespace Engine {
+
 void PauseScene::Initialize() {
 	// ベースシーンの初期化 (必要であれば)
 	BaseScene::Initialize();
@@ -85,3 +87,5 @@ void PauseScene::Draw() {
 		sprite->Draw();
 	}
 }
+
+} // namespace Engine

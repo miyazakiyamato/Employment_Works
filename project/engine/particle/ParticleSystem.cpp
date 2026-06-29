@@ -6,6 +6,8 @@
 #include "EmitterSphere.h"
 #include "GlobalVariables.h"
 
+namespace Engine {
+
 ParticleSystem::~ParticleSystem() {
 	// すべてのエミッターを削除
 	for (const auto& [name, emitter] : emitters_) {
@@ -128,3 +130,5 @@ void ParticleSystem::InitializeGlobalVariables(){
 void ParticleSystem::ApplyGlobalVariables(){
 
 }
+
+} // namespace Engine

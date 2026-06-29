@@ -5,6 +5,8 @@
 #include "PlayerStateRoot.h"
 #include "PlayerBullet.h"
 
+namespace Engine {
+
 // 初期化
 void PlayerStateClear::Initialize(){
 	input_ = Input::GetInstance();
@@ -48,3 +50,5 @@ void PlayerStateClear::Update(){
 	rotate.x = std::atan2f(-velocityZ.y, velocityZ.z);
 	playerObject->SetRotate(rotate);
 }
+
+} // namespace Engine

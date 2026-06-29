@@ -3,6 +3,8 @@
 #include "TimeManager.h"
 #include <cmath>
 
+namespace Engine {
+
 void GameOverUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("gameOver.dds");
 	TextureManager::GetInstance()->LoadTexture("ATitle.dds");
@@ -43,3 +45,5 @@ void GameOverUI::Draw() {
 		sprite->Draw();
 	}
 }
+
+} // namespace Engine

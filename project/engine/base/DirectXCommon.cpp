@@ -13,6 +13,8 @@
 #include "externals/DirectXTex/d3dx12.h"
 #include "SrvUavManager.h"
 
+namespace Engine {
+
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
 
@@ -768,3 +770,5 @@ void DirectXCommon::UpdateFixFPS(){
 	//現在の時間を記録する
 	reference_ = std::chrono::steady_clock::now();
 }
+
+} // namespace Engine

@@ -2,6 +2,8 @@
 #include "SceneFactory.h"
 #include "TransitionFactory.h"
 
+namespace Engine {
+
 void Framework::Initialize(){
 	(void)CoInitializeEx(0, COINIT_MULTITHREADED);
 
@@ -135,3 +137,5 @@ void Framework::Run(){
 	//終了処理
 	Finalize();
 }
+
+} // namespace Engine

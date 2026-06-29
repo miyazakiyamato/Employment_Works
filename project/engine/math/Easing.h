@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Engine {
+
 /// <summary>
 /// イージング関数クラス
 /// アニメーションの補間計算（始点から終点への遷移）を行う静的メソッド群
@@ -88,3 +90,5 @@ public:
 	static float EaseOutBounce(float time, float startPos, float endPos);
 	static float EaseInOutBounce(float time, float startPos, float endPos);
 };
+
+} // namespace Engine

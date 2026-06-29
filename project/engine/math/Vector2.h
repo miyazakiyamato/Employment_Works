@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Engine {
+
 /// <summary>
 /// 2次元ベクトル
 /// UV座標や画面座標などで使用する
@@ -58,3 +60,5 @@ struct Vector2 {
 	Vector2& operator*=(float v2);
 	Vector2& operator/=(float v2);
 };
+
+} // namespace Engine

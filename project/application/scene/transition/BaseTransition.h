@@ -1,4 +1,6 @@
 #pragma once
+
+namespace Engine {
 class SceneManager;
 /// <summary>
 /// 遷移シーン基底クラス
@@ -57,3 +59,5 @@ public:
 	/// <param name="type">タイプ</param>
 	void SetType(Type type) { type_ = type; }
 };
+
+} // namespace Engine

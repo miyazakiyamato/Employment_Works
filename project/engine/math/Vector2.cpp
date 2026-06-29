@@ -1,6 +1,8 @@
 #include "Vector2.h"
 #include <math.h>
 
+namespace Engine {
+
 float Vector2::Length() const{
 	return Length((*this));
 }
@@ -143,3 +145,5 @@ Vector2& Vector2::operator/=(float v2){
 
 	return *this;
 }
+
+} // namespace Engine

@@ -3,6 +3,8 @@
 #include <assimp/scene.h>
 #include <cassert>
 
+namespace Engine {
+
 void Animation::LoadFile(const std::string& filename){
 	Assimp::Importer importer;
 	std::string filePath = directoryPath + filename;
@@ -95,3 +97,5 @@ Matrix4x4 Animation::MakeLocalMatrix(std::string rootNodeName, const NodeAnimati
 	localMatrix = Quaternion::MakeAffineMatrix(scale, rotate, translate);
 	return localMatrix;
 }
+
+} // namespace Engine

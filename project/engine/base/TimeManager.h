@@ -3,6 +3,8 @@
 #include <map>
 #include "DirectXCommon.h"
 
+namespace Engine {
+
 /// <summary>
 /// タイムマネージャクラス
 /// ゲーム内の時間経過、デルタタイム、タイマー機能を管理する
@@ -101,3 +103,5 @@ public:
 	/// </summary>
 	void SetTimer(std::string name, float kLimitTime);
 };
+
+} // namespace Engine

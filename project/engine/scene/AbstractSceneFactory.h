@@ -3,6 +3,8 @@
 #include <memory>
 #include "BaseScene.h"
 
+namespace Engine {
+
 /// <summary>
 /// シーン工場基底クラス (Abstract Factory)
 /// シーン名に基づいて具体的なシーンインスタンスを生成するインターフェース
@@ -22,3 +24,5 @@ public:
 	/// <returns>生成されたシーンへのポインタ</returns>
 	virtual std::unique_ptr<BaseScene> CreateScene(const std::string& sceneName) = 0;
 };
+
+} // namespace Engine

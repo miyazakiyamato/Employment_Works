@@ -5,6 +5,8 @@
 #include "PlayerStateShoot.h"
 #include "PlayerStateChargeShoot.h"
 
+namespace Engine {
+
 // 初期化
 void PlayerStateRoot::Initialize(){
 	input_ = Input::GetInstance();
@@ -32,3 +34,5 @@ void PlayerStateRoot::Update(){
 		}
 	}
 }
+
+} // namespace Engine

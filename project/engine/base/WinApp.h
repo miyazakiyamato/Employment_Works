@@ -2,6 +2,8 @@
 #include <Windows.h>
 #include <cstdint>
 
+namespace Engine {
+
 /// <summary>
 /// Windowsアプリケーションクラス
 /// ウィンドウの生成とメッセージプロシージャの管理を行う
@@ -63,3 +65,5 @@ public:
 	HINSTANCE GetHInstance() const { return wc.hInstance; }
 	HWND GetHwnd() const { return hwnd_; }
 };
+
+} // namespace Engine

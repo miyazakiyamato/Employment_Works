@@ -1,5 +1,7 @@
 #include "ModelComputePipeline.h"
 
+namespace Engine {
+
 std::vector<D3D12_DESCRIPTOR_RANGE> ModelComputePipeline::ComputeDescriptorRanges(){
 	std::vector<D3D12_DESCRIPTOR_RANGE> descriptorRanges = {};
 	descriptorRanges.resize(4);
@@ -20,3 +22,5 @@ std::vector<D3D12_ROOT_PARAMETER> ModelComputePipeline::ComputeRootParameters(co
 	rootParameters[4] = CreateRootParameterTable(D3D12_SHADER_VISIBILITY_ALL, descriptorRanges[3], 1);
 	return rootParameters;
 }
+
+} // namespace Engine

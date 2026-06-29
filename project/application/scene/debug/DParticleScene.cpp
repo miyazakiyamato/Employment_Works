@@ -16,6 +16,8 @@
 #include "PostEffectManager.h"
 #include <numbers>
 
+namespace Engine {
+
 void DParticleScene::Initialize(){
 	BaseScene::Initialize();
 #ifdef USE_IMGUI
@@ -181,3 +183,5 @@ void DParticleScene::CheckAllCollisions(){
 	//リスト内の総当たり判定
 	collisionManager_->CheckAllCollisions();
 }
+
+} // namespace Engine

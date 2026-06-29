@@ -6,6 +6,8 @@
 
 #include "GameOverSceneStateMain.h"
 
+namespace Engine {
+
 void GameOverScene::ChangeState(std::unique_ptr<BaseSceneState<GameOverScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
@@ -47,3 +49,5 @@ void GameOverScene::Draw(){
 		state_->Draw();
 	}
 }
+
+} // namespace Engine

@@ -3,6 +3,8 @@
 #include <memory>
 #include "Vector2.h"
 
+namespace Engine {
+
 class ReticleUI : public BaseUI {
 public:
 	/// <summary>
@@ -38,3 +40,5 @@ public:
 private:
 	std::unique_ptr<Sprite> sprite_;
 };
+
+} // namespace Engine

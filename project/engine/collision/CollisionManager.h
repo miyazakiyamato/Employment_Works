@@ -3,6 +3,8 @@
 #include <list>
 #include "Collider.h"
 
+namespace Engine {
+
 /// <summary>
 /// 衝突判定マネージャクラス
 /// ゲーム内の全コライダーを管理し、衝突判定を実行する
@@ -66,3 +68,5 @@ private:
 	// コライダーモデルを表示するかどうかのフラグ
 	bool isColliderModel_ = false;
 };
+
+} // namespace Engine

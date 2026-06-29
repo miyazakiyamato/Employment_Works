@@ -7,6 +7,8 @@
 #include "EmitterSphere.h"
 #include "ParticleSystem.h"
 
+namespace Engine {
+
 // 初期化
 void PlayerStateChargeShoot::Initialize(){
 	input_ = Input::GetInstance();
@@ -41,3 +43,5 @@ void PlayerStateChargeShoot::Update(){
 		player_->ChangeState(std::make_unique<PlayerStateRoot>(character_));
 	}
 }
+
+} // namespace Engine

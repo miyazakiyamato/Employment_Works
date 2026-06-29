@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// パーティクル初期化用パイプラインクラス
 /// コンピュートシェーダーを用いてパーティクルリストの初期化を行う
@@ -17,3 +19,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_ROOT_PARAMETER> ComputeRootParameters(const std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges) override;
 };
+
+} // namespace Engine

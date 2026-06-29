@@ -4,6 +4,8 @@
 #include "Object3d.h"
 #include "Collider.h"
 
+namespace Engine {
+
 /// <summary>
 /// 弾基底クラス
 /// </summary>
@@ -54,3 +56,5 @@ public:
 	Vector3 GetCenterPosition()const override;
 	Object3d* GetObject3d() const {return object3d_.get();}
 };
+
+} // namespace Engine

@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "ClearUI.h"
 
+namespace Engine {
+
 /// <summary>
 /// クリアシーン
 /// </summary>
@@ -44,3 +46,5 @@ public:
 	Skydome* GetSkydome() { return skydome_.get(); }
 	Ground* GetGround() { return ground_.get(); }
 };
+
+} // namespace Engine

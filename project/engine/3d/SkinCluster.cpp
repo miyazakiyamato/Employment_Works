@@ -3,6 +3,8 @@
 #include "SrvUavManager.h"
 #include "Skeleton.h"
 
+namespace Engine {
+
 void SkinCluster::Finalize(){
     if (paletteSrvIndex_ == 0) {return;}
 	srvUavManager_->ResourceClear(paletteSrvIndex_);
@@ -122,3 +124,5 @@ void SkinCluster::Draw(size_t meshIndex){
 
     commandList->Dispatch(UINT(skinClusterDates_[meshIndex].mappedSkinningInformation->numVertices + 1023 / 1024), 1, 1);
 }
+
+} // namespace Engine

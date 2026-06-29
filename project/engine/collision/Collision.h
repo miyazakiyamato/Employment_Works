@@ -3,6 +3,8 @@
 #include "Vector3.h"
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 /// <summary>
 /// 直線 (無限長)
 /// </summary>
@@ -154,3 +156,5 @@ public:
 	/// </summary>
 	static bool IsCollision(const Line& line, const OBB& obb);
 };
+
+} // namespace Engine

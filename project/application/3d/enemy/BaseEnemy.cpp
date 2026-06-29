@@ -11,6 +11,8 @@
 #include "SmallDroneStateShoot.h"
 #include "SplineRail.h"
 
+namespace Engine {
+
 void BaseEnemy::Initialize(){
 	BaseCharacter::Initialize();
 	Collider::Initialize();
@@ -66,3 +68,5 @@ const SplineRail* BaseEnemy::GetRail(const std::string& name) const{
 	}
 	return nullptr;
 }
+
+} // namespace Engine

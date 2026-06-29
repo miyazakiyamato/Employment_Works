@@ -14,6 +14,8 @@
 #include "BulletManager.h"
 #include "BaseEventObject.h"
 
+namespace Engine {
+
 class ParticleSystem;
 
 /// <summary>
@@ -109,3 +111,5 @@ private:
 	BulletManager* bulletManager_ = nullptr;
 	ParticleSystem* particleSystem_ = nullptr;
 };
+
+} // namespace Engine

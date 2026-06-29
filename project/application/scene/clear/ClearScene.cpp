@@ -9,6 +9,8 @@
 
 #include "ClearSceneStateMain.h"
 
+namespace Engine {
+
 void ClearScene::ChangeState(std::unique_ptr<BaseSceneState<ClearScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
@@ -52,3 +54,5 @@ void ClearScene::Draw(){
 		state_->Draw();
 	}
 }
+
+} // namespace Engine

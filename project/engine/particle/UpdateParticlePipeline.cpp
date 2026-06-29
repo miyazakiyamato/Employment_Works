@@ -1,5 +1,7 @@
 #include "UpdateParticlePipeline.h"
 
+namespace Engine {
+
 std::vector<D3D12_DESCRIPTOR_RANGE> UpdateParticlePipeline::ComputeDescriptorRanges(){
 	std::vector<D3D12_DESCRIPTOR_RANGE> descriptorRanges = {};
 	descriptorRanges.resize(3);
@@ -19,3 +21,5 @@ std::vector<D3D12_ROOT_PARAMETER> UpdateParticlePipeline::ComputeRootParameters(
 	rootParameters[4] = CreateRootParameterCBV(D3D12_SHADER_VISIBILITY_ALL, 1);
 	return rootParameters;
 }
+
+} // namespace Engine

@@ -2,6 +2,8 @@
 #include <cmath>
 #include <numbers>
 
+namespace Engine {
+
 float Easing::EaseInSine(float time, float startPos, float endPos) {
 	if (time >= 1.0f) {return endPos;}
 	float easeIn = 1.0f - cosf((time * std::numbers::pi_v<float>) / 2);
@@ -204,3 +206,5 @@ float Easing::EaseInOutBounce(float time, float startPos, float endPos) {
 	float easeInOut = time < 0.5f ? (1 - easeOut) / 2 : (1 + easeOut) / 2;
 	return (1.0f - easeInOut) * startPos + easeInOut * endPos;
 }
+
+} // namespace Engine

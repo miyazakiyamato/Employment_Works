@@ -1,6 +1,8 @@
 #pragma once
 #include <random>
 
+namespace Engine {
+
 /// <summary>
 /// 4次元ベクトル
 /// 斉次座標や色情報(RGBA)として使用する
@@ -26,3 +28,5 @@ struct Vector4 {
 
 	// 演算子のオーバーロード
 };
+
+} // namespace Engine

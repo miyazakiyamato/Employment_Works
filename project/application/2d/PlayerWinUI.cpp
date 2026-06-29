@@ -1,6 +1,8 @@
 #include "PlayerWinUI.h"
 #include "TextureManager.h"
 
+namespace Engine {
+
 void PlayerWinUI::Initialize() {
 	
 }
@@ -28,3 +30,5 @@ void PlayerWinUI::SetColor(const Vector4& color) {
 		sprites_[0]->SetColor(color);
 	}
 }
+
+} // namespace Engine

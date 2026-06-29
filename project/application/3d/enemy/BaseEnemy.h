@@ -7,6 +7,8 @@
 #include "BaseEnemyState.h"
 #include "SplineRail.h"
 
+namespace Engine {
+
 class BulletManager;
 class ParticleSystem;
 class Player;
@@ -92,3 +94,5 @@ public:
 	BulletManager* GetBulletManager() const { return bulletManager_; }
 };
 
+
+} // namespace Engine

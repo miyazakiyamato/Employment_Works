@@ -2,6 +2,8 @@
 #include "TimeManager.h"
 #include <numbers>
 
+namespace Engine {
+
 void BaseCharacter::Initialize(){
 	Collider::Initialize();
 	object3d_ = std::make_unique<Object3d>();
@@ -96,3 +98,5 @@ void BaseCharacter::Shaking() {
 
 	object3d_->SetRotate(q.ToEulerAngles());
 }
+
+} // namespace Engine

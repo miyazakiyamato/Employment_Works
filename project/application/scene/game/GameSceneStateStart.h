@@ -3,6 +3,8 @@
 #include "GameStartUI.h"
 #include <memory>
 
+namespace Engine {
+
 class GameScene;
 
 class GameSceneStateStart : public BaseSceneState<GameScene> {
@@ -32,3 +34,5 @@ private:
 	//フェードの持続時間
 	float duration_ = 1.0f;
 };
+
+} // namespace Engine

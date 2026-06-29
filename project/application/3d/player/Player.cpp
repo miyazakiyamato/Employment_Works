@@ -16,6 +16,8 @@
 #include "Object3d.h"
 #include "GlobalVariables.h"
 
+namespace Engine {
+
 void Player::Initialize(){
 	BaseCharacter::Initialize();
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
@@ -287,3 +289,5 @@ void Player::SetRailCamera(RailCamera* railCamera) {
 		followCamera_->SetRotationTarget(railCamera_->GetObject3d());
 	}
 }
+
+} // namespace Engine

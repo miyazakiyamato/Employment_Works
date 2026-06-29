@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// スキニング用3Dオブジェクトパイプライン
 /// スキニングされた頂点データ（頂点シェーダーでの処理など）を用いて描画するための設定
@@ -25,3 +27,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_INPUT_ELEMENT_DESC> InputElementDesc() override;
 };
+
+} // namespace Engine

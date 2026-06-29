@@ -7,6 +7,8 @@
 #endif // USE_IMGUI
 #include <string>
 
+namespace Engine {
+
 std::unique_ptr<Input> Input::instance = nullptr;
 
 Input* Input::GetInstance() {
@@ -183,3 +185,5 @@ void Input::ImGuiUpdate() {
     }
 #endif // USE_IMGUI
 }
+
+} // namespace Engine

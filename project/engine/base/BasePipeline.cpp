@@ -1,5 +1,7 @@
 #include "BasePipeline.h"
 
+namespace Engine {
+
 D3D12_STATIC_SAMPLER_DESC BasePipeline::CreateStaticSampler(D3D12_FILTER filter,StaticSamplersMode staticSamplersMode, UINT ShaderRegister){
 	D3D12_STATIC_SAMPLER_DESC staticSampler = {};
 	staticSampler.Filter = filter;//バイナリフィルタ
@@ -76,3 +78,5 @@ std::vector<D3D12_DESCRIPTOR_RANGE> BasePipeline::ComputeDescriptorRanges(){
 std::vector<D3D12_ROOT_PARAMETER> BasePipeline::ComputeRootParameters(const std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges){
 	return std::vector<D3D12_ROOT_PARAMETER>();
 }
+
+} // namespace Engine

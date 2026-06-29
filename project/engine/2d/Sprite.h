@@ -6,6 +6,8 @@
 #include "Matrix4x4.h"
 #include "BlendMode.h"
 
+namespace Engine {
+
 /// <summary>
 /// 2Dスプライトクラス
 /// テクスチャ付きの矩形ポリゴンを描画・管理する
@@ -176,3 +178,5 @@ public:
 	void SetUVRotate(float rotate) { uvTransform_.rotate = { 0.0f, 0.0f, rotate }; }
 	void SetUVScale(const Vector2& scale) { uvTransform_.scale = { scale.x, scale.y, 1.0f }; }
 };
+
+} // namespace Engine

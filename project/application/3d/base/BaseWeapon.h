@@ -4,6 +4,8 @@
 #include "Object3d.h"
 #include "Collider.h"
 
+namespace Engine {
+
 enum class AttackType {
 	kRoot,
 	kCharge
@@ -95,3 +97,5 @@ public:
 protected:
 	Player* player_ = nullptr;
 };
+
+} // namespace Engine

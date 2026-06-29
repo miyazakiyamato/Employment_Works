@@ -1,6 +1,8 @@
 #pragma once
 #include "Input.h"
 
+namespace Engine {
+
 class SceneManager;
 /// <summary>
 /// シーン基底クラス
@@ -32,3 +34,5 @@ public://ゲッターセッター
 	virtual void SetSceneManager(SceneManager* sceneManager) { sceneManager_ = sceneManager; }
 };
 
+
+} // namespace Engine

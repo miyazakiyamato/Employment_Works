@@ -7,6 +7,8 @@
 #include <cmath>
 #include "TimeManager.h"
 
+namespace Engine {
+
 void TitleUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("title.dds");
 	TextureManager::GetInstance()->LoadTexture("AStart.dds");
@@ -58,3 +60,5 @@ void TitleUI::ImGuiUpdate() {
 	}
 #endif
 }
+
+} // namespace Engine

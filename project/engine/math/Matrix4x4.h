@@ -5,6 +5,8 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
+namespace Engine {
+
 /// <summary>
 /// トランスフォーム構造体
 /// オブジェクトのSRT(Scale, Rotate, Translate)を保持する
@@ -110,3 +112,5 @@ struct Matrix4x4 {
 	Matrix4x4 operator*(const Matrix4x4& m2) const;
 	Matrix4x4& operator*=(const Matrix4x4& m2);
 };
+
+} // namespace Engine

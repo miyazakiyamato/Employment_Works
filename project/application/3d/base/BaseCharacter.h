@@ -4,6 +4,8 @@
 #include "BaseCharacterState.h"
 #include "Quaternion.h"
 
+namespace Engine {
+
 /// <summary>
 /// キャラクター基底クラス
 /// </summary>
@@ -74,3 +76,5 @@ public:
 	Object3d* GetObject3d() { return object3d_.get(); }
 };
 
+
+} // namespace Engine

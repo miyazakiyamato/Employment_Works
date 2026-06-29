@@ -2,6 +2,8 @@
 #include <memory>
 #include <Object3d.h>
 
+namespace Engine {
+
 /// <summary>
 /// 地面
 /// </summary>
@@ -23,3 +25,5 @@ private://メンバ変数
 	std::unique_ptr<Object3d> object3d;
 };
 
+
+} // namespace Engine

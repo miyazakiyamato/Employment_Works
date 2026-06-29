@@ -8,6 +8,8 @@
 #include "AccelerationField.h"
 #include "LevelDataManager.h"
 
+namespace Engine {
+
 /// <summary>
 /// パーティクルシーン
 /// </summary>
@@ -43,3 +45,5 @@ private://メンバ変数
 	std::unique_ptr<LevelDataManager> levelDataManager_ = nullptr;
 };
 
+
+} // namespace Engine

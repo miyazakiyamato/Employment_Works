@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include <memory>
 
+namespace Engine {
+
 /// <summary>
 /// シーンマネージャクラス
 /// 複数のシーンを管理し、切り替えや並行実行を制御するシングルトン
@@ -115,3 +117,5 @@ public:
 	/// </summary>
 	void SetTransitionFactory(AbstractTransitionFactory* transitionFactory) { transitionFactory_ = transitionFactory; }
 };
+
+} // namespace Engine

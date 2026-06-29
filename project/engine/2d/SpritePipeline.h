@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// スプライト描画用パイプラインクラス
 /// BasePipelineを継承し、スプライト描画に必要なルートシグネチャや入力レイアウトを定義する
@@ -41,3 +43,5 @@ public:
 	/// <returns>入力要素記述子のリスト</returns>
 	std::vector<D3D12_INPUT_ELEMENT_DESC> InputElementDesc() override;
 };
+
+} // namespace Engine

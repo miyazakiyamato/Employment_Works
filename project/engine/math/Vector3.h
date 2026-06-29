@@ -1,6 +1,8 @@
 #pragma once
 #include <random>
 
+namespace Engine {
+
 // 前方宣言
 struct Line;
 struct Ray;
@@ -118,3 +120,5 @@ struct Vector3 {
 	Vector3& operator*=(float v2);
 	Vector3& operator/=(float v2);
 };
+
+} // namespace Engine

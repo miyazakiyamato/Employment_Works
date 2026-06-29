@@ -15,6 +15,8 @@
 #include "PauseScene.h"
 #include "Input.h"
 
+namespace Engine {
+
 void GameSceneStateBattle::Initialize(GameScene* gameScene) {
 	BaseSceneState<GameScene>::Initialize(gameScene);
 }
@@ -61,3 +63,5 @@ void GameSceneStateBattle::Update() {
 void GameSceneStateBattle::Draw() {
 	scene_->DrawGame3D();
 }
+
+} // namespace Engine

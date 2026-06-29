@@ -2,6 +2,8 @@
 #include <map>
 #include "Quaternion.h"
 
+namespace Engine {
+
 /// <summary>
 /// アニメーションデータクラス
 /// キーフレームによる移動・回転・スケールの推移を管理する
@@ -89,3 +91,5 @@ public:
 	const NodeAnimation& GetNodeAnimations(std::string rootNodeName) { return nodeAnimations[rootNodeName]; }
 	const std::map<std::string, NodeAnimation>& GetNodeAnimationsMap() { return nodeAnimations; }
 };
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #pragma once
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 /// <summary>
 /// クォータニオン（四元数）構造体
 /// 3D空間での回転を表すために使用され、ジンバルロックの回避やスムーズな補間（Slerp）が可能。
@@ -149,3 +151,5 @@ public:
 	/// </summary>
 	Quaternion operator*(const Quaternion& q) const;
 };
+
+} // namespace Engine

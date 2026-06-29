@@ -3,6 +3,8 @@
 #include <map>
 #include <functional>
 
+namespace Engine {
+
 /// <summary>
 /// トランジションシーン工場
 /// </summary>
@@ -24,3 +26,5 @@ private:
 	// 遷移エフェクト生成関数を保持するマップ
 	std::map<std::string, std::function<std::unique_ptr<BaseTransition>()>> transitionGenerators_;
 };
+
+} // namespace Engine

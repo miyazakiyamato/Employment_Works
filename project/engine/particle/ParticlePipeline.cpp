@@ -1,6 +1,8 @@
 #include "ParticlePipeline.h"
 #include "Logger.h"
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 using namespace Logger;
 
@@ -34,3 +36,5 @@ std::vector<D3D12_INPUT_ELEMENT_DESC> ParticlePipeline::InputElementDesc() {
 	inputElementDescs[1] = CreateInputElementDesc("TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT);
 	return inputElementDescs;
 }
+
+} // namespace Engine

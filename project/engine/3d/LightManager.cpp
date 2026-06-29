@@ -3,6 +3,8 @@
 #include <numbers>
 #include "DirectXCommon.h"
 #include "SrvUavManager.h"
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
@@ -162,3 +164,5 @@ void LightManager::SetSpotLight(uint32_t index, const SpotLight& spotLight){
 	spotLightData_[index].cosAngle = spotLight.cosAngle;
 	spotLightData_[index].cosFalloffStart = spotLight.cosFalloffStart;
 }
+
+} // namespace Engine

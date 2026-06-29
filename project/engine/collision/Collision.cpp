@@ -1,6 +1,8 @@
 #include "Collision.h"
 #include <algorithm>
 
+namespace Engine {
+
 bool Collision::IsCollision(const Sphere& sphere1, const Sphere& sphere2) {
 	Sphere s1 = sphere1;
 	Sphere s2 = sphere2;
@@ -209,3 +211,5 @@ void OBB::MakeOBBRotate(const Vector3& rotate) {
 		obbRotateMatrix.m[2][2]
 	};
 }
+
+} // namespace Engine

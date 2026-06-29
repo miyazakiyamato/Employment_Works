@@ -7,6 +7,8 @@
 #include "Skeleton.h"
 #include "SkinCluster.h"
 
+namespace Engine {
+
 /// <summary>
 /// 3Dオブジェクトクラス
 /// ワールド空間上の1つのオブジェクト実体を表す
@@ -155,3 +157,5 @@ public:
 	void SetIsDrawSkeleton(bool isDraw) { isDrawSkeleton_ = isDraw; }
 };
 
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// パーティクル描画用グラフィックスパイプライン
 /// 頂点シェーダー・ピクセルシェーダーを用いた描画設定を定義する
@@ -27,3 +29,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_INPUT_ELEMENT_DESC> InputElementDesc() override;
 };
+
+} // namespace Engine

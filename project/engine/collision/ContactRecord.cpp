@@ -1,5 +1,7 @@
 #include "ContactRecord.h"
 
+namespace Engine {
+
 void ContactRecord::AddRecord(uint32_t number) {
 	//履歴に登録する
 	history_.push_back(number);
@@ -15,3 +17,5 @@ bool ContactRecord::CheckRecord(uint32_t number) {
 }
 
 void ContactRecord::Clear() { history_.clear(); }
+
+} // namespace Engine

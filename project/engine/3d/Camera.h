@@ -4,6 +4,8 @@
 #include "Vector4.h"
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 /// <summary>
 /// 3Dカメラクラス
 /// ビュー行列とプロジェクション行列を管理・計算する
@@ -66,3 +68,5 @@ public:
 	const Vector3& GetRotate() const { return transform.rotate; }
 	const Vector3& GetTranslate() const { return transform.translate; }
 };
+
+} // namespace Engine

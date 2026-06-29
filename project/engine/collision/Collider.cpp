@@ -1,6 +1,8 @@
 #include "Collider.h"
 #include "ModelManager.h"
 
+namespace Engine {
+
 void Collider::Initialize() { 
 	colliderModel_ = std::make_unique<Object3d>();
 	colliderModel_->Initialize();
@@ -18,3 +20,5 @@ void Collider::UpdateWorldTransform() {
 void Collider::Draw(){
 	colliderModel_->Draw();
 }
+
+} // namespace Engine

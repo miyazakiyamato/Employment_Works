@@ -1,5 +1,7 @@
 #include "EmitParticlePipeline.h"
 
+namespace Engine {
+
 std::vector<D3D12_DESCRIPTOR_RANGE> EmitParticlePipeline::ComputeDescriptorRanges(){
 	std::vector<D3D12_DESCRIPTOR_RANGE> descriptorRanges = {};
 	descriptorRanges.resize(3);
@@ -20,3 +22,5 @@ std::vector<D3D12_ROOT_PARAMETER> EmitParticlePipeline::ComputeRootParameters(co
 	rootParameters[5] = CreateRootParameterCBV(D3D12_SHADER_VISIBILITY_ALL, 2);
 	return rootParameters;
 }
+
+} // namespace Engine

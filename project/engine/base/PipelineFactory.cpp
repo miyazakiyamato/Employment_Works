@@ -10,6 +10,8 @@
 #include "Line3DPipeline.h"
 #include "OffScreenPipeline.h"
 
+namespace Engine {
+
 BasePipeline* PipelineFactory::ChangePipeline(const std::string& pipelineName) {
 	if (pipelineName == "Object3d") {
 		return new ModelPipeline();
@@ -44,3 +46,5 @@ BasePipeline* PipelineFactory::ChangePipeline(const std::string& pipelineName) {
 	assert(0);
 	return nullptr;
 }
+
+} // namespace Engine

@@ -4,6 +4,8 @@
 #include "TimeManager.h"
 #include "PlayerStateRoot.h"
 
+namespace Engine {
+
 // 初期化
 void PlayerStateShoot::Initialize(){
 	input_ = Input::GetInstance();
@@ -25,3 +27,5 @@ void PlayerStateShoot::Update(){
 		player_->ChangeState(std::make_unique<PlayerStateRoot>(character_));
 	}
 }
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #include "UIManager.h"
 #include <algorithm>
 
+namespace Engine {
+
 void UIManager::Update() {
     // UIの更新
     for (auto& ui : uiList_) {
@@ -32,3 +34,5 @@ void UIManager::AddUI(std::unique_ptr<BaseUI> ui) {
 void UIManager::Clear() {
     uiList_.clear();
 }
+
+} // namespace Engine

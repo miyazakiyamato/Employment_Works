@@ -3,6 +3,8 @@
 #include <cassert>
 #include "Quaternion.h"
 
+namespace Engine {
+
 Matrix4x4 Matrix4x4::Inverse() const{
 	return Inverse(*this);
 }
@@ -228,3 +230,5 @@ Matrix4x4& Matrix4x4::operator*=(const Matrix4x4& m2){
 	m1 = m1 * m2;
 	return *this;
 }
+
+} // namespace Engine

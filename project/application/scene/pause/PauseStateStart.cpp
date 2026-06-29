@@ -3,6 +3,8 @@
 #include "PauseStateSelect.h"
 #include "Easing.h"
 
+namespace Engine {
+
 void PauseStateStart::Initialize(PauseScene* scene) {
 	BaseSceneState<PauseScene>::Initialize(scene);
 	animationTimer_ = 0.0f;
@@ -53,3 +55,5 @@ void PauseStateStart::Update() {
 void PauseStateStart::Draw() {
 	
 }
+
+} // namespace Engine

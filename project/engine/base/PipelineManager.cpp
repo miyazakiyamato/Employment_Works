@@ -3,6 +3,8 @@
 #include "StringUtility.h"
 #include "PipelineFactory.h"
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 using namespace Logger;
 using namespace StringUtility;
@@ -345,3 +347,5 @@ void PipelineManager::CreateComputePipeline(ComputePipelineData& pipeline){
 	);
 	assert(SUCCEEDED(hr));
 }
+
+} // namespace Engine

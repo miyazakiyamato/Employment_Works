@@ -10,6 +10,8 @@
 #include "EnemyBullet.h"
 #include "GlobalVariables.h"
 
+namespace Engine {
+
 // 初期化
 void ChargeGun::Initialize(){
 	BaseWeapon::Initialize();
@@ -126,3 +128,5 @@ void ChargeGun::Charge(){
 	AttackData& attackData = attackData_[static_cast<uint32_t>(AttackType::kCharge)];
 	attackData.bulletSize = std::clamp(chargeCount_, 0.0f, gv->GetValue<float>(groupName, "ChargeLimitSize"));
 }
+
+} // namespace Engine

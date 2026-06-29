@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+namespace Engine {
+
 class BaseEnemy;
 
 /// <summary>
@@ -31,3 +33,5 @@ protected:
 	   
 	BaseEnemy* enemy_ = nullptr;
 };
+
+} // namespace Engine

@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Engine {
+
 /// <summary>
 /// Direct3Dリソースリークチェッカー
 /// プログラム終了時に解放されていないD3Dリソースがあれば警告を出力する
@@ -13,3 +15,5 @@ public:
 	/// </summary>
 	~D3DResourceLeakChecker();
 };
+
+} // namespace Engine

@@ -4,6 +4,8 @@
 #include <memory>
 #include <string>
 
+namespace Engine {
+
 /// <summary>
 /// UIマネージャクラス
 /// </summary>
@@ -39,3 +41,5 @@ private:
     // UIリスト
     std::vector<std::unique_ptr<BaseUI>> uiList_;
 };
+
+} // namespace Engine

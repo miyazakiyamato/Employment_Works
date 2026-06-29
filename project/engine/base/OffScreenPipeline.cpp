@@ -1,6 +1,8 @@
 #include "OffScreenPipeline.h"
 #include "Logger.h"
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 using namespace Logger;
 
@@ -32,3 +34,5 @@ std::vector<D3D12_INPUT_ELEMENT_DESC> OffScreenPipeline::InputElementDesc(){
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputElementDescs = {};
 	return inputElementDescs;
 }
+
+} // namespace Engine

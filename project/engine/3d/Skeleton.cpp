@@ -2,6 +2,8 @@
 #include "Animation.h"
 #include "Line3D.h"
 
+namespace Engine {
+
 void Skeleton::CreateSkeleton(const Model::Node& rootNode){
 	root = CreateJoint(rootNode, {}, joints);
 
@@ -79,3 +81,5 @@ void Skeleton::Draw(Matrix4x4 worldMatrix){
 		}
 	}
 }
+
+} // namespace Engine

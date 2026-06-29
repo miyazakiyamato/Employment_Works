@@ -1,6 +1,8 @@
 #include "Vector4.h"
 #include <cmath>
 
+namespace Engine {
+
 bool Vector4::IsEqualWithEpsilon(const Vector4& a, const Vector4& b, float epsilon) {
 	return std::fabs(a.x - b.x) < epsilon &&
 		std::fabs(a.y - b.y) < epsilon &&
@@ -15,3 +17,5 @@ Vector4 Vector4::Random(std::mt19937& randomEngine, const Vector4& vMin, const V
 	std::uniform_real_distribution<float> distW(vMin.w, vMax.w);
 	return { distX(randomEngine), distY(randomEngine), distZ(randomEngine) ,distW(randomEngine) };
 }
+
+} // namespace Engine

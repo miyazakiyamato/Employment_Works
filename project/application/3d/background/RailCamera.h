@@ -4,6 +4,8 @@
 #include "Object3d.h"
 #include <vector>
 
+namespace Engine {
+
 /// <summary>
 /// レールカメラ
 /// </summary>
@@ -60,3 +62,5 @@ public:
 private:
 	bool isLoop_ = false;
 };
+
+} // namespace Engine

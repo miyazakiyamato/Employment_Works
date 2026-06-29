@@ -6,6 +6,8 @@
 #include <memory>
 #include "DirectXTex.h"
 
+namespace Engine {
+
 class DirectXCommon;
 class SrvUavManager;
 
@@ -90,3 +92,5 @@ private:
 	// テクスチャデータコンテナ
 	std::unordered_map<std::string, TextureData> textureData_;
 };
+
+} // namespace Engine

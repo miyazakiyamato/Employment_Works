@@ -4,6 +4,8 @@
 #include "BulletManager.h"
 #include "PlayerBullet.h"
 
+namespace Engine {
+
 void BaseWeapon::Initialize(){
 	Collider::Initialize();
 	object3d_ = std::make_unique<Object3d>();
@@ -78,3 +80,5 @@ void BaseWeapon::Rotate(const Vector3& velocity){
 Vector3 BaseWeapon::GetCenterPosition() const{
 	return object3d_->GetCenterPosition();
 }
+
+} // namespace Engine

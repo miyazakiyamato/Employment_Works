@@ -2,6 +2,8 @@
 #include "ParticleManager.h"
 #include "TimeManager.h"
 
+namespace Engine {
+
 void HitEffect::Initialize(const std::string& emitterName) {
 	BaseParticleEmitter::Initialize(emitterName);
 	/*std::string groupName = "aRing";
@@ -64,3 +66,5 @@ void HitEffect::Emit(){
 	BaseParticleEmitter::Emit();
 }
 
+
+} // namespace Engine

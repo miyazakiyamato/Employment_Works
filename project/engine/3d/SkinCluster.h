@@ -2,6 +2,8 @@
 #include <span>
 #include "Model.h"
 
+namespace Engine {
+
 class SrvUavManager;
 class Skeleton;
 
@@ -110,3 +112,5 @@ public:
 	/// </summary>
 	const D3D12_VERTEX_BUFFER_VIEW* GetSkinnedVerticesView(size_t meshIndex) const {return &skinClusterDates_[meshIndex].skinnedVerticesView;}
 };
+
+} // namespace Engine

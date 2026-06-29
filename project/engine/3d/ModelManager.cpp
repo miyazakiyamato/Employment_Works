@@ -1,5 +1,7 @@
 #include "ModelManager.h"
 
+namespace Engine {
+
 std::unique_ptr<ModelManager> ModelManager::instance = nullptr;
 
 ModelManager* ModelManager::GetInstance()
@@ -67,3 +69,5 @@ Animation* ModelManager::FindAnimation(const std::string& filePath){
 	//ファイル名一致なし
 	return nullptr;
 }
+
+} // namespace Engine

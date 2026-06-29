@@ -3,6 +3,8 @@
 #include "SceneManager.h"
 #include "Easing.h"
 
+namespace Engine {
+
 void PauseStateEnd::Initialize(PauseScene* scene) {
 	BaseSceneState<PauseScene>::Initialize(scene);
 	animationTimer_ = 1.0f; // Start from full scale
@@ -58,3 +60,5 @@ void PauseStateEnd::Update() {
 		buttons[i]->Update();
 	}
 }
+
+} // namespace Engine

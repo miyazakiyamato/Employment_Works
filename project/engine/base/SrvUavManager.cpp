@@ -2,6 +2,8 @@
 #include <cassert>
 #include "ParticleManager.h"
 
+namespace Engine {
+
 const uint32_t SrvUavManager::kMaxSRVCount = 1u << 14;
 
 void SrvUavManager::Initialize(DirectXCommon* dxCommon){
@@ -162,3 +164,5 @@ ID3D12DescriptorHeap* SrvUavManager::GetDescriptorHeapForImGui()
 	return descriptorHeap_.Get();
 }
 
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #include "TimedCall.h"
 #include "TimeManager.h"
 
+namespace Engine {
+
 void TimedCall::Update() {
 	if (IsFinish_) {
 		return;
@@ -11,3 +13,5 @@ void TimedCall::Update() {
 		f_();
 	}
 }
+
+} // namespace Engine

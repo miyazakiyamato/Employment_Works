@@ -7,6 +7,8 @@
 #include "PipelineManager.h"
 #include "TimeManager.h"
 #include "GlobalVariables.h"
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
@@ -362,3 +364,5 @@ void ParticleManager::SetRing(std::string name, const uint32_t& kDivide, float k
 void ParticleManager::SetCylinder(std::string name, const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight) {
 	CreateCylinder(particleGroups[name].get(), kDivide, kTopRadius, kBottomRadius, kHeight);
 }
+
+} // namespace Engine

@@ -5,6 +5,8 @@
 
 #include <GlobalVariables.h>
 
+namespace Engine {
+
 std::unique_ptr<CameraManager> CameraManager::instance = nullptr;
 
 CameraManager* CameraManager::GetInstance(){
@@ -80,3 +82,5 @@ void CameraManager::FindCamera(const std::string& cameraName){
 		nowCameraName_ = cameraName;
 	}
 }
+
+} // namespace Engine

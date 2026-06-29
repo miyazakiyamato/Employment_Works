@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseCharacterState.h"
 
+namespace Engine {
+
 class Input;
 class TimeManager;
 class Player;
@@ -25,3 +27,5 @@ private:
 	Player* player_ = nullptr;
 };
 
+
+} // namespace Engine

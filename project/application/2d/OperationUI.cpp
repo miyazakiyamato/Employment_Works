@@ -5,6 +5,8 @@
 #include "BaseWeapon.h"
 #include <string>
 
+namespace Engine {
+
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
@@ -136,3 +138,5 @@ void OperationUI::ImGuiUpdate() {
 	}
 #endif
 }
+
+} // namespace Engine

@@ -6,6 +6,8 @@
 #include "SrvUavManager.h"
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 /// <summary>
 /// ポストエフェクトマネージャクラス
 /// 画面全体にかけるエフェクト（ポストプロセス）を管理・実行する
@@ -103,3 +105,5 @@ public:
 	void SetEdgeColor(const Vector3& color) { material_->edgeColor = color; }
 	void SetMaskTextureName(const std::string& name) { maskTextureName_ = name; }
 };
+
+} // namespace Engine

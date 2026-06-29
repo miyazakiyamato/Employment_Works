@@ -2,6 +2,8 @@
 #include "BaseCharacterState.h"
 #include "Vector3.h"
 
+namespace Engine {
+
 class Input;
 class TimeManager;
 class Player;
@@ -28,3 +30,5 @@ private:
 	Vector3 leaveVelocity_ = { 0.0f, 0.0f, 60.0f };
 };
 
+
+} // namespace Engine

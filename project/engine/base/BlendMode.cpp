@@ -1,5 +1,7 @@
 #include "BlendMode.h"
 
+namespace Engine {
+
 namespace BlendModeHelper {
 	//ブレンドモードを設定する関数
     BlendModeFunc BlendModeFunctionTable[] = { //enum classの順番に対応
@@ -88,3 +90,5 @@ namespace BlendModeHelper {
     }
 
 } // namespace BlendModeHelper
+
+} // namespace Engine

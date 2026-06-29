@@ -4,6 +4,8 @@
 #include <memory>
 #include "Vector2.h"
 
+namespace Engine {
+
 class PlayerDeathUI : public BaseUI {
 public:
 	/// <summary>
@@ -27,3 +29,5 @@ public:
 private:
 	std::vector<std::unique_ptr<Sprite>> sprites_;
 };
+
+} // namespace Engine

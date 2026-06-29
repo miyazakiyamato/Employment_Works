@@ -1,6 +1,8 @@
 #include "CollisionManager.h"
 #include "GlobalVariables.h"
 
+namespace Engine {
+
 void CollisionManager::Initialize() {
 	// imgui
 	GlobalVariables* globalVariables = GlobalVariables::GetInstance();
@@ -71,3 +73,5 @@ void CollisionManager::ApplyGlobalVariables() {
 	const char* groupName = "CollisionManager";
 	isColliderModel_ = globalVariables->GetValue<bool>(groupName, "IsColliderModel");
 }
+
+} // namespace Engine

@@ -3,6 +3,8 @@
 #include "TimeManager.h"
 #include <cmath>
 
+namespace Engine {
+
 namespace {
 	const Vector2 kDefaultSpriteSize = { 180.0f, 144.0f };
 	const Vector2 kDefaultPosition = { 640.0f, 360.0f };
@@ -71,3 +73,5 @@ void GameStartUI::Draw() {
 }
 
 
+
+} // namespace Engine

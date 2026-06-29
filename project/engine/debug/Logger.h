@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+namespace Engine {
+
 /// <summary>
 /// ログ出力名前空間
 /// デバッグログの出力機能を提供する
@@ -13,3 +15,5 @@ namespace Logger {
 	/// <param name="message">表示するメッセージ</param>
 	void Log(const std::string& message);
 }
+
+} // namespace Engine

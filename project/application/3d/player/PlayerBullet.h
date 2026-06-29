@@ -4,6 +4,8 @@
 #include "Object3d.h"
 #include "BaseBullet.h"
 
+namespace Engine {
+
 /// <summary>
 /// プレイヤーの弾
 /// </summary>
@@ -36,3 +38,5 @@ private:
 public:
 	
 };
+
+} // namespace Engine

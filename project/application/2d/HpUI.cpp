@@ -3,6 +3,8 @@
 #include "TimeManager.h"
 #include "Easing.h"
 
+namespace Engine {
+
 void HpUI::Initialize(Player* player){
 	player_ = player;
 	maxHp_ = (float)player_->GetHp();
@@ -60,3 +62,5 @@ void HpUI::ImGuiUpdate(){
 		++spriteIDIndex;
 	}
 }
+
+} // namespace Engine

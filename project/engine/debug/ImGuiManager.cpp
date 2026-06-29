@@ -9,6 +9,8 @@
 #include "GlobalVariables.h"
 #include "SceneManager.h"
 
+namespace Engine {
+
 void ImGuiManager::Initialize(WinApp* winApp, DirectXCommon* dxCommon, SrvUavManager* srvUavManager){
 	winApp_ = winApp;
 	dxCommon_ = dxCommon;
@@ -192,3 +194,5 @@ void ImGuiManager::Draw(){
 	ImGui_ImplDX12_RenderDrawData(ImGui::GetDrawData(), commandList);
 #endif // USE_IMGUI
 }
+
+} // namespace Engine

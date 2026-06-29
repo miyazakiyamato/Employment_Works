@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// モデル用コンピュートシェーダーパイプライン
 /// GPUスキニングなどの計算処理に使用するパイプライン設定を管理
@@ -21,3 +23,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_ROOT_PARAMETER> ComputeRootParameters(const std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges) override;
 };
+
+} // namespace Engine

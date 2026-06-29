@@ -3,6 +3,8 @@
 #include <CollisionTypeIdDef.h>
 #include "TextureManager.h"
 
+namespace Engine {
+
 void PlayerBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayerBullet));
 	BaseBullet::Initialize(position, velocity);
@@ -34,3 +36,5 @@ void PlayerBullet::OnCollision(Collider* other){
 		isAlive_ = false;
 	}
 }
+
+} // namespace Engine

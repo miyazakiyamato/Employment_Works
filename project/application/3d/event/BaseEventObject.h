@@ -4,6 +4,8 @@
 #include "ModelManager.h"
 #include "CollisionTypeIdDef.h"
 
+namespace Engine {
+
 /// <summary>
 /// イベントオブジェクト基底クラス
 /// </summary>
@@ -58,3 +60,5 @@ protected:
 public:
 	Object3d* GetObject3d() { return object3d_.get(); }
 };
+
+} // namespace Engine

@@ -4,6 +4,8 @@
 #include <vector>
 #include <memory>
 
+namespace Engine {
+
 /// <summary>
 /// フェード遷移シーン
 /// </summary>
@@ -33,3 +35,5 @@ private: // メンバ変数
     // 経過時間カウンター
     float counter_ = 0.0f;
 };
+
+} // namespace Engine

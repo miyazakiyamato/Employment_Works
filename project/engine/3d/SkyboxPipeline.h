@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// スカイボックス描画用パイプライン
 /// キューブマップテクスチャを使用して背景（天球）を描画する
@@ -26,3 +28,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_INPUT_ELEMENT_DESC> InputElementDesc() override;
 };
+
+} // namespace Engine

@@ -6,6 +6,8 @@
 #include "Line3D.h"
 #include "TextureManager.h"
 #include <numbers>
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
@@ -360,3 +362,5 @@ Vector3 Object3d::GetCenterPosition() const
 
 	return worldPos;
 }
+
+} // namespace Engine

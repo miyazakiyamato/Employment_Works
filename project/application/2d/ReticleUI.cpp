@@ -1,6 +1,8 @@
 #include "ReticleUI.h"
 #include "TextureManager.h"
 #include "WinApp.h"
+
+namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
@@ -52,3 +54,5 @@ void ReticleUI::SetPosition(const Vector2& position) {
 		sprite_->SetPosition(position);
 	}
 }
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #include "PlayerDeathUI.h"
 #include "TextureManager.h"
 
+namespace Engine {
+
 void PlayerDeathUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("num.dds");
 
@@ -38,3 +40,5 @@ void PlayerDeathUI::SetColor(const Vector4& color) {
 		sprites_[0]->SetColor(color);
 	}
 }
+
+} // namespace Engine

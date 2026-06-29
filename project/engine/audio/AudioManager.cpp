@@ -1,6 +1,8 @@
 #include "AudioManager.h"
 #include <cassert>
 
+namespace Engine {
+
 std::unique_ptr<AudioManager> AudioManager::instance = nullptr;
 
 AudioManager* AudioManager::GetInstance()
@@ -164,3 +166,5 @@ void AudioManager::StopWave(const std::string& filePath)
 
 	playSoundData.erase(filePath);
 }
+
+} // namespace Engine

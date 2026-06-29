@@ -25,6 +25,8 @@
 #include "GameSceneStateStart.h"
 #include "../pause/PauseScene.h"
 
+namespace Engine {
+
 void GameScene::ChangeState(std::unique_ptr<BaseSceneState<GameScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
@@ -161,3 +163,5 @@ void GameScene::DrawGame3D() {
 }
 
 
+
+} // namespace Engine

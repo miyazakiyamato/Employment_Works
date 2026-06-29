@@ -8,6 +8,8 @@
 #include "TitleUI.h"
 #include "ReticleUI.h"
 
+namespace Engine {
+
 void TitleSceneStateMain::Initialize(TitleScene* scene) {
 	BaseSceneState<TitleScene>::Initialize(scene);
 	
@@ -48,3 +50,5 @@ void TitleSceneStateMain::Update() {
 void TitleSceneStateMain::Draw() {
 	uiManager_->Draw();
 }
+
+} // namespace Engine

@@ -5,6 +5,8 @@
 #include "PlayerStateRoot.h"
 #include "PlayerBullet.h"
 
+namespace Engine {
+
 // 初期化
 void PlayerStateLeave::Initialize(){
 	input_ = Input::GetInstance();
@@ -20,3 +22,5 @@ void PlayerStateLeave::Update(){
 		player_->GetWeapon()->SetTarget(nullptr);
 	}
 }
+
+} // namespace Engine

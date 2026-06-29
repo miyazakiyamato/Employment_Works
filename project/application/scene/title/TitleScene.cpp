@@ -13,6 +13,8 @@
 
 #include "TitleSceneStateMain.h"
 
+namespace Engine {
+
 void TitleScene::ChangeState(std::unique_ptr<BaseSceneState<TitleScene>> newState) {
 	state_ = std::move(newState);
 	state_->Initialize(this);
@@ -86,3 +88,5 @@ void TitleScene::Draw(){
 		state_->Draw();
 	}
 }
+
+} // namespace Engine

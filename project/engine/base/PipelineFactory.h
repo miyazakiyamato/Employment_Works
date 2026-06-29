@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// パイプラインファクトリークラス
 /// パイプライン名に基づいて適切なパイプラインインスタンスを生成する
@@ -14,3 +16,5 @@ public:
 	/// <returns>生成されたBasePipeline派生クラスへのポインタ</returns>
 	static BasePipeline* ChangePipeline(const std::string& pipelineName);
 };
+
+} // namespace Engine

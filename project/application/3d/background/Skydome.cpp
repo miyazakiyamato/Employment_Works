@@ -1,6 +1,8 @@
 #include "Skydome.h"
 #include "TextureManager.h"
 
+namespace Engine {
+
 void Skydome::Initialize(){
 	object3d = std::make_unique<Object3d>();
 	object3d->Initialize();
@@ -20,3 +22,5 @@ void Skydome::Update(){
 void Skydome::Draw(){
 	object3d->Draw();
 }
+
+} // namespace Engine

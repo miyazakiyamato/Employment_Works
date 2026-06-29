@@ -2,6 +2,8 @@
 #include "DirectXCommon.h"
 #include <queue>
 
+namespace Engine {
+
 /// <summary>
 /// SRV/UAVマネージャクラス
 /// シェーダーリソースビュー(SRV)およびアンオーダーアクセスビュー(UAV)のデスクリプタヒープを管理する
@@ -99,3 +101,5 @@ private:
 	// 削除(解放)済みインデックスキュー
 	std::queue<uint32_t> deleteQueue;
 };
+
+} // namespace Engine

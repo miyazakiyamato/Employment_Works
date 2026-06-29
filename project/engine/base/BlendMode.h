@@ -1,6 +1,8 @@
 #pragma once
 #include <d3d12.h>
 
+namespace Engine {
+
 /// <summary>
 /// ブレンドモード
 /// 合成方法の種類を定義
@@ -33,3 +35,5 @@ namespace BlendModeHelper {
     typedef D3D12_BLEND_DESC(*BlendModeFunc)();
     extern BlendModeFunc BlendModeFunctionTable[];
 }
+
+} // namespace Engine

@@ -3,6 +3,8 @@
 #include "PlayerWinUI.h"
 #include <memory>
 
+namespace Engine {
+
 class GameScene;
 
 class GameSceneStateWin : public BaseSceneState<GameScene> {
@@ -36,3 +38,5 @@ private:
 	float counter_ = 0.0f;
 	bool isTransitioning_ = false;
 };
+
+} // namespace Engine

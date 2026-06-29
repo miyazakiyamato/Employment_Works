@@ -2,6 +2,8 @@
 #include "Camera.h"
 #include "Object3d.h"
 
+namespace Engine {
+
 // 前方宣言
 class LockOn;
 
@@ -65,3 +67,5 @@ public:
 	void SetRotationTarget(const Object3d* target) { rotationTarget_ = target; }
 	void SetLockOn(const LockOn* lockOn) { lockOn_ = lockOn; }
 };
+
+} // namespace Engine

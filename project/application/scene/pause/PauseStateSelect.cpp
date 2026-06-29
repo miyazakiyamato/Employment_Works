@@ -3,6 +3,8 @@
 #include "PauseStateEnd.h"
 #include "Input.h"
 
+namespace Engine {
+
 void PauseStateSelect::Initialize(PauseScene* scene) {
 	BaseSceneState<PauseScene>::Initialize(scene);
 	inputCooldown_ = 0.0f;
@@ -87,3 +89,5 @@ void PauseStateSelect::Update() {
 		buttons[i]->Update();
 	}
 }
+
+} // namespace Engine

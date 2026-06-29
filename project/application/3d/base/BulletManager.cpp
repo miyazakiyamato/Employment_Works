@@ -1,6 +1,8 @@
 #include "BulletManager.h"
 #include "CollisionManager.h"
 
+namespace Engine {
+
 
 
 void BulletManager::Update(){
@@ -33,3 +35,5 @@ void BulletManager::AddCollider(CollisionManager* collisionManager){
 		collisionManager->AddCollider(bullet.get());
 	}
 }
+
+} // namespace Engine

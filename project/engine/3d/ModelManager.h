@@ -4,6 +4,8 @@
 #include "Model.h"
 #include "Animation.h"
 
+namespace Engine {
+
 class SrvUavManager;
 
 /// <summary>
@@ -78,3 +80,5 @@ public:
 	DirectXCommon* GetDirectXCommon() { return dxCommon_; }
 	SrvUavManager* GetSrvManager() { return srvUavManager_; }
 };
+
+} // namespace Engine

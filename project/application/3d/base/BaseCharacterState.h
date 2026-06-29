@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+namespace Engine {
+
 class BaseCharacter;
 /// <summary>
 /// キャラクター状態基底クラス
@@ -26,3 +28,5 @@ protected:
 	// キャラクターへのポインタ
 	BaseCharacter* character_ = nullptr;
 };
+
+} // namespace Engine

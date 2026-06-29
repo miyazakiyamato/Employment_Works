@@ -1,6 +1,8 @@
 #pragma once
 #include "Sprite.h"
 
+namespace Engine {
+
 /// <summary>
 /// UI基底クラス
 /// </summary>
@@ -37,3 +39,5 @@ protected:
 	// デッドフラグ
 	bool isDead_ = false;
 };
+
+} // namespace Engine

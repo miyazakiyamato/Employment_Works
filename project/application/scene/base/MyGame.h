@@ -2,6 +2,8 @@
 #include "Framework.h"
 #include "BaseScene.h"
 
+namespace Engine {
+
 /// <summary>
 /// ゲーム本体
 /// </summary>
@@ -27,3 +29,5 @@ private://メンバ変数
 	std::string pipelineStateName_ = "";
 };
 
+
+} // namespace Engine

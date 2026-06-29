@@ -1,5 +1,7 @@
 #include "SmallDrone.h"
 
+namespace Engine {
+
 void SmallDrone::Initialize(){
 	BaseEnemy::Initialize();
 	object3d_->SetModel("drone/drone.obj");
@@ -18,3 +20,5 @@ void SmallDrone::Draw(){
 void SmallDrone::OnCollision(Collider* other){
 	BaseEnemy::OnCollision(other);
 }
+
+} // namespace Engine

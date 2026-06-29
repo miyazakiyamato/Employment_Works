@@ -1,6 +1,8 @@
 #pragma once
 #include "SmallDrone.h"
 
+namespace Engine {
+
 class BulletManager;
 class TimeManager;
 class SplineRail;
@@ -38,3 +40,5 @@ private:
 	float param_ = 0.0f;
 	float speed_ = 5.0f; // 0.1fだと遅すぎるので修正
 };
+
+} // namespace Engine

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <functional>
 
+namespace Engine {
+
 /// <summary>
 /// 指定時間後に関数を呼び出すクラス
 /// </summary>
@@ -32,3 +34,5 @@ private:
 	float time_;
 	bool IsFinish_ = false;
 };
+
+} // namespace Engine

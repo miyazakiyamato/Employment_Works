@@ -1,6 +1,8 @@
 #include "TimeManager.h"
 #include <cassert>
 
+namespace Engine {
+
 TimeManager* TimeManager::instance = nullptr;
 
 TimeManager* TimeManager::GetInstance(){
@@ -68,3 +70,5 @@ void TimeManager::SetTimer(std::string name, float kLimitTime){
 	timer.kLimitTime = kLimitTime;
 	timer.timeCount = 0.0f;
 }
+
+} // namespace Engine

@@ -5,6 +5,8 @@
 #include "CameraManager.h"
 #include "GameOverUI.h"
 
+namespace Engine {
+
 void GameOverSceneStateMain::Initialize(GameOverScene* scene) {
 	BaseSceneState<GameOverScene>::Initialize(scene);
 
@@ -42,3 +44,5 @@ void GameOverSceneStateMain::Draw() {
 
 	uiManager_->Draw();
 }
+
+} // namespace Engine

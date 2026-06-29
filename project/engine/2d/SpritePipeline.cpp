@@ -1,6 +1,8 @@
 #include "SpritePipeline.h"
 #include "Logger.h"
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 using namespace Logger;
 
@@ -36,3 +38,5 @@ std::vector<D3D12_INPUT_ELEMENT_DESC> SpritePipeline::InputElementDesc(){
 	inputElementDescs[2] = CreateInputElementDesc("NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT,0, D3D12_APPEND_ALIGNED_ELEMENT);
 	return inputElementDescs;
 }
+
+} // namespace Engine

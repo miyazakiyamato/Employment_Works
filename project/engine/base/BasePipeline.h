@@ -3,6 +3,8 @@
 #include "BlendMode.h"
 #include <map>
 
+namespace Engine {
+
 /// <summary>
 /// 静的サンプラーのモード
 /// </summary>
@@ -87,3 +89,5 @@ public:
 	/// </summary>
 	D3D12_INPUT_ELEMENT_DESC CreateInputElementDesc(const char* semanticName, UINT semanticIndex, DXGI_FORMAT format, UINT inputSlot, UINT alignedByteOffset);
 };
+
+} // namespace Engine

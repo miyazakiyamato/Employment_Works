@@ -1,6 +1,8 @@
 #include "BaseSceneState.h"
 #include <memory>
 
+namespace Engine {
+
 class GameScene;
 
 class GameSceneStateBattle : public BaseSceneState<GameScene> {
@@ -20,3 +22,5 @@ public:
 	/// </summary>
 	void Draw() override;
 };
+
+} // namespace Engine

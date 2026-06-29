@@ -3,6 +3,8 @@
 #include "PlayerDeathUI.h"
 #include <memory>
 
+namespace Engine {
+
 class GameScene;
 
 class GameSceneStateDeath : public BaseSceneState<GameScene> {
@@ -36,3 +38,5 @@ private:
 	float counter_ = 0.0f;
 	bool isTransitioning_ = false;
 };
+
+} // namespace Engine

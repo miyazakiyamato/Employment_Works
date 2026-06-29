@@ -4,6 +4,8 @@
 #include "Easing.h"
 #include <cmath>
 
+namespace Engine {
+
 namespace {
 	const Vector2 kClearSpritePos = { 640.0f, 260.0f };
 	const Vector2 kClearSpriteSize = { 360.0f, 140.0f };
@@ -66,3 +68,5 @@ void ClearUI::Draw() {
 		sprite->Draw();
 	}
 }
+
+} // namespace Engine

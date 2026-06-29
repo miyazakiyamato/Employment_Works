@@ -1,6 +1,8 @@
 #include "Line3DPipeline.h"
 #include "Logger.h"
 
+namespace Engine {
+
 using namespace Microsoft::WRL;
 using namespace Logger;
 
@@ -30,3 +32,5 @@ std::vector<D3D12_INPUT_ELEMENT_DESC> Line3DPipeline::InputElementDesc() {
 	inputElementDescs[1] = CreateInputElementDesc("COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT);
 	return inputElementDescs;
 }
+
+} // namespace Engine

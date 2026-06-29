@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// パーティクル発生用パイプラインクラス
 /// コンピュートシェーダーを用いて新規パーティクルを生成(Emit)する
@@ -17,3 +19,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_ROOT_PARAMETER> ComputeRootParameters(const std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges) override;
 };
+
+} // namespace Engine

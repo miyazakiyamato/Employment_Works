@@ -2,6 +2,8 @@
 #include "BaseCharacterState.h"
 #include "Vector3.h"
 
+namespace Engine {
+
 class Input;
 class TimeManager;
 class Player;
@@ -29,3 +31,5 @@ private:
 	float revolveAngle_ = 0.0f;
 };
 
+
+} // namespace Engine

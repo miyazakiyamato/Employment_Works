@@ -4,6 +4,8 @@
 #include "ParticleManager.h"
 #include "DirectXCommon.h"
 
+namespace Engine {
+
 class ParticleManager;
 class SrvUavManager;
 class GlobalVariables;
@@ -86,3 +88,5 @@ public:
 	/// </summary>
 	void SetCylinder(const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight);
 };
+
+} // namespace Engine

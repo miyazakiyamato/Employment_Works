@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseParticleEmitter.h"
 
+namespace Engine {
+
 /// <summary>
 /// 球形エミッタークラス
 /// 指定された半径の球体範囲内でパーティクルを生成・管理する
@@ -110,3 +112,5 @@ public:
 	void SetRVelocityMin(const Vector3& rVelocityMin) { emitterData_->rVelocityMin = rVelocityMin; }
 	void SetRVelocityMax(const Vector3& rVelocityMax) { emitterData_->rVelocityMax = rVelocityMax; }
 };
+
+} // namespace Engine

@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdint>
 
+namespace Engine {
+
 /// <summary>
 /// コリジョン種別ID定義
 /// オブジェクトの種類を識別し、衝突判定のフィルタリング等に使用する
@@ -14,3 +16,5 @@ enum class CollisionTypeIdDef : uint32_t {
 	kTree,      //!< 木
 	kOasis,     //!< オアシス
 };
+
+} // namespace Engine

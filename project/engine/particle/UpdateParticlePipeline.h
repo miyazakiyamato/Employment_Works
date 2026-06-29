@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// パーティクル更新用パイプラインクラス
 /// コンピュートシェーダーを用いてパーティクルの移動・寿命計算を行う
@@ -17,3 +19,5 @@ public:
 	/// </summary>
 	std::vector<D3D12_ROOT_PARAMETER> ComputeRootParameters(const std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges) override;
 };
+
+} // namespace Engine

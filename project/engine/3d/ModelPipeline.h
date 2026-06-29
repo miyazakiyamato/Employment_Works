@@ -1,6 +1,8 @@
 #pragma once
 #include "BasePipeline.h"
 
+namespace Engine {
+
 /// <summary>
 /// 通常モデル描画用グラフィックスパイプライン
 /// 静的なモデルの描画設定を管理する
@@ -36,3 +38,5 @@ public:
 	std::vector<D3D12_DESCRIPTOR_RANGE> ComputeDescriptorRanges() override;
 	std::vector<D3D12_ROOT_PARAMETER> ComputeRootParameters(const std::vector<D3D12_DESCRIPTOR_RANGE>& descriptorRanges) override;
 };
+
+} // namespace Engine

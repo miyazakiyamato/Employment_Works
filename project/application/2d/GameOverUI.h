@@ -3,6 +3,8 @@
 #include <vector>
 #include <memory>
 
+namespace Engine {
+
 class GameOverUI : public BaseUI {
 public:
 	/// <summary>
@@ -24,3 +26,5 @@ private:
 	std::vector<std::unique_ptr<Sprite>> sprites_;
 	float animationTime_ = 0.0f;
 };
+
+} // namespace Engine

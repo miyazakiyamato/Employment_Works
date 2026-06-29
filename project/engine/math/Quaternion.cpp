@@ -2,6 +2,8 @@
 #include <math.h>
 #include"numbers"
 
+namespace Engine {
+
 Matrix4x4 Quaternion::MakeRotateAxisAngle(const Vector3& axis, float angle)
 {
 	// 回転軸を正規化
@@ -237,3 +239,5 @@ Quaternion Quaternion::operator-() const{
 Quaternion Quaternion::operator*(const Quaternion& q) const{
 	return Multiply(*this, q);
 }
+
+} // namespace Engine

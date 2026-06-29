@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Engine {
+
 class WinApp;
 class DirectXCommon;
 class SrvUavManager;
@@ -77,3 +79,5 @@ public:
 	/// </summary>
 	ViewMode GetViewMode() const { return currentViewMode_; }
 };
+
+} // namespace Engine

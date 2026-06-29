@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseEnemy.h"
 
+namespace Engine {
+
 /// <summary>
 /// 小型ドローン（敵）
 /// </summary>
@@ -28,3 +30,5 @@ public:
 	void OnCollision([[maybe_unused]] Collider* other) override;
 };
 
+
+} // namespace Engine

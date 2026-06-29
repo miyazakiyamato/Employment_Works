@@ -6,6 +6,8 @@
 #include "DirectXCommon.h"
 #include "Matrix4x4.h"
 
+namespace Engine {
+
 class DirectXCommon;
 class SrvUavManager;
 
@@ -219,3 +221,5 @@ public:
 	void SetRing(std::string name, const uint32_t& kDivide, float kOuterRadius, float kInnerRadius);
 	void SetCylinder(std::string name, const uint32_t& kDivide, float kTopRadius, float kBottomRadius, float kHeight);
 };
+
+} // namespace Engine

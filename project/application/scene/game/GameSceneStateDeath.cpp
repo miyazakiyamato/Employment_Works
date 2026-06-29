@@ -10,6 +10,8 @@
 #include "Easing.h"
 #include "EmitterSphere.h"
 
+namespace Engine {
+
 GameSceneStateDeath::~GameSceneStateDeath() {
 	if (playerDeathUI_) {
 		playerDeathUI_->SetIsDead(true);
@@ -72,3 +74,5 @@ void GameSceneStateDeath::Draw() {
 	bulletManager->Draw();
 	particleSystem->Draw();
 }
+
+} // namespace Engine

@@ -4,6 +4,8 @@
 #include <memory>
 #include "Vector2.h"
 
+namespace Engine {
+
 class GameStartUI : public BaseUI {
 public:
 	/// <summary>
@@ -33,3 +35,5 @@ private:
 	bool isFinished_ = false;
 	bool shouldClose_ = false;
 };
+
+} // namespace Engine

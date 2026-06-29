@@ -4,6 +4,8 @@
 #include "BlendMode.h"
 #include "Collision.h"
 
+namespace Engine {
+
 class SrvUavManager;
 
 /// <summary>
@@ -143,3 +145,5 @@ private:
 	// パイプラインステート名
 	std::string pipelineStateName_ = "";
 };
+
+} // namespace Engine

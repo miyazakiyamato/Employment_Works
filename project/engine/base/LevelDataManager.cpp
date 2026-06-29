@@ -3,6 +3,8 @@
 #include <fstream>
 #include <cassert>
 
+namespace Engine {
+
 void LevelDataManager::LoadJsonFile(const std::string& filePath){
 	std::string fullpath = kDirectoryFilePath + filePath + kExtension;
 
@@ -88,3 +90,5 @@ std::unique_ptr<ObjectData> LevelDataManager::LoadObjectData(const nlohmann::jso
 	}
 	return nullptr;
 }
+
+} // namespace Engine

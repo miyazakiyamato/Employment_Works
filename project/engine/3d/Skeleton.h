@@ -3,6 +3,8 @@
 #include <map>
 #include "Model.h"
 
+namespace Engine {
+
 class Animation;
 
 /// <summary>
@@ -69,3 +71,5 @@ public:
 	std::vector<Joint>& GetJoints() { return joints; }
 	std::map<std::string, int32_t>& GetJointMap() { return jointMap; }
 };
+
+} // namespace Engine

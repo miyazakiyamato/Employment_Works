@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include "BaseParticleEmitter.h"
 
+namespace Engine {
+
 class GlobalVariables;
 
 /// <summary>
@@ -88,3 +90,5 @@ private:
 	// 作成するエミッターのタイプ名
 	std::string nowEmitterTypeName_ = "Sphere";
 };
+
+} // namespace Engine

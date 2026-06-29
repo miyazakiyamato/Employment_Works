@@ -3,6 +3,8 @@
 #include "SrvUavManager.h"
 #include <algorithm>
 
+namespace Engine {
+
 std::unique_ptr<TextureManager> TextureManager::instance = nullptr;
 
 TextureManager* TextureManager::GetInstance()
@@ -80,3 +82,5 @@ std::vector<std::string> TextureManager::GetKeys(){
 		[](const auto& pair) { return pair.first; });
 	return keys;
 }
+
+} // namespace Engine

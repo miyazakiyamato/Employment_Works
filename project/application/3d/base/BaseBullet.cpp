@@ -2,6 +2,8 @@
 #include "TimeManager.h"
 #include "CollisionTypeIdDef.h"
 
+namespace Engine {
+
 void BaseBullet::Initialize(const Vector3& position, const Vector3& velocity){
 	Collider::Initialize();
 	object3d_ = std::make_unique<Object3d>();
@@ -44,3 +46,5 @@ void BaseBullet::Rotate(const Vector3& velocity){
 Vector3 BaseBullet::GetCenterPosition() const{
 	return object3d_->GetCenterPosition();
 }
+
+} // namespace Engine

@@ -7,6 +7,8 @@
 #include "BaseWeapon.h"
 #include "FollowCamera.h"
 
+namespace Engine {
+
 class Input;
 class Camera;
 class ParticleSystem;
@@ -104,3 +106,5 @@ private:
 	bool isCpuMode_ = false;
 };
 
+
+} // namespace Engine

@@ -7,6 +7,8 @@
 #include <fstream>
 #include <set>
 
+namespace Engine {
+
 std::unique_ptr<GlobalVariables> GlobalVariables::instance = nullptr;
 
 GlobalVariables* GlobalVariables::GetInstance() { 
@@ -514,3 +516,5 @@ std::string GlobalVariables::GetHeaderGroup(const std::string& groupName, const 
 	}
 	return "";
 }
+
+} // namespace Engine

@@ -5,6 +5,8 @@
 #include <memory>
 #include "Sprite.h"
 
+namespace Engine {
+
 /// <summary>
 /// ポーズシーン
 /// </summary>
@@ -56,3 +58,5 @@ private:
 	// 選択中のインデックス
 	int currentSelectionIndex_ = 0;
 };
+
+} // namespace Engine

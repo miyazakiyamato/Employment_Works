@@ -5,6 +5,8 @@
 #include "GameOverScene.h"
 #include "DParticleScene.h"
 
+namespace Engine {
+
 SceneFactory::SceneFactory(){
 	// シーン生成関数の登録
 	sceneGenerators_["TITLE"] = []() { return std::make_unique<TitleScene>(); };
@@ -25,3 +27,5 @@ std::unique_ptr<BaseScene> SceneFactory::CreateScene(const std::string& sceneNam
 	assert(0 && "不明なシーン名");
 	return nullptr;
 }
+
+} // namespace Engine

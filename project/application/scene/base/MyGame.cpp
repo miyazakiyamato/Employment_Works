@@ -1,5 +1,7 @@
 #include "MyGame.h"
 
+namespace Engine {
+
 void MyGame::Initialize(){
 	//基底クラスの初期化処理
 	Framework::Initialize();
@@ -44,3 +46,5 @@ void MyGame::Draw(){
 	//描画後処理
 	dxCommon->PostDraw();
 }
+
+} // namespace Engine

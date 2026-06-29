@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "WinApp.h"
 
+namespace Engine {
+
 Camera::Camera() :
 	transform({ { 1.0f,1.0f,1.0f }, { 0.0f,0.0f,0.0f }, { 0.0f,0.0f,0.0f } }),
 	fovAngleY_(0.45f),
@@ -19,3 +21,5 @@ void Camera::Update(){
 	projectionMatrix = Matrix4x4::MakePerspectiveFovMatrix(fovAngleY_,aspectRatio_,nearClip_,farClip_);
 	viewProjectionMatrix = viewMatrix * projectionMatrix;
 }
+
+} // namespace Engine

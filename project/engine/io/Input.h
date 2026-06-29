@@ -8,6 +8,8 @@
 #include <memory>
 #include "Vector2.h"
 
+namespace Engine {
+
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "xinput.lib")
@@ -196,3 +198,5 @@ public:
     void SetIsLockMouse(bool isMouseLock) { isMouseLocked_ = isMouseLock; }
     void SetIsLockedLange(bool isMouseLock) { isMouseLockedLange_ = isMouseLock; }
 };
+
+} // namespace Engine

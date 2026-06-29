@@ -5,6 +5,8 @@
 #include "TextureManager.h"
 #include "Line3D.h"
 
+namespace Engine {
+
 void Model::Initialize(DirectXCommon* dxCommon, const std::string& directoryPath, const std::string& filename){
 	dxCommon_ = dxCommon;
 	if (!IsPrimitive(filename)) {
@@ -273,3 +275,5 @@ void Model::LoadMaterialTemplateFile(const std::string& directoryPath, const std
 		}
 	}
 }
+
+} // namespace Engine

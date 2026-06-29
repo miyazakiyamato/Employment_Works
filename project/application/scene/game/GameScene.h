@@ -15,6 +15,8 @@
 #include "UIManager.h"
 #include "BaseSceneState.h"
 
+namespace Engine {
+
 class GameSceneStatePause;
 /// <summary>
 /// ゲームシーン
@@ -73,3 +75,5 @@ public:
 	UIManager* GetUIManager() { return uiManager_.get(); }
 };
 
+
+} // namespace Engine
