@@ -14,14 +14,41 @@
 #include "PlayerStateRoot.h"
 #include "ChargeGun.h"
 #include "Object3d.h"
+#include "GlobalVariables.h"
 
 void Player::Initialize(){
 	BaseCharacter::Initialize();
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
-	Collider::SetRadius(1.0f);
 	input_ = Input::GetInstance();
+
+	// GlobalVariablesに初期値を登録
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "Player";
+	gv->CreateGroup(groupName);
+	gv->AddItem(groupName, "InitialTranslate", Vector3(0.0f, 0.0f, 30.0f));
+	gv->AddItem(groupName, "ReticleInitialTranslate", Vector3(0.0f, 0.0f, 10.0f));
+	gv->AddItem(groupName, "MoveSpeed", Vector3(1.5f, 3.0f, 10.0f));
+	gv->AddItem(groupName, "MoveLimit", Vector3(10.0f, 7.0f, 100.0f));
+	gv->AddItem(groupName, "AirResistance", 0.9f);
+	gv->AddItem(groupName, "Hp", 10);
+	gv->AddItem(groupName, "NormalSpeed", 15.0f);
+	gv->AddItem(groupName, "ShiftSpeed", 30.0f);
+	gv->AddItem(groupName, "JumpPower", 40.0f);
+	gv->AddItem(groupName, "ReticleSpeed", 10.0f);
+	gv->AddItem(groupName, "ReticleDistance", 100.0f);
+	gv->AddItem(groupName, "DamageKnockbackAngle", 30.0f);
+	gv->AddItem(groupName, "DamageKnockbackTime", 0.3f);
+	gv->AddItem(groupName, "ColliderRadius", 1.0f);
+
+	// 値の適用
+	Collider::SetRadius(gv->GetValue<float>(groupName, "ColliderRadius"));
+	hp_ = gv->GetValue<int>(groupName, "Hp");
+	airResistance = gv->GetValue<float>(groupName, "AirResistance");
+	moveSpeed_ = gv->GetValue<Vector3>(groupName, "MoveSpeed");
+	moveLimit_ = gv->GetValue<Vector3>(groupName, "MoveLimit");
+
 	object3d_->SetModel("drone/drone.obj");
-	object3d_->SetTranslate({ 0.0f, 0.0f, 30.0f });
+	object3d_->SetTranslate(gv->GetValue<Vector3>(groupName, "InitialTranslate"));
 	object3d_->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f }, 0);
 	object3d_->Update();
 
@@ -29,7 +56,7 @@ void Player::Initialize(){
 	reticle3d_ = std::make_unique<Object3d>();
 	reticle3d_->Initialize();
 	reticle3d_->SetModel("sphere/sphere.obj");
-	reticle3d_->SetTranslate({ 0,0,10.0f });
+	reticle3d_->SetTranslate(gv->GetValue<Vector3>(groupName, "ReticleInitialTranslate"));
 	reticle3d_->Update();
 
 	//手
@@ -85,6 +112,13 @@ void Player::Move(){// 移動量
 	direction.x += input_->GetControllerStickLX();
 	direction.y += input_->GetControllerStickLY();
 
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "Player";
+	// リアルタイム調整の反映
+	airResistance = gv->GetValue<float>(groupName, "AirResistance");
+	moveSpeed_ = gv->GetValue<Vector3>(groupName, "MoveSpeed");
+	moveLimit_ = gv->GetValue<Vector3>(groupName, "MoveLimit");
+
 	if (direction.Length() == 0) {
 		if (input_->PushKey(DIK_A)) {
 			direction.x -= 1.0f;
@@ -105,10 +139,10 @@ void Player::Move(){// 移動量
 	}
 	if (input_->PushKey(DIK_LSHIFT) || input_->PushControllerButton(XINPUT_GAMEPAD_LEFT_SHOULDER)) {
 		if (!isCpuMode_) {
-			railCamera_->SetVelocity(30.0f);
+			railCamera_->SetVelocity(gv->GetValue<float>(groupName, "ShiftSpeed"));
 		}
 	} else {
-		railCamera_->SetVelocity(15.0f);
+		railCamera_->SetVelocity(gv->GetValue<float>(groupName, "NormalSpeed"));
 	}
 
 	if (direction.Length() != 0.0f) {
@@ -135,7 +169,7 @@ void Player::Move(){// 移動量
 	object3d_->SetTranslate(objectPosition);
 	object3d_->SetTranslate(objectPosition);
 	// 地面での跳ね返り処理
-	float jumpPower = 40.0f;
+	float jumpPower = gv->GetValue<float>(groupName, "JumpPower");
 	bool isHitGround = object3d_->GetCenterPosition().y < GetRadius();
 	if (weapon_) {
 		if (weapon_->GetCenterPosition().y < weapon_->GetRadius()) {
@@ -151,8 +185,11 @@ void Player::Move(){// 移動量
 }
 
 void Player::ReticleUpdate(){
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "Player";
+
 	Vector2 move{};
-	float speed = 10.0f;
+	float speed = gv->GetValue<float>(groupName, "ReticleSpeed");
 
 	move.x += input_->GetControllerStickRX();
 	move.y -= input_->GetControllerStickRY();
@@ -196,8 +233,8 @@ void Player::ReticleUpdate(){
 	mouseDirection = Vector3::Normalize(mouseDirection);
 	
 	//　3Dレティクルの位置を更新
-	const float kDistanceTestObject = 100.0f;
-	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(kDistanceTestObject, mouseDirection)));
+	float distanceTestObject = gv->GetValue<float>(groupName, "ReticleDistance");
+	reticle3d_->SetTranslate(Vector3::Add(posNear, Vector3::Multiply(distanceTestObject, mouseDirection)));
 	reticle3d_->Update();
 	reticleUI_->Update();
 }
@@ -213,10 +250,12 @@ void Player::Damage(int damage, const Vector3& hitDirection){
 	particleSystem_->Emit("hitEffect");
 	//railCamera_->ShakeStart({ 5.0f + velocity_.Length() / 10.0f,5.0f + velocity_.Length() / 10.0f }, 0.3f);
 	followCamera_->ShakeStart({ 5.0f + velocity_.Length() / 10.0f,5.0f + velocity_.Length() / 10.0f }, 0.3f);
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "Player";
 	DamageKnockbackStart(
 		hitDirection,     // ダメージ方向
-		30.0f,      // どれくらい倒すか（度数）
-		0.3f       // 戻るまでの時間
+		gv->GetValue<float>(groupName, "DamageKnockbackAngle"),      // どれくらい倒すか（度数）
+		gv->GetValue<float>(groupName, "DamageKnockbackTime")       // 戻るまでの時間
 	);
 
 	hp_ -= damage;

@@ -4,23 +4,33 @@
 #include "Easing.h"
 #include <cmath>
 
+namespace {
+	const Vector2 kClearSpritePos = { 640.0f, 260.0f };
+	const Vector2 kClearSpriteSize = { 360.0f, 140.0f };
+	const Vector2 kClearSpriteAnchor = { 0.5f, 0.5f };
+
+	const Vector2 kTitleSpritePos = { 640.0f, 460.0f };
+	const Vector2 kTitleSpriteSize = { 160.0f, 50.0f };
+	const Vector2 kTitleSpriteAnchor = { 0.5f, 0.5f };
+}
+
 void ClearUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("clear.dds");
 	TextureManager::GetInstance()->LoadTexture("ATitle.dds");
 
 	std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 	sprite->Initialize("clear.dds");
-	sprite->SetPosition({ 640, 260 });
-	sprite->SetSize({ 360.0f, 140.0f });
-	sprite->SetAnchorPoint({ 0.5f, 0.5f });
+	sprite->SetPosition(kClearSpritePos);
+	sprite->SetSize(kClearSpriteSize);
+	sprite->SetAnchorPoint(kClearSpriteAnchor);
 	sprites_.push_back(std::move(sprite));
 
 	// ATitle sprite
 	std::unique_ptr<Sprite> spriteTitle = std::make_unique<Sprite>();
 	spriteTitle->Initialize("ATitle.dds");
-	spriteTitle->SetPosition({ 640, 460 });
-	spriteTitle->SetSize({ 160.0f, 50.0f });
-	spriteTitle->SetAnchorPoint({ 0.5f, 0.5f });
+	spriteTitle->SetPosition(kTitleSpritePos);
+	spriteTitle->SetSize(kTitleSpriteSize);
+	spriteTitle->SetAnchorPoint(kTitleSpriteAnchor);
 	sprites_.push_back(std::move(spriteTitle));
 }
 
@@ -46,7 +56,7 @@ void ClearUI::Update() {
 	}
 	
 	if (!sprites_.empty()) {
-		sprites_[0]->SetSize(Vector2(360.0f, 140.0f) * scale);
+		sprites_[0]->SetSize(kClearSpriteSize * scale);
 		sprites_[0]->Update();
 	}
 }

@@ -8,6 +8,7 @@
 #include "PlayerStateChargeShoot.h"
 #include "CollisionTypeIdDef.h"
 #include "EnemyBullet.h"
+#include "GlobalVariables.h"
 
 // 初期化
 void ChargeGun::Initialize(){
@@ -15,30 +16,68 @@ void ChargeGun::Initialize(){
 	input_ = Input::GetInstance();
 	timeManager_ = TimeManager::GetInstance();
 
-	timeManager_ = TimeManager::GetInstance();
-
 	Collider::SetTypeID(static_cast<uint32_t>(CollisionTypeIdDef::kPlayer));
-	Collider::SetRadius(0.5f);
 
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "ChargeGun";
+	gv->CreateGroup(groupName);
+	gv->AddItem(groupName, "ColliderRadius", 0.5f);
+	gv->AddItem(groupName, "Scale", Vector3(0.8f, 0.8f, 0.8f));
+	gv->AddItem(groupName, "GunBarrelTranslate", Vector3(0.0f, 0.0f, 4.0f));
+
+	gv->AddItem(groupName, "RootBulletSpeed", 150.0f);
+	gv->AddItem(groupName, "RootBulletSize", 0.3f);
+	gv->AddItem(groupName, "RootCoolTime", 0.2f);
+	gv->AddItem(groupName, "RootBulletCount", 3);
+
+	gv->AddItem(groupName, "ChargeBulletSpeed", 100.0f);
+	gv->AddItem(groupName, "ChargeBulletSize", 0.3f);
+	gv->AddItem(groupName, "ChargeCoolTime", 0.5f);
+	gv->AddItem(groupName, "ChargeBulletCount", 1);
+	gv->AddItem(groupName, "ChargeLimitSize", 10.0f);
+
+	// 初期値の適用
+	Collider::SetRadius(gv->GetValue<float>(groupName, "ColliderRadius"));
 	object3d_->SetModel("chargeGun/chargeGun.obj");
-	object3d_->SetScale({ 0.8f,0.8f,0.8f });
-	gunBarrel_->SetTranslate({ 0.0f,0.0f,4.0f });
+	object3d_->SetScale(gv->GetValue<Vector3>(groupName, "Scale"));
+	gunBarrel_->SetTranslate(gv->GetValue<Vector3>(groupName, "GunBarrelTranslate"));
 	gunBarrel_->SetParent(object3d_.get());
+
 	// 攻撃データの設定
 	AttackData& rootAttackData = attackData_[static_cast<uint32_t>(AttackType::kRoot)];
-	rootAttackData.kBulletSpeed = 150.0f;
-	rootAttackData.bulletSize = 0.3f;
-	rootAttackData.kCoolTime = 0.2f;
-	rootAttackData.kBulletCount = 3;
+	rootAttackData.kBulletSpeed = gv->GetValue<float>(groupName, "RootBulletSpeed");
+	rootAttackData.bulletSize = gv->GetValue<float>(groupName, "RootBulletSize");
+	rootAttackData.kCoolTime = gv->GetValue<float>(groupName, "RootCoolTime");
+	rootAttackData.kBulletCount = gv->GetValue<int>(groupName, "RootBulletCount");
+
 	AttackData& chargeAttackData = attackData_[static_cast<uint32_t>(AttackType::kCharge)];
-	chargeAttackData.kBulletSpeed = 100.0f;
-	chargeAttackData.bulletSize = 0.3f;
-	chargeAttackData.kCoolTime = 0.5f;
-	chargeAttackData.kBulletCount = 1;
+	chargeAttackData.kBulletSpeed = gv->GetValue<float>(groupName, "ChargeBulletSpeed");
+	chargeAttackData.bulletSize = gv->GetValue<float>(groupName, "ChargeBulletSize");
+	chargeAttackData.kCoolTime = gv->GetValue<float>(groupName, "ChargeCoolTime");
+	chargeAttackData.kBulletCount = gv->GetValue<int>(groupName, "ChargeBulletCount");
 }
 
 // 更新
 void ChargeGun::Update(){
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "ChargeGun";
+
+	// リアルタイム調整の反映
+	Collider::SetRadius(gv->GetValue<float>(groupName, "ColliderRadius"));
+	object3d_->SetScale(gv->GetValue<Vector3>(groupName, "Scale"));
+	gunBarrel_->SetTranslate(gv->GetValue<Vector3>(groupName, "GunBarrelTranslate"));
+
+	AttackData& rootAttackData = attackData_[static_cast<uint32_t>(AttackType::kRoot)];
+	rootAttackData.kBulletSpeed = gv->GetValue<float>(groupName, "RootBulletSpeed");
+	rootAttackData.bulletSize = gv->GetValue<float>(groupName, "RootBulletSize");
+	rootAttackData.kCoolTime = gv->GetValue<float>(groupName, "RootCoolTime");
+	rootAttackData.kBulletCount = gv->GetValue<int>(groupName, "RootBulletCount");
+
+	AttackData& chargeAttackData = attackData_[static_cast<uint32_t>(AttackType::kCharge)];
+	chargeAttackData.kBulletSpeed = gv->GetValue<float>(groupName, "ChargeBulletSpeed");
+	chargeAttackData.kCoolTime = gv->GetValue<float>(groupName, "ChargeCoolTime");
+	chargeAttackData.kBulletCount = gv->GetValue<int>(groupName, "ChargeBulletCount");
+
 	// 銃の向きを更新
 	if (target_) {
 		targetPosition_ = target_->GetCenterPosition();
@@ -82,6 +121,8 @@ void ChargeGun::OnCollision([[maybe_unused]] Collider* other){
 
 void ChargeGun::Charge(){
 	BaseWeapon::Charge();
+	GlobalVariables* gv = GlobalVariables::GetInstance();
+	const std::string groupName = "ChargeGun";
 	AttackData& attackData = attackData_[static_cast<uint32_t>(AttackType::kCharge)];
-	attackData.bulletSize = std::clamp(chargeCount_, 0.0f, 10.0f);
+	attackData.bulletSize = std::clamp(chargeCount_, 0.0f, gv->GetValue<float>(groupName, "ChargeLimitSize"));
 }
