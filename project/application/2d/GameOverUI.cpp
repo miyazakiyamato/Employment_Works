@@ -5,6 +5,17 @@
 
 namespace Engine {
 
+namespace {
+	const Vector2 kGameOverSpritePos = { 640.0f, 260.0f };
+	const Vector2 kGameOverSpriteSize = { 720.0f, 140.0f };
+	const Vector2 kGameOverSpriteAnchor = { 0.5f, 0.5f };
+
+	const Vector2 kTitleSpritePos = { 640.0f, 460.0f };
+	const Vector2 kTitleSpriteSize = { 160.0f, 50.0f };
+	const Vector2 kTitleSpriteAnchor = { 0.5f, 0.5f };
+	constexpr float kFlashSpeed = 2.0f;
+}
+
 void GameOverUI::Initialize() {
 	TextureManager::GetInstance()->LoadTexture("gameOver.dds");
 	TextureManager::GetInstance()->LoadTexture("ATitle.dds");
@@ -13,23 +24,23 @@ void GameOverUI::Initialize() {
 	// game over sprite
 	std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 	sprite->Initialize("gameOver.dds");
-	sprite->SetPosition({ 640, 260 });
-	sprite->SetSize({ 720.0f, 140.0f });
-	sprite->SetAnchorPoint({ 0.5f, 0.5f });
+	sprite->SetPosition(kGameOverSpritePos);
+	sprite->SetSize(kGameOverSpriteSize);
+	sprite->SetAnchorPoint(kGameOverSpriteAnchor);
 	sprites_.push_back(std::move(sprite));
 
 	// ATitle sprite
 	std::unique_ptr<Sprite> spriteTitle = std::make_unique<Sprite>();
 	spriteTitle->Initialize("ATitle.dds");
-	spriteTitle->SetPosition({ 640, 460 });
-	spriteTitle->SetSize({ 160.0f, 50.0f });
-	spriteTitle->SetAnchorPoint({ 0.5f, 0.5f });
+	spriteTitle->SetPosition(kTitleSpritePos);
+	spriteTitle->SetSize(kTitleSpriteSize);
+	spriteTitle->SetAnchorPoint(kTitleSpriteAnchor);
 	sprites_.push_back(std::move(spriteTitle));
 }
 
 void GameOverUI::Update() {
 	animationTime_ += TimeManager::GetInstance()->deltaTime_;
-	float alpha = (std::sin(animationTime_ * 2.0f) + 1.0f) / 2.0f;
+	float alpha = (std::sin(animationTime_ * kFlashSpeed) + 1.0f) / 2.0f;
 	
 	if (sprites_.size() > 1) {
 		sprites_[1]->SetColor({ 1.0f,1.0f,1.0f, alpha });

@@ -3,12 +3,19 @@
 #include "Input.h"
 #include "Player.h"
 #include "BaseWeapon.h"
+#include "WinApp.h"
 #include <string>
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
 
 namespace Engine {
+
+namespace {
+	constexpr float kPadding = 20.0f;
+	const Vector2 kDefaultAnchor = { 0.5f, 0.5f };
+	constexpr float kCenterY = 650.0f;
+}
 
 void OperationUI::Initialize(Player* player) {
 	player_ = player;
@@ -17,7 +24,7 @@ void OperationUI::Initialize(Player* player) {
 	std::string uiTextures[] = { "LST.dds", "RST.dds", "RB.dds", "Hold.dds", "pauseButton.dds" };
 	// 画像サイズを取得して総幅を計算
 	float totalWidth = 0.0f;
-	float padding = 20.0f;
+	float padding = kPadding;
 	std::vector<Vector2> textureSizes;
 	for (const auto& textureName : uiTextures) {
 		TextureManager::GetInstance()->LoadTexture(textureName);
@@ -29,10 +36,10 @@ void OperationUI::Initialize(Player* player) {
 	totalWidth += padding * (std::size(uiTextures) - 1);
 
 	// センタリングの開始位置計算
-	float startX = (1280.0f - totalWidth) / 2.0f;
+	float startX = (WinApp::kClientWidth - totalWidth) / 2.0f;
 	float currentX = startX;
 	// Y位置を中心基準で設定 (画面下部付近)
-	float centerY = 650.0f;
+	float centerY = kCenterY;
 
 	for (size_t i = 0; i < std::size(uiTextures); ++i) {
 		std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
@@ -41,7 +48,7 @@ void OperationUI::Initialize(Player* player) {
 		// 画像サイズに合わせる
 		sprite->SetSize(textureSizes[i]);
 		// アンカーポイントを中心にする
-		sprite->SetAnchorPoint({ 0.5f, 0.5f });
+		sprite->SetAnchorPoint(kDefaultAnchor);
 
 		// 位置設定（アンカーが中心なので、Xは現在位置+幅の半分、Yは固定の中心Y）
 		sprite->SetPosition({ currentX + textureSizes[i].x / 2.0f, centerY });

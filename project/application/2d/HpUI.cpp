@@ -5,6 +5,10 @@
 
 namespace Engine {
 
+namespace {
+	const Vector2 kHpBarPosition = { 30.0f, 30.0f };
+}
+
 void HpUI::Initialize(Player* player){
 	player_ = player;
 	maxHp_ = (float)player_->GetHp();
@@ -13,7 +17,7 @@ void HpUI::Initialize(Player* player){
 	for (uint32_t i = 0; i < 3; ++i) {
 		std::unique_ptr<Sprite> sprite = std::make_unique<Sprite>();
 		sprite->Initialize("HPBar.dds");
-		sprite->SetPosition({ 30 , 30 });
+		sprite->SetPosition(kHpBarPosition);
 		sprite->SetSize(hpSize_);
 		sprites_.push_back(std::move(sprite));
 	}
