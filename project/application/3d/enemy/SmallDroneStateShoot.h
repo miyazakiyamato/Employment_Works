@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "SmallDrone.h"
 
 namespace Engine {
@@ -33,7 +34,7 @@ private:
 	BulletManager* bulletManager_ = nullptr;
 	TimeManager* timeManager_ = nullptr;
 	// 時限発射のリスト
-	std::list<TimedCall*> timedCalls_;
+	std::list<std::unique_ptr<TimedCall>> timedCalls_;
 
 	// レール移動用
 	const SplineRail* rail_ = nullptr;

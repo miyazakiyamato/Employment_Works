@@ -196,7 +196,7 @@ void StageManager::Draw() {
 
 void StageManager::LoadBackgroundObject(const std::unique_ptr<ObjectData>& objectData) {
 	if (objectData->typeName == "MESH") {
-		std::unique_ptr<Object3d> object3d(new Object3d);
+		std::unique_ptr<Object3d> object3d = std::make_unique<Object3d>();
 		object3d->Initialize();
 		object3d->SetScale(objectData->scaling);
 		object3d->SetRotate(objectData->rotation);
@@ -209,7 +209,7 @@ void StageManager::LoadBackgroundObject(const std::unique_ptr<ObjectData>& objec
 	else if (objectData->typeName == "ARMATURE") {
 		for (const std::unique_ptr<ObjectData>& childData : objectData->children) {
 			if (childData->typeName == "MESH") {
-				std::unique_ptr<Object3d> object3d(new Object3d);
+				std::unique_ptr<Object3d> object3d = std::make_unique<Object3d>();
 				object3d->Initialize();
 				object3d->SetTranslate(objectData->translation);
 				if (!childData->fileName.empty()) {

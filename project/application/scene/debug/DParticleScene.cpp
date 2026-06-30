@@ -82,23 +82,7 @@ void DParticleScene::Initialize(){
 	airEffect->SetTranslate({ 0.0f,0.0f,0.0f });
 	airEffect->SetTexture("circle2.dds");
 	particleSystem_->SetParticleEmitter(std::move(airEffect));
-	//スプライトの初期化
-	/*for (uint32_t i = 0; i < 5; ++i) {
-		std::unique_ptr<Sprite> sprite(new Sprite);
-		sprite->Initialize("uvChecker.dds");
-		sprite->SetPosition({ 100 + 200.0f * float(i), 100 });
-		sprite->SetSize({ 100.0f,100.0f });
-		sprites_.push_back(std::move(sprite));
-	}
-	sprites_[0]->SetTextureSize({ 64.0f,64.0f });
-	sprites_[1]->SetTexture("monsterBall.dds");
-	sprites_[1]->SetIsFlipX(true);
-	sprites_[2]->SetIsFlipY(true);
-	sprites_[3]->SetIsFlipX(true);
-	sprites_[3]->SetIsFlipY(true);*/
 }
-
-
 
 void DParticleScene::Update(){
 	BaseScene::Update();

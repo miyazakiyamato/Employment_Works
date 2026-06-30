@@ -5,8 +5,7 @@ namespace Engine {
 	namespace {
 		const Vector3 kSkydomeTranslate = { -1,0,0 };
 		const Vector3 kSkydomeRotate = { 0,3.14f,0 };
-		const Vector3 kSkydomeSize = { 1.0f,1.0f,1.0f };
-		const Vector3 kSkydomeUvScale = { 100.0f, 100.0f,1.0f };
+		const Vector3 kSkydomeSize = { 10.0f,10.0f,10.0f };
 		const int kTexNum = 0;
 		const bool kIsEnableLighting = false;
 	}

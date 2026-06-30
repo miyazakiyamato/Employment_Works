@@ -24,7 +24,7 @@ void SmallDroneStateShoot::Initialize(){
 	rail_ = enemy_->GetRail(name_);
 	
 	// 発射開始
-	timedCalls_.push_back(new TimedCall(std::bind_front(&SmallDroneStateShoot::FireTimed, this), smallDrone_->GetFireInterval()));
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind_front(&SmallDroneStateShoot::FireTimed, this), smallDrone_->GetFireInterval()));
 }
 
 void SmallDroneStateShoot::Update(){
@@ -54,15 +54,11 @@ void SmallDroneStateShoot::Update(){
 	}
 
 	// 時間経過
-	timedCalls_.remove_if([](TimedCall* timedCalls) {
-		if (timedCalls->IsFinished()) {
-			delete timedCalls;
-			return true;
-		}
-		return false;
+	timedCalls_.remove_if([](const std::unique_ptr<TimedCall>& timedCall) {
+		return timedCall->IsFinished();
 		});
-	for (TimedCall* timedCalls : timedCalls_) {
-		timedCalls->Update();
+	for (const auto& timedCall : timedCalls_) {
+		timedCall->Update();
 	}
 }
 
@@ -81,14 +77,11 @@ void SmallDroneStateShoot::Fire() {
 void SmallDroneStateShoot::FireTimed() {
 	Fire();
 	//
-	timedCalls_.push_back(new TimedCall(std::bind_front(&SmallDroneStateShoot::FireTimed, this), smallDrone_->GetFireInterval()));
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind_front(&SmallDroneStateShoot::FireTimed, this), smallDrone_->GetFireInterval()));
 }
 
 void SmallDroneStateShoot::FireCancel() {
-	timedCalls_.remove_if([](TimedCall* timedCalls) {
-		delete timedCalls;
-		return true;
-		});
+	timedCalls_.clear();
 }
 
 } // namespace Engine
