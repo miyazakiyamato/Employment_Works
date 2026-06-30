@@ -12,25 +12,25 @@
 
 namespace Engine {
 
-BasePipeline* PipelineFactory::ChangePipeline(const std::string& pipelineName) {
+std::unique_ptr<BasePipeline> PipelineFactory::ChangePipeline(const std::string& pipelineName) {
 	if (pipelineName == "Object3d") {
-		return new ModelPipeline();
+		return std::make_unique<ModelPipeline>();
 	}if (pipelineName == "SkinningObject3d") {
-		return new ModelComputePipeline();
+		return std::make_unique<ModelComputePipeline>();
 	} else if (pipelineName == "Skybox") {
-		return new SkyboxPipeline();
+		return std::make_unique<SkyboxPipeline>();
 	}else if (pipelineName == "Sprite") {
-		return new SpritePipeline();
+		return std::make_unique<SpritePipeline>();
 	} else if (pipelineName == "Particle") {
-		return new ParticlePipeline();
+		return std::make_unique<ParticlePipeline>();
 	} else if (pipelineName == "InitializeParticle") {
-		return new InitializeParticlePipeline();
+		return std::make_unique<InitializeParticlePipeline>();
 	}else if (pipelineName == "UpdateParticle") {
-		return new UpdateParticlePipeline();
+		return std::make_unique<UpdateParticlePipeline>();
 	} else if (pipelineName == "EmitParticle") {
-		return new EmitParticlePipeline();
+		return std::make_unique<EmitParticlePipeline>();
 	} else if (pipelineName == "Line3D") {
-		return new Line3DPipeline();
+		return std::make_unique<Line3DPipeline>();
 	} else if (pipelineName == "OffScreen/Fullscreen"||
 		pipelineName == "OffScreen/Grayscale" ||
 		pipelineName == "OffScreen/Vignette" ||
@@ -41,7 +41,7 @@ BasePipeline* PipelineFactory::ChangePipeline(const std::string& pipelineName) {
 		pipelineName == "OffScreen/RadialBlur"||
 		pipelineName == "OffScreen/Dissolve" ||
 		pipelineName == "OffScreen/Random") {
-		return new OffScreenPipeline();
+		return std::make_unique<OffScreenPipeline>();
 	}
 	assert(0);
 	return nullptr;

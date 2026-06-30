@@ -8,11 +8,11 @@ void Framework::Initialize(){
 	(void)CoInitializeEx(0, COINIT_MULTITHREADED);
 
 	//WindowsAPIの初期化
-	winApp.reset(new WinApp());
+	winApp = std::make_unique<WinApp>();
 	winApp->Initialize();
 
 	//DirecXの初期化
-	dxCommon.reset(new DirectXCommon());
+	dxCommon = std::make_unique<DirectXCommon>();
 	dxCommon->Initialize(winApp.get());
 
 	//入力の初期化
@@ -20,12 +20,12 @@ void Framework::Initialize(){
 	input_->Initialize(winApp.get());
 	
 	//SRVの初期化
-	srvUavManager.reset(new SrvUavManager());
+	srvUavManager = std::make_unique<SrvUavManager>();
 	srvUavManager->Initialize(dxCommon.get());
 	dxCommon->CreateOffScreenSRV(srvUavManager.get());
 
 	//ImGuiの初期化
-	imGuiManager.reset(new ImGuiManager());
+	imGuiManager = std::make_unique<ImGuiManager>();
 	imGuiManager->Initialize(winApp.get(), dxCommon.get(), srvUavManager.get());
 
 	// グローバル変数の読み込み
@@ -69,8 +69,8 @@ void Framework::Initialize(){
 	audioManager_->Initialize();
 
 	//シーンマネージャの初期化
-	sceneFactory_.reset(new SceneFactory());
-	transitionFactory_.reset(new TransitionFactory());
+	sceneFactory_ = std::make_unique<SceneFactory>();
+	transitionFactory_ = std::make_unique<TransitionFactory>();
 	sceneManager_ = SceneManager::GetInstance();
 	sceneManager_->SetSceneFactory(sceneFactory_.get());
 	sceneManager_->SetTransitionFactory(transitionFactory_.get());

@@ -137,21 +137,15 @@ void PipelineManager::CreateGraphicsRootSignature(GraphicsPipelineData& pipeline
 	std::vector<D3D12_ROOT_PARAMETER> rootParametersVector = basePipeline->RootParameters(descriptorRanges);
 	const uint32_t rootParametersCount = static_cast<uint32_t>(rootParametersVector.size());
 	
-	// 動的配列を作成しvectorからコピー
-	std::unique_ptr<D3D12_ROOT_PARAMETER[]> rootParameters(new D3D12_ROOT_PARAMETER[rootParametersCount]);
-	std::copy_n(rootParametersVector.begin(), rootParametersCount, rootParameters.get());
-
-	descriptionRootSignature.pParameters = rootParameters.get();
-	descriptionRootSignature.NumParameters = rootParametersCount;
+	// ベクターから直接ポインタとサイズを渡す
+	descriptionRootSignature.pParameters = rootParametersVector.data();
+	descriptionRootSignature.NumParameters = static_cast<UINT>(rootParametersVector.size());
 
 	std::vector<D3D12_STATIC_SAMPLER_DESC> staticSamplersVector = basePipeline->StaticSamplers(pipeline.state.staticSamplersMode);
 	const uint32_t staticSamplersCount = static_cast<uint32_t>(staticSamplersVector.size());
 
-	// 動的配列を作成しvectorからコピー
-	std::unique_ptr<D3D12_STATIC_SAMPLER_DESC[]> staticSamplers(new D3D12_STATIC_SAMPLER_DESC[staticSamplersCount]);
-	std::copy_n(staticSamplersVector.begin(), staticSamplersCount, staticSamplers.get());
-
-	descriptionRootSignature.pStaticSamplers = staticSamplers.get();
+	// こちらもベクターから直接ポインタを渡す
+	descriptionRootSignature.pStaticSamplers = staticSamplersVector.data();
 	descriptionRootSignature.NumStaticSamplers = staticSamplersCount;
 
 	//シリアライズしてバイナリにする
@@ -178,14 +172,10 @@ void PipelineManager::CreateGraphicsPipeline(GraphicsPipelineData& pipeline){
 
 	std::unique_ptr<BasePipeline> basePipeline(PipelineFactory::ChangePipeline(pipeline.state.shaderName));
 	std::vector<D3D12_INPUT_ELEMENT_DESC> inputElementDescsVector = basePipeline->InputElementDesc();
-	const uint32_t inputElementDescsCount = static_cast<uint32_t>(inputElementDescsVector.size());
 
-	// 動的配列を作成しvectorからコピー
-	std::unique_ptr<D3D12_INPUT_ELEMENT_DESC[]> inputElementDescs(new D3D12_INPUT_ELEMENT_DESC[inputElementDescsCount]);
-	std::copy_n(inputElementDescsVector.begin(), inputElementDescsCount, inputElementDescs.get());
-
-	inputLayoutDesc.pInputElementDescs = inputElementDescs.get();
-	inputLayoutDesc.NumElements = inputElementDescsCount;
+	// 動的配列の作成とコピーを削除し、vectorから直接ポインタを渡す
+	inputLayoutDesc.pInputElementDescs = inputElementDescsVector.data();
+	inputLayoutDesc.NumElements = static_cast<UINT>(inputElementDescsVector.size());
 
 	//RasterizerStateの設定
 	D3D12_RASTERIZER_DESC rasterizerDesc{};
@@ -289,17 +279,14 @@ void PipelineManager::CreateComputeRootSignature(ComputePipelineData& pipeline) 
 	std::unique_ptr<BasePipeline> basePipeline(PipelineFactory::ChangePipeline(pipeline.shaderName));
 	std::vector<D3D12_DESCRIPTOR_RANGE> descriptorRanges = basePipeline->ComputeDescriptorRanges();
 	std::vector<D3D12_ROOT_PARAMETER> rootParametersVector = basePipeline->ComputeRootParameters(descriptorRanges);
-	const uint32_t rootParametersCount = static_cast<uint32_t>(rootParametersVector.size());
-	
-	// 動的配列を作成しvectorからコピー
-	std::unique_ptr<D3D12_ROOT_PARAMETER[]> rootParameters(new D3D12_ROOT_PARAMETER[rootParametersCount]);
-	std::copy_n(rootParametersVector.begin(), rootParametersCount, rootParameters.get());
 
 	// ルートシグネチャ全体のデスクリプション
 	D3D12_ROOT_SIGNATURE_DESC descriptionRootSignature = {};
 	descriptionRootSignature.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-	descriptionRootSignature.pParameters = rootParameters.get();
-	descriptionRootSignature.NumParameters = rootParametersCount;
+
+	// 動的配列の作成とコピーを削除し、vectorから直接ポインタを渡す
+	descriptionRootSignature.pParameters = rootParametersVector.data();
+	descriptionRootSignature.NumParameters = static_cast<UINT>(rootParametersVector.size());
 
 	descriptionRootSignature.pStaticSamplers = nullptr;
 	descriptionRootSignature.NumStaticSamplers = 0;

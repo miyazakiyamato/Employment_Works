@@ -7,13 +7,13 @@
 
 namespace Engine {
 
-Line3dManager* Line3dManager::instance = nullptr;
+std::unique_ptr<Line3dManager> Line3dManager::instance = nullptr;
 
 Line3dManager* Line3dManager::GetInstance() {
 	if (instance == nullptr) {
-		instance = new Line3dManager;
+		instance.reset(new Line3dManager);
 	}
-	return instance;
+	return instance.get();
 }
 
 void Line3dManager::Initialize(SrvUavManager* srvUavManager) {
@@ -38,8 +38,7 @@ void Line3dManager::Initialize(SrvUavManager* srvUavManager) {
 }
 
 void Line3dManager::Finalize() {
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void Line3dManager::Update() {

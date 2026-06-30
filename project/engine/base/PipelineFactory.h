@@ -1,5 +1,6 @@
 #pragma once
 #include "BasePipeline.h"
+#include <memory>
 
 namespace Engine {
 
@@ -14,7 +15,7 @@ public:
 	/// </summary>
 	/// <param name="pipelineName">生成するパイプラインの名前</param>
 	/// <returns>生成されたBasePipeline派生クラスへのポインタ</returns>
-	static BasePipeline* ChangePipeline(const std::string& pipelineName);
+	static std::unique_ptr<BasePipeline> ChangePipeline(const std::string& pipelineName);
 };
 
 } // namespace Engine

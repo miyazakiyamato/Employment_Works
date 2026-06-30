@@ -3,6 +3,7 @@
 #include "Quaternion.h"
 #include "BlendMode.h"
 #include "Collision.h"
+#include <memory>
 
 namespace Engine {
 
@@ -116,7 +117,8 @@ public:
 
 private:
 		// --- シングルインスタンス ---
-	static Line3dManager* instance;
+	static std::unique_ptr<Line3dManager> instance;
+	friend struct std::default_delete<Line3dManager>;
 
 	Line3dManager() = default;
 	~Line3dManager() = default;

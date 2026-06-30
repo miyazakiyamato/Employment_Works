@@ -13,7 +13,16 @@ class SrvUavManager;
 /// 同じファイルパスのモデルやアニメーションを重複して読み込まないように管理する
 /// </summary>
 class ModelManager {
+private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
 public:
+	// シングルトン(make_uniqueする用)
+	explicit ModelManager(PrivateToken) {}
+	~ModelManager() = default;
+	// コピー・ムーブの禁止
+	ModelManager(const ModelManager&) = delete;
+	ModelManager& operator=(const ModelManager&) = delete;
 		// --- メンバ関数 ---
 	/// <summary>
 	/// シングルトンインスタンスの取得
@@ -57,13 +66,6 @@ public:
 private:
 		// --- シングルトン ---
 	static std::unique_ptr<ModelManager> instance;
-	friend struct std::default_delete<ModelManager>;
-
-	ModelManager() = default;
-	~ModelManager() = default;
-	ModelManager(ModelManager&) = delete;
-	ModelManager& operator=(ModelManager&) = delete;
-
 		// --- メンバ変数 ---
 	// ポインタ
 	DirectXCommon* dxCommon_ = nullptr;

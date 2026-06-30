@@ -63,7 +63,7 @@ void GameScene::Initialize(){
 	TextureManager::GetInstance()->LoadTexture("rostock_laage_airport_4k.dds");
 
 	//パーティクルシステムの生成
-	particleSystem_.reset(new ParticleSystem);
+	particleSystem_ = std::make_unique<ParticleSystem>();
 
 	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
 	emitterHit->Initialize("emitterHit", 100);

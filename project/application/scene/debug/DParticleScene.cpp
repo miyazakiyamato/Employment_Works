@@ -49,15 +49,15 @@ void DParticleScene::Initialize(){
 	collisionManager_->Initialize();
 
 	//skybox
-	std::unique_ptr<Object3d> object3d(new Object3d);
+	std::unique_ptr<Object3d> object3d = std::make_unique<Object3d>();
 	object3d->Initialize();
 	object3d->SetModel("terrain/terrain.obj");
 	object3ds_.push_back(std::move(object3d));
 	
 	isAccelerationField = false;
-	accelerationField_.reset(new AccelerationField);
+	accelerationField_ = std::make_unique<AccelerationField>();
 
-	particleSystem_.reset(new ParticleSystem);
+	particleSystem_ = std::make_unique<ParticleSystem>();
 	particleSystem_->Initialize();
 	std::unique_ptr<EmitterSphere> emitterSphere = std::make_unique<EmitterSphere>();
 	emitterSphere->Initialize("emitterSphere",10000);

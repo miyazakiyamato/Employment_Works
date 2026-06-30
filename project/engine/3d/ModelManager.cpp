@@ -4,10 +4,9 @@ namespace Engine {
 
 std::unique_ptr<ModelManager> ModelManager::instance = nullptr;
 
-ModelManager* ModelManager::GetInstance()
-{
+ModelManager* ModelManager::GetInstance(){
 	if (instance == nullptr) {
-		instance.reset(new ModelManager);
+		instance = std::make_unique<ModelManager>(PrivateToken{});
 	}
 	return instance.get();
 }

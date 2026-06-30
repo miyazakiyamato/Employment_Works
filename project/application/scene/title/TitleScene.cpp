@@ -29,7 +29,7 @@ void TitleScene::Initialize(){
 	TextureManager::GetInstance()->LoadTexture("flash.dds");
 
 	//パーティクルシステムの生成
-	particleSystem_.reset(new ParticleSystem);
+	particleSystem_ = std::make_unique<ParticleSystem>();
 	
 	std::unique_ptr<EmitterSphere> emitterHit = std::make_unique<EmitterSphere>();
 	emitterHit->Initialize("emitterHit", 100);
