@@ -69,14 +69,20 @@ private:
 	/// </summary>
 	void SceneTransition();
 
+private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit SceneManager(PrivateToken) {}
+	~SceneManager() = default;
+	// コピー・ムーブの禁止
+	SceneManager(const SceneManager&) = delete;
+	SceneManager& operator=(const SceneManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<SceneManager> instance;
-	friend struct std::default_delete<SceneManager>;
-
-	SceneManager() = default;
-	~SceneManager() = default;
-	SceneManager(SceneManager&) = delete;
-	SceneManager& operator=(SceneManager&) = delete;
 
 		// --- メンバ変数 ---
 	//今のシーン

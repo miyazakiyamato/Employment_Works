@@ -12,7 +12,7 @@ std::unique_ptr<SceneManager> SceneManager::instance = nullptr;
 SceneManager* SceneManager::GetInstance(){
 	//インスタンスがなければ生成
 	if (instance == nullptr) {
-		instance.reset(new SceneManager);
+		instance = std::make_unique<SceneManager>(PrivateToken{});
 	}
 	return instance.get();
 }

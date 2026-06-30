@@ -125,14 +125,19 @@ public:
 	void EndHeaderGroup(const std::string& groupName);
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit GlobalVariables(PrivateToken) {}
+	~GlobalVariables() = default;
+	// コピー・ムーブの禁止
+	GlobalVariables(const GlobalVariables&) = delete;
+	GlobalVariables& operator=(const GlobalVariables&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<GlobalVariables> instance;
-	friend struct std::default_delete<GlobalVariables>;
-
-	GlobalVariables() = default;
-	~GlobalVariables() = default;
-	GlobalVariables(const GlobalVariables& obj) = delete;
-	GlobalVariables& operator=(const GlobalVariables& obj) = delete;
 
 		// --- メンバ変数 ---
 	using json = nlohmann::json;

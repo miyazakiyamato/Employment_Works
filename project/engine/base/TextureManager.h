@@ -73,14 +73,19 @@ public:
 	std::vector<std::string> GetKeys();
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit TextureManager(PrivateToken) {}
+	~TextureManager() = default;
+	// コピー・ムーブの禁止
+	TextureManager(const TextureManager&) = delete;
+	TextureManager& operator=(const TextureManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<TextureManager> instance;
-	friend struct std::default_delete<TextureManager>;
-
-	TextureManager() = default;
-	~TextureManager() = default;
-	TextureManager(TextureManager&) = delete;
-	TextureManager& operator=(TextureManager&) = delete;
 
 		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;

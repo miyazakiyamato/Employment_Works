@@ -13,7 +13,7 @@ std::unique_ptr<PipelineManager> PipelineManager::instance = nullptr;
 
 PipelineManager* PipelineManager::GetInstance(){
 	if (instance == nullptr) {
-		instance.reset(new PipelineManager);
+		instance = std::make_unique<PipelineManager>(PrivateToken{});
 	}
 	return instance.get();
 }

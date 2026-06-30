@@ -128,14 +128,19 @@ public:
     void ImGuiUpdate();
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit Input(PrivateToken) {}
+	~Input() = default;
+	// コピー・ムーブの禁止
+	Input(const Input&) = delete;
+	Input& operator=(const Input&) = delete;
+
+private:
 	    // --- シングルトン ---
     static std::unique_ptr<Input> instance;
-    friend struct std::default_delete<Input>;
-
-    Input() = default;
-    ~Input() = default;
-    Input(const Input&) = delete;
-    Input& operator=(const Input&) = delete;
 
         // --- メンバ変数 ---
     WinApp* winApp_ = nullptr;

@@ -11,7 +11,7 @@ std::unique_ptr<Line3dManager> Line3dManager::instance = nullptr;
 
 Line3dManager* Line3dManager::GetInstance() {
 	if (instance == nullptr) {
-		instance.reset(new Line3dManager);
+		instance = std::make_unique<Line3dManager>(PrivateToken{});
 	}
 	return instance.get();
 }

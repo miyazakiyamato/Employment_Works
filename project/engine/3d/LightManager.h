@@ -95,14 +95,19 @@ public:
 	void ImGuiUpdate();
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit LightManager(PrivateToken) {}
+	~LightManager() = default;
+	// コピー・ムーブの禁止
+	LightManager(const LightManager&) = delete;
+	LightManager& operator=(const LightManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<LightManager> instance;
-	friend struct std::default_delete<LightManager>;
-
-	LightManager() = default;
-	~LightManager() = default;
-	LightManager(LightManager&) = delete;
-	LightManager& operator=(LightManager&) = delete;
 
 		// --- メンバ変数 ---
 	// ポインタ

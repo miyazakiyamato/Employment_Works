@@ -13,7 +13,7 @@ std::unique_ptr<GlobalVariables> GlobalVariables::instance = nullptr;
 
 GlobalVariables* GlobalVariables::GetInstance() { 
 	if (instance == nullptr) {
-		instance.reset(new GlobalVariables);
+		instance = std::make_unique<GlobalVariables>(PrivateToken{});
 	}
 	return instance.get();
 }

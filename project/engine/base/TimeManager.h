@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <memory>
 #include "DirectXCommon.h"
 
 namespace Engine {
@@ -66,13 +67,19 @@ public:
 	static inline const float kFlamTime_ = 1.0f / 60.0f;
 
 private:
-	// --- シングルトン ---
-	static TimeManager* instance;
-
-	TimeManager() = default;
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit TimeManager(PrivateToken) {}
 	~TimeManager() = default;
-	TimeManager(TimeManager&) = delete;
-	TimeManager& operator=(TimeManager&) = delete;
+	// コピー・ムーブの禁止
+	TimeManager(const TimeManager&) = delete;
+	TimeManager& operator=(const TimeManager&) = delete;
+
+private:
+	// --- シングルトン ---
+	static std::unique_ptr<TimeManager> instance;
 
 	// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr; // DirectXの共通インスタンス

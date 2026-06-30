@@ -13,7 +13,7 @@ std::unique_ptr<PostEffectManager> PostEffectManager::instance = nullptr;
 
 PostEffectManager* PostEffectManager::GetInstance(){
 	if (instance == nullptr) {
-		instance.reset(new PostEffectManager);
+		instance = std::make_unique<PostEffectManager>(PrivateToken{});
 	}
 	return instance.get();
 }

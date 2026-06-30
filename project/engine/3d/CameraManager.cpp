@@ -11,7 +11,7 @@ std::unique_ptr<CameraManager> CameraManager::instance = nullptr;
 
 CameraManager* CameraManager::GetInstance(){
 	if (instance == nullptr) {
-		instance.reset(new CameraManager);
+		instance = std::make_unique<CameraManager>(PrivateToken{});
 	}
 	return instance.get();
 }

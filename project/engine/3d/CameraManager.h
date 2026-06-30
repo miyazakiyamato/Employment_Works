@@ -46,14 +46,19 @@ public:
 	void FindCamera(const std::string& cameraName);
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit CameraManager(PrivateToken) {}
+	~CameraManager() = default;
+	// コピー・ムーブの禁止
+	CameraManager(const CameraManager&) = delete;
+	CameraManager& operator=(const CameraManager&) = delete;
+
+private:
 		// ---シングルトン---
 	static std::unique_ptr<CameraManager> instance;
-	friend struct std::default_delete<CameraManager>;
-
-	CameraManager() = default;
-	~CameraManager() = default;
-	CameraManager(CameraManager&) = delete;
-	CameraManager& operator=(CameraManager&) = delete;
 
 		// ---メンバ変数---
 	// カメラデータ格納用マップ

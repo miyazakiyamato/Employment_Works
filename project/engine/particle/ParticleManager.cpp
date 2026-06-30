@@ -17,7 +17,7 @@ std::unique_ptr<ParticleManager> ParticleManager::instance = nullptr;
 
 ParticleManager* ParticleManager::GetInstance(){
 	if (instance == nullptr) {
-		instance.reset(new ParticleManager);
+		instance = std::make_unique<ParticleManager>(PrivateToken{});
 	}
 	return instance.get();
 }

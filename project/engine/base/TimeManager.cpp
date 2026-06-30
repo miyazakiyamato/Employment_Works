@@ -3,18 +3,17 @@
 
 namespace Engine {
 
-TimeManager* TimeManager::instance = nullptr;
+std::unique_ptr<TimeManager> TimeManager::instance = nullptr;
 
 TimeManager* TimeManager::GetInstance(){
 	if (instance == nullptr) {
-		instance = new TimeManager;
+		instance = std::make_unique<TimeManager>(PrivateToken{});
 	}
-	return instance;
+	return instance.get();
 }
 
 void TimeManager::Finalize(){
-	delete instance;
-	instance = nullptr;
+	instance.reset();
 }
 
 void TimeManager::Initialize(DirectXCommon* dxCommon){

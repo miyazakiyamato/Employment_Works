@@ -172,14 +172,19 @@ private:
 	void ApplyGlobalVariables();
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit ParticleManager(PrivateToken) {}
+	~ParticleManager() = default;
+	// コピー・ムーブの禁止
+	ParticleManager(const ParticleManager&) = delete;
+	ParticleManager& operator=(const ParticleManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<ParticleManager> instance;
-	friend struct std::default_delete<ParticleManager>;
-
-	ParticleManager() = default;
-	~ParticleManager() = default;
-	ParticleManager(ParticleManager&) = delete;
-	ParticleManager& operator=(ParticleManager&) = delete;
 
 		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;

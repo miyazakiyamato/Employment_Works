@@ -73,14 +73,19 @@ public:
 	void RemovePostEffect(const std::string& name);
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit PostEffectManager(PrivateToken) {}
+	~PostEffectManager();
+	// コピー・ムーブの禁止
+	PostEffectManager(const PostEffectManager&) = delete;
+	PostEffectManager& operator=(const PostEffectManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<PostEffectManager> instance;
-	friend struct std::default_delete<PostEffectManager>;
-
-	PostEffectManager() = default;
-	~PostEffectManager();
-	PostEffectManager(PostEffectManager&) = delete;
-	PostEffectManager& operator=(PostEffectManager&) = delete;
 
 		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;

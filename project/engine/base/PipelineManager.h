@@ -145,14 +145,20 @@ private:
 	/// </summary>
 	void CreateComputePipeline(ComputePipelineData& pipeline);
 
+private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit PipelineManager(PrivateToken) {}
+	~PipelineManager() = default;
+	// コピー・ムーブの禁止
+	PipelineManager(const PipelineManager&) = delete;
+	PipelineManager& operator=(const PipelineManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<PipelineManager> instance;
-	friend struct std::default_delete<PipelineManager>;
-
-	PipelineManager() = default;
-	~PipelineManager() = default;
-	PipelineManager(PipelineManager&) = delete;
-	PipelineManager& operator=(PipelineManager&) = delete;
 
 		// --- メンバ変数 ---
 	DirectXCommon* dxCommon_ = nullptr;

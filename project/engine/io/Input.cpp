@@ -13,7 +13,7 @@ std::unique_ptr<Input> Input::instance = nullptr;
 
 Input* Input::GetInstance() {
     if (!instance) {
-        instance.reset(new Input());
+        instance = std::make_unique<Input>(PrivateToken{});
     }
     return instance.get();
 }

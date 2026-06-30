@@ -10,7 +10,7 @@ std::unique_ptr<TextureManager> TextureManager::instance = nullptr;
 TextureManager* TextureManager::GetInstance()
 {
 	if (instance == nullptr) {
-		instance.reset(new TextureManager);
+		instance = std::make_unique<TextureManager>(PrivateToken{});
 	}
 	return instance.get();
 }

@@ -8,7 +8,7 @@ std::unique_ptr<AudioManager> AudioManager::instance = nullptr;
 AudioManager* AudioManager::GetInstance()
 {
 	if (instance == nullptr) {
-		instance.reset(new AudioManager);
+		instance = std::make_unique<AudioManager>(PrivateToken{});
 	}
 	return instance.get();
 }

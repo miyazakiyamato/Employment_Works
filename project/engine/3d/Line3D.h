@@ -116,14 +116,19 @@ public:
 	void DrawCotmullRom(const Vector3& controlPoint0, const Vector3& controlPoint1, const Vector3& controlPoint2, const Vector3& controlPoint3, const Vector4& color);
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit Line3dManager(PrivateToken) {}
+	~Line3dManager() = default;
+	// コピー・ムーブの禁止
+	Line3dManager(const Line3dManager&) = delete;
+	Line3dManager& operator=(const Line3dManager&) = delete;
+
+private:
 		// --- シングルインスタンス ---
 	static std::unique_ptr<Line3dManager> instance;
-	friend struct std::default_delete<Line3dManager>;
-
-	Line3dManager() = default;
-	~Line3dManager() = default;
-	Line3dManager(Line3dManager&) = delete;
-	Line3dManager& operator=(Line3dManager&) = delete;
 
 		// --- メンバ変数 ---
 	// ポインタ

@@ -13,7 +13,7 @@ std::unique_ptr<LightManager> LightManager::instance = nullptr;
 
 LightManager* LightManager::GetInstance() {
 	if (instance == nullptr) {
-		instance.reset(new LightManager);
+		instance = std::make_unique<LightManager>(PrivateToken{});
 	}
 	return instance.get();
 }

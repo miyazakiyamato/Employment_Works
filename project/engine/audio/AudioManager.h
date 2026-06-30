@@ -99,14 +99,19 @@ public:
 	void StopWave(const std::string& filePath);
 
 private:
+	// 外部からは絶対にインスタンス化できない「鍵」となる構造体を定義
+	struct PrivateToken {};
+public:
+	// シングルトン(make_uniqueする用)
+	explicit AudioManager(PrivateToken) {}
+	~AudioManager();
+	// コピー・ムーブの禁止
+	AudioManager(const AudioManager&) = delete;
+	AudioManager& operator=(const AudioManager&) = delete;
+
+private:
 		// --- シングルトン ---
 	static std::unique_ptr<AudioManager> instance;
-	friend struct std::default_delete<AudioManager>;
-
-	AudioManager() = default;
-	~AudioManager();
-	AudioManager(AudioManager&) = delete;
-	AudioManager& operator=(AudioManager&) = delete;
 	
 		// --- メンバ変数 ---
 	ComPtr<IXAudio2> xAudio2;
