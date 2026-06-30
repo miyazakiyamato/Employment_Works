@@ -1,11 +1,11 @@
 #include "SceneManager.h"
 #include <cassert>
 #include "GlobalVariables.h"
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
+
+namespace Engine {
 
 std::unique_ptr<SceneManager> SceneManager::instance = nullptr;
 

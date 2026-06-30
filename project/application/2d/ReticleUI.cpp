@@ -1,11 +1,11 @@
 #include "ReticleUI.h"
 #include "TextureManager.h"
 #include "WinApp.h"
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
+
+namespace Engine {
 
 void ReticleUI::Initialize() {
 	sprite_ = std::make_unique<Sprite>();

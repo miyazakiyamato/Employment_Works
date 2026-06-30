@@ -7,11 +7,11 @@
 #include "PipelineManager.h"
 #include "TimeManager.h"
 #include "GlobalVariables.h"
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
+
+namespace Engine {
 
 std::unique_ptr<ParticleManager> ParticleManager::instance = nullptr;
 

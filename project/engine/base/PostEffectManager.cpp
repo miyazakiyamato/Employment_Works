@@ -3,11 +3,11 @@
 #include "CameraManager.h"
 #include "TimeManager.h"
 #include "TextureManager.h"
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
+
+namespace Engine {
 
 std::unique_ptr<PostEffectManager> PostEffectManager::instance = nullptr;
 

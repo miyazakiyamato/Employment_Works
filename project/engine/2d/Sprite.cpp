@@ -1,12 +1,11 @@
 #include "Sprite.h"
 #include "PipelineManager.h"
 #include "TextureManager.h"
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
 
+namespace Engine {
 
 Sprite::~Sprite() {
 	if (vertexResource) {

@@ -4,12 +4,11 @@
 #include "Player.h"
 #include "BaseWeapon.h"
 #include <string>
-
-namespace Engine {
-
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif
+
+namespace Engine {
 
 void OperationUI::Initialize(Player* player) {
 	player_ = player;

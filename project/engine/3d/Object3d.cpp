@@ -6,11 +6,11 @@
 #include "Line3D.h"
 #include "TextureManager.h"
 #include <numbers>
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
+
+namespace Engine {
 
 Object3d::~Object3d(){
 	if (wvpResource) {

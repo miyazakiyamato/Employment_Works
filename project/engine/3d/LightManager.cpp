@@ -3,11 +3,11 @@
 #include <numbers>
 #include "DirectXCommon.h"
 #include "SrvUavManager.h"
-
-namespace Engine {
 #ifdef USE_IMGUI
 #include <imgui.h>
 #endif // USE_IMGUI
+
+namespace Engine {
 
 std::unique_ptr<LightManager> LightManager::instance = nullptr;
 
